@@ -1,0 +1,13 @@
+Warteschlangenrechner / Queue calculator
+Copyright 2023 Alexander Herzog
+
+Licensed under the Apache License, Version 2.0.
+
+This product bundles some components licensed under different
+open source licenses, see:
+- Bootstrap (https://getbootstrap.com/): MIT license
+- Bootstrap icons (https://icons.getbootstrap.com): MIT license
+- Chart.js (https://www.chartjs.org): MIT license
+
+For building a desktop app from the Javascript code Neutralinojs
+(https://neutralino.js.org/) under the MIT license is used.

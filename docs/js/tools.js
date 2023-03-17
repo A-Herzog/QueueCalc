@@ -1,0 +1,101 @@
+/*
+Copyright 2023 Alexander Herzog
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
+export {getFloat, getPositiveFloat, getNotNegativeFloat, getInt, getPositiveInt, getNotNegativeInt, isVariabel}
+
+function parseFloatStrict(value) {
+  if(/^(\-|\+)?([0-9]+(\.[0-9]+)?|Infinity)$/
+    .test(value))
+    return Number(value);
+return NaN;
+}
+
+function getFloat(id) {
+let s=document.getElementById(id).value;
+if (typeof(s.replaceAll)=='function') s=s.replaceAll(",",".");
+const num=parseFloatStrict(s);
+if (isNaN(num)) {
+  setValid(id,false);
+  return null;
+}
+setValid(id,true);
+return num;
+}
+
+function getPositiveFloat(id) {
+  let result=getFloat(id);
+  if (result==null) return null;
+  if (result<=0) {
+    setValid(id,false);
+    return null;
+  }
+  return result;
+}
+
+function getNotNegativeFloat(id) {
+  let result=getFloat(id);
+  if (result==null) return null;
+  if (result<0) {
+    setValid(id,false);
+    return null;
+  }
+  return result;
+}
+
+function parseIntStrict(value) {
+if(/^(\-|\+)?([0-9]+|Infinity)$/.test(value))
+  return Number(value);
+return NaN;
+}
+
+function getInt(id) {
+const num=parseIntStrict(document.getElementById(id).value);
+if (isNaN(num)) {
+  setValid(id,false);
+  return null;
+}
+setValid(id,true);
+return num;
+}
+
+function getPositiveInt(id) {
+  let result=getInt(id);
+  if (result==null) return null;
+  if (result<=0) {
+    setValid(id,false);
+    return null;
+  }
+  return result;
+}
+
+function getNotNegativeInt(id) {
+  let result=getInt(id);
+  if (result==null) return null;
+  if (result<0) {
+    setValid(id,false);
+    return null;
+  }
+  return result;
+}
+
+function setValid(id, valid) {
+  const element=document.getElementById(id);
+  if (valid) element.classList.remove('is-invalid'); else element.classList.add('is-invalid');
+}
+
+function isVariabel(id) {
+  return document.getElementById(id+'_Variabel').classList.contains("active");
+}

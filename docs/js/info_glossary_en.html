@@ -1,0 +1,167 @@
+<!--
+Copyright 2023 Alexander Herzog
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+-->
+
+<h2>Glossary</h2>
+
+<h5>Arrival rate</h5>
+<p>
+The arrival rate is the reciprocal of the inter-arrival times at a source. In queueing theory, the arrival rate is also denoted by &lambda;.
+</p>
+
+<h5>Autocorrelation</h5>
+<p>
+The autocorrelation of the waiting times indicates how much the waiting time of a client depends on the waiting times of the immediately preceding clients. Based on the autocorrelation of the waiting times, it can be decided how much residual dependency should be accepted for the definition of a batch-means batch size. The batch-means method then makes it possible to report confidence intervals for the performance indicators.
+</p>
+
+<h5>Batch</h5>
+<p>
+If several clients arrive at a source at the same time or if several clients are served at a process station at the same time, this is referred to as batch arrivals or batch service.
+</p>
+
+<h5>Batch Means method</h5>
+<p>
+The batch-means method makes it possible to report confidence intervals for the performance indicators. This is not possible in a direct way, because e.g. the waiting times of the immediately successive clients are dependent and this is not permissible for the confidence interval calculation.
+</p>
+
+<h5>Cancellation rate</h5>
+<p>
+If the clients at a process station only have a limited waiting time tolerance, the cancellation rate is the reciprocal of the average waiting time tolerance. The cancellation rate is also denoted by &nu; in queueing theory.
+</p>
+
+<h5>Cancellation time</h5>
+<p>
+If a client has given up waiting at a process station because he would have had to wait longer than his personal waiting time tolerance allowed, this client's waiting time is referred to as his cancellation time.
+</p>
+
+<h5>Closed queueing network</h5>
+<p>
+In a closed queueing network, a finite, fixed number of clients circulate. In contrast to an open queuring network, a closed queueing network usually does not have an exit.
+<p>
+
+<h5>Cycle time</h5>
+<p>
+The cycle time is a pseudonym for the residence time. The residence time indicates the total amount of time a client has spent in the system or at a station.
+</p>
+
+<h5>Economy of scale</h5>
+<p>
+The economy of scale or the positive scale effect describes the effect in many production systems that the unit production costs are lower in a larger system than in a smaller system. The reason for this may be that the fixed costs are distributed over more units, or that variations due to stochastic inter-arrival and service times can be better balanced out in larger systems.
+</p>
+
+<h5>Erlang formulas</h5>
+<p>
+Using the Erlang B and Erlang C formulas, simple queueing models can be calculated exactly. The Erlang formulas assume both inter-arrival and service times to be exponentially distributed. In particular, service times are almost never exponentially distributed in practice; the Erlang C formula is therefore suitable for an initial, quick estimate; however, the results may differ from the actual values due to a variety of properties of the real system.
+</p>
+
+<h5>Flow factor</h5>
+<p>
+The flow factor is the ratio of residence time to service time. The flow factor has a minimum of 1. A flow factor of 1 means that there was no waiting time. A flow ratio of 2 means that clients have to wait as long as their service took and so on.
+</p>
+
+<h5>Impatience</h5>
+<p>
+If clients at a process station are only willing to wait a limited amount of time for their service, this is referred to as client impatience. How long clients are willing to wait in this case before they give up waiting and leave the station unattended is determined by the clients' waiting time tolerances.
+</p>
+
+<h5>Inter-arrival times</h5>
+<p>
+At a source, the inter-arrival times indicate the time intervals between the arrivals of two consecutive clients. The longer the inter-arrival times, the fewer clients arrive in the system per unit of time.
+</p>
+
+<h5>Open queueing network</h5>
+<p>
+An open queueing network represents the normal case for a queueing model: Clients arrive at one or more sources, are served at one or more process stations, and eventually leave the system via one or more exits. A counter design to this is represented by closed queueing networks, in which a finite, fixed number of clients circulate continuously.
+</p>
+
+<h5>Post-processing time</h5>
+<p>
+The post-processing time is the period of time that an operator at a process station needs after completing the service of a client before he is available again for further service processes. During the post-processing time, the previously served client is no longer at the process station.
+</p>
+
+<h5>Prioritization</h5>
+<p>
+The prioritization of clients at a process station determines which of the waiting clients will be served next when an operator becomes available. The client with the highest priority is served next. Simple forms of prioritization are the FIFO (first-in-first-out) and LIFO (last-in-first-out) service rules.
+</p>
+
+<h5>Pull production</h5>
+<p>
+In pull production, a station only performs an operation when the respective downstream station requests a client or a workpiece, i.e. the clients are pulled through production by the respective downstream stations. In this way, stocks at the individual stations can be limited. However, on the one hand a special control system is required and on the other hand it has to be ensured that there are nevertheless enough buffers so that the operator stations are not unnecessarily idle even in this case.
+</p>
+
+<h5>Push production</h5>
+<p>
+Push production represents the normal case in a queueing model. When a process station has finished serving a client, it pushes the client to the next station. The forwarding of the client is independent of how many clients are already waiting at the next station.
+</p>
+
+<h5>Residence time</h5>
+<p>
+The residence time indicates the total amount of time a client has spent in the system or at a station.
+</p>
+
+<h5>Service rate</h5>
+<p>
+The service rate is the reciprocal of the average service time at a process station. In queueing theory, the service rate is also denoted by &mu;.
+</p>
+
+<h5>Service rule</h5>
+<p>
+The service rule specifies which of several waiting clients is to be served next at a process station. Common service rules are FIFO (first-in-first-out, service in arrival order) and LIFO (last-in-first-out, service in reverse arrival order).
+</p>
+
+<h5>Service time</h5>
+<p>
+The service time specifies how long the process of serving a client (or, in the case of batch operations, a batch of clients) by an operator takes. Usually, service times are defined by probability distributions.
+</p>
+
+<h5>Setup time</h5>
+<p>
+Setup times can occur at process stations if the station as such has to be reconfigured when changing from one client type to another. The setup time is upstream of the respective service time of a client.
+</p>
+
+<h5>Teardown time</h5>
+<p>
+The term teardown time is a pseudonym for post-processing time. The post-processing time is the period of time required by an operator at a process station after a client has been served before the operator is available again for further processes. During the post-processing time, the previously served client is no longer at the process station.
+</p>
+
+<h5>Utilization</h5>
+<p>
+The utilization of an operator group indicates the proportion of their available time that was spent serving clients. The utilization is therefore a value between 0 and 1. The utilization is also referred to as &rho; in queueing theory.
+</p>
+
+<h5>Waiting cancellation</h5>
+<p>
+If a client has only a limited waiting time tolerance and his previous waiting time exceeds his individual waiting time tolerance, he cancels waiting without having been served.
+</p>
+
+<h5>Waiting room</h5>
+<p>
+A waiting room is an integral part of any process station. In the waiting room, a client waits before an operator is available to serve him.
+</p>
+
+<h5>Waiting time</h5>
+<p>
+Waiting times of the clients occur especially at the proces station. A client always has to wait when there is currently no operator available to serve him.
+</p>
+
+<h5>Waiting time tolerance</h5>
+<p>
+The waiting time tolerance specifies how long clients at a process station are willing to wait for their service. No waiting time tolerance needs to be defined; in this case, clients are willing to wait for any length of time. If a finite waiting time tolerance is defined and a client exceeds this waiting time tolerance, he aborts the waiting process and leaves the process station without being served.
+</p>
+
+<h5>Warm-up phase</h5>
+<p>
+Before the waiting and service times are counted for the statistics, a certain number of clients can pass through the system that are not counted for the statistics. In this way, it is possible to prevent the statistics from being distorted by edge effects.
+</p>

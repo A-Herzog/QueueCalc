@@ -1,0 +1,221 @@
+/*
+Copyright 2023 Alexander Herzog
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+*/
+
+export {getMainGUI};
+
+import {getPlaceholder, getNextStepsButtons, getSimplePlaceholder} from './tools_gui.js';
+
+import {tilesErlangB, updateErlangB} from './gui_ErlangB.js';
+import {tilesErlangC, updateErlangC} from './gui_ErlangC.js';
+import {tilesExtErlangC, updateExtErlangC} from './gui_ExtErlangC.js';
+import {tilesPC, updatePC} from './gui_PC.js';
+import {tilesAC, updateAC} from './gui_AC.js';
+import {tilesExtAC, updateExtAC} from './gui_ExtAC.js';
+
+
+
+function buildStartTile(size, title, text, id, imgWidth="100%", showMore=false, fileFormat="svg") {
+  let block="";
+
+  block+="<div class=\"col-lg-"+size+"\"><div class=\"card\">";
+  block+="<div class=\"card-header\"><h5>"+title+"</h5></div>";
+  block+="<div class=\"card-body\">";
+  block+='<img class="img-fluid" loading=\"lazy\" style="margin: 20px 0px; width: '+imgWidth+';" src="./images/'+id+'_'+language.GUI.imageMode+'.'+fileFormat+'" alt="'+title+'">';
+  block+="<p class=\"card-text\">"+text+"</p>";
+  if (showMore) {
+    block+="<button onclick=\"showTab('"+id+"');\" class=\"btn btn-primary my-1 bi-info-circle\"> "+language.GUI.modeMore+"</button>\n";
+  } else {
+    block+="<button onclick=\"showTab('"+id+"Values');\" class=\"btn btn-primary my-1 bi-123\"> "+language.GUI.modeValues+"</button>\n";
+    block+="<button onclick=\"showTab('"+id+"Table');\" class=\"btn btn-primary my-1 bi-table\"> "+language.GUI.modeTable+"</button>\n";
+    block+="<button onclick=\"showTab('"+id+"Diagram');\" class=\"btn btn-primary my-1 bi-graph-up\"> "+language.GUI.modeDiagram+"</button>";
+  }
+  block+="</div></div></div>";
+
+  return block;
+}
+
+function buildStartTiles() {
+  let block="";
+
+  block+="<div class=\"row\">";
+
+  block+=buildStartTile(6,language.GUI.formulaErlangB,language.GUI.formulaErlangBInfo,"ErlangB","70%");
+  block+=buildStartTile(6,language.GUI.formulaErlangC,language.GUI.formulaErlangCInfo,"ErlangC");
+  block+=buildStartTile(6,language.GUI.formulaExtErlangC,language.GUI.formulaExtErlangCInfo,"ExtErlangC");
+  block+=buildStartTile(6,language.GUI.formulaPC,language.GUI.formulaPCInfo,"PC");
+  block+=buildStartTile(6,language.GUI.formulaAC,language.GUI.formulaACInfo,"AC");
+  block+=buildStartTile(6,language.GUI.formulaExtAC,language.GUI.formulaExtACInfo,"ExtAC");
+  block+=buildStartTile(6,"<i class='bi-caret-right-square'></i> "+language.GUI.tabSimulation,language.GUI.tabSimulationInfo,"Simulation","100%",true,'png');
+
+  block+="<div class=\"col-lg-6\"><div class=\"card\">";
+  block+="<div class=\"card-header\"><h5 class=\"bi-download\"> "+language.GUI.tabDownloads+"</h5></div>";
+  block+="<div class=\"card-body\">";
+  if (!isDesktopApp && false) { // TODO: Activate download option
+    block+="<p class=\"card-text\">"+language.GUI.tabDownloadAppInfo+"</p>";
+    block+="<a id=\"downloadApp\" target=\"_blank\" href=\"https://github.com/A-Herzog/QueueCalc/releases/latest/download/QueueCalc.exe\" style=\"display: none;\"></a>";
+    block+="<button onclick=\"document.getElementById('downloadApp').click();\" class=\"btn btn-primary my-1 bi-windows\"> "+language.GUI.tabDownloadApp+"</button>\n";
+    block+="<p class=\"card-text mt-4\">"+language.GUI.tabDownloadsInfo+"</p>";
+  } else {
+    block+="<p class=\"card-text\">"+language.GUI.tabDownloadsInfo+"</p>";
+  }
+  block+="<a id=\"downloadXLSM\" target=\"_blank\" href=\"./Erlang/Erlang.xlsm\" download=\"Erlang.xlsm\" style=\"display: none;\"></a>";
+  block+="<a id=\"downloadODS\" target=\"_blank\" href=\"./Erlang/Erlang.ods\" download=\"Erlang.ods\" style=\"display: none;\"></a>";
+  block+="<a id=\"downloadJS\" target=\"_blank\" href=\"./Erlang/Erlang.js\" download=\"Erlang.js\" style=\"display: none;\"></a>";
+  block+="<a id=\"downloadPY\" target=\"_blank\" href=\"./Erlang/Erlang.py\" download=\"Erlang.py\" style=\"display: none;\"></a>";
+  block+="<a id=\"downloadR\" target=\"_blank\" href=\"./Erlang/Erlang.R\" download=\"Erlang.R\" style=\"display: none;\"></a>";
+  block+="<button onclick=\"document.getElementById('downloadXLSM').click();\" class=\"btn btn-primary my-1 bi-table\"> "+language.GUI.tabDownloadsExcel+"</button>\n";
+  block+="<button onclick=\"document.getElementById('downloadODS').click();\" class=\"btn btn-primary my-1 bi-table\"> "+language.GUI.tabDownloadsLibreOffice+"</button>\n";
+  block+="<br>";
+  block+="<button onclick=\"document.getElementById('downloadJS').click();\" class=\"btn btn-primary my-1 bi-code\"> "+language.GUI.tabDownloadsJS+"</button>\n";
+  block+="<button onclick=\"document.getElementById('downloadPY').click();\" class=\"btn btn-primary my-1 bi-code\"> "+language.GUI.tabDownloadsPython+"</button>\n";
+  block+="<button onclick=\"document.getElementById('downloadR').click();\" class=\"btn btn-primary my-1 bi-code\"> "+language.GUI.tabDownloadsR+"</button>\n";
+
+  block+="</div></div></div>";
+
+  block+="</div>";
+
+  return block;
+}
+
+function getMainGUI() {
+  let result="";
+
+  /* Start */
+
+  result+="<div class=\"tab-pane fade show active\" id=\"Home\" role=\"tabpanel\">";
+  result+="<h2>"+language.GUI.Name+"</h2>";
+  if (typeof(language.GUI.OtherLanguage)!="undefined" && language.GUI.OtherLanguage!="") {
+    result+="<div class=\"container\" style=\"margin: 20px 0px; padding-left: 0;\"><span class=\"border bg-light rounded small\" style=\"padding: 7px 10px;\">";
+    result+=language.GUI.OtherLanguage;
+    result+="</span></div>";
+  }
+  result+=language.text.start;
+  result+=buildStartTiles();
+  result+="</div>";
+
+  /* Erlang-B-Formel */
+
+  result+=getPlaceholder({
+    id: "ErlangB",
+    title: language.GUI.formulaErlangBLong,
+    valuesData: language.text.ErlangBValues+tilesErlangB.valueTiles,
+    valuesInfoCards: [
+      {head: language.GUI.formulaErlangBLimitations, body: language.text.ErlangBValuesLimitations},
+      getNextStepsButtons("ErlangB",language.GUI.nextStepsErlangBTable,language.GUI.nextStepsErlangBDiagram)
+    ],
+    tableData: language.text.ErlangBTable+tilesErlangB.tableTiles,
+    diagramData: language.text.ErlangBDiagram+tilesErlangB.diagramTiles
+  });
+
+  /* Erlang-C-Formel */
+
+  result+=getPlaceholder({
+    id: "ErlangC",
+    title: language.GUI.formulaErlangCLong,
+    valuesData: language.text.ErlangCValues+tilesErlangC.valueTiles,
+    valuesInfoCards: [
+      {head: language.GUI.formulaErlangCLimitations, body: language.text.ErlangCValuesLimitations},
+      getNextStepsButtons("ErlangC",language.GUI.nextStepsErlangCTable,language.GUI.nextStepsErlangCDiagram)
+    ],
+    tableData: language.text.ErlangCTable+tilesErlangC.tableTiles,
+    diagramData: language.text.ErlangCDiagram+tilesErlangC.diagramTiles
+  });
+
+  /* Erweiterte Erlang-C-Formel*/
+
+  result+=getPlaceholder({
+    id: "ExtErlangC",
+    title: language.GUI.formulaExtErlangCLong,
+    valuesData: language.text.ExtErlangCValues+tilesExtErlangC.valueTiles,
+    valuesInfoCards: [
+      {head: language.GUI.formulaExtErlangCLimitations, body: language.text.ExtErlangCValuesLimitations},
+      getNextStepsButtons("ExtErlangC",language.GUI.nextStepsExtErlangCTable,language.GUI.nextStepsExtErlangCDiagram)
+    ],
+    tableData: language.text.ExtErlangCTable+tilesExtErlangC.tableTiles,
+    diagramData: language.text.ExtErlangCDiagram+tilesExtErlangC.diagramTiles
+  });
+
+  /* Pollaczek-Chintschin-Formel */
+
+  result+=getPlaceholder({
+    id: "PC",
+    title: language.GUI.formulaPCLong,
+    valuesData: language.text.PCValues+tilesPC.valueTiles,
+    valuesInfoCards: [
+      {head: language.GUI.formulaPCLimitations, body: language.text.PCValuesLimitations},
+      getNextStepsButtons("PC",language.GUI.nextStepsPCTable,language.GUI.nextStepsPCDiagram)
+    ],
+    tableData: language.text.PCTable+tilesPC.tableTiles,
+    diagramData: language.text.PCDiagram+tilesPC.diagramTiles
+  });
+
+  /* Allen-Cunneen-Näherungsformel */
+
+  result+=getPlaceholder({
+    id: "AC",
+    title: language.GUI.formulaACLong,
+    valuesData: language.text.ACValues+tilesAC.valueTiles,
+    valuesInfoCards: [
+      {head: language.GUI.formulaACLimitations, body: language.text.ACValuesLimitations},
+      getNextStepsButtons("AC",language.GUI.nextStepsACTable,language.GUI.nextStepsACDiagram)
+    ],
+    tableData: language.text.ACTable+tilesAC.tableTiles,
+    diagramData: language.text.ACDiagram+tilesAC.diagramTiles
+  });
+
+  /* Erweiterte Allen-Cunneen-Näherungsformel */
+
+  result+=getPlaceholder({
+    id: "ExtAC",
+    title: language.GUI.formulaExtACLong,
+    valuesData: language.text.ExtACValues+tilesExtAC.valueTiles,
+    valuesInfoCards: [
+      {head: language.GUI.formulaExtACLimitations, body: language.text.ExtACValuesLimitations},
+      getNextStepsButtons("ExtAC",language.GUI.nextStepsExtACTable,language.GUI.nextStepsExtACDiagram)
+    ],
+    tableData: language.text.ExtACTable+tilesExtAC.tableTiles,
+    diagramData: language.text.ExtACDiagram+tilesExtAC.diagramTiles
+  });
+
+  /* Simulation */
+
+  result+=getSimplePlaceholder("Simulation");
+
+  /* Warteschlangentheorie */
+
+  result+=getSimplePlaceholder("QueueingTheory");
+
+  /* Glossar */
+
+  result+=getSimplePlaceholder("Glossary");
+
+  /* Init */
+
+  setTimeout(()=>{
+    updateErlangB();
+    updateErlangC();
+    updateExtErlangC();
+    updatePC();
+    updateAC();
+    updateExtAC();
+
+    fetch('./js/info_sim_'+language.GUI.imageMode+'.html').then(response=>response.text().then(text=>document.getElementById('Simulation').innerHTML=text));
+    fetch('./js/info_qt_'+language.GUI.imageMode+'.html').then(response=>response.text().then(text=>document.getElementById('QueueingTheory').innerHTML=text));
+    fetch('./js/info_glossary_'+language.GUI.imageMode+'.html').then(response=>response.text().then(text=>document.getElementById('Glossary').innerHTML=text));
+  },100);
+
+  return result;
+}

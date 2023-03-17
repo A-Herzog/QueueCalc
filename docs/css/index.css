@@ -1,0 +1,16 @@
+h2 {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+.card {
+  margin-top: 10px;
+}
+
+math {
+  font-size: 125%;
+}
+
+.hidden {
+  display: none;
+}

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <!--
+  Copyright 2023 Alexander Herzog
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+  http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+  -->
+  <title>Queue calculator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Calculation of the performance indicators of Erlang-C and Allen-Cunneen queue models">
+  <meta name="keywords" content="Queueing theory">
+  <!-- Begin of language independent part -->
+  <meta name="author" content="Alexander Herzog">
+  <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta http-equiv="Content-Security-Policy" content="base-uri 'none'; default-src 'none'; connect-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:;">
+  <link href="./libs/bootstrap.min.css" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+  <link href="./libs/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+  <link href="./css/index.css" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
+  <script defer src="./libs/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"></script>
+  <script defer src="./libs/chart.umd.js" integrity="sha384-7zIFx9pXOq80OxAYxdxvWejv1TYHNbgwokiYvZi8PvGY/MDxa56nZFcULjBwXVsk"></script>
+  <script src="./libs/neutralino.js"></script>
+  <script src="./js/Language.js"></script>
+  <script>const isDesktopApp=(typeof(NL_OS)!='undefined'); if (isDesktopApp) Neutralino.init();</script>
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#navbar_main" data-bs-offset="150">
+<div id="infoLoading">Loading...</div>
+<span id="mainContent" style="display: none;">
+
+
+
+<!-- Menu -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top" id="navbar_main">
+  <div class="container-fluid">
+  <span class="navbar-brand mb-0 h1">
+    <span style="background-color: white; padding: 1px 10px 5px 10px; border-radius: 2px;"><img src="./favicon.ico" width="24"></span>
+    <script>document.write(language.GUI.Name);</script>
+  </span>
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto nav-pills nav" role="tablist" id="mainNavBar">
+      <li class="nav-item"><a class="nav-link bi-house-door" role="tab" data-bs-toggle="tab" href="#Home" data-bs-target="#Home"> <script>document.write(language.GUI.tabHome);</script></a></li>
+      <li class="nav-item"><a class="nav-link bi-caret-right-square" role="tab" data-bs-toggle="tab" href="#Simulation" data-bs-target="#Simulation"> <script>document.write(language.GUI.tabSimulation);</script></a></li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle bi-question-circle" href="#" id="navbarHelpMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <script>document.write(language.GUI.tabHelp);</script></a>
+        <ul class="dropdown-menu dropdown-menu-dark bg-primary" aria-labelledby="navbarHelpMenu">
+        <li><a class="dropdown-item" role="tab" data-bs-toggle="tab" href="#QueueingTheory" data-bs-target="#QueueingTheory"><script>document.write(language.GUI.tabHelpDoc);</script></a></li>
+        <li><a class="dropdown-item" role="tab" data-bs-toggle="tab" href="#Glossary" data-bs-target="#Glossary"><script>document.write(language.GUI.tabHelpGlossary);</script></a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item" href="https://link.springer.com/book/10.1007/978-3-658-34668-3" target="_blank"><script>document.write(language.GUI.tabHelpTextbook);</script></a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+  </div>
+</nav>
+
+
+
+<!-- Content -->
+
+<main>
+<div class="container tab-content">
+</div>
+</main>
+
+
+
+<!-- Footer -->
+
+<footer class="page-footer font-small bg-light" style="margin-top: 20px; padding-top: 10px;">
+<div class="container-fluid text-center text-md-left">
+<div class="row">
+
+<div class="col-md-4 mt-md-0 mt-4">
+<h5 class="text-uppercase"><script>document.write(language.GUI.Name);</script></h5>
+<ul class="list-unstyled">
+  <li>&copy <a href="https://github.com/A-Herzog" target="_blank">Alexander Herzog</a></li>
+  <li><a href="https://github.com/A-Herzog/QueueCalc" target="_blank" class="bi-github"> GitHub</a></li>
+  <li><a target="_blank" id="homeUrlLink"></a></li>
+</ul>
+</div>
+<script>
+  homeUrlLink.href="https://"+language.GUI.homeURL;
+  homeUrlLink.innerHTML=language.GUI.homeURL;
+</script>
+
+<div class="col-md-4 mb-md-0 mb-4" id="PrivacyInfo">
+<h5 class="text-uppercase"><script>document.write(language.GUI.PrivacyTitle);</script></h5>
+<div class="text-secondary small"><script>document.write(language.GUI.PrivacyInfo);</script></div>
+</div>
+
+<div class="col-md-4 mb-md-0 mb-4">
+<h5 class="text-uppercase"><script>document.write(language.GUI.simulators);</script></h5>
+<ul class="list-unstyled">
+  <li><a href="https://a-herzog.github.io/Warteschlangensimulator" target="_blank">Warteschlangensimulator</a></li>
+  <li><a href="https://a-herzog.github.io/MiniWarteschlangensimulator" target="_blank">Mini Warteschlangensimulator (Webapp)</a></li>
+  <li><a href="https://github.com/A-Herzog/Callcenter-Simulator" target="_blank">Callcenter Simulator</a></li>
+  <li><a href="https://github.com/A-Herzog/Mini-Callcenter-Simulator" target="_blank">Mini Callcenter Simulator</a></li>
+  <li><a href="https://www.simzentrum.de/fileadmin/minisim/" target="_blank">Mini Simulator (Webapp)</a></li>
+</ul>
+</div>
+
+</div>
+</div>
+</footer>
+
+
+
+</span>
+
+
+
+<!-- Init -->
+
+<script type="module">
+  import {selectLanguage, buildMultiNavDropdown, showTab} from './js/tools_gui.js';
+  selectLanguage([{name: "default", file: "index.html"}, {name: "de", file: "index_de.html"}]);
+  window.showTab=showTab;
+
+  /* Menu */
+
+  mainNavBar.insertBefore(buildMultiNavDropdown("ErlangBMenu",language.GUI.tabErlangB,[
+    {id: "ErlangB", name: language.GUI.tabErlangB, info: language.GUI.tabErlangBInfo}
+  ]),mainNavBar.children[1]);
+
+  mainNavBar.insertBefore(buildMultiNavDropdown("ErlangCMenu",language.GUI.tabErlangC,[
+    {id: "ErlangC", name: language.GUI.tabErlangC, info: language.GUI.tabErlangCInfo},
+    {id: "ExtErlangC", name: language.GUI.tabExtErlangC, info: language.GUI.tabExtErlangCInfo}
+  ]),mainNavBar.children[2]);
+
+  mainNavBar.insertBefore(buildMultiNavDropdown("ACMenu",language.GUI.tabGeneralS,[
+    {id: "PC", name: language.GUI.tabPC, info: language.GUI.tabPCInfo},
+    {id: "AC", name: language.GUI.tabAC, info: language.GUI.tabACInfo},
+    {id: "ExtAC", name: language.GUI.tabExtAC, info: language.GUI.tabExtACInfo}
+  ]),mainNavBar.children[3]);
+
+  /* Content */
+
+  import {getMainGUI} from './js/gui_Start.js';
+  document.querySelector("main div").innerHTML=getMainGUI();
+
+    document.addEventListener('readystatechange',event=>{if (event.target.readyState=="complete") {
+    if (isDesktopApp) {
+      PrivacyInfo.style.display="none";
+      document.querySelector("#Home h2").style.display="none";
+    }
+    mainContent.style.display="";
+    infoLoading.style.display="none";
+  }});
+</script>
+
+</body>
+</html>
