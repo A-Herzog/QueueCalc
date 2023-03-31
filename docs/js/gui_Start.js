@@ -27,13 +27,15 @@ import {tilesExtAC, updateExtAC} from './gui_ExtAC.js';
 
 
 
-function buildStartTile(size, title, text, id, imgWidth="100%", showMore=false, fileFormat="svg") {
+function buildStartTile(size, title, text, id, imgWidth="100%", showMore=false, fileFormat="svg", aspectRatio=null) {
   let block="";
 
   block+="<div class=\"col-lg-"+size+"\"><div class=\"card\">";
-  block+="<div class=\"card-header\"><h5>"+title+"</h5></div>";
+  block+="<div class=\"card-header\"><h3 class=\"h5\">"+title+"</h3></div>";
   block+="<div class=\"card-body\">";
-  block+='<img class="img-fluid" loading=\"lazy\" style="margin: 20px 0px; width: '+imgWidth+';" src="./images/'+id+'_'+language.GUI.imageMode+'.'+fileFormat+'" alt="'+title+'">';
+  let aspectRatioStyle='';
+  if (aspectRatio!=null) aspectRatioStyle=' aspect-ratio: '+aspectRatio+';';
+  block+='<img class="img-fluid" loading=\"lazy\" style="margin: 20px 0px; width: '+imgWidth+';'+aspectRatioStyle+'" src="./images/'+id+'_'+language.GUI.imageMode+'.'+fileFormat+'" alt="'+title+'">';
   block+="<p class=\"card-text\">"+text+"</p>";
   if (showMore) {
     block+="<button onclick=\"showTab('"+id+"');\" class=\"btn btn-primary my-1 bi-info-circle\"> "+language.GUI.modeMore+"</button>\n";
@@ -52,16 +54,16 @@ function buildStartTiles() {
 
   block+="<div class=\"row\">";
 
-  block+=buildStartTile(6,language.GUI.formulaErlangB,language.GUI.formulaErlangBInfo,"ErlangB","70%");
-  block+=buildStartTile(6,language.GUI.formulaErlangC,language.GUI.formulaErlangCInfo,"ErlangC");
-  block+=buildStartTile(6,language.GUI.formulaExtErlangC,language.GUI.formulaExtErlangCInfo,"ExtErlangC");
-  block+=buildStartTile(6,language.GUI.formulaPC,language.GUI.formulaPCInfo,"PC");
-  block+=buildStartTile(6,language.GUI.formulaAC,language.GUI.formulaACInfo,"AC");
-  block+=buildStartTile(6,language.GUI.formulaExtAC,language.GUI.formulaExtACInfo,"ExtAC");
-  block+=buildStartTile(6,"<i class='bi-caret-right-square'></i> "+language.GUI.tabSimulation,language.GUI.tabSimulationInfo,"Simulation","100%",true,'png');
+  block+=buildStartTile(6,language.GUI.formulaErlangB,language.GUI.formulaErlangBInfo,"ErlangB","70%",false,"svg","114.02 / 62.19");
+  block+=buildStartTile(6,language.GUI.formulaErlangC,language.GUI.formulaErlangCInfo,"ErlangC","100%",false,"svg","159.82 / 47.24");
+  block+=buildStartTile(6,language.GUI.formulaExtErlangC,language.GUI.formulaExtErlangCInfo,"ExtErlangC","100%",false,"svg","159.81 / 74.6");
+  block+=buildStartTile(6,language.GUI.formulaPC,language.GUI.formulaPCInfo,"PC","100%",false,"svg","159.81 / 74.6");
+  block+=buildStartTile(6,language.GUI.formulaAC,language.GUI.formulaACInfo,"AC","100%",false,"svg","159.82 / 52.78");
+  block+=buildStartTile(6,language.GUI.formulaExtAC,language.GUI.formulaExtACInfo,"ExtAC","100%",false,"svg","159.82 / 74.05");
+  block+=buildStartTile(6,"<i class='bi-caret-right-square'></i> "+language.GUI.tabSimulation,language.GUI.tabSimulationInfo,"Simulation","100%",true,'webp','640 / 481');
 
   block+="<div class=\"col-lg-6\"><div class=\"card\">";
-  block+="<div class=\"card-header\"><h5 class=\"bi-download\"> "+language.GUI.tabDownloads+"</h5></div>";
+  block+="<div class=\"card-header\"><h3 class=\"h5 bi-download\"> "+language.GUI.tabDownloads+"</h3></div>";
   block+="<div class=\"card-body\">";
   if (!isDesktopApp && false) { // TODO: Activate download option
     block+="<p class=\"card-text\">"+language.GUI.tabDownloadAppInfo+"</p>";

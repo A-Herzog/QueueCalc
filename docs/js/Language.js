@@ -106,6 +106,8 @@ lang.GUI.tabDownloadsPython="Python-Code";
 lang.GUI.tabDownloadsR="R-Code";
 lang.GUI.simulators="Simulatoren";
 lang.GUI.homeURL="warteschlangensimulation.de";
+lang.GUI.Imprint="Impressum";
+lang.GUI.Privacy="Datenschutz";
 
 lang.model={};
 lang.model.explanationsShow="Erklärungen einblenden";
@@ -245,7 +247,7 @@ und -Bedienungen sowie um Ausfallzeiten der Bediener ergänzt werden.
 
 <p>
 Weitere Erklärungen zu den Grundbegriffen der Warteschlangentheorie sowie zu den betrachteten analystischen Modellen können auf der Seite
-<a href="javascript:void(0);" onclick="showTab('QueueingTheory');"><script>document.write(language.GUI.tabHelpDoc);</script></a>
+<a href="javascript:void(0);" onclick="showTab('QueueingTheory');">Warteschlangentheorie</a>
 nachgelesen werden.
 </p>
 
@@ -610,6 +612,8 @@ lang.GUI.tabDownloadsPython="Python code";
 lang.GUI.tabDownloadsR="R code";
 lang.GUI.simulators="Simulators";
 lang.GUI.homeURL="queueingsimulation.de";
+lang.GUI.Imprint="Imprint";
+lang.GUI.Privacy="Privacy";
 
 lang.model={};
 lang.model.explanationsShow="Show explanations";
@@ -751,7 +755,7 @@ batch arrivals and service, as well as operator downtimes.
 
 <p>
 Further explanations of the basic concepts of queueing theory as well as the analytical models considered can be found on the
-<a href="javascript:void(0);" onclick="showTab('QueueingTheory');"><script>document.write(language.GUI.tabHelpDoc);</script></a>
+<a href="javascript:void(0);" onclick="showTab('QueueingTheory');">Queueing theory</a>
 page.
 </p>
 

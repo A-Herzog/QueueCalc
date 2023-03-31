@@ -14,3 +14,7 @@ math {
 .hidden {
   display: none;
 }
+
+h6.dropdown-header {
+  color: white;
+}

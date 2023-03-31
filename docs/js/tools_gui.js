@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-export {selectLanguage, buildNavDropdown, buildMultiNavDropdown, showTab, getPlaceholder, getNextStepsButtons, getSimplePlaceholder, TilesBuilder, Table}
+export {selectLanguage, buildMultiNavDropdown, showTab, getPlaceholder, getNextStepsButtons, getSimplePlaceholder, TilesBuilder, Table}
 
 import { getPositiveFloat, getNotNegativeFloat, getPositiveInt, getNotNegativeInt, isVariabel} from './tools.js';
 
@@ -40,28 +40,10 @@ function selectLanguage(languages) {
 
 /* Menü */
 
-function buildNavDropdown(id, name) {
-  const li=document.createElement("li");
-  li.className="nav-item dropdown";
-
-  let block="";
-
-  block+="<li class=\"nav-item dropdown\">";
-  block+="<a class=\"nav-link dropdown-toggle\" href=\"#\" id=\"navbar"+id+"Menu\" role=\"button\" data-bs-toggle=\"dropdown\" area-expanded=\"false\">"+name+"</a>";
-  block+="<ul class=\"dropdown-menu dropdown-menu-dark bg-primary\" aria-labelledby=\"navbar"+id+"Menu\">";
-  block+="<li><a class=\"dropdown-item bi-123\" role=\"tab\" data-bs-toggle=\"tab\" href=\"#"+id+"Values\" data-bs-target=\"#"+id+"Values\"> "+language.GUI.modeValues+"</a></li>";
-  block+="<li><a class=\"dropdown-item bi-table\" role=\"tab\" data-bs-toggle=\"tab\" href=\"#"+id+"Table\" data-bs-target=\"#"+id+"Table\"> "+language.GUI.modeTable+"</a></li>";
-  block+="<li><a class=\"dropdown-item bi-graph-up\" role=\"tab\" data-bs-toggle=\"tab\" href=\"#"+id+"Diagram\" data-bs-target=\"#"+id+"Diagram\"> "+language.GUI.modeDiagram+"</a></li>";
-  block+="</ul>";
-
-  li.innerHTML=block;
-
-  return li;
-}
-
 function buildMultiNavDropdown(id, name, records) {
   const li=document.createElement("li");
   li.className="nav-item dropdown";
+  li.role="tab";
 
   let block="";
 
@@ -73,9 +55,9 @@ function buildMultiNavDropdown(id, name, records) {
     let info="";
     if (typeof(record.info)=='string') info=" <small>("+record.info+")</small>";
     block+="<li><h6 class=\"dropdown-header\"><strong>"+record.name+"</strong>"+info+"</h6></li>";
-    block+="<li><a class=\"dropdown-item bi-123\" role=\"tab\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Values\" data-bs-target=\"#"+record.id+"Values\"> "+language.GUI.modeValues+"</a></li>";
-    block+="<li><a class=\"dropdown-item bi-table\" role=\"tab\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Table\" data-bs-target=\"#"+record.id+"Table\"> "+language.GUI.modeTable+"</a></li>";
-    block+="<li><a class=\"dropdown-item bi-graph-up\" role=\"tab\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Diagram\" data-bs-target=\"#"+record.id+"Diagram\"> "+language.GUI.modeDiagram+"</a></li>";
+    block+="<li role=\"tab\"><a class=\"dropdown-item bi-123\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Values\" data-bs-target=\"#"+record.id+"Values\"> "+language.GUI.modeValues+"</a></li>";
+    block+="<li role=\"tab\"><a class=\"dropdown-item bi-table\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Table\" data-bs-target=\"#"+record.id+"Table\"> "+language.GUI.modeTable+"</a></li>";
+    block+="<li role=\"tab\"><a class=\"dropdown-item bi-graph-up\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Diagram\" data-bs-target=\"#"+record.id+"Diagram\"> "+language.GUI.modeDiagram+"</a></li>";
   }
   block+="</ul>";
 
