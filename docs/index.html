@@ -110,7 +110,7 @@
   homeUrlLink.innerHTML=language.GUI.homeURL;
 </script>
 
-<div class="col-md-4 mb-md-0 mb-4" id="PrivacyInfo">
+<div class="col-md-4 mb-md-0 mb-4" id="PrivacyInfo2">
 <h3 class="h5 text-uppercase"><script>document.write(language.GUI.PrivacyTitle);</script></h3>
 <div class="text-secondary small"><script>document.write(language.GUI.PrivacyInfo);</script></div>
 </div>
@@ -122,7 +122,7 @@
   <li><a href="https://a-herzog.github.io/MiniWarteschlangensimulator" target="_blank">Mini Warteschlangensimulator (Webapp)</a></li>
   <li><a href="https://github.com/A-Herzog/Callcenter-Simulator" target="_blank">Callcenter Simulator</a></li>
   <li><a href="https://github.com/A-Herzog/Mini-Callcenter-Simulator" target="_blank">Mini Callcenter Simulator</a></li>
-  <li><a href="https://www.simzentrum.de/fileadmin/minisim/" target="_blank">Mini Simulator (Webapp)</a></li>
+  <li><a href="https://a-herzog.github.io/MiniSimulator" target="_blank">Mini Simulator (Webapp)</a></li>
 </ul>
 </div>
 
@@ -174,6 +174,20 @@
     mainContent.style.display="";
     infoLoading.style.display="none";
   }});
+
+  function rewriteLinksInOfflineMode() {
+    if (!isDesktopApp) return;
+    for (let link of document.querySelectorAll("a")) if (link.href.startsWith('https://')) {
+      const href=link.href;
+      link.onclick=()=>Neutralino.os.open(href);
+      link.removeAttribute("href");
+      link.style.cursor="pointer";
+      if (!link.classList.contains("dropdown-item") && !link.classList.contains("btn")) link.classList.add("link-primary");
+    }
+  }
+
+  rewriteLinksInOfflineMode();
+  for (let link of document.querySelectorAll("a[data-bs-toggle]")) link.addEventListener('shown.bs.tab',()=>rewriteLinksInOfflineMode());
 </script>
 
 </body>
