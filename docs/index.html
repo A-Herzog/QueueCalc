@@ -145,20 +145,27 @@
 
   /* Menu */
 
+  let insertCount=1;
+
   mainNavBar.insertBefore(buildMultiNavDropdown("ErlangBMenu",language.GUI.tabErlangB,[
     {id: "ErlangB", name: language.GUI.tabErlangB, info: language.GUI.tabErlangBInfo}
-  ]),mainNavBar.children[1]);
+  ]),mainNavBar.children[insertCount++]);
 
   mainNavBar.insertBefore(buildMultiNavDropdown("ErlangCMenu",language.GUI.tabErlangC,[
     {id: "ErlangC", name: language.GUI.tabErlangC, info: language.GUI.tabErlangCInfo},
     {id: "ExtErlangC", name: language.GUI.tabExtErlangC, info: language.GUI.tabExtErlangCInfo}
-  ]),mainNavBar.children[2]);
+  ]),mainNavBar.children[insertCount++]);
 
   mainNavBar.insertBefore(buildMultiNavDropdown("ACMenu",language.GUI.tabGeneralS,[
     {id: "PC", name: language.GUI.tabPC, info: language.GUI.tabPCInfo},
     {id: "AC", name: language.GUI.tabAC, info: language.GUI.tabACInfo},
     {id: "ExtAC", name: language.GUI.tabExtAC, info: language.GUI.tabExtACInfo}
-  ]),mainNavBar.children[3]);
+  ]),mainNavBar.children[insertCount++]);
+
+  mainNavBar.insertBefore(buildMultiNavDropdown("DesignMenu",language.GUI.tabDesign,[
+    {id: "Compare", name: language.GUI.tabCompare, onlyValues: true},
+    {id: "ShortestQueue", name: language.GUI.tabShortestQueue}
+  ]),mainNavBar.children[insertCount++]);
 
   /* Content */
 

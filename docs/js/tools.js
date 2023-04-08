@@ -24,7 +24,9 @@ return NaN;
 }
 
 function getFloat(id) {
-let s=document.getElementById(id).value;
+const element=document.getElementById(id);
+if (element==null) console.log("element id='"+id+"' is null.");
+let s=element.value;
 if (typeof(s.replaceAll)=='function') s=s.replaceAll(",",".");
 const num=parseFloatStrict(s);
 if (isNaN(num)) {
@@ -62,7 +64,9 @@ return NaN;
 }
 
 function getInt(id) {
-const num=parseIntStrict(document.getElementById(id).value);
+const element=document.getElementById(id);
+if (element==null) console.log("element id='"+id+"' is null.");
+const num=parseIntStrict(element.value);
 if (isNaN(num)) {
   setValid(id,false);
   return null;
@@ -93,9 +97,12 @@ function getNotNegativeInt(id) {
 
 function setValid(id, valid) {
   const element=document.getElementById(id);
+  if (element==null) console.log("element id='"+id+"' is null.");
   if (valid) element.classList.remove('is-invalid'); else element.classList.add('is-invalid');
 }
 
 function isVariabel(id) {
-  return document.getElementById(id+'_Variabel').classList.contains("active");
+  const element=document.getElementById(id+'_Variabel');
+  if (element==null) console.log("element id='"+id+"' is null.");
+  return element.classList.contains("active");
 }

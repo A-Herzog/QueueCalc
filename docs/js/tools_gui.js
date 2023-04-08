@@ -55,9 +55,13 @@ function buildMultiNavDropdown(id, name, records) {
     let info="";
     if (typeof(record.info)=='string') info=" <small>("+record.info+")</small>";
     block+="<li><h6 class=\"dropdown-header\"><strong>"+record.name+"</strong>"+info+"</h6></li>";
-    block+="<li role=\"tab\"><a class=\"dropdown-item bi-123\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Values\" data-bs-target=\"#"+record.id+"Values\"> "+language.GUI.modeValues+"</a></li>";
-    block+="<li role=\"tab\"><a class=\"dropdown-item bi-table\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Table\" data-bs-target=\"#"+record.id+"Table\"> "+language.GUI.modeTable+"</a></li>";
-    block+="<li role=\"tab\"><a class=\"dropdown-item bi-graph-up\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Diagram\" data-bs-target=\"#"+record.id+"Diagram\"> "+language.GUI.modeDiagram+"</a></li>";
+    if (typeof(record.onlyValues)=='boolean' && record.onlyValues) {
+      block+="<li role=\"tab\"><a class=\"dropdown-item bi-123\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Values\" data-bs-target=\"#"+record.id+"Values\"> "+language.GUI.modeValuesOnly+"</a></li>";
+    } else {
+      block+="<li role=\"tab\"><a class=\"dropdown-item bi-123\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Values\" data-bs-target=\"#"+record.id+"Values\"> "+language.GUI.modeValues+"</a></li>";
+      block+="<li role=\"tab\"><a class=\"dropdown-item bi-table\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Table\" data-bs-target=\"#"+record.id+"Table\"> "+language.GUI.modeTable+"</a></li>";
+      block+="<li role=\"tab\"><a class=\"dropdown-item bi-graph-up\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Diagram\" data-bs-target=\"#"+record.id+"Diagram\"> "+language.GUI.modeDiagram+"</a></li>";
+    }
   }
   block+="</ul>";
 
@@ -86,47 +90,55 @@ function showTab(id) {
 function getPlaceholder(record) {
   let block="";
 
+  if (typeof(record.imageMaxWidth)=='undefined') record.imageMaxWidth=650;
+
   /* Einzelwerte */
 
   block+="<div class=\"tab-pane fade\" id=\""+record.id+"Values\" role=\"tabpanel\">";
   block+="<h2>"+record.title+"</h2>";
 
   block+="<button type=\"button\" class=\"btn-close\" aria-label=\"Close\" onclick=\"showTab('Home');\"></button><br>";
-  block+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: 650px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+".svg\">";
+  block+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+".svg\">";
   block+=record.valuesData;
 
-  block+="<div class=\"row\">";
-  for (let card of record.valuesInfoCards) {
-    block+="<div class=\"col-lg-6\"><div class=\"card\">";
-    block+="<div class=\"card-header\"><h5>"+card.head+"</h5></div>";
-    block+="<div class=\"card-body\">"+card.body+"</div>";
-    block+="</div></div>";
+  if (typeof(valuesInfoCards)!='undefined') {
+    block+="<div class=\"row\">";
+    for (let card of record.valuesInfoCards) {
+      block+="<div class=\"col-lg-6\"><div class=\"card\">";
+      block+="<div class=\"card-header\"><h5>"+card.head+"</h5></div>";
+      block+="<div class=\"card-body\">"+card.body+"</div>";
+      block+="</div></div>";
+    }
+    block+="</div>";
   }
-  block+="</div>";
 
   block+="</div>";
 
   /* Tabelle */
 
-  block+="<div class=\"tab-pane fade\" id=\""+record.id+"Table\" role=\"tabpanel\">";
-  block+="<h2>"+record.title+"</h2>";
+  if (typeof(record.tableData)!='undefined') {
+    block+="<div class=\"tab-pane fade\" id=\""+record.id+"Table\" role=\"tabpanel\">";
+    block+="<h2>"+record.title+"</h2>";
 
-  block+="<button type=\"button\" class=\"btn-close\" aria-label=\"Close\" onclick=\"showTab('Home');\"></button><br>";
-  block+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: 650px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+".svg\">";
-  block+=record.tableData;
+    block+="<button type=\"button\" class=\"btn-close\" aria-label=\"Close\" onclick=\"showTab('Home');\"></button><br>";
+    block+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+".svg\">";
+    block+=record.tableData;
 
-  block+="</div>";
+    block+="</div>";
+  }
 
   /* Diagramm */
 
-  block+="<div class=\"tab-pane fade\" id=\""+record.id+"Diagram\" role=\"tabpanel\">";
-  block+="<h2>"+record.title+"</h2>";
+  if (typeof(record.diagramData)!='undefined') {
+    block+="<div class=\"tab-pane fade\" id=\""+record.id+"Diagram\" role=\"tabpanel\">";
+    block+="<h2>"+record.title+"</h2>";
 
-  block+="<button type=\"button\" class=\"btn-close\" aria-label=\"Close\" onclick=\"showTab('Home');\"></button><br>";
-  block+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: 650px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+".svg\">";
-  block+=record.diagramData;
+    block+="<button type=\"button\" class=\"btn-close\" aria-label=\"Close\" onclick=\"showTab('Home');\"></button><br>";
+    block+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+".svg\">";
+    block+=record.diagramData;
 
-  block+="</div>";
+    block+="</div>";
+  }
 
   return block;
 }
@@ -152,6 +164,7 @@ function getSimplePlaceholder(id) {
 /* Eingabezeile */
 
 function buildInputField(id, value, updateCallback, label, errorInfo='') {
+  if (typeof(value)=='number') value=value.toLocaleString();
   let block="";
   block+="<p class=\"card-text\"><form class=\"form-floating\">";
   block+="<div class=\"input-group\">";

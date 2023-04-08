@@ -24,10 +24,12 @@ import {tilesExtErlangC, updateExtErlangC} from './gui_ExtErlangC.js';
 import {tilesPC, updatePC} from './gui_PC.js';
 import {tilesAC, updateAC} from './gui_AC.js';
 import {tilesExtAC, updateExtAC} from './gui_ExtAC.js';
+import {tilesCompare, updateCompare} from './gui_Compare.js';
+import {tilesShortestQueue, updateShortestQueue} from './gui_ShortestQueue.js';
 
 
 
-function buildStartTile(size, title, text, id, imgWidth="100%", showMore=false, fileFormat="svg", aspectRatio=null) {
+function buildStartTile(size, title, text, id, imgWidth="100%", showMore=false, fileFormat="svg", aspectRatio=null, onlyValues=false) {
   let block="";
 
   block+="<div class=\"col-lg-"+size+"\"><div class=\"card\">";
@@ -35,14 +37,24 @@ function buildStartTile(size, title, text, id, imgWidth="100%", showMore=false, 
   block+="<div class=\"card-body\">";
   let aspectRatioStyle='';
   if (aspectRatio!=null) aspectRatioStyle=' aspect-ratio: '+aspectRatio+';';
+  if (showMore) {
+    block+="<a onclick=\"showTab('"+id+"');\" style='cursor: pointer;' title='"+title+"'>";
+  } else {
+    block+="<a onclick=\"showTab('"+id+"Values');\" style='cursor: pointer;' title='"+title+"'>";
+  }
   block+='<img class="img-fluid" loading=\"lazy\" style="margin: 20px 0px; width: '+imgWidth+';'+aspectRatioStyle+'" src="./images/'+id+'_'+language.GUI.imageMode+'.'+fileFormat+'" alt="'+title+'">';
+  block+='</a>';
   block+="<p class=\"card-text\">"+text+"</p>";
   if (showMore) {
     block+="<button onclick=\"showTab('"+id+"');\" class=\"btn btn-primary my-1 bi-info-circle\"> "+language.GUI.modeMore+"</button>\n";
   } else {
-    block+="<button onclick=\"showTab('"+id+"Values');\" class=\"btn btn-primary my-1 bi-123\"> "+language.GUI.modeValues+"</button>\n";
-    block+="<button onclick=\"showTab('"+id+"Table');\" class=\"btn btn-primary my-1 bi-table\"> "+language.GUI.modeTable+"</button>\n";
-    block+="<button onclick=\"showTab('"+id+"Diagram');\" class=\"btn btn-primary my-1 bi-graph-up\"> "+language.GUI.modeDiagram+"</button>";
+    if (onlyValues) {
+      block+="<button onclick=\"showTab('"+id+"Values');\" class=\"btn btn-primary my-1 bi-123\"> "+language.GUI.modeValuesOnly+"</button>\n";
+    } else {
+      block+="<button onclick=\"showTab('"+id+"Values');\" class=\"btn btn-primary my-1 bi-123\"> "+language.GUI.modeValues+"</button>\n";
+      block+="<button onclick=\"showTab('"+id+"Table');\" class=\"btn btn-primary my-1 bi-table\"> "+language.GUI.modeTable+"</button>\n";
+      block+="<button onclick=\"showTab('"+id+"Diagram');\" class=\"btn btn-primary my-1 bi-graph-up\"> "+language.GUI.modeDiagram+"</button>";
+    }
   }
   block+="</div></div></div>";
 
@@ -60,6 +72,8 @@ function buildStartTiles() {
   block+=buildStartTile(6,language.GUI.formulaPC,language.GUI.formulaPCInfo,"PC","100%",false,"svg","159.81 / 74.6");
   block+=buildStartTile(6,language.GUI.formulaAC,language.GUI.formulaACInfo,"AC","100%",false,"svg","159.82 / 52.78");
   block+=buildStartTile(6,language.GUI.formulaExtAC,language.GUI.formulaExtACInfo,"ExtAC","100%",false,"svg","159.82 / 74.05");
+  block+=buildStartTile(6,language.GUI.formulaCompare,language.GUI.formulaCompareInfo,"Compare","100%",false,"svg","602.67 / 279.23",true);
+  block+=buildStartTile(6,language.GUI.formulaShortestQueue,language.GUI.formulaShortestQueueInfo,"ShortestQueue","100%",false,"svg","602.67 / 319.07");
   block+=buildStartTile(6,"<i class='bi-caret-right-square'></i> "+language.GUI.tabSimulation,language.GUI.tabSimulationInfo,"Simulation","100%",true,'webp','640 / 481');
 
   block+="<div class=\"col-lg-6\"><div class=\"card\">";
@@ -192,6 +206,25 @@ function getMainGUI() {
     diagramData: language.text.ExtACDiagram+tilesExtAC.diagramTiles
   });
 
+  /* Systemdesign: Vergleich verschiedener Strategien */
+
+  result+=getPlaceholder({
+    id: "Compare",
+    imageMaxWidth: 1200,
+    title: language.GUI.formulaCompareLong,
+    valuesData: language.text.CompareValues+tilesCompare.valueTiles
+  });
+
+  /* Systemdesign: Wahl der kürzesten Schlange */
+
+  result+=getPlaceholder({
+    id: "ShortestQueue",
+    title: language.GUI.formulaShortestQueueLong,
+    valuesData: language.text.ShortestQueueValues+tilesShortestQueue.valueTiles,
+    tableData: language.text.ShortestQueueTable+tilesShortestQueue.tableTiles,
+    diagramData: language.text.ShortestQueueDiagram+tilesShortestQueue.diagramTiles
+  });
+
   /* Simulation */
 
   result+=getSimplePlaceholder("Simulation");
@@ -213,6 +246,8 @@ function getMainGUI() {
     updatePC();
     updateAC();
     updateExtAC();
+    updateCompare();
+    updateShortestQueue();
 
     fetch('./js/info_sim_'+language.GUI.imageMode+'.html').then(response=>response.text().then(text=>document.getElementById('Simulation').innerHTML=text));
     fetch('./js/info_qt_'+language.GUI.imageMode+'.html').then(response=>response.text().then(text=>document.getElementById('QueueingTheory').innerHTML=text));

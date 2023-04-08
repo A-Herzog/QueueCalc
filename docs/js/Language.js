@@ -31,6 +31,7 @@ lang.GUI.PrivacyTitle="Info";
 lang.GUI.PrivacyInfo="Alle Berechnungen laufen vollständig im Browser ab.<br>Diese Webapp führt nach dem Laden des HTML- und Skriptcodes keine weitere Kommunikation mit dem Server durch.";
 lang.GUI.OtherLanguage="An <a href=\"index.html\" onclick=\"localStorage.setItem('selectedLanguage','default')\"><b>English version</b></a> of this calculator is also available.";
 lang.GUI.modeValues="Einzelwerte";
+lang.GUI.modeValuesOnly="Werte";
 lang.GUI.modeTable="Tabelle";
 lang.GUI.modeDiagram="Diagramm";
 lang.GUI.modeMore="Mehr Informationen";
@@ -58,6 +59,18 @@ lang.GUI.formulaExtAC="Erweiterte Allen-Cunneen-Näherungsformel";
 lang.GUI.formulaExtACLong="Erweiterte Allen-Cunneen-Näherungsformel (G<sup>b<sub>I</sub></sup>/G<sup>b<sub>S</sub></sup>/c-Modell)";
 lang.GUI.formulaExtACInfo="Die erweiterte Allen-Cunneen-Näherungsformel ermöglicht zusätzlich die Betrachtung von <b>Batch-Ankünften</b>, <b>Batch-Bedienungen</b> sowie <b>Ausfallzeiten</b> der Bediener (<b>G<sup>b<sub>I</sub></sup>/G<sup>b<sub>S</sub></sup>/c</b>-Modell).";
 lang.GUI.formulaExtACLimitations="Grenzen der erweiterten Allen-Cunneen-Näherungsformel";
+lang.GUI.formulaCompare="Design von Warteschlangensystemen";
+lang.GUI.formulaCompareLong="Design von Warteschlangensystemen";
+lang.GUI.formulaCompareInfo="Mit Hilfe der Formeln der Warteschlangentheorie lassen sich alltägliche Wartesituationen, in denen das System verschieden konfiguriert ist, untersuchen.";
+lang.GUI.formulaShortestQueue="Wahl der kürzesten Schlange";
+lang.GUI.formulaShortestQueueLong="Wahl der kürzesten Schlange";
+lang.GUI.formulaShortestQueueInfo="Die Wahl der kürzeren Warteschlange stellt zwar einen guten Schätzer dafür, in welcher Schlange man schneller zur Kasse gelangt, dar. Mit steigender Länge der beiden Schlangen wächst allerdings die Wahrscheinlichkeit, in der längeren Schlange schneller zum Ziel zu gelangen.";
+lang.GUI.formulaShortestQueueA="Länge der längeren Warteschlange";
+lang.GUI.formulaShortestQueueB="Länge der kürzeren Warteschlange";
+lang.GUI.formulaShortestQueueAInfo1="Diese Warteschlange wird vom Kunden nicht gewählt, da vermutet wird, dass die Wartezeit hier länger ist als an der anderen Warteschlange.";
+lang.GUI.formulaShortestQueueAInfo2="";
+lang.GUI.formulaShortestQueueBInfo1="Die kürzere Warteschlange stellt die natürliche Wahl für neu eintreffende Kunden dar. Es wird angenommen, dass die Wartezeit an dieser kürzer ist als an der längeren Warteschlange.";
+lang.GUI.formulaShortestQueueBInfo2="";
 lang.GUI.tabHome="Start";
 lang.GUI.tabErlangB="Erlang-B-Formel";
 lang.GUI.tabErlangBInfo="M/M/c/C";
@@ -72,6 +85,9 @@ lang.GUI.tabAC="Allen-Cunneen-Näherungsformel";
 lang.GUI.tabACInfo="G/G/c";
 lang.GUI.tabExtAC="Erweiterte Allen-Cunneen-Näherungsformel";
 lang.GUI.tabExtACInfo="G<sup>b<sub>I</sub></sup>/G<sup>b<sub>S</sub></sup>/c"
+lang.GUI.tabDesign="Systemdesign";
+lang.GUI.tabCompare="Vergleich verschiedener Strategien";
+lang.GUI.tabShortestQueue="Wahl der kürzesten Schlange";
 lang.GUI.tabSimulation='Simulation';
 lang.GUI.tabSimulationInfo='Wenn die Möglichkeiten der (erweiterten) Erlang-C-Formel und der (erweiterten) Allen-Cunneen-Näherungsformel zur Modellierung eines Warteschlangensystems nicht mehr ausreichen, kann eines der hier angebotenen Opensource <b>Simulationswerkzeuge</b> eingesetzt werden.';
 lang.GUI.tabHelp="Hilfe";
@@ -173,6 +189,8 @@ lang.statistics.headingACResults="Allen-Cunneen-Ergebnisse";
 lang.statistics.headingACCorrectionFactors="Korrekturfaktoren";
 lang.statistics.headingACCorrectionFactorsInfo1="Um die Abweichungen zwischen Näherungsformel und Realität zu verringern, existieren mehrere Korrekturfaktoransätze.";
 lang.statistics.headingACCorrectionFactorsInfo2="Die Korrekturterme wirken bei Variationskoeffizienten ungleich 1 (Krämer, Langenbach-Belz, 1976) und bei Batch-Größen größer als 1 (Hanschke, 2006).";
+lang.statistics.headingCompareResults="Vergleich der Modelle";
+lang.statistics.headingCompareResultsRank="Platz";
 lang.statistics.CorrectionFactorKLB="Langenbach-Belz Korrekturfaktor";
 lang.statistics.CorrectionFactorH="Hanschke Korrekturterm";
 lang.statistics.rhoError="Nur für &rho;&le;1 kann sich ein stationärer Zustand einstellen. Daher können für das aktuelle Modell keine Kenngrößen berechnet werden.";
@@ -524,6 +542,50 @@ finden Sie auf der Seite <a href="javascript:void(0);" onclick="showTab('ExtACVa
 </p>
 `;
 
+lang.text.CompareValues=`
+<p>
+Mit Hilfe der Formeln der Warteschlangentheorie lassen sich alltägliche Wartesituationen untersuchen. Exemplarisch sollen die folgenden 4 Modelle betrachtet werden:
+</p>
+<ul>
+  <li>Es stehen zwei Bediener zur Verfügung. Die ankommenden Kunden werden von einem sogenannten Dispatcher dem jeweils freiwerdenden Schalter zugewiesen. Nach diesem Prinzip werden z.B. beim Check-In auf dem Flughafen die Warteschlangen abgearbeitet.</li>
+  <li>Auch hier stehen zwei parallele Bediener zur Verfügung. Allerdings werden die Kunden bereits bei ihrer Ankunft gleichmäßig (d.h. zu je 50%) auf die beiden Warteschlangen verteilt.</li>
+  <li>Es gibt nur einen Bediener und eine Warteschlange. Der Bediener kann jedoch zwei Kunden gleichzeitig bedienen.</li>
+  <li>Es gibt nur einen Bediener und eine Warteschlange. Der Bediener arbeitet jedoch mit doppelter Geschwindigkeit.</li>
+</ul>`;
+
+lang.text.ShortestQueueValues=`
+<p>
+Stehen wie im Supermarkt mehrere Kassen zur Auswahl, so neigt man dazu, sich bei der Kasse mit der kürzesten Warteschlange anzustellen, um die eigene Wartezeit zu minimieren.
+</p>
+<p>
+Doch offensichtlich garantiert diese Strategie nicht, dass man auch schneller abgefertigt wird. Da die Bediendauern der einzelnen Kunden zufällig schwanken (der eine hat mehr im Einkaufskorb, der andere weniger), kann es vorkommen, dass in der langen Warteschlange zufällig viele kleine Aufträge aufeinander folgen, während in der kürzeren Schlange große Aufträge vorherrschen. In diesem Fall muss man in der kürzeren Schlange möglicherweise länger warten als in der längeren Schlange.
+</p>
+<p>
+Mathematisch lässt sich nachweisen, dass diese Situation umso häufiger eintritt, je unregelmäßiger die Arbeitsaufträge der einzelnen Kunden sind. (Sind umgekehrt alle Arbeitsaufträge etwa gleich groß, d.h. haben alle Kunden etwa gleichviele Gegenstände in ihrem Einkaufskorb, so wird man an der Kasse mit der kürzeren Warteschlange sicherlich auch schneller abgefertigt werden.)
+</p>`;
+
+lang.text.ShortestQueueTable=`
+<p>
+Stehen wie im Supermarkt mehrere Kassen zur Auswahl, so neigt man dazu, sich bei der Kasse mit der kürzesten Warteschlange anzustellen, um die eigene Wartezeit zu minimieren.
+</p>
+<p>
+Doch offensichtlich garantiert diese Strategie nicht, dass man auch schneller abgefertigt wird. Da die Bediendauern der einzelnen Kunden zufällig schwanken (der eine hat mehr im Einkaufskorb, der andere weniger), kann es vorkommen, dass in der langen Warteschlange zufällig viele kleine Aufträge aufeinander folgen, während in der kürzeren Schlange große Aufträge vorherrschen. In diesem Fall muss man in der kürzeren Schlange möglicherweise länger warten als in der längeren Schlange.
+</p>
+<p>
+Mathematisch lässt sich nachweisen, dass diese Situation umso häufiger eintritt, je unregelmäßiger die Arbeitsaufträge der einzelnen Kunden sind. (Sind umgekehrt alle Arbeitsaufträge etwa gleich groß, d.h. haben alle Kunden etwa gleichviele Gegenstände in ihrem Einkaufskorb, so wird man an der Kasse mit der kürzeren Warteschlange sicherlich auch schneller abgefertigt werden.)
+</p>`;
+
+lang.text.ShortestQueueDiagram=`
+<p>
+Stehen wie im Supermarkt mehrere Kassen zur Auswahl, so neigt man dazu, sich bei der Kasse mit der kürzesten Warteschlange anzustellen, um die eigene Wartezeit zu minimieren.
+</p>
+<p>
+Doch offensichtlich garantiert diese Strategie nicht, dass man auch schneller abgefertigt wird. Da die Bediendauern der einzelnen Kunden zufällig schwanken (der eine hat mehr im Einkaufskorb, der andere weniger), kann es vorkommen, dass in der langen Warteschlange zufällig viele kleine Aufträge aufeinander folgen, während in der kürzeren Schlange große Aufträge vorherrschen. In diesem Fall muss man in der kürzeren Schlange möglicherweise länger warten als in der längeren Schlange.
+</p>
+<p>
+Mathematisch lässt sich nachweisen, dass diese Situation umso häufiger eintritt, je unregelmäßiger die Arbeitsaufträge der einzelnen Kunden sind. (Sind umgekehrt alle Arbeitsaufträge etwa gleich groß, d.h. haben alle Kunden etwa gleichviele Gegenstände in ihrem Einkaufskorb, so wird man an der Kasse mit der kürzeren Warteschlange sicherlich auch schneller abgefertigt werden.)
+</p>`;
+
 /* English */
 
 const languageEN={};
@@ -537,6 +599,7 @@ lang.GUI.PrivacyTitle="Info";
 lang.GUI.PrivacyInfo="All calculations are performed entirely in the browser.<br>This Webapp does not perform any further communication with the server after loading the HTML and script code.";
 lang.GUI.OtherLanguage="Eine <a href=\"index_de.html\" onclick=\"localStorage.setItem('selectedLanguage','de')\"><b>deutsche Version</b></a> dieses Rechners steht ebenfalls zur Verfügung.";
 lang.GUI.modeValues="Individual values";
+lang.GUI.modeValuesOnly="Values";
 lang.GUI.modeTable="Table";
 lang.GUI.modeDiagram="Diagram";
 lang.GUI.modeMore="More information";
@@ -564,6 +627,18 @@ lang.GUI.formulaExtAC="Extended Allen-Cunneen approximation formula";
 lang.GUI.formulaExtACLong="Extended Allen-Cunneen approximation formula (G<sup>b<sub>I</sub></sup>/G<sup>b<sub>S</sub></sup>/c model)";
 lang.GUI.formulaExtACInfo="The extended Allen-Cunneen approximation formula additionally allows to map <b>batch arrivals</b>, <b>batch service</b> as well as <b>operator downtimes</b> (<b>G<sup>b<sub>I</sub></sup>/G<sup>b<sub>S</sub></sup>/c</b>-Modell).";
 lang.GUI.formulaExtACLimitations="Limitations of the extended Allen-Cunneen approximation formula";
+lang.GUI.formulaCompare="Design of queueing systems";
+lang.GUI.formulaCompareLong="Design of queueing systems";
+lang.GUI.formulaCompareInfo="The formulas of queueing theory can be used to study everyday queueing situations in which the system is configured differently.";
+lang.GUI.formulaShortestQueue="Choice of the shortest queue";
+lang.GUI.formulaShortestQueueLong="Choice of the shortest queue";
+lang.GUI.formulaShortestQueueInfo="The choice of the shorter queue is a good estimator of which queue will get you to the checkout faster. However, as the length of the two queues increases, the probability of getting to the checkout faster in the longer queue increases.";
+lang.GUI.formulaShortestQueueA="Length of the longer queue";
+lang.GUI.formulaShortestQueueB="Length of the shorter queue";
+lang.GUI.formulaShortestQueueAInfo1="This queue is not selected by arriving customers because it is assumed that the waiting time here is longer than at the other queue.";
+lang.GUI.formulaShortestQueueAInfo2="";
+lang.GUI.formulaShortestQueueBInfo1="The shorter queue represents the natural choice for newly arriving customers. It is assumed that the waiting time at this queue is shorter than at the longer queue.";
+lang.GUI.formulaShortestQueueBInfo2="";
 lang.GUI.tabHome="Start";
 lang.GUI.tabErlangB="Erlang-B formula";
 lang.GUI.tabErlangBInfo="M/M/c/C";
@@ -577,7 +652,10 @@ lang.GUI.tabPCInfo="M/G/1";
 lang.GUI.tabAC="Allen-Cunneen approximation formula";
 lang.GUI.tabACInfo="G/G/c";
 lang.GUI.tabExtAC="Extended Allen-Cunneen approximation formula";
-lang.GUI.tabExtACInfo="G<sup>b<sub>I</sub></sup>/G<sup>b<sub>S</sub></sup>/c"
+lang.GUI.tabExtACInfo="G<sup>b<sub>I</sub></sup>/G<sup>b<sub>S</sub></sup>/c";
+lang.GUI.tabDesign="System design";
+lang.GUI.tabCompare="Comparison of different strategies";
+lang.GUI.tabShortestQueue="Choice of the shortest queue";
 lang.GUI.tabSimulation='Simulation';
 lang.GUI.tabSimulationInfo='If the capabilities of the (extended) Erlang-C formula and the (extended) Allen-Cunneen approximation formula are not sufficient anymore to model a queueing system, one of the open source <b>simulation tools</b> offered here can be used.';
 lang.GUI.tabHelp="Help";
@@ -679,6 +757,8 @@ lang.statistics.headingACResults="Allen-Cunneen results";
 lang.statistics.headingACCorrectionFactors="Correction factors";
 lang.statistics.headingACCorrectionFactorsInfo1="In order to reduce the deviations between approximate formula and reality, several correction factor approaches exist.";
 lang.statistics.headingACCorrectionFactorsInfo2="The correction terms are effective for coefficients of variation not equal to 1 (Krämer, Langenbach-Belz, 1976) and for batch sizes larger than 1 (Hanschke, 2006).";
+lang.statistics.headingCompareResults="Comparison of the models";
+lang.statistics.headingCompareResultsRank="place";
 lang.statistics.CorrectionFactorKLB="Langenbach-Belz correction factor";
 lang.statistics.CorrectionFactorH="Hanschke correction term";
 lang.statistics.rhoError="Only for &rho;&le;1 a steady state can occur. Therefore, no parameters can be calculated for the current model.";
@@ -1037,6 +1117,50 @@ The performance indicators of the G/G/c model for the respective parameters are 
 <a href="javascript:void(0);" onclick="showTab('ExtACValues');">extended Allen-Cunneen approximation formula individual values</a>.
 </p>
 `;
+
+lang.text.CompareValues=`
+<p>
+Using the formulas of queuing theory everyday waiting situations can be examined. Exemplary the following 4 models are considered:
+</p>
+<ul>
+  <li>There are two operators available. The arriving customers are assigned by a so-called dispatcher to the next available operator. This principle is used at the check-in at the airport for example.</li>
+  <li>Here are two parallel servers available, too. But the clients are divided 50%/50% to the two queues at the time of arrival.</li>
+  <li>There is only one operator and one queue. But the operator can serve two customers simultaneously.</li>
+  <li>There is only one operator and one queue. But the operator works at double speed.</li>
+</ul>`;
+
+lang.text.ShortestQueueValues=`
+<p>
+If there are several checkouts to choose from, as in a supermarket, people tend to line up at the checkout with the shortest queue in order to minimize their own waiting time.
+</p>
+<p>
+But obviously this strategy does not guarantee that one will also be processed faster. Since the waiting times of individual customers vary randomly (one has more in his basket, the other less), it may happen that in the long queue many small orders follow each other randomly, while in the shorter queue large orders predominate. In this case, one may have to wait longer in the shorter queue than in the longer queue.
+</p>
+<p>
+Mathematically, it can be shown that the more irregular the work orders of the individual customers are, the more frequently this situation occurs. (Conversely, if all work orders are roughly the same size, i.e. all customers have roughly the same number of items in their shopping baskets, the checkout with the shorter queue will certainly also be processed more quickly).
+</p>`;
+
+lang.text.ShortestQueueTable=`
+<p>
+If there are several checkouts to choose from, as in a supermarket, people tend to line up at the checkout with the shortest queue in order to minimize their own waiting time.
+</p>
+<p>
+But obviously this strategy does not guarantee that one will also be processed faster. Since the waiting times of individual customers vary randomly (one has more in his basket, the other less), it may happen that in the long queue many small orders follow each other randomly, while in the shorter queue large orders predominate. In this case, one may have to wait longer in the shorter queue than in the longer queue.
+</p>
+<p>
+Mathematically, it can be shown that the more irregular the work orders of the individual customers are, the more frequently this situation occurs. (Conversely, if all work orders are roughly the same size, i.e. all customers have roughly the same number of items in their shopping baskets, the checkout with the shorter queue will certainly also be processed more quickly).
+</p>`;
+
+lang.text.ShortestQueueDiagram=`
+<p>
+If there are several checkouts to choose from, as in a supermarket, people tend to line up at the checkout with the shortest queue in order to minimize their own waiting time.
+</p>
+<p>
+But obviously this strategy does not guarantee that one will also be processed faster. Since the waiting times of individual customers vary randomly (one has more in his basket, the other less), it may happen that in the long queue many small orders follow each other randomly, while in the shorter queue large orders predominate. In this case, one may have to wait longer in the shorter queue than in the longer queue.
+</p>
+<p>
+Mathematically, it can be shown that the more irregular the work orders of the individual customers are, the more frequently this situation occurs. (Conversely, if all work orders are roughly the same size, i.e. all customers have roughly the same number of items in their shopping baskets, the checkout with the shorter queue will certainly also be processed more quickly).
+</p>`;
 
 /* Activate language */
 
