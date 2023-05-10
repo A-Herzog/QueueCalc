@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-'use strict';
+export {language}
 
 let lang;
 
@@ -66,7 +66,9 @@ lang.GUI.formulaShortestQueue="Wahl der kürzesten Schlange";
 lang.GUI.formulaShortestQueueLong="Wahl der kürzesten Schlange";
 lang.GUI.formulaShortestQueueInfo="Die Wahl der kürzeren Warteschlange stellt zwar einen guten Schätzer dafür, in welcher Schlange man schneller zur Kasse gelangt, dar. Mit steigender Länge der beiden Schlangen wächst allerdings die Wahrscheinlichkeit, in der längeren Schlange schneller zum Ziel zu gelangen.";
 lang.GUI.formulaShortestQueueA="Länge der längeren Warteschlange";
+lang.GUI.formulaShortestQueueAWaitingTime="Wartezeit in der längeren Warteschlange";
 lang.GUI.formulaShortestQueueB="Länge der kürzeren Warteschlange";
+lang.GUI.formulaShortestQueueBWaitingTime="Wartezeit in der kürzeren Warteschlange";
 lang.GUI.formulaShortestQueueAInfo1="Diese Warteschlange wird vom Kunden nicht gewählt, da vermutet wird, dass die Wartezeit hier länger ist als an der anderen Warteschlange.";
 lang.GUI.formulaShortestQueueAInfo2="";
 lang.GUI.formulaShortestQueueBInfo1="Die kürzere Warteschlange stellt die natürliche Wahl für neu eintreffende Kunden dar. Es wird angenommen, dass die Wartezeit an dieser kürzer ist als an der längeren Warteschlange.";
@@ -178,6 +180,7 @@ lang.statistics={};
 lang.statistics.unitTime='Zeit';
 lang.statistics.unitNumber='Anzahl';
 lang.statistics.unitFraction='Anteil';
+lang.statistics.conversion="Umrechnung";
 lang.statistics.characteristicsModeInput="Eingang";
 lang.statistics.characteristicsModeNet="netto";
 lang.statistics.headingInputParameters="Eingestellte Parameter";
@@ -194,6 +197,7 @@ lang.statistics.headingCompareResultsRank="Platz";
 lang.statistics.CorrectionFactorKLB="Langenbach-Belz Korrekturfaktor";
 lang.statistics.CorrectionFactorH="Hanschke Korrekturterm";
 lang.statistics.rhoError="Nur für &rho;&le;1 kann sich ein stationärer Zustand einstellen. Daher können für das aktuelle Modell keine Kenngrößen berechnet werden.";
+lang.statistics.arrivalAnsServiceRate="Ankunfts- und Bedienrate";
 lang.statistics.arrivalRate="Ankunftsrate";
 lang.statistics.arrivalRateInfo="mittlere Zwischenankunftszeit";
 lang.statistics.arrivalRateNet="Netto Ankunftsrate";
@@ -211,6 +215,8 @@ lang.statistics.Utilization="Auslastung";
 lang.statistics.UtilizationNet="Netto Auslastung";
 lang.statistics.UtilizationInputInfo="Es handelt sich hierbei um theoretische Werte bezogen auf die Ankunftsrate. Aufgrund von Warteabbrechern kann die reale Ankunftsrate bei den Bedienern niedriger ausfallen.";
 lang.statistics.UtilizationErlangC="Zum Vergleich ohne Abweisungen";
+lang.statistics.WaitingTimeDistribution="Wartezeitverteilung";
+lang.statistics.WaitingTimeDistributionInfo="wobei <i>Q</i> die regularisierte unvollständige Gamma-Funktion sei";
 lang.statistics.averageWaitingTime="Mittere Wartezeit";
 lang.statistics.averageResidenceTime="Mittere Verweilzeit";
 lang.statistics.flowFactor="Flussgrad";
@@ -236,6 +242,17 @@ lang.statistics.AvailabilityProbability="Wahrscheinlichkeit für die Verfügbark
 lang.statistics.DownTimeMean="Mittlere Ausfallzeit";
 lang.statistics.DownTimeCV="Variationskoeffizient der Ausfallzeiten";
 lang.statistics.rejectionProbability="Abweisungswahrscheinlichkeit";
+lang.statistics.auxiliaryFormulas="Hilfsgrößen";
+lang.statistics.for="für";
+
+lang.statistics.compere={};
+lang.statistics.compere.common="Gemeinsame Warteschlange";
+lang.statistics.compere.separate="Getrennte Warteschlangen";
+lang.statistics.compere.batch="Batch-Bedienung";
+lang.statistics.compere.fast="Schnellerer Bediener";
+lang.statistics.compere.input="Eingabeparameter";
+lang.statistics.compere.inputSingle="Eingabeparameter pro Teilsystem";
+lang.statistics.compere.output="Ausgabegrößen";
 
 lang.text={};
 lang.text.start=`
@@ -634,7 +651,9 @@ lang.GUI.formulaShortestQueue="Choice of the shortest queue";
 lang.GUI.formulaShortestQueueLong="Choice of the shortest queue";
 lang.GUI.formulaShortestQueueInfo="The choice of the shorter queue is a good estimator of which queue will get you to the checkout faster. However, as the length of the two queues increases, the probability of getting to the checkout faster in the longer queue increases.";
 lang.GUI.formulaShortestQueueA="Length of the longer queue";
+lang.GUI.formulaShortestQueueAWaitingTime="Waiting time in the longer queue";
 lang.GUI.formulaShortestQueueB="Length of the shorter queue";
+lang.GUI.formulaShortestQueueBWaitingTime="Waiting time in the shorter queue";
 lang.GUI.formulaShortestQueueAInfo1="This queue is not selected by arriving customers because it is assumed that the waiting time here is longer than at the other queue.";
 lang.GUI.formulaShortestQueueAInfo2="";
 lang.GUI.formulaShortestQueueBInfo1="The shorter queue represents the natural choice for newly arriving customers. It is assumed that the waiting time at this queue is shorter than at the longer queue.";
@@ -746,6 +765,7 @@ lang.statistics={};
 lang.statistics.unitTime='Time';
 lang.statistics.unitNumber='Number';
 lang.statistics.unitFraction='Fraction';
+lang.statistics.conversion="Conversion";
 lang.statistics.characteristicsModeInput="Input";
 lang.statistics.characteristicsModeNet="net";
 lang.statistics.headingInputParameters="Input parameters";
@@ -762,6 +782,7 @@ lang.statistics.headingCompareResultsRank="place";
 lang.statistics.CorrectionFactorKLB="Langenbach-Belz correction factor";
 lang.statistics.CorrectionFactorH="Hanschke correction term";
 lang.statistics.rhoError="Only for &rho;&le;1 a steady state can occur. Therefore, no parameters can be calculated for the current model.";
+lang.statistics.arrivalAnsServiceRate="Arrival and service rate";
 lang.statistics.arrivalRate="Arrival rate";
 lang.statistics.arrivalRateInfo="average inter-arrival time";
 lang.statistics.arrivalRateNet="Net arrival rate";
@@ -779,6 +800,8 @@ lang.statistics.Utilization="Utilization";
 lang.statistics.UtilizationNet="Net Utilization";
 lang.statistics.UtilizationInputInfo="These are theoretical values related to the arrival rate. Due to waiting cancellations, the real arrival rate at the operators may be lower.";
 lang.statistics.UtilizationErlangC="For comparison without rejections";
+lang.statistics.WaitingTimeDistribution="Waiting time distribution";
+lang.statistics.WaitingTimeDistributionInfo="where <i>Q</i> is the regularized incomplete Gamma function";
 lang.statistics.averageWaitingTime="Average waiting time";
 lang.statistics.averageResidenceTime="Average residence time";
 lang.statistics.flowFactor="Flow factor";
@@ -804,6 +827,17 @@ lang.statistics.AvailabilityProbability="Probability for the availability of an 
 lang.statistics.DownTimeMean="Average downtime";
 lang.statistics.DownTimeCV="Coefficient of variation of the down times";
 lang.statistics.rejectionProbability="Rejection probability";
+lang.statistics.auxiliaryFormulas="Auxiliary formulas";
+lang.statistics.for="for";
+
+lang.statistics.compere={};
+lang.statistics.compere.common="Common queue";
+lang.statistics.compere.separate="Separate queues";
+lang.statistics.compere.batch="Batch service";
+lang.statistics.compere.fast="Faster operator";
+lang.statistics.compere.input="Input parameters";
+lang.statistics.compere.inputSingle="Input parameters per partial system";
+lang.statistics.compere.output="Characteristics";
 
 lang.text={};
 

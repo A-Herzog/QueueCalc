@@ -17,6 +17,7 @@ limitations under the License.
 export {tilesCompare, updateCompare};
 
 import {TilesBuilder} from './tools_gui.js';
+import {language} from './Language.js';
 
 const tilesCompare=new TilesBuilder('Compare');
 
@@ -177,13 +178,13 @@ function updateCompareValues() {
       result+=language.statistics.rhoError;
   } else {
     const all=[data.common,data.separate,data.batch,data.fast];
-    result+="<b>Gemeinsame Warteschlange</b><br>";
+    result+="<b>"+language.statistics.compere.common+"</b><br>";
     result+=getModelResults(data.common,all);
-    result+="<b>Getrennte Warteschlangen</b><br>";
+    result+="<b>"+language.statistics.compere.separate+"</b><br>";
     result+=getModelResults(data.separate,all);
-    result+="<b>Batch-Bedienung</b><br>";
+    result+="<b>"+language.statistics.compere.batch+"</b><br>";
     result+=getModelResults(data.batch,all);
-    result+="<b>Schnellerer Bediener</b><br>";
+    result+="<b>"+language.statistics.compere.fast+"</b><br>";
     result+=getModelResults(data.fast,all);
   }
   result+="</p>\n";

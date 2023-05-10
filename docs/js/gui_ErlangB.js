@@ -18,6 +18,7 @@ export {tilesErlangB, updateErlangB};
 
 import {TilesBuilder, Table} from './tools_gui.js';
 import {ErlangB} from './Erlang.js';
+import {language} from './Language.js';
 
 const tilesErlangB=new TilesBuilder('ErlangB');
 
@@ -77,7 +78,7 @@ function calcErlangB(input) {
   const lambdaNet=1/result.EI*(1-result.Preject);
   result.rho=lambdaNet*result.ES/result.c;
 
-   result.rhoErlangC=result.a/result.c;
+  result.rhoErlangC=result.a/result.c;
 
   return result;
 }

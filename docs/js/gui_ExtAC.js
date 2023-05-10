@@ -18,6 +18,7 @@ export {tilesExtAC, updateExtAC};
 
 import {TilesBuilder, Table} from './tools_gui.js';
 import {ErlangC_ENQ, ErlangC_EW} from './Erlang.js';
+import {language} from './Language.js';
 
 const tilesExtAC=new TilesBuilder('ExtAC');
 

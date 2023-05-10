@@ -17,6 +17,7 @@ limitations under the License.
 export {tilesPC, updatePC};
 
 import {TilesBuilder, Table} from './tools_gui.js';
+import {language} from './Language.js';
 
 const tilesPC=new TilesBuilder('PC');
 

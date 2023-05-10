@@ -26,14 +26,16 @@ import {tilesAC, updateAC} from './gui_AC.js';
 import {tilesExtAC, updateExtAC} from './gui_ExtAC.js';
 import {tilesCompare, updateCompare} from './gui_Compare.js';
 import {tilesShortestQueue, updateShortestQueue} from './gui_ShortestQueue.js';
+import {formulasErlangB, formulasErlangC, formulasExtErlangC, formulasPC, formulasAC, formulasExtAC, formulasCompare, formulasShortestQueue} from './FormulaBuilder.js';
+import {language} from './Language.js';
 
 
 
-function buildStartTile(size, title, text, id, imgWidth="100%", showMore=false, fileFormat="svg", aspectRatio=null, onlyValues=false) {
+function buildStartTile(size, title, text, id, imgWidth="100%", showMore=false, fileFormat="svg", aspectRatio=null, onlyValues=false, icon="") {
   let block="";
 
   block+="<div class=\"col-lg-"+size+"\"><div class=\"card\">";
-  block+="<div class=\"card-header\"><h3 class=\"h5\">"+title+"</h3></div>";
+  block+="<div class=\"card-header\"><h3 class=\"h5\">"+icon+title+"</h3></div>";
   block+="<div class=\"card-body\">";
   let aspectRatioStyle='';
   if (aspectRatio!=null) aspectRatioStyle=' aspect-ratio: '+aspectRatio+';';
@@ -61,7 +63,7 @@ function buildStartTile(size, title, text, id, imgWidth="100%", showMore=false, 
   return block;
 }
 
-function buildStartTiles() {
+function buildStartTiles(isDesktopApp) {
   let block="";
 
   block+="<div class=\"row\">";
@@ -74,7 +76,7 @@ function buildStartTiles() {
   block+=buildStartTile(6,language.GUI.formulaExtAC,language.GUI.formulaExtACInfo,"ExtAC","100%",false,"svg","159.82 / 74.05");
   block+=buildStartTile(6,language.GUI.formulaCompare,language.GUI.formulaCompareInfo,"Compare","100%",false,"svg","602.67 / 279.23",true);
   block+=buildStartTile(6,language.GUI.formulaShortestQueue,language.GUI.formulaShortestQueueInfo,"ShortestQueue","100%",false,"svg","602.67 / 319.07");
-  block+=buildStartTile(6,"<i class='bi-caret-right-square'></i> "+language.GUI.tabSimulation,language.GUI.tabSimulationInfo,"Simulation","100%",true,'webp','640 / 481');
+  block+=buildStartTile(6,language.GUI.tabSimulation,language.GUI.tabSimulationInfo,"Simulation","100%",true,'webp','640 / 481',false,"<i class='bi-caret-right-square'></i> ");
 
   block+="<div class=\"col-lg-6\"><div class=\"card\">";
   block+="<div class=\"card-header\"><h3 class=\"h5 bi-download\"> "+language.GUI.tabDownloads+"</h3></div>";
@@ -106,7 +108,7 @@ function buildStartTiles() {
   return block;
 }
 
-function getMainGUI() {
+function getMainGUI(isDesktopApp) {
   let result="";
 
   /* Start */
@@ -119,7 +121,7 @@ function getMainGUI() {
     result+="</span></div>";
   }
   result+=language.text.start;
-  result+=buildStartTiles();
+  result+=buildStartTiles(isDesktopApp);
   result+="</div>";
 
   /* Erlang-B-Formel */
@@ -127,7 +129,10 @@ function getMainGUI() {
   result+=getPlaceholder({
     id: "ErlangB",
     title: language.GUI.formulaErlangBLong,
-    valuesData: language.text.ErlangBValues+tilesErlangB.valueTiles,
+    valuesInfo: language.text.ErlangBValues,
+    valuesTilesButtons: tilesErlangB.valueTilesButtons,
+    valuesTiles: tilesErlangB.valueTiles,
+    valuesFormula: formulasErlangB,
     valuesInfoCards: [
       {head: language.GUI.formulaErlangBLimitations, body: language.text.ErlangBValuesLimitations},
       getNextStepsButtons("ErlangB",language.GUI.nextStepsErlangBTable,language.GUI.nextStepsErlangBDiagram)
@@ -141,7 +146,10 @@ function getMainGUI() {
   result+=getPlaceholder({
     id: "ErlangC",
     title: language.GUI.formulaErlangCLong,
-    valuesData: language.text.ErlangCValues+tilesErlangC.valueTiles,
+    valuesInfo: language.text.ErlangCValues,
+    valuesTilesButtons: tilesErlangC.valueTilesButtons,
+    valuesTiles: tilesErlangC.valueTiles,
+    valuesFormula: formulasErlangC,
     valuesInfoCards: [
       {head: language.GUI.formulaErlangCLimitations, body: language.text.ErlangCValuesLimitations},
       getNextStepsButtons("ErlangC",language.GUI.nextStepsErlangCTable,language.GUI.nextStepsErlangCDiagram)
@@ -155,7 +163,10 @@ function getMainGUI() {
   result+=getPlaceholder({
     id: "ExtErlangC",
     title: language.GUI.formulaExtErlangCLong,
-    valuesData: language.text.ExtErlangCValues+tilesExtErlangC.valueTiles,
+    valuesInfo: language.text.ExtErlangCValues,
+    valuesTilesButtons: tilesExtErlangC.valueTilesButtons,
+    valuesTiles: tilesExtErlangC.valueTiles,
+    valuesFormula: formulasExtErlangC,
     valuesInfoCards: [
       {head: language.GUI.formulaExtErlangCLimitations, body: language.text.ExtErlangCValuesLimitations},
       getNextStepsButtons("ExtErlangC",language.GUI.nextStepsExtErlangCTable,language.GUI.nextStepsExtErlangCDiagram)
@@ -169,7 +180,10 @@ function getMainGUI() {
   result+=getPlaceholder({
     id: "PC",
     title: language.GUI.formulaPCLong,
-    valuesData: language.text.PCValues+tilesPC.valueTiles,
+    valuesInfo: language.text.PCValues,
+    valuesTilesButtons: tilesPC.valueTilesButtons,
+    valuesTiles: tilesPC.valueTiles,
+    valuesFormula: formulasPC,
     valuesInfoCards: [
       {head: language.GUI.formulaPCLimitations, body: language.text.PCValuesLimitations},
       getNextStepsButtons("PC",language.GUI.nextStepsPCTable,language.GUI.nextStepsPCDiagram)
@@ -183,7 +197,10 @@ function getMainGUI() {
   result+=getPlaceholder({
     id: "AC",
     title: language.GUI.formulaACLong,
-    valuesData: language.text.ACValues+tilesAC.valueTiles,
+    valuesInfo: language.text.ACValues,
+    valuesTilesButtons: tilesAC.valueTilesButtons,
+    valuesTiles: tilesAC.valueTiles,
+    valuesFormula: formulasAC,
     valuesInfoCards: [
       {head: language.GUI.formulaACLimitations, body: language.text.ACValuesLimitations},
       getNextStepsButtons("AC",language.GUI.nextStepsACTable,language.GUI.nextStepsACDiagram)
@@ -197,7 +214,10 @@ function getMainGUI() {
   result+=getPlaceholder({
     id: "ExtAC",
     title: language.GUI.formulaExtACLong,
-    valuesData: language.text.ExtACValues+tilesExtAC.valueTiles,
+    valuesInfo: language.text.ExtACValues,
+    valuesTilesButtons: tilesExtAC.valueTilesButtons,
+    valuesTiles: tilesExtAC.valueTiles,
+    valuesFormula: formulasExtAC,
     valuesInfoCards: [
       {head: language.GUI.formulaExtACLimitations, body: language.text.ExtACValuesLimitations},
       getNextStepsButtons("ExtAC",language.GUI.nextStepsExtACTable,language.GUI.nextStepsExtACDiagram)
@@ -212,7 +232,10 @@ function getMainGUI() {
     id: "Compare",
     imageMaxWidth: 1200,
     title: language.GUI.formulaCompareLong,
-    valuesData: language.text.CompareValues+tilesCompare.valueTiles
+    valuesInfo: language.text.CompareValues,
+    valuesTilesButtons: tilesCompare.valueTilesButtons,
+    valuesTiles: tilesCompare.valueTiles,
+    valuesFormula: formulasCompare,
   });
 
   /* Systemdesign: Wahl der kürzesten Schlange */
@@ -220,7 +243,10 @@ function getMainGUI() {
   result+=getPlaceholder({
     id: "ShortestQueue",
     title: language.GUI.formulaShortestQueueLong,
-    valuesData: language.text.ShortestQueueValues+tilesShortestQueue.valueTiles,
+    valuesInfo: language.text.ShortestQueueValues,
+    valuesTilesButtons: tilesShortestQueue.valueTilesButtons,
+    valuesTiles: tilesShortestQueue.valueTiles,
+    valuesFormula: formulasShortestQueue,
     tableData: language.text.ShortestQueueTable+tilesShortestQueue.tableTiles,
     diagramData: language.text.ShortestQueueDiagram+tilesShortestQueue.diagramTiles
   });

@@ -18,6 +18,7 @@ export {tilesErlangC, updateErlangC};
 
 import {TilesBuilder, Table} from './tools_gui.js';
 import {MMcZustandsP, ErlangC, ErlangC_EW} from './Erlang.js';
+import {language} from './Language.js';
 
 const tilesErlangC=new TilesBuilder('ErlangC');
 

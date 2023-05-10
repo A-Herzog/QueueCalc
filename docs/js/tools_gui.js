@@ -17,6 +17,7 @@ limitations under the License.
 export {selectLanguage, buildMultiNavDropdown, showTab, getPlaceholder, getNextStepsButtons, getSimplePlaceholder, TilesBuilder, Table}
 
 import {getPositiveFloat, getNotNegativeFloat, getPositiveInt, getNotNegativeInt, isVariabel} from './tools.js';
+import {language} from './Language.js';
 
 /* Sprachauswahl */
 
@@ -87,6 +88,27 @@ function showTab(id) {
 
 /* Platzhalter */
 
+function valuesFormulaVisiblity(elementId, buttonId) {
+  setTimeout(()=>{
+    const isVisible=(document.getElementById(elementId).clientHeight>=50);
+    const button=document.getElementById(buttonId);
+    if (isVisible) {
+      button.innerHTML="Formeln ausblenden";
+      button.classList.remove("btn-success");
+      button.classList.add("btn-warning");
+      button.classList.remove("bi-arrows-expand");
+      button.classList.add("bi-arrows-collapse");
+    } else {
+      button.innerHTML="Formeln anzeigen";
+      button.classList.remove("btn-warning");
+      button.classList.add("btn-success");
+      button.classList.remove("bi-arrows-collapse");
+      button.classList.add("bi-arrows-expand");
+    }
+  },400);
+}
+window.valuesFormulaVisiblity=valuesFormulaVisiblity;
+
 function getPlaceholder(record) {
   let block="";
 
@@ -99,7 +121,28 @@ function getPlaceholder(record) {
 
   block+="<button type=\"button\" class=\"btn-close\" aria-label=\"Close\" onclick=\"showTab('Home');\"></button><br>";
   block+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+".svg\">";
-  block+=record.valuesData;
+  block+=record.valuesInfo;
+
+  block+='<div class="mb-2">';
+  if (typeof(record.valuesFormula)=='string' && record.valuesFormula!='') {
+    const formulaId=record.id+'ValuesFormula';
+    block+='<button class="btn btn-success bi-arrows-expand me-3" type="button" id="'+formulaId+'Button" data-bs-toggle="collapse" data-bs-target="#'+formulaId+'" aria-expanded="false" aria-controls="'+formulaId+'" onclick="valuesFormulaVisiblity(\''+formulaId+'\',\''+formulaId+'Button\')">';
+    block+='Formeln anzeigen';
+    block+='</button>';
+  }
+  block+=record.valuesTilesButtons;
+  block+='</div>';
+
+  if (typeof(record.valuesFormula)=='string' && record.valuesFormula!='') {
+    const formulaId=record.id+'ValuesFormula';
+    block+='<div class="collapse mb-3" id="'+formulaId+'">';
+    block+='<div class="card card-body">';
+    block+=record.valuesFormula;
+    block+='</div>';
+    block+='</div>';
+  }
+
+  block+=record.valuesTiles;
 
   if (typeof(valuesInfoCards)!='undefined') {
     block+="<div class=\"row\">";
@@ -317,11 +360,17 @@ class TilesBuilder {
     this.tiles.push(tile);
   }
 
-  get valueTiles() {
+  get valueTilesButtons() {
     let block='';
 
-    block+='<p><button type="button" class="btn btn-warning bi-arrows-collapse" id="'+this.formula+'ValuesInfoHide" onclick="hideValueInfo(\''+this.formula+'\')"> '+language.model.explanationsHide+'</button></p>';
-    block+='<p><button type="button" class="btn btn-success bi-arrows-expand" id="'+this.formula+'ValuesInfoShow" onclick="showValueInfo(\''+this.formula+'\')" style="display: none;"> '+language.model.explanationsShow+'</button></p>';
+    block+='<button type="button" class="btn btn-warning bi-arrows-collapse" id="'+this.formula+'ValuesInfoHide" onclick="hideValueInfo(\''+this.formula+'\')"> '+language.model.explanationsHide+'</button>';
+    block+='<button type="button" class="btn btn-success bi-arrows-expand" id="'+this.formula+'ValuesInfoShow" onclick="showValueInfo(\''+this.formula+'\')" style="display: none;"> '+language.model.explanationsShow+'</button>';
+
+    return block;
+  }
+
+  get valueTiles() {
+    let block='';
 
     block+="<div class=\"row\" id=\""+this.formula+"InputArea\">";
 

@@ -19,24 +19,21 @@
   limitations under the License.
   -->
   <title>Warteschlangenrechner</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="Berechnung der Kenngrößen von Erlang-C- und Allen-Cunneen-Warteschlangenmodellen">
   <meta name="keywords" content="Warteschlangentheorie, Queueing theory">
   <!-- Begin of language independent part -->
   <meta name="author" content="Alexander Herzog">
   <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
   <meta http-equiv="Content-Security-Policy" content="base-uri 'none'; default-src 'none'; connect-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data:;">
   <link href="./libs/bootstrap.min.css" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" rel="stylesheet">
   <link href="./libs/bootstrap-icons.css" integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
   <link href="./css/index.css" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
   <script defer src="./libs/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"></script>
   <script defer src="./libs/chart.umd.js" integrity="sha384-7zIFx9pXOq80OxAYxdxvWejv1TYHNbgwokiYvZi8PvGY/MDxa56nZFcULjBwXVsk"></script>
-  <script src="./libs/neutralino.js"></script>
-  <script src="./js/Language.js"></script>
-  <script>const isDesktopApp=(typeof(NL_OS)!='undefined'); if (isDesktopApp) Neutralino.init();</script>
+  <script defer src="./libs/neutralino.js" integrity="sha384-PHLBc+h+UJz3gyDGfTR+noqhf4C5I+NRDT4nOeCyfsB2JvIQU8j/Y9GVh+FANPJm"></script>
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="#navbar_main" data-bs-offset="150">
@@ -51,22 +48,22 @@
   <div class="container-fluid">
   <span class="navbar-brand mb-0 h1">
     <span style="background-color: white; padding: 1px 10px 5px 10px; border-radius: 2px;"><img src="data:image/webp;base64,UklGRoQDAABXRUJQVlA4WAoAAAAYAAAAIwAAIwAAVlA4TIgCAAAvI8AIENVIoq3t2Bbbtm3bNrNt27Zt27Zt27Y1d709bxpfw2y7D8N/rSe7oMYCgFB53xUYwV3moLpD5Yju0Eju0v6R3BIjMADZrRHdA261bc+SikNnfjsXoKP9rd4RTN8ELgAb/BMwgRNkneCrsKX6lyD/nfmaAFwjLqlexp0qN9226x6wt7JsqXdL/1bVqXf2jmWdjq6h9Ez6RYP+1/OccjSgNvNsJfkuXZMiC0S/aD0pMdPyAWwoyvyrjC8ZXSGve0/ol8A/mwsRZwHgRDx7tMuakXkb+cQjYp+eptlRayzA8orySeYMkW/u57sGvQmWD+fc3xD/kGrPR7Ddp2nJ/Vx9eATWN+e+5l2vbXoSV8sDso9sIJvICfKEZGe3aQMPWfDAHgf8yEUXD4c0LIx1kdqnHKH0YAFzaM5/ZWrpJzgF0EG6ooM+VAYJKNVGFHUoVUQMXagWnjRxmZ77/c1x3rYWZuSnpzFQQ9qQzV0FhROtV9RxOGW0d19xOCX0tnQ0q6Bk0drhTxDzzU4anu+4mOjDkiyWOzVIfisggPSWkirQQNozG6CBpRtrFcTL64JMMX+BCx50MNn6SXGFzK98gHFqmrFekFkKs34kUU6QiJZ2VDdiFuTyTUpBxBETwUxfBkPksx6TvTNrpibwnciv2jArTFWmCzLqrFWZrLE0Z2S4O+WIiB2cAMt+mgv1NnXw6acb5BzJbwWsBSypuD9B35QK24mgCKXS/kQR01MhOxNW8CqL/nBkeb5NoaWrz7fbVGCLcXe1pnrxfdUpjqZZ+PCzNS20aWQKOVStxdtUrDUH8ZNimNJTnx2OJd/4+emmW66cNCQHHHPaTDgIGaEhfEQnccQRrr5FWElG1gAAAElJKgAIAAAABgASAQMAAQAAAAEAAAAaAQUAAQAAAFYAAAAbAQUAAQAAAF4AAAAoAQMAAQAAAAIAAAAxAQIAEAAAAGYAAABphwQAAQAAAHYAAAAAAAAAYAAAAAEAAABgAAAAAQAAAHBhaW50Lm5ldCA1LjAuMgAFAACQBwAEAAAAMDIzMAGgAwABAAAAAQAAAAKgBAABAAAAJAAAAAOgBAABAAAAJAAAAAWgBAABAAAAuAAAAAAAAAACAAEAAgAEAAAAUjk4AAIABwAEAAAAMDEwMAAAAAA=" width="24" height="24" alt="Logo"></span>
-    <script>document.write(language.GUI.Name);</script>
+    <span id="brandName"></span>
   </span>
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto nav-pills nav" role="tablist" id="mainNavBar">
-      <li class="nav-item" role="tab"><a class="nav-link bi-house-door" data-bs-toggle="tab" href="#Home" data-bs-target="#Home"> <script>document.write(language.GUI.tabHome);</script></a></li>
-      <li class="nav-item" role="tab"><a class="nav-link bi-caret-right-square" data-bs-toggle="tab" href="#Simulation" data-bs-target="#Simulation"> <script>document.write(language.GUI.tabSimulation);</script></a></li>
+      <li class="nav-item" role="tab"><a class="nav-link bi-house-door" data-bs-toggle="tab" href="#Home" data-bs-target="#Home" id="menuHome"></a></li>
+      <li class="nav-item" role="tab"><a class="nav-link bi-caret-right-square" data-bs-toggle="tab" href="#Simulation" data-bs-target="#Simulation" id="menuSimulation"></a></li>
       <li class="nav-item dropdown" role="tab">
-        <a class="nav-link dropdown-toggle bi-question-circle" href="#" id="navbarHelpMenu" role="button" data-bs-toggle="dropdown" aria-expanded="false"> <script>document.write(language.GUI.tabHelp);</script></a>
-        <ul class="dropdown-menu dropdown-menu-dark bg-primary" aria-labelledby="navbarHelpMenu">
-        <li role="tab"><a class="dropdown-item" data-bs-toggle="tab" href="#QueueingTheory" data-bs-target="#QueueingTheory"><script>document.write(language.GUI.tabHelpDoc);</script></a></li>
-        <li role="tab"><a class="dropdown-item" data-bs-toggle="tab" href="#Glossary" data-bs-target="#Glossary"><script>document.write(language.GUI.tabHelpGlossary);</script></a></li>
+        <a class="nav-link dropdown-toggle bi-question-circle" href="#" id="menuHelp" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
+        <ul class="dropdown-menu dropdown-menu-dark bg-primary" aria-labelledby="menuHelp">
+        <li role="tab"><a class="dropdown-item" data-bs-toggle="tab" href="#QueueingTheory" data-bs-target="#QueueingTheory" id="menuHelpQueueingTheory"></a></li>
+        <li role="tab"><a class="dropdown-item" data-bs-toggle="tab" href="#Glossary" data-bs-target="#Glossary" id="menuHelpGlossary"></a></li>
         <li><hr class="dropdown-divider"></li>
-        <li role="tab"><a class="dropdown-item" href="https://link.springer.com/book/10.1007/978-3-658-34668-3" target="_blank"><script>document.write(language.GUI.tabHelpTextbook);</script></a></li>
+        <li role="tab"><a class="dropdown-item" href="https://link.springer.com/book/10.1007/978-3-658-34668-3" target="_blank" id="menuHelpTextbook"></a></li>
         </ul>
       </li>
     </ul>
@@ -92,31 +89,27 @@
 <div class="row">
 
 <div class="col-md-4 mt-md-0 mt-4">
-<h3 class="h5 text-uppercase"><script>document.write(language.GUI.Name);</script></h3>
+<h3 class="h5 text-uppercase" id="footerQueueCalc"></h3>
 <ul class="list-unstyled">
   <li>&copy <a href="https://github.com/A-Herzog" target="_blank">Alexander Herzog</a></li>
   <li>
     <a href="https://github.com/A-Herzog/QueueCalc" target="_blank" class="bi-github"> GitHub</a>
     <span id="PrivacyInfo1">,
-    <a href="https://aka.ms/impressum" target="_blank"><script>document.write(language.GUI.Imprint);</script></a>,
-    <a href="https://docs.github.com/site-policy/privacy-policies/github-privacy-statement" target="_blank"><script>document.write(language.GUI.Privacy);</script></a>
+    <a href="https://aka.ms/impressum" target="_blank" id="footerQueueCalcImprint"></a>,
+    <a href="https://docs.github.com/site-policy/privacy-policies/github-privacy-statement" target="_blank" id="footerQueueCalcPrivacy"></a>
     </span>
   </li>
-  <li><a target="_blank" id="homeUrlLink"></a></li>
+  <li><a target="_blank" id="footerQueueCalcHomeLink"></a></li>
 </ul>
 </div>
-<script>
-  homeUrlLink.href="https://"+language.GUI.homeURL;
-  homeUrlLink.innerHTML=language.GUI.homeURL;
-</script>
 
 <div class="col-md-4 mb-md-0 mb-4" id="PrivacyInfo2">
-<h3 class="h5 text-uppercase"><script>document.write(language.GUI.PrivacyTitle);</script></h3>
-<div class="text-secondary small"><script>document.write(language.GUI.PrivacyInfo);</script></div>
+<h3 class="h5 text-uppercase" id="footerPrivacyTitle"></h3>
+<div class="text-secondary small" id="footerPrivacyInfo"></div>
 </div>
 
 <div class="col-md-4 mb-md-0 mb-4">
-<h3 class="h5 text-uppercase"><script>document.write(language.GUI.simulators);</script></h3>
+<h3 class="h5 text-uppercase" id="footerSimulators"></h3>
 <ul class="list-unstyled">
   <li><a href="https://a-herzog.github.io/Warteschlangensimulator" target="_blank">Warteschlangensimulator</a></li>
   <li><a href="https://a-herzog.github.io/MiniWarteschlangensimulator" target="_blank">Mini Warteschlangensimulator (Webapp)</a></li>
@@ -138,64 +131,7 @@
 
 <!-- Init -->
 
-<script type="module">
-  import {selectLanguage, buildMultiNavDropdown, showTab} from './js/tools_gui.js';
-  selectLanguage([{name: "default", file: "index.html"}, {name: "de", file: "index_de.html"}]);
-  window.showTab=showTab;
-
-  /* Menu */
-
-  let insertCount=1;
-
-  mainNavBar.insertBefore(buildMultiNavDropdown("ErlangBMenu",language.GUI.tabErlangB,[
-    {id: "ErlangB", name: language.GUI.tabErlangB, info: language.GUI.tabErlangBInfo}
-  ]),mainNavBar.children[insertCount++]);
-
-  mainNavBar.insertBefore(buildMultiNavDropdown("ErlangCMenu",language.GUI.tabErlangC,[
-    {id: "ErlangC", name: language.GUI.tabErlangC, info: language.GUI.tabErlangCInfo},
-    {id: "ExtErlangC", name: language.GUI.tabExtErlangC, info: language.GUI.tabExtErlangCInfo}
-  ]),mainNavBar.children[insertCount++]);
-
-  mainNavBar.insertBefore(buildMultiNavDropdown("ACMenu",language.GUI.tabGeneralS,[
-    {id: "PC", name: language.GUI.tabPC, info: language.GUI.tabPCInfo},
-    {id: "AC", name: language.GUI.tabAC, info: language.GUI.tabACInfo},
-    {id: "ExtAC", name: language.GUI.tabExtAC, info: language.GUI.tabExtACInfo}
-  ]),mainNavBar.children[insertCount++]);
-
-  mainNavBar.insertBefore(buildMultiNavDropdown("DesignMenu",language.GUI.tabDesign,[
-    {id: "Compare", name: language.GUI.tabCompare, onlyValues: true},
-    {id: "ShortestQueue", name: language.GUI.tabShortestQueue}
-  ]),mainNavBar.children[insertCount++]);
-
-  /* Content */
-
-  import {getMainGUI} from './js/gui_Start.js';
-  document.querySelector("main div").innerHTML=getMainGUI();
-
-  document.addEventListener('readystatechange',event=>{if (event.target.readyState=="complete") {
-    if (isDesktopApp) {
-      PrivacyInfo1.style.display="none";
-      PrivacyInfo2.style.display="none";
-      document.querySelector("#Home h2").style.display="none";
-    }
-    mainContent.style.display="";
-    infoLoading.style.display="none";
-  }});
-
-  function rewriteLinksInOfflineMode() {
-    if (!isDesktopApp) return;
-    for (let link of document.querySelectorAll("a")) if (link.href.startsWith('https://')) {
-      const href=link.href;
-      link.onclick=()=>Neutralino.os.open(href);
-      link.removeAttribute("href");
-      link.style.cursor="pointer";
-      if (!link.classList.contains("dropdown-item") && !link.classList.contains("btn")) link.classList.add("link-primary");
-    }
-  }
-
-  rewriteLinksInOfflineMode();
-  for (let link of document.querySelectorAll("a[data-bs-toggle]")) link.addEventListener('shown.bs.tab',()=>rewriteLinksInOfflineMode());
-</script>
+<script src="./index.js" type="module" integrity="sha384-5txxCRt2mDXUcfgpBANrqBIyS/ZHHvQdik6o2FHTJfXnfliP4yb43XgGokq/QAwY"></script>
 
 </body>
 </html>

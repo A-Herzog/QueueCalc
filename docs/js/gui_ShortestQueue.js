@@ -17,6 +17,7 @@ limitations under the License.
 export {tilesShortestQueue, updateShortestQueue};
 
 import {TilesBuilder, Table} from './tools_gui.js';
+import {language} from './Language.js';
 
 const tilesShortestQueue=new TilesBuilder('ShortestQueue');
 
