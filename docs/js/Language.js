@@ -244,6 +244,7 @@ lang.statistics.DownTimeCV="Variationskoeffizient der Ausfallzeiten";
 lang.statistics.rejectionProbability="Abweisungswahrscheinlichkeit";
 lang.statistics.auxiliaryFormulas="Hilfsgrößen";
 lang.statistics.for="für";
+lang.statistics.SpecialCase="Spezialfall";
 
 lang.statistics.compere={};
 lang.statistics.compere.common="Gemeinsame Warteschlange";
@@ -829,6 +830,7 @@ lang.statistics.DownTimeCV="Coefficient of variation of the down times";
 lang.statistics.rejectionProbability="Rejection probability";
 lang.statistics.auxiliaryFormulas="Auxiliary formulas";
 lang.statistics.for="for";
+lang.statistics.SpecialCase="Special case";
 
 lang.statistics.compere={};
 lang.statistics.compere.common="Common queue";
