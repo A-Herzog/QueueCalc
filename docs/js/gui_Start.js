@@ -81,7 +81,7 @@ function buildStartTiles(isDesktopApp) {
   block+="<div class=\"col-lg-6\"><div class=\"card\">";
   block+="<div class=\"card-header\"><h3 class=\"h5 bi-download\"> "+language.GUI.tabDownloads+"</h3></div>";
   block+="<div class=\"card-body\">";
-  if (!isDesktopApp && false) { // TODO: Activate download option
+  if (!isDesktopApp) {
     block+="<p class=\"card-text\">"+language.GUI.tabDownloadAppInfo+"</p>";
     block+="<a id=\"downloadApp\" target=\"_blank\" href=\"https://github.com/A-Herzog/QueueCalc/releases/latest/download/QueueCalc.exe\" style=\"display: none;\"></a>";
     block+="<button onclick=\"document.getElementById('downloadApp').click();\" class=\"btn btn-primary my-1 bi-windows\"> "+language.GUI.tabDownloadApp+"</button>\n";

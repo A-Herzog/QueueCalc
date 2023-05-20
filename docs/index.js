@@ -1,8 +1,3 @@
-  /* Offline mode */
-
-  const isDesktopApp=(typeof(NL_OS)!='undefined');
-  if (isDesktopApp) Neutralino.init();
-
   /* Language selector */
 
   import {selectLanguage, buildMultiNavDropdown, showTab} from './js/tools_gui.js';

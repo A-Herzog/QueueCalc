@@ -33,7 +33,11 @@
   <link href="./css/index.css" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
   <script defer src="./libs/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN"></script>
   <script defer src="./libs/chart.umd.js" integrity="sha384-7zIFx9pXOq80OxAYxdxvWejv1TYHNbgwokiYvZi8PvGY/MDxa56nZFcULjBwXVsk"></script>
-  <script defer src="./libs/neutralino.js" integrity="sha384-PHLBc+h+UJz3gyDGfTR+noqhf4C5I+NRDT4nOeCyfsB2JvIQU8j/Y9GVh+FANPJm"></script>
+  <script src="./libs/neutralino.js"></script>
+  <script>
+    const isDesktopApp=(typeof(NL_OS)!='undefined');
+    if (isDesktopApp) Neutralino.init();
+  </script>
 </head>
 
 <body data-bs-spy="scroll" data-bs-target="#navbar_main" data-bs-offset="150">
