@@ -10,6 +10,10 @@ To use queue calculator just go to
 
 ![Website status](https://img.shields.io/website?url=https%3A%2F%2Fa-herzog.github.io%2FQueueCalc%2F)
 
+You can also download queue calculator as an offline usable Windows application:
+
+**[QueueCalc.exe](https://github.com/A-Herzog/QueueCalc/releases/latest/download/QueueCalc.exe)**
+
 ## License
 
 Warteschlangenrechner / Queue calculator is licensed under the [Apache License, Version 2.0](https://www.apache.org/licenses/LICENSE-2.0).
