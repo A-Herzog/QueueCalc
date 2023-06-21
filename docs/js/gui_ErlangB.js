@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-export {tilesErlangB, updateErlangB};
+export {tilesErlangB};
 
 import {TilesBuilder, Table} from './tools_gui.js';
 import {ErlangB} from './Erlang.js';
@@ -185,9 +185,3 @@ window.updateErlangBTable=updateErlangBTable;
 window.updateErlangBDiagram=updateErlangBDiagram;
 window.changeTabErlangBTable=changeTabErlangBTable;
 window.changeTabErlangBDiagram=changeTabErlangBDiagram;
-
-function updateErlangB() {
-  updateErlangBValues();
-  updateErlangBTable();
-  updateErlangBDiagram();
-}

@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-export {tilesShortestQueue, updateShortestQueue};
+export {tilesShortestQueue};
 
 import {TilesBuilder, Table} from './tools_gui.js';
 import {language} from './Language.js';
@@ -160,9 +160,3 @@ window.updateShortestQueueTable=updateShortestQueueTable;
 window.updateShortestQueueDiagram=updateShortestQueueDiagram;
 window.changeTabShortestQueueTable=changeTabShortestQueueTable;
 window.changeTabShortestQueueDiagram=changeTabShortestQueueDiagram;
-
-function updateShortestQueue() {
-  updateShortestQueueValues();
-  updateShortestQueueTable();
-  updateShortestQueueDiagram();
-}

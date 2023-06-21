@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-export {tilesExtErlangC, updateExtErlangC};
+export {tilesExtErlangC};
 
 import {TilesBuilder, Table} from './tools_gui.js';
 import {ErlangC_ENQ, ErlangC_EW, MMcKMZustandsP, ErwErlangC_PA, ErwErlangC, ErwErlangC_ENQ, ErwErlangC_EN, ErwErlangC_EW, ErwErlangC_EV} from './Erlang.js';
@@ -312,9 +312,3 @@ window.updateExtErlangCTable=updateExtErlangCTable;
 window.updateExtErlangCDiagram=updateExtErlangCDiagram;
 window.changeTabExtErlangCTable=changeTabExtErlangCTable;
 window.changeTabExtErlangCDiagram=changeTabExtErlangCDiagram;
-
-function updateExtErlangC() {
-  updateExtErlangCValues();
-  updateExtErlangCTable();
-  updateExtErlangCDiagram();
-}

@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-export {tilesPC, updatePC};
+export {tilesPC};
 
 import {TilesBuilder, Table} from './tools_gui.js';
 import {language} from './Language.js';
@@ -235,9 +235,3 @@ window.updatePCTable=updatePCTable;
 window.updatePCDiagram=updatePCDiagram;
 window.changeTabPCTable=changeTabPCTable;
 window.changeTabPCDiagram=changeTabPCDiagram;
-
-function updatePC() {
-  updatePCValues();
-  updatePCTable();
-  updatePCDiagram();
-}

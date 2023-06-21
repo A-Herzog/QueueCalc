@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-export {selectLanguage, buildMultiNavDropdown, showTab, getPlaceholder, getNextStepsButtons, getSimplePlaceholder, TilesBuilder, Table}
+export {selectLanguage, buildMultiNavDropdown, showTab, getPlaceholder, getNextStepsButtons, getSimplePlaceholder, initObserver, TilesBuilder, Table}
 
 import {getPositiveFloat, getNotNegativeFloat, getPositiveInt, getNotNegativeInt, isVariabel} from './tools.js';
 import {language} from './Language.js';
@@ -82,8 +82,6 @@ function showTab(id) {
     /* Durch den ersten Klick öffnet sich das Menü. Durch diesen das Menü wieder schließen. */
     p3.querySelector("a").click();
   }
-
-  setTimeout(()=>window.scrollTo(0,0),100);
 }
 
 /* Platzhalter */
@@ -93,13 +91,13 @@ function valuesFormulaVisiblity(elementId, buttonId) {
     const isVisible=(document.getElementById(elementId).clientHeight>=50);
     const button=document.getElementById(buttonId);
     if (isVisible) {
-      button.innerHTML="Formeln ausblenden";
+      button.innerHTML=language.model.formulaHide;
       button.classList.remove("btn-success");
       button.classList.add("btn-warning");
       button.classList.remove("bi-arrows-expand");
       button.classList.add("bi-arrows-collapse");
     } else {
-      button.innerHTML="Formeln anzeigen";
+      button.innerHTML=language.model.formulaShow;
       button.classList.remove("btn-warning");
       button.classList.add("btn-success");
       button.classList.remove("bi-arrows-collapse");
@@ -109,78 +107,103 @@ function valuesFormulaVisiblity(elementId, buttonId) {
 }
 window.valuesFormulaVisiblity=valuesFormulaVisiblity;
 
+function initObserver(elementId, content) {
+  setTimeout(()=>{
+  const targetNode=document.getElementById(elementId);
+  const visibleObserver=new MutationObserver((records,observer)=>{
+    for (let record of records) if (record.target.style.display!='none') {
+        if (record.target.childNodes.length==0) {
+          const id=record.target.id;
+          record.target.innerHTML=content;
+          if (typeof(window["update"+id])!='undefined') window["update"+id]();
+        }
+        setTimeout(()=>window.scrollTo(0,0),100);
+    }
+  });
+  visibleObserver.observe(targetNode,{attributes: true});
+  },100);
+}
+
 function getPlaceholder(record) {
   let block="";
+  let content;
 
   if (typeof(record.imageMaxWidth)=='undefined') record.imageMaxWidth=650;
 
   /* Einzelwerte */
 
   block+="<div class=\"tab-pane fade\" id=\""+record.id+"Values\" role=\"tabpanel\">";
-  block+="<h2>"+record.title+"</h2>";
+  block+="</div>";
 
-  block+="<button type=\"button\" class=\"btn-close\" aria-label=\"Close\" onclick=\"showTab('Home');\"></button><br>";
-  block+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+".svg\">";
-  block+=record.valuesInfo;
+  content="";
+  content+="<h2>"+record.title+"</h2>";
 
-  block+='<div class="mb-2">';
+  content+="<button type=\"button\" class=\"btn-close\" aria-label=\"Close\" onclick=\"showTab('Home');\"></button><br>";
+  content+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+".svg\">";
+  content+=record.valuesInfo;
+
+  content+='<div class="mb-2">';
   if (typeof(record.valuesFormula)=='string' && record.valuesFormula!='') {
     const formulaId=record.id+'ValuesFormula';
-    block+='<button class="btn btn-success bi-arrows-expand me-3" type="button" id="'+formulaId+'Button" data-bs-toggle="collapse" data-bs-target="#'+formulaId+'" aria-expanded="false" aria-controls="'+formulaId+'" onclick="valuesFormulaVisiblity(\''+formulaId+'\',\''+formulaId+'Button\')">';
-    block+='Formeln anzeigen';
-    block+='</button>';
+    content+='<button class="btn btn-success my-1 bi-arrows-expand me-3" type="button" id="'+formulaId+'Button" data-bs-toggle="collapse" data-bs-target="#'+formulaId+'" aria-expanded="false" aria-controls="'+formulaId+'" onclick="valuesFormulaVisiblity(\''+formulaId+'\',\''+formulaId+'Button\')">';
+    content+=language.model.formulaShow;
+    content+='</button>';
   }
-  block+=record.valuesTilesButtons;
-  block+='</div>';
+  content+=record.valuesTilesButtons;
+  content+='</div>';
 
   if (typeof(record.valuesFormula)=='string' && record.valuesFormula!='') {
     const formulaId=record.id+'ValuesFormula';
-    block+='<div class="collapse mb-3" id="'+formulaId+'">';
-    block+='<div class="card card-body">';
-    block+=record.valuesFormula;
-    block+='</div>';
-    block+='</div>';
+    content+='<div class="collapse mb-3" id="'+formulaId+'">';
+    content+='<div class="card card-body">';
+    content+=record.valuesFormula;
+    content+='</div>';
+    content+='</div>';
   }
 
-  block+=record.valuesTiles;
+  content+=record.valuesTiles;
 
   if (typeof(valuesInfoCards)!='undefined') {
-    block+="<div class=\"row\">";
+    content+="<div class=\"row\">";
     for (let card of record.valuesInfoCards) {
-      block+="<div class=\"col-lg-6\"><div class=\"card\">";
-      block+="<div class=\"card-header\"><h5>"+card.head+"</h5></div>";
-      block+="<div class=\"card-body\">"+card.body+"</div>";
-      block+="</div></div>";
+      content+="<div class=\"col-lg-6\"><div class=\"card\">";
+      content+="<div class=\"card-header\"><h5>"+card.head+"</h5></div>";
+      content+="<div class=\"card-body\">"+card.body+"</div>";
+      content+="</div></div>";
     }
-    block+="</div>";
+    content+="</div>";
   }
 
-  block+="</div>";
+  initObserver(record.id+"Values",content);
 
   /* Tabelle */
 
   if (typeof(record.tableData)!='undefined') {
     block+="<div class=\"tab-pane fade\" id=\""+record.id+"Table\" role=\"tabpanel\">";
-    block+="<h2>"+record.title+"</h2>";
-
-    block+="<button type=\"button\" class=\"btn-close\" aria-label=\"Close\" onclick=\"showTab('Home');\"></button><br>";
-    block+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+".svg\">";
-    block+=record.tableData;
-
     block+="</div>";
+
+    content="";
+    content+="<h2>"+record.title+"</h2>";
+    content+="<button type=\"button\" class=\"btn-close\" aria-label=\"Close\" onclick=\"showTab('Home');\"></button><br>";
+    content+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+".svg\">";
+    content+=record.tableData;
+
+    initObserver(record.id+"Table",content);
   }
 
   /* Diagramm */
 
   if (typeof(record.diagramData)!='undefined') {
     block+="<div class=\"tab-pane fade\" id=\""+record.id+"Diagram\" role=\"tabpanel\">";
-    block+="<h2>"+record.title+"</h2>";
-
-    block+="<button type=\"button\" class=\"btn-close\" aria-label=\"Close\" onclick=\"showTab('Home');\"></button><br>";
-    block+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+".svg\">";
-    block+=record.diagramData;
-
     block+="</div>";
+
+    content="";
+    content+="<h2>"+record.title+"</h2>";
+    content+="<button type=\"button\" class=\"btn-close\" aria-label=\"Close\" onclick=\"showTab('Home');\"></button><br>";
+    content+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+".svg\">";
+    content+=record.diagramData;
+
+    initObserver(record.id+"Diagram",content);
   }
 
   return block;
@@ -275,9 +298,9 @@ function buildRangeTile(size, title, id, value, step, valueTo, tabChangeCallback
   block+=buildInputField(id+"_Fix_Input",value,updateCallback,label,errorInfo);
   block+="</div>";
   block+="<div class=\"tab-pane"+(active?" show active":"")+"\" id=\""+id+"_Variabel\" role=\"tabpanel\">";
-  block+=buildInputField(id+"_Variabel_From",value,updateCallback,"Startwert "+label,errorInfo);
-  block+=buildInputField(id+"_Variabel_Step",step,updateCallback,"Schrittweite",errorInfoStep);
-  block+=buildInputField(id+"_Variabel_To",valueTo,updateCallback,"Endwert "+label,errorInfo);
+  block+=buildInputField(id+"_Variabel_From",value,updateCallback,language.GUI.modeRangeStart+" "+label,errorInfo);
+  block+=buildInputField(id+"_Variabel_Step",step,updateCallback,language.GUI.modeRangeStep,errorInfoStep);
+  block+=buildInputField(id+"_Variabel_To",valueTo,updateCallback,language.GUI.modeRangeEnd+" "+label,errorInfo);
   block+="</div>";
   block+="</div>";
   block+="</div>";
@@ -363,8 +386,8 @@ class TilesBuilder {
   get valueTilesButtons() {
     let block='';
 
-    block+='<button type="button" class="btn btn-warning bi-arrows-collapse" id="'+this.formula+'ValuesInfoHide" onclick="hideValueInfo(\''+this.formula+'\')"> '+language.model.explanationsHide+'</button>';
-    block+='<button type="button" class="btn btn-success bi-arrows-expand" id="'+this.formula+'ValuesInfoShow" onclick="showValueInfo(\''+this.formula+'\')" style="display: none;"> '+language.model.explanationsShow+'</button>';
+    block+='<button type="button" class="btn btn-warning my-1 bi-arrows-collapse" id="'+this.formula+'ValuesInfoHide" onclick="hideValueInfo(\''+this.formula+'\')"> '+language.model.explanationsHide+'</button>';
+    block+='<button type="button" class="btn btn-success my-1 bi-arrows-expand" id="'+this.formula+'ValuesInfoShow" onclick="showValueInfo(\''+this.formula+'\')" style="display: none;"> '+language.model.explanationsShow+'</button>';
 
     return block;
   }

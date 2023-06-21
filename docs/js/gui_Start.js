@@ -16,16 +16,16 @@ limitations under the License.
 
 export {getMainGUI};
 
-import {getPlaceholder, getNextStepsButtons, getSimplePlaceholder} from './tools_gui.js';
+import {getPlaceholder, getNextStepsButtons, getSimplePlaceholder, showTab, initObserver} from './tools_gui.js';
 
-import {tilesErlangB, updateErlangB} from './gui_ErlangB.js';
-import {tilesErlangC, updateErlangC} from './gui_ErlangC.js';
-import {tilesExtErlangC, updateExtErlangC} from './gui_ExtErlangC.js';
-import {tilesPC, updatePC} from './gui_PC.js';
-import {tilesAC, updateAC} from './gui_AC.js';
-import {tilesExtAC, updateExtAC} from './gui_ExtAC.js';
-import {tilesCompare, updateCompare} from './gui_Compare.js';
-import {tilesShortestQueue, updateShortestQueue} from './gui_ShortestQueue.js';
+import {tilesErlangB} from './gui_ErlangB.js';
+import {tilesErlangC} from './gui_ErlangC.js';
+import {tilesExtErlangC} from './gui_ExtErlangC.js';
+import {tilesPC} from './gui_PC.js';
+import {tilesAC} from './gui_AC.js';
+import {tilesExtAC} from './gui_ExtAC.js';
+import {tilesCompare} from './gui_Compare.js';
+import {tilesShortestQueue} from './gui_ShortestQueue.js';
 import {formulasErlangB, formulasErlangC, formulasExtErlangC, formulasPC, formulasAC, formulasExtAC, formulasCompare, formulasShortestQueue} from './FormulaBuilder.js';
 import {language} from './Language.js';
 
@@ -83,17 +83,17 @@ function buildStartTiles(isDesktopApp) {
   block+="<div class=\"card-body\">";
   if (!isDesktopApp) {
     block+="<p class=\"card-text\">"+language.GUI.tabDownloadAppInfo+"</p>";
-    block+="<a id=\"downloadApp\" target=\"_blank\" href=\"https://github.com/A-Herzog/QueueCalc/releases/latest/download/QueueCalc.exe\" style=\"display: none;\"></a>";
+    block+="<a id=\"downloadApp\" target=\"_blank\" href=\"https://github.com/A-Herzog/QueueCalc/releases/latest/download/QueueCalc.exe\" title=\""+language.GUI.tabDownloadApp+"\" style=\"display: none;\"></a>";
     block+="<button onclick=\"document.getElementById('downloadApp').click();\" class=\"btn btn-primary my-1 bi-windows\"> "+language.GUI.tabDownloadApp+"</button>\n";
     block+="<p class=\"card-text mt-4\">"+language.GUI.tabDownloadsInfo+"</p>";
   } else {
     block+="<p class=\"card-text\">"+language.GUI.tabDownloadsInfo+"</p>";
   }
-  block+="<a id=\"downloadXLSM\" target=\"_blank\" href=\"./Erlang/Erlang.xlsm\" download=\"Erlang.xlsm\" style=\"display: none;\"></a>";
-  block+="<a id=\"downloadODS\" target=\"_blank\" href=\"./Erlang/Erlang.ods\" download=\"Erlang.ods\" style=\"display: none;\"></a>";
-  block+="<a id=\"downloadJS\" target=\"_blank\" href=\"./Erlang/Erlang.js\" download=\"Erlang.js\" style=\"display: none;\"></a>";
-  block+="<a id=\"downloadPY\" target=\"_blank\" href=\"./Erlang/Erlang.py\" download=\"Erlang.py\" style=\"display: none;\"></a>";
-  block+="<a id=\"downloadR\" target=\"_blank\" href=\"./Erlang/Erlang.R\" download=\"Erlang.R\" style=\"display: none;\"></a>";
+  block+="<a id=\"downloadXLSM\" target=\"_blank\" href=\"./Erlang/Erlang.xlsm\" download=\"Erlang.xlsm\" title=\""+language.GUI.tabDownloadsExcel+"\" style=\"display: none;\"></a>";
+  block+="<a id=\"downloadODS\" target=\"_blank\" href=\"./Erlang/Erlang.ods\" download=\"Erlang.ods\" title=\""+language.GUI.tabDownloadsLibreOffice+"\" style=\"display: none;\"></a>";
+  block+="<a id=\"downloadJS\" target=\"_blank\" href=\"./Erlang/Erlang.js\" download=\"Erlang.js\" title=\""+language.GUI.tabDownloadsJS+"\" style=\"display: none;\"></a>";
+  block+="<a id=\"downloadPY\" target=\"_blank\" href=\"./Erlang/Erlang.py\" download=\"Erlang.py\" title=\""+language.GUI.tabDownloadsPython+"\" style=\"display: none;\"></a>";
+  block+="<a id=\"downloadR\" target=\"_blank\" href=\"./Erlang/Erlang.R\" download=\"Erlang.R\" title=\""+language.GUI.tabDownloadsR+"\" style=\"display: none;\"></a>";
   block+="<button onclick=\"document.getElementById('downloadXLSM').click();\" class=\"btn btn-primary my-1 bi-table\"> "+language.GUI.tabDownloadsExcel+"</button>\n";
   block+="<button onclick=\"document.getElementById('downloadODS').click();\" class=\"btn btn-primary my-1 bi-table\"> "+language.GUI.tabDownloadsLibreOffice+"</button>\n";
   block+="<br>";
@@ -113,12 +113,12 @@ function getMainGUI(isDesktopApp) {
 
   /* Start */
 
-  result+="<div class=\"tab-pane fade show active\" id=\"Home\" role=\"tabpanel\">";
+  result+="<div class=\"tab-pane fade active show\" id=\"Home\" role=\"tabpanel\">";
   result+="<h2>"+language.GUI.Name+"</h2>";
   if (typeof(language.GUI.OtherLanguage)!="undefined" && language.GUI.OtherLanguage!="") {
-    result+="<div class=\"container\" style=\"margin: 20px 0px; padding-left: 0;\"><span class=\"border bg-light rounded small\" style=\"padding: 7px 10px;\">";
+    result+="<div class=\"container border bg-light rounded small\" style=\"display: inline-block; margin: 20px 0px; padding: 4px 10px; width: fit-content;\">";
     result+=language.GUI.OtherLanguage;
-    result+="</span></div>";
+    result+="</div>";
   }
   result+=language.text.start;
   result+=buildStartTiles(isDesktopApp);
@@ -266,18 +266,11 @@ function getMainGUI(isDesktopApp) {
   /* Init */
 
   setTimeout(()=>{
-    updateErlangB();
-    updateErlangC();
-    updateExtErlangC();
-    updatePC();
-    updateAC();
-    updateExtAC();
-    updateCompare();
-    updateShortestQueue();
+    showTab("Home");
 
-    fetch('./js/info_sim_'+language.GUI.imageMode+'.html').then(response=>response.text().then(text=>document.getElementById('Simulation').innerHTML=text));
-    fetch('./js/info_qt_'+language.GUI.imageMode+'.html').then(response=>response.text().then(text=>document.getElementById('QueueingTheory').innerHTML=text));
-    fetch('./js/info_glossary_'+language.GUI.imageMode+'.html').then(response=>response.text().then(text=>document.getElementById('Glossary').innerHTML=text));
+    fetch('./js/info_sim_'+language.GUI.imageMode+'.html').then(response=>response.text().then(text=>initObserver('Simulation',text)));
+    fetch('./js/info_qt_'+language.GUI.imageMode+'.html').then(response=>response.text().then(text=>initObserver('QueueingTheory',text)));
+    fetch('./js/info_glossary_'+language.GUI.imageMode+'.html').then(response=>response.text().then(text=>initObserver('Glossary',text)));
   },100);
 
   return result;

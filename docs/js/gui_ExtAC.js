@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-export {tilesExtAC, updateExtAC};
+export {tilesExtAC};
 
 import {TilesBuilder, Table} from './tools_gui.js';
 import {ErlangC_ENQ, ErlangC_EW} from './Erlang.js';
@@ -440,9 +440,3 @@ window.updateExtACTable=updateExtACTable;
 window.updateExtACDiagram=updateExtACDiagram;
 window.changeTabExtACTable=changeTabExtACTable;
 window.changeTabExtACDiagram=changeTabExtACDiagram;
-
-function updateExtAC() {
-  updateExtACValues();
-  updateExtACTable();
-  updateExtACDiagram();
-}

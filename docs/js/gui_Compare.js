@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-export {tilesCompare, updateCompare};
+export {tilesCompare};
 
 import {TilesBuilder} from './tools_gui.js';
 import {language} from './Language.js';
@@ -195,7 +195,3 @@ function updateCompareValues() {
 /* Allgemeine Vorbereitungen */
 
 window.updateCompareValues=updateCompareValues;
-
-function updateCompare() {
-  updateCompareValues();
-}

@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-export {tilesErlangC, updateErlangC};
+export {tilesErlangC};
 
 import {TilesBuilder, Table} from './tools_gui.js';
 import {MMcZustandsP, ErlangC, ErlangC_EW} from './Erlang.js';
@@ -252,9 +252,3 @@ window.updateErlangCTable=updateErlangCTable;
 window.updateErlangCDiagram=updateErlangCDiagram;
 window.changeTabErlangCTable=changeTabErlangCTable;
 window.changeTabErlangCDiagram=changeTabErlangCDiagram;
-
-function updateErlangC() {
-  updateErlangCValues();
-  updateErlangCTable();
-  updateErlangCDiagram();
-}

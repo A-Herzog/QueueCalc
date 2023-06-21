@@ -22,3 +22,16 @@ h6.dropdown-header {
 a {
   color: #0050FF;
 }
+
+nav .nav-link {
+  color: white;
+}
+
+nav .nav-link:hover {
+  color: #FFA;
+}
+
+nav .nav-item .active {
+  background-color: #14E !important;
+  border-radius: 4px !important;
+}
