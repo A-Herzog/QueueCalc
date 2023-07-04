@@ -56,12 +56,15 @@ function buildMultiNavDropdown(id, name, records) {
     let info="";
     if (typeof(record.info)=='string') info=" <small>("+record.info+")</small>";
     block+="<li><h6 class=\"dropdown-header\"><strong>"+record.name+"</strong>"+info+"</h6></li>";
-    if (typeof(record.onlyValues)=='boolean' && record.onlyValues) {
+    const showValues=(typeof(record.modes)=='undefined' || record.modes.values==true);
+    const showTable=(typeof(record.modes)=='undefined' || record.modes.table==true);
+    const showDiagram=(typeof(record.modes)=='undefined' || record.modes.diagram==true);
+    if (showValues && !showTable && !showDiagram) {
       block+="<li role=\"tab\"><a class=\"dropdown-item bi-123\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Values\" data-bs-target=\"#"+record.id+"Values\"> "+language.GUI.modeValuesOnly+"</a></li>";
     } else {
-      block+="<li role=\"tab\"><a class=\"dropdown-item bi-123\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Values\" data-bs-target=\"#"+record.id+"Values\"> "+language.GUI.modeValues+"</a></li>";
-      block+="<li role=\"tab\"><a class=\"dropdown-item bi-table\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Table\" data-bs-target=\"#"+record.id+"Table\"> "+language.GUI.modeTable+"</a></li>";
-      block+="<li role=\"tab\"><a class=\"dropdown-item bi-graph-up\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Diagram\" data-bs-target=\"#"+record.id+"Diagram\"> "+language.GUI.modeDiagram+"</a></li>";
+      if (showValues) block+="<li role=\"tab\"><a class=\"dropdown-item bi-123\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Values\" data-bs-target=\"#"+record.id+"Values\"> "+language.GUI.modeValues+"</a></li>";
+      if (showTable) block+="<li role=\"tab\"><a class=\"dropdown-item bi-table\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Table\" data-bs-target=\"#"+record.id+"Table\"> "+language.GUI.modeTable+"</a></li>";
+      if (showDiagram) block+="<li role=\"tab\"><a class=\"dropdown-item bi-graph-up\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Diagram\" data-bs-target=\"#"+record.id+"Diagram\"> "+language.GUI.modeDiagram+"</a></li>";
     }
   }
   block+="</ul>";
@@ -149,7 +152,7 @@ function getPlaceholder(record) {
     content+=language.model.formulaShow;
     content+='</button>';
   }
-  content+=record.valuesTilesButtons;
+  if (record.valuesTilesButtons) content+=record.valuesTilesButtons;
   content+='</div>';
 
   if (typeof(record.valuesFormula)=='string' && record.valuesFormula!='') {
@@ -163,10 +166,12 @@ function getPlaceholder(record) {
 
   content+=record.valuesTiles;
 
-  if (typeof(valuesInfoCards)!='undefined') {
+  if (typeof(record.valuesInfoCards)!='undefined') {
     content+="<div class=\"row\">";
+    const len=record.valuesInfoCards.length;
+    const width=Math.round(12/len);
     for (let card of record.valuesInfoCards) {
-      content+="<div class=\"col-lg-6\"><div class=\"card\">";
+      content+="<div class=\"col-lg-"+width+"\"><div class=\"card\">";
       content+="<div class=\"card-header\"><h5>"+card.head+"</h5></div>";
       content+="<div class=\"card-body\">"+card.body+"</div>";
       content+="</div></div>";
@@ -178,7 +183,7 @@ function getPlaceholder(record) {
 
   /* Tabelle */
 
-  if (typeof(record.tableData)!='undefined') {
+  if (typeof(record.tableTiles)!='undefined') {
     block+="<div class=\"tab-pane fade\" id=\""+record.id+"Table\" role=\"tabpanel\">";
     block+="</div>";
 
@@ -186,14 +191,16 @@ function getPlaceholder(record) {
     content+="<h2>"+record.title+"</h2>";
     content+="<button type=\"button\" class=\"btn-close\" aria-label=\"Close\" onclick=\"showTab('Home');\"></button><br>";
     content+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+".svg\">";
-    content+=record.tableData;
+    content+=record.tableInfo;
+    if (record.tableTilesButtons) content+=record.tableTilesButtons;
+    content+=record.tableTiles;
 
     initObserver(record.id+"Table",content);
   }
 
   /* Diagramm */
 
-  if (typeof(record.diagramData)!='undefined') {
+  if (typeof(record.diagramTiles)!='undefined') {
     block+="<div class=\"tab-pane fade\" id=\""+record.id+"Diagram\" role=\"tabpanel\">";
     block+="</div>";
 
@@ -201,7 +208,9 @@ function getPlaceholder(record) {
     content+="<h2>"+record.title+"</h2>";
     content+="<button type=\"button\" class=\"btn-close\" aria-label=\"Close\" onclick=\"showTab('Home');\"></button><br>";
     content+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+".svg\">";
-    content+=record.diagramData;
+    content+=record.diagramInfo;
+    if (record.diagramTilesButtons) content+=record.diagramTilesButtons;
+    content+=record.diagramTiles;
 
     initObserver(record.id+"Diagram",content);
   }
@@ -229,8 +238,14 @@ function getSimplePlaceholder(id) {
 
 /* Eingabezeile */
 
-function buildInputField(id, value, updateCallback, label, errorInfo='') {
-  if (typeof(value)=='number') value=value.toLocaleString();
+function buildInputField(id, value, isPercent, updateCallback, label, errorInfo='') {
+  if (typeof(value)=='number') {
+    if (isPercent) {
+      value=(value*100).toLocaleString()+"%";
+    } else {
+      value=value.toLocaleString();
+    }
+  }
   let block="";
   block+="<p class=\"card-text\"><form class=\"form-floating\">";
   block+="<div class=\"input-group\">";
@@ -260,13 +275,13 @@ function buildSwitchField(id, updateCallback, label) {
 
 /* Eingabekacheln */
 
-function buildInputTile(size, title, id, value, updateCallback, label, errorInfo, info='', info2='') {
+function buildInputTile(size, title, id, value, isPercent, updateCallback, label, errorInfo, info='', info2='') {
   let block="";
 
   block+="<div class=\"col-lg-"+size+"\"><div class=\"card\">";
   block+="<div class=\"card-header\"><h5>"+title+"</h5></div>";
   block+="<div class=\"card-body\">";
-  block+="<p class=\"card-text\">"+buildInputField(id,value,updateCallback,label,errorInfo)+"</p>";
+  block+="<p class=\"card-text\">"+buildInputField(id,value,isPercent,updateCallback,label,errorInfo)+"</p>";
   if (info!='') block+="<p class=\"card-text card-input-info1\">"+info+"</p>";
   block+="</div>";
   if (info2!='') {
@@ -279,7 +294,7 @@ function buildInputTile(size, title, id, value, updateCallback, label, errorInfo
   return block;
 }
 
-function buildRangeTile(size, title, id, value, step, valueTo, tabChangeCallback, updateCallback, label, errorInfo='', errorInfoStep='', active=false) {
+function buildRangeTile(size, title, id, value, step, valueTo, isPercent, tabChangeCallback, updateCallback, label, errorInfo='', errorInfoStep='', active=false) {
   let block="";
 
   block+="<div class=\"col-lg-"+size+"\"><div class=\"card\">";
@@ -295,12 +310,12 @@ function buildRangeTile(size, title, id, value, step, valueTo, tabChangeCallback
   block+="</ul>";
   block+="<div class=\"tab-content\">";
   block+="<div class=\"tab-pane"+(active?"":" show active")+"\" id=\""+id+"_Fix\" role=\"tabpanel\">";
-  block+=buildInputField(id+"_Fix_Input",value,updateCallback,label,errorInfo);
+  block+=buildInputField(id+"_Fix_Input",value,isPercent,updateCallback,label,errorInfo);
   block+="</div>";
   block+="<div class=\"tab-pane"+(active?" show active":"")+"\" id=\""+id+"_Variabel\" role=\"tabpanel\">";
-  block+=buildInputField(id+"_Variabel_From",value,updateCallback,language.GUI.modeRangeStart+" "+label,errorInfo);
-  block+=buildInputField(id+"_Variabel_Step",step,updateCallback,language.GUI.modeRangeStep,errorInfoStep);
-  block+=buildInputField(id+"_Variabel_To",valueTo,updateCallback,language.GUI.modeRangeEnd+" "+label,errorInfo);
+  block+=buildInputField(id+"_Variabel_From",value,isPercent,updateCallback,language.GUI.modeRangeStart+" "+label,errorInfo);
+  block+=buildInputField(id+"_Variabel_Step",step,isPercent,updateCallback,language.GUI.modeRangeStep,errorInfoStep);
+  block+=buildInputField(id+"_Variabel_To",valueTo,isPercent,updateCallback,language.GUI.modeRangeEnd+" "+label,errorInfo);
   block+="</div>";
   block+="</div>";
   block+="</div>";
@@ -354,7 +369,7 @@ class TilesBuilder {
     this.tiles=[];
   }
 
-  add(name, label, id, valueFrom, valueStep, valueTo, errorValue, errorStep, info1, info2, format, optional=false) {
+  add(name, label, id, valueFrom, valueStep, valueTo, errorValue, errorStep, info1, info2, format, optional=false, variable=true) {
     const tile={};
     tile.type="input";
     tile.name=name;
@@ -368,7 +383,9 @@ class TilesBuilder {
     tile.info1=info1;
     tile.info2=info2;
     tile.format=format;
+    tile.valueIsPercent=this.#formatIsPercent(format);
     tile.optional=optional;
+    tile.variable=variable;
     this.tiles.push(tile);
   }
 
@@ -386,8 +403,8 @@ class TilesBuilder {
   get valueTilesButtons() {
     let block='';
 
-    block+='<button type="button" class="btn btn-warning my-1 bi-arrows-collapse" id="'+this.formula+'ValuesInfoHide" onclick="hideValueInfo(\''+this.formula+'\')"> '+language.model.explanationsHide+'</button>';
-    block+='<button type="button" class="btn btn-success my-1 bi-arrows-expand" id="'+this.formula+'ValuesInfoShow" onclick="showValueInfo(\''+this.formula+'\')" style="display: none;"> '+language.model.explanationsShow+'</button>';
+    block+='<button type="button" class="btn btn-warning my-1 bi-arrows-collapse '+this.formula+'ValuesInfoHide" onclick="hideValueInfo(\''+this.formula+'\')"> '+language.model.explanationsHide+'</button>';
+    block+='<button type="button" class="btn btn-success my-1 bi-arrows-expand '+this.formula+'ValuesInfoShow" onclick="showValueInfo(\''+this.formula+'\')" style="display: none;"> '+language.model.explanationsShow+'</button>';
 
     return block;
   }
@@ -404,11 +421,12 @@ class TilesBuilder {
           tile.name,
           this.formula+"Values_"+tile.id,
           tile.valueFrom,
+          tile.valueIsPercent,
           "update"+this.formula+"Values",
           tile.label,
           tile.errorValue,
           tile.info1,
-          tile.info2
+          tile.info2,
         );
       }
       if (tile.type=="switch") {
@@ -430,26 +448,42 @@ class TilesBuilder {
   }
 
   rangeTiles(mode) {
-    let block="<div class=\"row\">";
+    let block="<div class=\"row\" id=\""+this.formula+mode+"InputArea\">";
 
     let firstInput=true;
     for (let tile of this.tiles) {
       if (tile.type=="input") {
-        block+=buildRangeTile(
-          3,
-          tile.name,
-          this.formula+mode+"_"+tile.id,
-          tile.valueFrom,
-          tile.valueStep,
-          tile.valueTo,
-          "changeTab"+this.formula+mode,
-          "update"+this.formula+mode,
-          tile.label,
-          tile.errorValue,
-          tile.errorStep,
-          firstInput
-        );
-        firstInput=false;
+        if (tile.variable) {
+          block+=buildRangeTile(
+            3,
+            tile.name,
+            this.formula+mode+"_"+tile.id,
+            tile.valueFrom,
+            tile.valueStep,
+            tile.valueTo,
+            tile.valueIsPercent,
+            "changeTab"+this.formula+mode,
+            "update"+this.formula+mode,
+            tile.label,
+            tile.errorValue,
+            tile.errorStep,
+            firstInput
+          );
+          firstInput=false;
+        } else {
+          block+=buildInputTile(
+            3,
+            tile.name,
+            this.formula+mode+"_"+tile.id,
+            tile.valueFrom,
+            tile.valueIsPercent,
+            "update"+this.formula+mode,
+            tile.label,
+            tile.errorValue,
+            tile.info1,
+            tile.info2,
+          );
+        }
       }
       if (tile.type=="switch") {
         block+=buildSwitchTile(
@@ -507,6 +541,20 @@ class TilesBuilder {
     this.#updateTabsWorking=false;
   }
 
+  #formatIsPercent(format) {
+    if (format=='rho') return true;
+    return false;
+  }
+
+  #loadValue(id, format) {
+    if (format=='PositiveFloat') return getPositiveFloat(id);
+    if (format=='NotNegativeFloat') return getNotNegativeFloat(id);
+    if (format=='PositiveInt') return getPositiveInt(id);
+    if (format=='NotNegativeInt') return getNotNegativeInt(id);
+    if (format=='rho') {const value=getNotNegativeFloat(id); return (value==null || value>=1.0)?null:value;}
+    return null;
+  }
+
   get valuesValues() {
     const values=[];
     for (let i=0;i<this.tiles.length;i++) {
@@ -514,10 +562,7 @@ class TilesBuilder {
       let value=null;
       if (tile.type=="input") {
         const id=this.formula+'Values_'+tile.id;
-        if (tile.format=='PositiveFloat') value=getPositiveFloat(id);
-        if (tile.format=='NotNegativeFloat') value=getNotNegativeFloat(id);
-        if (tile.format=='PositiveInt') value=getPositiveInt(id);
-        if (tile.format=='NotNegativeInt') value=getNotNegativeInt(id);
+        value=this.#loadValue(id,tile.format);
         if (value==null && !tile.optional) {
           document.getElementById(this.formula+'Values_results').innerHTML=language.model.invalid;
           return null;
@@ -538,7 +583,7 @@ class TilesBuilder {
     let hasVariabelParameter=false;
     for (let i=0;i<this.tiles.length;i++) {
       const tile=this.tiles[i];
-      if (tile.type=="input" && isVariabel(this.formula+mode+'_'+tile.id)) {hasVariabelParameter=true; break;}
+      if (tile.type=="input" && tile.variable && isVariabel(this.formula+mode+'_'+tile.id)) {hasVariabelParameter=true; break;}
     }
     if (!hasVariabelParameter) {
       document.getElementById(this.formula+mode+'_results').innerHTML=language.model.noParameterChosen;
@@ -550,33 +595,27 @@ class TilesBuilder {
       let value;
       const id=this.formula+mode+'_'+tile.id+'_Variabel_';
       if (tile.type=="input") {
-        if (isVariabel(this.formula+mode+'_'+tile.id)) {
-          let from;
-          if (tile.format=='PositiveFloat') from=getPositiveFloat(id+'From');
-          if (tile.format=='NotNegativeFloat') from=getNotNegativeFloat(id+'From');
-          if (tile.format=='PositiveInt') from=getPositiveInt(id+'From');
-          if (tile.format=='NotNegativeInt') from=getNotNegativeInt(id+'From');
-          let step;
-          if (tile.format=='PositiveFloat') step=getPositiveFloat(id+'Step');
-          if (tile.format=='NotNegativeFloat') step=getPositiveFloat(id+'Step');
-          if (tile.format=='PositiveInt') step=getPositiveInt(id+'Step');
-          if (tile.format=='NotNegativeInt') step=getPositiveInt(id+'Step');
-          let to;
-          if (tile.format=='PositiveFloat') to=getPositiveFloat(id+'To');
-          if (tile.format=='NotNegativeFloat') to=getNotNegativeFloat(id+'To');
-          if (tile.format=='PositiveInt') to=getPositiveInt(id+'To');
-          if (tile.format=='NotNegativeInt') to=getNotNegativeInt(id+'To');
-          if (from==null || step==null || to==null) {
-            document.getElementById(this.formula+mode+'_results').innerHTML=tile.optional?language.model.noParameterChosen:language.model.invalid;
-            return null;
+        if (tile.variable) {
+          if (isVariabel(this.formula+mode+'_'+tile.id)) {
+            const from=this.#loadValue(id+'From',tile.format);
+            const step=this.#loadValue(id+'Step',tile.format);
+            const to=this.#loadValue(id+'To',tile.format);
+            if (from==null || step==null || to==null) {
+              document.getElementById(this.formula+mode+'_results').innerHTML=tile.optional?language.model.noParameterChosen:language.model.invalid;
+              return null;
+            }
+            value=[from, step, to];
+          } else {
+            const id=this.formula+mode+'_'+tile.id+'_Fix_Input';
+            value=this.#loadValue(id,tile.format);
+            if (value==null && !tile.optional) {
+              document.getElementById(this.formula+mode+'_results').innerHTML=language.model.invalid;
+              return null;
+            }
           }
-          value=[from, step, to];
         } else {
-          const id=this.formula+mode+'_'+tile.id+'_Fix_Input';
-          if (tile.format=='PositiveFloat') value=getPositiveFloat(id);
-          if (tile.format=='NotNegativeFloat') value=getNotNegativeFloat(id);
-          if (tile.format=='PositiveInt') value=getPositiveInt(id);
-          if (tile.format=='NotNegativeInt') value=getNotNegativeInt(id);
+          const id=this.formula+mode+'_'+tile.id;
+          value=this.#loadValue(id,tile.format);
           if (value==null && !tile.optional) {
             document.getElementById(this.formula+mode+'_results').innerHTML=language.model.invalid;
             return null;
@@ -595,23 +634,29 @@ class TilesBuilder {
 }
 
 function hideValueInfo(formula) {
-  document.getElementById(formula+'ValuesInfoHide').style.display="none";
-  document.getElementById(formula+'ValuesInfoShow').style.display="";
+  for (let element of document.getElementsByClassName(formula+'ValuesInfoHide')) element.style.display="none";
+  for (let element of document.getElementsByClassName(formula+'ValuesInfoShow')) element.style.display="";
 
-  for (let element of document.querySelectorAll('#'+formula+'InputArea .card-input-info1')) element.classList.add("hidden");
-  for (let element of document.querySelectorAll('#'+formula+'InputArea .card-input-info2')) element.classList.add("hidden");
+  const modes=["InputArea","TableInputArea", "DiagramInputArea"];
 
-  for (let element of document.querySelectorAll('#'+formula+'InputArea .card-body')) element.style.padding='0rem 1rem';
+  for (let mode of modes) {
+    for (let element of document.querySelectorAll('#'+formula+mode+' .card-input-info1')) element.classList.add("hidden");
+    for (let element of document.querySelectorAll('#'+formula+mode+' .card-input-info2')) element.classList.add("hidden");
+    for (let element of document.querySelectorAll('#'+formula+mode+' .card-body')) element.style.padding='0rem 1rem';
+  }
 }
 
 function showValueInfo(formula) {
-  document.getElementById(formula+'ValuesInfoHide').style.display="";
-  document.getElementById(formula+'ValuesInfoShow').style.display="none";
+  for (let element of document.getElementsByClassName(formula+'ValuesInfoHide')) element.style.display="";
+  for (let element of document.getElementsByClassName(formula+'ValuesInfoShow')) element.style.display="none";
 
-  for (let element of document.querySelectorAll('#'+formula+'InputArea .card-input-info1')) element.classList.remove("hidden");
-  for (let element of document.querySelectorAll('#'+formula+'InputArea .card-input-info2')) element.classList.remove("hidden");
+  const modes=["InputArea","TableInputArea", "DiagramInputArea"];
 
-  for (let element of document.querySelectorAll('#'+formula+'InputArea .card-body')) element.style.padding='1rem 1rem';
+  for (let mode of modes) {
+    for (let element of document.querySelectorAll('#'+formula+mode+' .card-input-info1')) element.classList.remove("hidden");
+    for (let element of document.querySelectorAll('#'+formula+mode+' .card-input-info2')) element.classList.remove("hidden");
+    for (let element of document.querySelectorAll('#'+formula+mode+' .card-body')) element.style.padding='1rem 1rem';
+  }
 }
 
 window.hideValueInfo=hideValueInfo;
@@ -686,7 +731,7 @@ class Table {
     if (unit==null || unit=='') {
       if (column==null) this.cols.push(''); else this.cols.push(column);
     } else {
-      if (column==null) this.cols.push(''); else this.cols.push(column+' '+unit);
+      if (column==null) this.cols.push(''); else this.cols.push(column+' '+unit); /* Das Leerzeichen zwischen dem Zahlenwert und der Einheit (meist '%') ist notwendig, damit die Diagrammkomponente den Wert als Protenzangabe interpretieren kann. */
     }
   }
 

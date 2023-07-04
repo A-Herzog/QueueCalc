@@ -17,6 +17,7 @@ limitations under the License.
 export {getFloat, getPositiveFloat, getNotNegativeFloat, getInt, getPositiveInt, getNotNegativeInt, isVariabel}
 
 function parseFloatStrict(value) {
+  value=value.trim();
   if(/^(\-|\+)?([0-9]+(\.[0-9]+)?|Infinity)$/
     .test(value))
     return Number(value);
@@ -24,17 +25,22 @@ return NaN;
 }
 
 function getFloat(id) {
-const element=document.getElementById(id);
-if (element==null) console.log("element id='"+id+"' is null.");
-let s=element.value;
-if (typeof(s.replaceAll)=='function') s=s.replaceAll(",",".");
-const num=parseFloatStrict(s);
-if (isNaN(num)) {
-  setValid(id,false);
-  return null;
-}
-setValid(id,true);
-return num;
+  const element=document.getElementById(id);
+  if (element==null) console.log("element id='"+id+"' is null.");
+  let s=element.value;
+  if (typeof(s.replaceAll)=='function') s=s.replaceAll(",",".");
+  let scale=1;
+  if (s.endsWith('%')) {
+    scale=0.01;
+    s=s.substring(0,s.length-1);
+  }
+  const num=parseFloatStrict(s);
+  if (isNaN(num)) {
+    setValid(id,false);
+    return null;
+  }
+  setValid(id,true);
+  return num*scale;
 }
 
 function getPositiveFloat(id) {

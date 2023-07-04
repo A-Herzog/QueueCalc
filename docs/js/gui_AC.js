@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-export {tilesAC};
+export {tilesAC, calcAC};
 
 import {TilesBuilder, Table} from './tools_gui.js';
 import {ErlangC_ENQ, ErlangC_EW} from './Erlang.js';

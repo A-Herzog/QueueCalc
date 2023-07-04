@@ -65,6 +65,7 @@ lang.GUI.formulaExtACLimitations="Grenzen der erweiterten Allen-Cunneen-Näherun
 lang.GUI.formulaCompare="Design von Warteschlangensystemen";
 lang.GUI.formulaCompareLong="Design von Warteschlangensystemen";
 lang.GUI.formulaCompareInfo="Mit Hilfe der Formeln der Warteschlangentheorie lassen sich alltägliche Wartesituationen, in denen das System verschieden konfiguriert ist, untersuchen.";
+lang.GUI.formulasCompareMoreInfo=`Interpretation der Ergebnisse`;
 lang.GUI.formulaShortestQueue="Wahl der kürzesten Schlange";
 lang.GUI.formulaShortestQueueLong="Wahl der kürzesten Schlange";
 lang.GUI.formulaShortestQueueInfo="Die Wahl der kürzeren Warteschlange stellt zwar einen guten Schätzer dafür, in welcher Schlange man schneller zur Kasse gelangt, dar. Mit steigender Länge der beiden Schlangen wächst allerdings die Wahrscheinlichkeit, in der längeren Schlange schneller zum Ziel zu gelangen.";
@@ -76,6 +77,9 @@ lang.GUI.formulaShortestQueueAInfo1="Diese Warteschlange wird vom Kunden nicht g
 lang.GUI.formulaShortestQueueAInfo2="";
 lang.GUI.formulaShortestQueueBInfo1="Die kürzere Warteschlange stellt die natürliche Wahl für neu eintreffende Kunden dar. Es wird angenommen, dass die Wartezeit an dieser kürzer ist als an der längeren Warteschlange.";
 lang.GUI.formulaShortestQueueBInfo2="";
+lang.GUI.formulaEconomyOfScale="Economy of Scale";
+lang.GUI.formulaEconomyOfScaleLong="Economy of Scale (Positiver Skaleneffekt)";
+lang.GUI.formulaEconomyOfScaleInfo="Die Economy of Scale beschreibt in Bezug auf stochatische Systeme den Effekt, dass die Wartezeiten bei insgesamt identischer Auslastung bei größeren Systemen kürzer ausfallen, als bei kleineren Systemen. Bei Warteschlangenmodellen mit mehr Bedienern können sich Schwankungen im Ankunftsstrom und bei den Bedienzeiten besser gegenseitig ausgleichen als bei kleineren Systemen.";
 lang.GUI.tabHome="Start";
 lang.GUI.tabErlangB="Erlang-B-Formel";
 lang.GUI.tabErlangBInfo="M/M/c/C";
@@ -93,6 +97,7 @@ lang.GUI.tabExtACInfo="G<sup>b<sub>I</sub></sup>/G<sup>b<sub>S</sub></sup>/c"
 lang.GUI.tabDesign="Systemdesign";
 lang.GUI.tabCompare="Vergleich verschiedener Strategien";
 lang.GUI.tabShortestQueue="Wahl der kürzesten Schlange";
+lang.GUI.tabEconomyOfScale="Economy of Scale";
 lang.GUI.tabSimulation='Simulation';
 lang.GUI.tabSimulationInfo='Wenn die Möglichkeiten der (erweiterten) Erlang-C-Formel und der (erweiterten) Allen-Cunneen-Näherungsformel zur Modellierung eines Warteschlangensystems nicht mehr ausreichen, kann eines der hier angebotenen Opensource <b>Simulationswerkzeuge</b> eingesetzt werden.';
 lang.GUI.tabHelp="Hilfe";
@@ -180,6 +185,9 @@ lang.model.inputDownTimeMeanInfo2="";
 lang.model.inputDownTimeCV="Variationskoeffizient der Ausfallzeiten";
 lang.model.inputDownTimeCVInfo1="Wenn ein Bediener nicht immer verfügbar ist (d.h. <b>P(Up)&lt;1</b> ist), gibt CV[Dt] den Variationskoeffizienten der Ausfallzeiten an.";
 lang.model.inputDownTimeCVInfo2="";
+lang.model.inputUtilization="Auslastung";
+lang.model.inputUtilizationInfo1="Die Auslastung der Bediener zwischen &ge;0% und &lt;100% gewählt werden.";
+lang.model.inputUtilizationInfo2="Normalerweise kann die Auslastung der Bediener nicht direkt vorgegeben werden. In diesem Modell wird werden die Zwischenankunftszeiten so gewählt, dass sich die eingestellte Auslastung ergibt: <b>E[I]=E[S]/c/rho</b>.";
 
 lang.statistics={};
 lang.statistics.unitTime='Zeit';
@@ -576,6 +584,17 @@ Mit Hilfe der Formeln der Warteschlangentheorie lassen sich alltägliche Wartesi
   <li>Es gibt nur einen Bediener und eine Warteschlange. Der Bediener arbeitet jedoch mit doppelter Geschwindigkeit.</li>
 </ul>`;
 
+lang.text.formulasCompareMoreInfo=`
+<p>
+Am schlechtesten schneidet das System mit den <b>getrennten Warteschlangen</b> ab. Da Kunden sich beim Betreten des Systems zufällig für eine der beiden Teilwarteschlangen entscheiden, kann hier der Effekt auftreten, dass eine der beiden Warteschlangen leer läuft, während an der anderen Schlange Kunden warten müssen.
+</p>
+<p>
+Bei der <b>Batch-Bedienung</b> kann dieses Problem nicht auftreten, da es hier nur eine Warteschlange gibt. Jedoch kann bei einem System mit Batch-Bedienungen ein anderer nachteilhafter Effekt auftreten: Es kann der Fall eintreten, dass sich der Bediener im Leerlauf befindet und dennoch ein eintreffender Kunde warten muss. Da Batch-System kann immer nur zwei Kunden gleichzeitig bedienen. Befindet sich nur ein Kunde in der Warteschlange, so muss dieser warten (obwohl der Bediener im Leerlauf ist).
+</p>
+<p>
+Bei den Systemen mit der <b>gemeinsamen Warteschlange</b> und mit dem <b>doppelt so schnellen Bediener</b> können die oben genannten negativen Effekte nicht auftreten: Es existiert nur eine Warteschlange und eintreffende Kunden können stets (ohne Batch-Bildungs-Effekte) sofort bedient werden. Welches dieser beiden System letztendlich "besser" ist, hängt von der Betrachungsweise ab: Treffen bei dem System mit der gemeinsamen Warteschlange (und zwei Bedienernn) zwei Kunden in kurzem Abstand nacheinander ein, so können beide sofort bedient werden. Im Fall des doppelt so schnellen Bedieners müsste der zweite Kunde hingegen zunächst (kurz) warten. D.h. in Bezug auf die Wartezeiten ist die gemeinsame Warteschlange von Vorteil. Betrachtet man jedoch die Durchlaufzeiten, so ist der doppelt so schnelle Bediener besser: Hier entstehen zwar (geringfügig) mehr Wartezeiten. Diese werden jedoch meist durch die wesentlich kürzere Bediendauer überkompensiert.
+</p>`;
+
 lang.text.ShortestQueueValues=`
 <p>
 Stehen wie im Supermarkt mehrere Kassen zur Auswahl, so neigt man dazu, sich bei der Kasse mit der kürzesten Warteschlange anzustellen, um die eigene Wartezeit zu minimieren.
@@ -607,6 +626,28 @@ Doch offensichtlich garantiert diese Strategie nicht, dass man auch schneller ab
 </p>
 <p>
 Mathematisch lässt sich nachweisen, dass diese Situation umso häufiger eintritt, je unregelmäßiger die Arbeitsaufträge der einzelnen Kunden sind. (Sind umgekehrt alle Arbeitsaufträge etwa gleich groß, d.h. haben alle Kunden etwa gleichviele Gegenstände in ihrem Einkaufskorb, so wird man an der Kasse mit der kürzeren Warteschlange sicherlich auch schneller abgefertigt werden.)
+</p>`;
+
+lang.text.EconomyOfScaleTable=`
+<p>
+Die <a href="https://de.wikipedia.org/wiki/Skaleneffekt" target="_blank">Economy of Scale</a> (oder auf Deutsch der positive Skaleneffekt) beschreibt die Tatsache, dass größere (Produktions-)Systeme häufig wirtschaftlicher arbeiten können als kleinere. Dies kann verschiedenste Gründe haben. So kann der Einkauf größerer Mengen an Rohstoffen pro Stück kostengünstiger sein, als der Einkauf kleinerer Mengen oder aber für die doppelte Menge an zu produzierenden und zu verkaufenden Produkten werden in der Verwaltung (Buchhaltung, Vertrieb, ...) nicht doppelt so viele Mitarbeiter benötigt.
+</p>
+<p>
+Im Kontext der Warteschlangentheorie ist jedoch besonders der Effekt, dass sich bei größeren Systemen die Schwankungen im Kundenankunftsstrom und im Bedienprozess besser gegenseitig ausgleichen können, von Bedeutung.
+</p>
+<p>
+In dem Rechenmodell kann die mittlere Auslastung (&rho;) der Bediener fest vorgegeben werden. Wird nun die Anzahl an Bedienern (c) verändert, so ändert sich automatisch auch die Zwischenankunftszeit (E[I]), so dass insgesamt die Auslastung (&rho;=E[S]/E[I]/c) konstant bleibt. Auf diese Weise können über die Variation der Anzahl an Bedienern verschieden große Systeme jeweils bei exakt derselben Auslastung verglichen werden.
+</p>`;
+
+lang.text.EconomyOfScaleDiagram=`
+<p>
+Die <a href="https://de.wikipedia.org/wiki/Skaleneffekt" target="_blank">Economy of Scale</a> (oder auf Deutsch der positive Skaleneffekt) beschreibt die Tatsache, dass größere (Produktions-)Systeme häufig wirtschaftlicher arbeiten können als kleinere. Dies kann verschiedenste Gründe haben. So kann der Einkauf größerer Mengen an Rohstoffen pro Stück kostengünstiger sein, als der Einkauf kleinerer Mengen oder aber für die doppelte Menge an zu produzierenden und zu verkaufenden Produkten werden in der Verwaltung (Buchhaltung, Vertrieb, ...) nicht doppelt so viele Mitarbeiter benötigt.
+</p>
+<p>
+Im Kontext der Warteschlangentheorie ist jedoch besonders der Effekt, dass sich bei größeren Systemen die Schwankungen im Kundenankunftsstrom und im Bedienprozess besser gegenseitig ausgleichen können, von Bedeutung.
+</p>
+<p>
+In dem Rechenmodell kann die mittlere Auslastung (&rho;) der Bediener fest vorgegeben werden. Wird nun die Anzahl an Bedienern (c) verändert, so ändert sich automatisch auch die Zwischenankunftszeit (E[I]), so dass insgesamt die Auslastung (&rho;=E[S]/E[I]/c) konstant bleibt. Auf diese Weise können über die Variation der Anzahl an Bedienern verschieden große Systeme jeweils bei exakt derselben Auslastung verglichen werden.
 </p>`;
 
 /* English */
@@ -656,6 +697,7 @@ lang.GUI.formulaExtACLimitations="Limitations of the extended Allen-Cunneen appr
 lang.GUI.formulaCompare="Design of queueing systems";
 lang.GUI.formulaCompareLong="Design of queueing systems";
 lang.GUI.formulaCompareInfo="The formulas of queueing theory can be used to study everyday queueing situations in which the system is configured differently.";
+lang.GUI.formulasCompareMoreInfo=`Interpretation of the results`;
 lang.GUI.formulaShortestQueue="Choice of the shortest queue";
 lang.GUI.formulaShortestQueueLong="Choice of the shortest queue";
 lang.GUI.formulaShortestQueueInfo="The choice of the shorter queue is a good estimator of which queue will get you to the checkout faster. However, as the length of the two queues increases, the probability of getting to the checkout faster in the longer queue increases.";
@@ -667,6 +709,9 @@ lang.GUI.formulaShortestQueueAInfo1="This queue is not selected by arriving cust
 lang.GUI.formulaShortestQueueAInfo2="";
 lang.GUI.formulaShortestQueueBInfo1="The shorter queue represents the natural choice for newly arriving customers. It is assumed that the waiting time at this queue is shorter than at the longer queue.";
 lang.GUI.formulaShortestQueueBInfo2="";
+lang.GUI.formulaEconomyOfScale="Economy of Scale";
+lang.GUI.formulaEconomyOfScaleLong="Economy of Scale";
+lang.GUI.formulaEconomyOfScaleInfo="In terms of stochastic systems, the economy of scale describes the effect that waiting times are shorter in larger systems than in smaller systems, with an overall identical workload. In queueing models with more operators, fluctuations in the arrival stream and in the service times can balance each other out better than in smaller systems.";
 lang.GUI.tabHome="Start";
 lang.GUI.tabErlangB="Erlang-B formula";
 lang.GUI.tabErlangBInfo="M/M/c/C";
@@ -684,6 +729,7 @@ lang.GUI.tabExtACInfo="G<sup>b<sub>I</sub></sup>/G<sup>b<sub>S</sub></sup>/c";
 lang.GUI.tabDesign="System design";
 lang.GUI.tabCompare="Comparison of different strategies";
 lang.GUI.tabShortestQueue="Choice of the shortest queue";
+lang.GUI.tabEconomyOfScale="Economy of Scale";
 lang.GUI.tabSimulation='Simulation';
 lang.GUI.tabSimulationInfo='If the capabilities of the (extended) Erlang-C formula and the (extended) Allen-Cunneen approximation formula are not sufficient anymore to model a queueing system, one of the open source <b>simulation tools</b> offered here can be used.';
 lang.GUI.tabHelp="Help";
@@ -771,6 +817,9 @@ lang.model.inputDownTimeMeanInfo2="";
 lang.model.inputDownTimeCV="Coefficient of variation of the downtimes";
 lang.model.inputDownTimeCVInfo1="If an operator is not always available (i.e., <b>P(Up)&lt;1</b>), CV[Dt] gives the coefficient of variation of the downtimes.";
 lang.model.inputDownTimeCVInfo2="";
+lang.model.inputUtilization="Utilization";
+lang.model.inputUtilizationInfo1="The utilization of the operators can be selected between &ge;0% and &lt;100%.";
+lang.model.inputUtilizationInfo2="Normally, the utilization of the operators cannot be specified directly. In this model, the inter-arrival times are adjusted so that the set utilization results: <b>E[I]=E[S]/c/rho</b>.";
 
 lang.statistics={};
 lang.statistics.unitTime='Time';
@@ -1175,6 +1224,19 @@ Using the formulas of queuing theory everyday waiting situations can be examined
   <li>There is only one operator and one queue. But the operator works at double speed.</li>
 </ul>`;
 
+lang.text.formulasCompareMoreInfo=`
+<p>
+The system with the <b>separate queues</b> performs worst. Since clients randomly choose one of the two partial queues when entering the system, the effect can occur here that one of the two queues runs empty while clients have to wait at the other queue.
+</p>
+<p>
+With <b>batch service</b> this problem cannot occur, since there is only one queue. However, in a system with batch service, another disadvantageous effect can occur: It may be the case that the operator is idle and yet an arriving client has to wait. Since the batch system can serve only two clients at a time. If there is only one client in the queue, this client will have to wait (although the operator is idle).
+</p>
+<p>
+In the systems with the <b>common queue</b> and with the <b>twice as fast operator</b>, the negative effects mentioned above cannot occur: Only one queue exists and incoming clients can always be served immediately (without batch formation effects).
+
+Which of these two systems is ultimately "better" depends on how to look at it: In the case of the system with the common queue (and two operators), if two clients arrive in quick succession, both can be served immediately. In the case of the twice as fast operator, on the other hand, the second client would have to wait (briefly) first. I.e. in terms of waiting times, the common queue is advantageous. However, if looking at the residence times, the twice as fast operator is better: Here, there are indeed (slightly) more waiting times. However, these are usually overcompensated by the much shorter service life.
+</p>`;
+
 lang.text.ShortestQueueValues=`
 <p>
 If there are several checkouts to choose from, as in a supermarket, people tend to line up at the checkout with the shortest queue in order to minimize their own waiting time.
@@ -1206,6 +1268,28 @@ But obviously this strategy does not guarantee that one will also be processed f
 </p>
 <p>
 Mathematically, it can be shown that the more irregular the work orders of the individual customers are, the more frequently this situation occurs. (Conversely, if all work orders are roughly the same size, i.e. all customers have roughly the same number of items in their shopping baskets, the checkout with the shorter queue will certainly also be processed more quickly).
+</p>`;
+
+lang.text.EconomyOfScaleTable=`
+<p>
+The <a href="https://en.wikipedia.org/wiki/Economies_of_scale" target="_blank">economy of scale</a> describes the fact that larger (production) systems can often operate more economically than smaller ones. This can have a wide variety of reasons. For example, purchasing larger quantities of raw materials can be more cost-effective than purchasing smaller quantities, or twice the number of products to be produced and sold does not require twice as many employees in administration (accounting, sales, etc.).
+</p>
+<p>
+In the context of queueing theory, the effect that in larger systems the fluctuations in the client arrival stream and in the service process can better balance each other out is, however, of particular importance.
+</p>
+<p>
+In the calculation model, the average utilization (&rho;) of the operators can be fixed. If the number of operators (c) is now changed, the inter-arrival time (E[I]) also changes automatically, so that the overall utilization (&rho;=E[S]/E[I]/c) remains constant. In this way, by varying the number of operators, systems of different sizes can each be compared at exactly the same workload.
+</p>`;
+
+lang.text.EconomyOfScaleDiagram=`
+<p>
+The <a href="https://en.wikipedia.org/wiki/Economies_of_scale" target="_blank">economy of scale</a> describes the fact that larger (production) systems can often operate more economically than smaller ones. This can have a wide variety of reasons. For example, purchasing larger quantities of raw materials can be more cost-effective than purchasing smaller quantities, or twice the number of products to be produced and sold does not require twice as many employees in administration (accounting, sales, etc.).
+</p>
+<p>
+In the context of queueing theory, the effect that in larger systems the fluctuations in the client arrival stream and in the service process can better balance each other out is, however, of particular importance.
+</p>
+<p>
+In the calculation model, the average utilization (&rho;) of the operators can be fixed. If the number of operators (c) is now changed, the inter-arrival time (E[I]) also changes automatically, so that the overall utilization (&rho;=E[S]/E[I]/c) remains constant. In this way, by varying the number of operators, systems of different sizes can each be compared at exactly the same workload.
 </p>`;
 
 /* Activate language */

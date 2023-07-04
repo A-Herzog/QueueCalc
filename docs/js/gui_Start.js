@@ -26,12 +26,13 @@ import {tilesAC} from './gui_AC.js';
 import {tilesExtAC} from './gui_ExtAC.js';
 import {tilesCompare} from './gui_Compare.js';
 import {tilesShortestQueue} from './gui_ShortestQueue.js';
+import {tilesEconomyOfScale} from './gui_EconomyOfScale.js';
 import {formulasErlangB, formulasErlangC, formulasExtErlangC, formulasPC, formulasAC, formulasExtAC, formulasCompare, formulasShortestQueue} from './FormulaBuilder.js';
 import {language} from './Language.js';
 
 
 
-function buildStartTile(size, title, text, id, imgWidth="100%", showMore=false, fileFormat="svg", aspectRatio=null, onlyValues=false, icon="") {
+function buildStartTile(size, title, text, id, imgWidth="100%", showMore=false, fileFormat="svg", aspectRatio=null, modes={values: true, table: true, diagram: true}, icon="") {
   let block="";
 
   block+="<div class=\"col-lg-"+size+"\"><div class=\"card\">";
@@ -50,12 +51,15 @@ function buildStartTile(size, title, text, id, imgWidth="100%", showMore=false, 
   if (showMore) {
     block+="<button onclick=\"showTab('"+id+"');\" class=\"btn btn-primary my-1 bi-info-circle\"> "+language.GUI.modeMore+"</button>\n";
   } else {
-    if (onlyValues) {
+    const showValues=(modes.values==true);
+    const showTable=(modes.table==true);
+    const showDiagram=(modes.diagram==true);
+    if (showValues && !showTable && !showDiagram) {
       block+="<button onclick=\"showTab('"+id+"Values');\" class=\"btn btn-primary my-1 bi-123\"> "+language.GUI.modeValuesOnly+"</button>\n";
     } else {
-      block+="<button onclick=\"showTab('"+id+"Values');\" class=\"btn btn-primary my-1 bi-123\"> "+language.GUI.modeValues+"</button>\n";
-      block+="<button onclick=\"showTab('"+id+"Table');\" class=\"btn btn-primary my-1 bi-table\"> "+language.GUI.modeTable+"</button>\n";
-      block+="<button onclick=\"showTab('"+id+"Diagram');\" class=\"btn btn-primary my-1 bi-graph-up\"> "+language.GUI.modeDiagram+"</button>";
+      if (showValues) block+="<button onclick=\"showTab('"+id+"Values');\" class=\"btn btn-primary my-1 bi-123\"> "+language.GUI.modeValues+"</button>\n";
+      if (showTable) block+="<button onclick=\"showTab('"+id+"Table');\" class=\"btn btn-primary my-1 bi-table\"> "+language.GUI.modeTable+"</button>\n";
+      if (showDiagram) block+="<button onclick=\"showTab('"+id+"Diagram');\" class=\"btn btn-primary my-1 bi-graph-up\"> "+language.GUI.modeDiagram+"</button>";
     }
   }
   block+="</div></div></div>";
@@ -74,8 +78,9 @@ function buildStartTiles(isDesktopApp) {
   block+=buildStartTile(6,language.GUI.formulaPC,language.GUI.formulaPCInfo,"PC","100%",false,"svg","159.81 / 74.6");
   block+=buildStartTile(6,language.GUI.formulaAC,language.GUI.formulaACInfo,"AC","100%",false,"svg","159.82 / 52.78");
   block+=buildStartTile(6,language.GUI.formulaExtAC,language.GUI.formulaExtACInfo,"ExtAC","100%",false,"svg","159.82 / 74.05");
-  block+=buildStartTile(6,language.GUI.formulaCompare,language.GUI.formulaCompareInfo,"Compare","100%",false,"svg","602.67 / 279.23",true);
+  block+=buildStartTile(6,language.GUI.formulaCompare,language.GUI.formulaCompareInfo,"Compare","100%",false,"svg","602.67 / 279.23",{values: true});
   block+=buildStartTile(6,language.GUI.formulaShortestQueue,language.GUI.formulaShortestQueueInfo,"ShortestQueue","100%",false,"svg","602.67 / 319.07");
+  block+=buildStartTile(6,language.GUI.formulaEconomyOfScale,language.GUI.formulaEconomyOfScaleInfo,"EconomyOfScale","100%",false,"svg","151.34 / 93.66",{table: true, diagram: true});
   block+=buildStartTile(6,language.GUI.tabSimulation,language.GUI.tabSimulationInfo,"Simulation","100%",true,'webp','640 / 481',false,"<i class='bi-caret-right-square'></i> ");
 
   block+="<div class=\"col-lg-6\"><div class=\"card\">";
@@ -137,8 +142,10 @@ function getMainGUI(isDesktopApp) {
       {head: language.GUI.formulaErlangBLimitations, body: language.text.ErlangBValuesLimitations},
       getNextStepsButtons("ErlangB",language.GUI.nextStepsErlangBTable,language.GUI.nextStepsErlangBDiagram)
     ],
-    tableData: language.text.ErlangBTable+tilesErlangB.tableTiles,
-    diagramData: language.text.ErlangBDiagram+tilesErlangB.diagramTiles
+    tableInfo: language.text.ErlangBTable,
+    tableTiles: tilesErlangB.tableTiles,
+    diagramInfo: language.text.ErlangBDiagram,
+    diagramTiles: tilesErlangB.diagramTiles
   });
 
   /* Erlang-C-Formel */
@@ -154,8 +161,10 @@ function getMainGUI(isDesktopApp) {
       {head: language.GUI.formulaErlangCLimitations, body: language.text.ErlangCValuesLimitations},
       getNextStepsButtons("ErlangC",language.GUI.nextStepsErlangCTable,language.GUI.nextStepsErlangCDiagram)
     ],
-    tableData: language.text.ErlangCTable+tilesErlangC.tableTiles,
-    diagramData: language.text.ErlangCDiagram+tilesErlangC.diagramTiles
+    tableInfo: language.text.ErlangCTable,
+    tableTiles: tilesErlangC.tableTiles,
+    diagramInfo: language.text.ErlangCDiagram,
+    diagramTiles: tilesErlangC.diagramTiles
   });
 
   /* Erweiterte Erlang-C-Formel*/
@@ -171,8 +180,10 @@ function getMainGUI(isDesktopApp) {
       {head: language.GUI.formulaExtErlangCLimitations, body: language.text.ExtErlangCValuesLimitations},
       getNextStepsButtons("ExtErlangC",language.GUI.nextStepsExtErlangCTable,language.GUI.nextStepsExtErlangCDiagram)
     ],
-    tableData: language.text.ExtErlangCTable+tilesExtErlangC.tableTiles,
-    diagramData: language.text.ExtErlangCDiagram+tilesExtErlangC.diagramTiles
+    tableInfo: language.text.ExtErlangCTable,
+    tableTiles: tilesExtErlangC.tableTiles,
+    diagramInfo: language.text.ExtErlangCDiagram,
+    diagramTiles: tilesExtErlangC.diagramTiles
   });
 
   /* Pollaczek-Chintschin-Formel */
@@ -188,8 +199,10 @@ function getMainGUI(isDesktopApp) {
       {head: language.GUI.formulaPCLimitations, body: language.text.PCValuesLimitations},
       getNextStepsButtons("PC",language.GUI.nextStepsPCTable,language.GUI.nextStepsPCDiagram)
     ],
-    tableData: language.text.PCTable+tilesPC.tableTiles,
-    diagramData: language.text.PCDiagram+tilesPC.diagramTiles
+    tableInfo: language.text.PCTable,
+    tableTiles: tilesPC.tableTiles,
+    diagramInfo: language.text.PCDiagram,
+    diagramTiles: tilesPC.diagramTiles
   });
 
   /* Allen-Cunneen-Näherungsformel */
@@ -205,8 +218,10 @@ function getMainGUI(isDesktopApp) {
       {head: language.GUI.formulaACLimitations, body: language.text.ACValuesLimitations},
       getNextStepsButtons("AC",language.GUI.nextStepsACTable,language.GUI.nextStepsACDiagram)
     ],
-    tableData: language.text.ACTable+tilesAC.tableTiles,
-    diagramData: language.text.ACDiagram+tilesAC.diagramTiles
+    tableInfo: language.text.ACTable,
+    tableTiles: tilesAC.tableTiles,
+    diagramInfo: language.text.ACDiagram,
+    diagramTiles: tilesAC.diagramTiles
   });
 
   /* Erweiterte Allen-Cunneen-Näherungsformel */
@@ -222,8 +237,10 @@ function getMainGUI(isDesktopApp) {
       {head: language.GUI.formulaExtACLimitations, body: language.text.ExtACValuesLimitations},
       getNextStepsButtons("ExtAC",language.GUI.nextStepsExtACTable,language.GUI.nextStepsExtACDiagram)
     ],
-    tableData: language.text.ExtACTable+tilesExtAC.tableTiles,
-    diagramData: language.text.ExtACDiagram+tilesExtAC.diagramTiles
+    tableInfo: language.text.ExtACTable,
+    tableTiles: tilesExtAC.tableTiles,
+    diagramInfo: language.text.ExtACDiagram,
+    diagramTiles: tilesExtAC.diagramTiles
   });
 
   /* Systemdesign: Vergleich verschiedener Strategien */
@@ -236,6 +253,9 @@ function getMainGUI(isDesktopApp) {
     valuesTilesButtons: tilesCompare.valueTilesButtons,
     valuesTiles: tilesCompare.valueTiles,
     valuesFormula: formulasCompare,
+    valuesInfoCards: [
+      {head: language.GUI.formulasCompareMoreInfo, body: language.text.formulasCompareMoreInfo}
+    ]
   });
 
   /* Systemdesign: Wahl der kürzesten Schlange */
@@ -247,8 +267,24 @@ function getMainGUI(isDesktopApp) {
     valuesTilesButtons: tilesShortestQueue.valueTilesButtons,
     valuesTiles: tilesShortestQueue.valueTiles,
     valuesFormula: formulasShortestQueue,
-    tableData: language.text.ShortestQueueTable+tilesShortestQueue.tableTiles,
-    diagramData: language.text.ShortestQueueDiagram+tilesShortestQueue.diagramTiles
+    tableInfo: language.text.ShortestQueueTable,
+    tableTiles: tilesShortestQueue.tableTiles,
+    diagramInfo: language.text.ShortestQueueDiagram,
+    diagramTiles: tilesShortestQueue.diagramTiles
+  });
+
+  /* Systemdesign: Economy of Scale */
+
+  result+=getPlaceholder({
+    id: "EconomyOfScale",
+    title: language.GUI.formulaEconomyOfScaleLong,
+    valuesTilesButtons: tilesEconomyOfScale.valueTilesButtons,
+    tableInfo: language.text.EconomyOfScaleTable,
+    tableTilesButtons: tilesEconomyOfScale.valueTilesButtons,
+    tableTiles: tilesEconomyOfScale.tableTiles,
+    diagramInfo: language.text.EconomyOfScaleDiagram,
+    diagramTilesButtons: tilesEconomyOfScale.valueTilesButtons,
+    diagramTiles: tilesEconomyOfScale.diagramTiles
   });
 
   /* Simulation */

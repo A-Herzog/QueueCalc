@@ -101,8 +101,8 @@ function updateShortestQueueValues() {
 
   result+="<h5>"+language.statistics.headingInputParameters+"</h5>\n";
   result+="<p>\n";
-  result+=language.GUI.formulaShortestQueueA,+" <b>a="+data.a+"</b><br>";
-  result+=language.GUI.formulaShortestQueueB,+" <b>b="+data.b+"</b><br>";
+  result+=language.GUI.formulaShortestQueueA+": <b>a="+data.a+"</b><br>";
+  result+=language.GUI.formulaShortestQueueB+": <b>b="+data.b+"</b><br>";
   result+="</p>\n";
 
   result+="<h5>"+"Wahrscheinlichkeit an der kürzeren Warteschlange länger warten zu müssen"+"</h5>";
