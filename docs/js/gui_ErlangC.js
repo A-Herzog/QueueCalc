@@ -207,11 +207,7 @@ function changeTabErlangCTable(sender) {
 
 function updateErlangCTable() {
   let table=calcErlangCTable('Table');
-  if (table!=null) {
-    globalThis["ErlangCTableData"]=table.text;
-    const html=table.html+"<p><button type='button' class='btn btn-primary bi-clipboard' onclick='navigator.clipboard.writeText(globalThis.ErlangCTableData);'> "+language.GUI.copyTable+"</button></p>";
-    document.getElementById('ErlangCTable_results').innerHTML=html;
-  }
+  if (table!=null) document.getElementById('ErlangCTable_results').innerHTML=table.html+table.buttons;
 }
 
 /* Diagramm */

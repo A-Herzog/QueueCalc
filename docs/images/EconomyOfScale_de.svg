@@ -159,7 +159,7 @@
    <g class="Group">
     <g class="com.sun.star.drawing.ClosedBezierShape">
      <g id="id12">
-      <rect class="BoundingBox" stroke="none" fill="none" x="12159" y="7597" width="3454" height="3454"/>
+      <rect class="BoundingBox" stroke="none" fill="none" x="12160" y="7597" width="3453" height="3454"/>
       <g style="opacity: 0.498039215686275">
        <g>
         <defs>
@@ -232,7 +232,7 @@
   <g class="TextShape">
    <g id="id20">
     <rect class="BoundingBox" stroke="none" fill="none" x="8153" y="5528" width="4604" height="1454"/>
-    <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Calibri, sans-serif" font-size="423px" font-weight="400"><tspan class="TextPosition" x="8224" y="5936"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">Kürzere </tspan></tspan><tspan class="TextPosition" x="8224" y="6360"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">Zwischenankunftszeiten</tspan></tspan><tspan class="TextPosition" x="8224" y="6784"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">E[I]=E[I]:c</tspan></tspan></tspan></text>
+    <text class="SVGTextShape"><tspan class="TextParagraph" font-family="Calibri, sans-serif" font-size="423px" font-weight="400"><tspan class="TextPosition" x="8224" y="5936"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">Kürzere </tspan></tspan><tspan class="TextPosition" x="8224" y="6360"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">Zwischenankunftszeiten</tspan></tspan><tspan class="TextPosition" x="8224" y="6784"><tspan fill="rgb(0,0,0)" stroke="none" style="white-space: pre">E[I]=E[I]:x</tspan></tspan></tspan></text>
    </g>
   </g>
  </g>

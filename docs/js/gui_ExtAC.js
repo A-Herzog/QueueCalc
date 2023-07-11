@@ -390,11 +390,7 @@ function changeTabExtACTable(sender) {
 
 function updateExtACTable() {
   let table=calcExtACTable('Table');
-  if (table!=null) {
-    globalThis["ExtACTableData"]=table.text;
-    const html=table.html+"<p><button type='button' class='btn btn-primary bi-clipboard' onclick='navigator.clipboard.writeText(globalThis.ExtACTableData);'> "+language.GUI.copyTable+"</button></p>";
-    document.getElementById('ExtACTable_results').innerHTML=html;
-  }
+  if (table!=null) document.getElementById('ExtACTable_results').innerHTML=table.html+table.buttons;
 }
 
 /* Diagramm */

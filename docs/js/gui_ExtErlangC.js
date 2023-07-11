@@ -263,11 +263,7 @@ function changeTabExtErlangCTable(sender) {
 
 function updateExtErlangCTable() {
   let table=calcExtErlangCTable('Table');
-  if (table!=null) {
-    globalThis["ExtErlangCTableData"]=table.text;
-    const html=table.html+"<p><button type='button' class='btn btn-primary bi-clipboard' onclick='navigator.clipboard.writeText(globalThis.ExtErlangCTableData);'> "+language.GUI.copyTable+"</button></p>";
-    document.getElementById('ExtErlangCTable_results').innerHTML=html;
-  }
+  if (table!=null) document.getElementById('ExtErlangCTable_results').innerHTML=table.html+table.buttons;
 }
 
 /* Diagramm */

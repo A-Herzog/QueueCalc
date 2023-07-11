@@ -192,11 +192,7 @@ function changeTabPCTable(sender) {
 
 function updatePCTable() {
   let table=calcPCTable('Table');
-  if (table!=null) {
-    globalThis["PCTableData"]=table.text;
-    const html=table.html+"<p><button type='button' class='btn btn-primary bi-clipboard' onclick='navigator.clipboard.writeText(globalThis.PCTableData);'> "+language.GUI.copyTable+"</button></p>";
-    document.getElementById('PCTable_results').innerHTML=html;
-  }
+  if (table!=null) document.getElementById('PCTable_results').innerHTML=table.html+table.buttons;
 }
 
 /* Diagramm */

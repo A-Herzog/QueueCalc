@@ -792,6 +792,22 @@ class Table {
     return table;
   }
 
+  get buttons() {
+    let downloadCode="";
+    downloadCode="const element=document.createElement(\"a\");";
+    downloadCode+="element.href=\"data:attachment/text,\"+encodeURI(atob(\""+btoa(this.text)+"\"));";
+    downloadCode+="element.download=\"table.txt\";";
+    downloadCode+="element.click();";
+
+    let html="";
+    html+="<p>";
+    html+="<button type='button' class='btn btn-primary bi-clipboard my-1' onclick='navigator.clipboard.writeText(atob(\""+btoa(this.text)+"\"));'> "+language.GUI.copyTable+"</button>"
+    html+="&nbsp";
+    html+="<button type='button' class='btn btn-primary bi-download my-1' onclick='"+downloadCode+"'> "+language.GUI.saveTable+"</button>"
+    html+="</p>";
+    return html;
+  }
+
   removeSpecialChars(s) {
     if (typeof(s)=='undefined') return '';
     s=s.replaceAll("<sub>","");
@@ -856,8 +872,38 @@ class Table {
     let html='';
     html+='<canvas id="'+id+'_plot" style="width:100%;"></canvas>';
     html+='<p class="small">'+language.GUI.diagramInfo+'</p>';
-    globalThis[id+"DiagramData"]=this.text;
-    html+="<p><button type='button' class='btn btn-primary bi-clipboard' onclick='navigator.clipboard.writeText(globalThis."+id+"DiagramData);'> "+language.GUI.copyDiagram+"</button></p>";
+
+    let downloadCodeTable="";
+    downloadCodeTable="const element=document.createElement(\"a\");";
+    downloadCodeTable+="element.href=\"data:attachment/text,\"+encodeURI(atob(\""+btoa(this.text)+"\"));";
+    downloadCodeTable+="element.download=\"table.txt\";";
+    downloadCodeTable+="element.click();";
+
+    let downloadCodeImage="";
+    downloadCodeImage="const element=document.createElement(\"a\");";
+    downloadCodeImage+="element.href=document.getElementById(\""+id+"_plot\").toDataURL(\"image/png\");";
+    downloadCodeImage+="element.download=\"diagram.png\";";
+    downloadCodeImage+="element.click();";
+
+    html+="<p>";
+
+    html+="<div class='dropdown' style='display: inline-block;'>";
+    html+="<button class='btn btn-primary bi-clipboard dropdown-toggle my-1' type='button' data-bs-toggle='dropdown' aria-expanded='false'>&nbsp;"+language.GUI.copyDiagram+"</button>";
+    html+="<ul class='dropdown-menu'>";
+    html+="<li><a class='dropdown-item' style='cursor: pointer;' onclick='navigator.clipboard.writeText(atob(\""+btoa(this.text)+"\"));'>"+language.GUI.copyDiagramTable+"</a></li>";
+    html+="<li><a class='dropdown-item' style='cursor: pointer;' onclick='if (typeof(ClipboardItem)!=\"undefined\") { document.getElementById(\""+id+"_plot\").toBlob(blob=>navigator.clipboard.write([new ClipboardItem({\"image/png\": blob})])); } else {alert(\""+language.GUI.copyDiagramImageError+"\")}'>"+language.GUI.copyDiagramImage+"</a></li>";
+    html+="</ul>";
+    html+="</div>";
+    html+="&nbsp;";
+    html+="<div class='dropdown' style='display: inline-block;'>";
+    html+="<button class='btn btn-primary bi-download dropdown-toggle my-1' type='button' data-bs-toggle='dropdown' aria-expanded='false'>&nbsp;"+language.GUI.saveDiagram+"</button>";
+    html+="<ul class='dropdown-menu'>";
+    html+="<li><a class='dropdown-item' style='cursor: pointer;' onclick='"+downloadCodeTable+"'>"+language.GUI.saveDiagramTable+"</a></li>";
+    html+="<li><a class='dropdown-item' style='cursor: pointer;' onclick='"+downloadCodeImage+"'>"+language.GUI.saveDiagramImage+"</a></li>";
+    html+="</ul>";
+    html+="</div>";
+
+    html+="</p>";
 
     document.getElementById(id).innerHTML=html;
 

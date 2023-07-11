@@ -122,11 +122,7 @@ function changeTabShortestQueueTable(sender) {
 
 function updateShortestQueueTable() {
   let table=calcShortestQueueTable('Table');
-  if (table!=null) {
-    globalThis["ShortestQueueTableData"]=table.text;
-    const html=table.html+"<p><button type='button' class='btn btn-primary bi-clipboard' onclick='navigator.clipboard.writeText(globalThis.ShortestQueueTableData);'> "+language.GUI.copyTable+"</button></p>";
-    document.getElementById('ShortestQueueTable_results').innerHTML=html;
-  }
+  if (table!=null) document.getElementById('ShortestQueueTable_results').innerHTML=table.html+table.buttons;
 }
 
 /* Diagramm */

@@ -157,11 +157,7 @@ function changeTabEconomyOfScaleTable(sender) {
 
   function updateEconomyOfScaleTable() {
     let table=calcEconomyOfScaleTable('Table');
-    if (table!=null) {
-      globalThis["EconomyOfScaleTableData"]=table.text;
-      const html=table.html+"<p><button type='button' class='btn btn-primary bi-clipboard' onclick='navigator.clipboard.writeText(globalThis.EconomyOfScaleTableData);'> "+language.GUI.copyTable+"</button></p>";
-      document.getElementById('EconomyOfScaleTable_results').innerHTML=html;
-    }
+    if (table!=null) document.getElementById('EconomyOfScaleTable_results').innerHTML=table.html+table.buttons;
   }
 
   /* Diagramm */
