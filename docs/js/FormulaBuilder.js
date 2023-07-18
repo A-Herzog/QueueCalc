@@ -65,8 +65,11 @@ const sub=(x,y)=>"<msub><mrow>"+x+"</mrow><mrow>"+y+"</mrow></msub>";
 const sum=(x,y)=>"<msubsup><mo>&sum;</mo><mrow>"+x+"</mrow><mrow>"+y+"</mrow></msubsup>";
 const prod=(x,y)=>"<msubsup><mo>&prod;</mo><mrow>"+x+"</mrow><mrow>"+y+"</mrow></msubsup>";
 
+const symP1=sub("<mi>P</mi>",num1);
+
 const frac=(x,y)=>'<mfrac><mrow>'+x+'</mrow><mrow>'+y+'</mrow></mfrac>';
 const binom=(x,y)=>'<mo>(</mo><mfrac linethickness="0"><mrow>'+x+'</mrow><mrow>'+y+'</mrow></mfrac><mo>)</mo>';
+const sqrt=(x)=>'<msqrt><mrow>'+x+'</mrow></msqrt>';
 
 const funcE=x=>'<mi mathvariant="normal">E</mi><mo>[</mo><mrow>'+x+'</mrow><mo>]</mo>';
 const funcCV=x=>'<mi mathvariant="normal">CV</mi><mo>[</mo><mrow>'+x+'</mrow><mo>]</mo>';
@@ -129,7 +132,7 @@ formulasErlangC+=infoBlockUtilization;
 
 formulasErlangC+=language.statistics.WaitingTimeDistribution+":";
 formulasErlangC+=mathStart;
-formulasErlangC+=sub("<mi>P</mi>",num1)+equals;
+formulasErlangC+=symP1+equals;
 formulasErlangC+=frac(
   frac(sup(syma,symc)+mul+symc,symc+opFact+"<mo>(</mo>"+symc+minus+syma+"<mo>)</mo>"),
   sum(symn+equals+num0,symc+minus+num1)+frac(sup(syma,symn),symn+opFact)+plus+frac(sup(syma,symc)+mul+symc,symc+opFact+"<mo>(</mo>"+symc+minus+syma+"<mo>)</mo>")
@@ -137,13 +140,13 @@ formulasErlangC+=frac(
 formulasErlangC+=mathEnd;
 formulasErlangC+=mathStart;
 formulasErlangC+=funcP(symW+"<mo>&le;</mo>"+symt)+equals;
-formulasErlangC+=num1+minus+sub("<mi>P</mi>",num1)+funcExp(minus+"<mo>(</mo>"+symc+minus+syma+"<mo>)</mo>"+symMu+symt);
+formulasErlangC+=num1+minus+symP1+funcExp(minus+"<mo>(</mo>"+symc+minus+syma+"<mo>)</mo>"+symMu+symt);
 formulasErlangC+=mathEnd;
 
 formulasErlangC+=language.statistics.averageNQ+":";
 formulasErlangC+=mathStart;
 formulasErlangC+=funcE(symNQ)+equals;
-formulasErlangC+=sub("<mi>P</mi>",num1)+mul+frac(syma,symc+minus+syma);
+formulasErlangC+=symP1+mul+frac(syma,symc+minus+syma);
 formulasErlangC+=mathEnd;
 
 formulasErlangC+=language.statistics.averageNS+":";
@@ -155,19 +158,40 @@ formulasErlangC+=mathEnd;
 formulasErlangC+=language.statistics.averageN+":";
 formulasErlangC+=mathStart;
 formulasErlangC+=funcE(symN)+equals;
-formulasErlangC+=sub("<mi>P</mi>",num1)+mul+frac(syma,symc+minus+syma)+plus+syma;
+formulasErlangC+=symP1+mul+frac(syma,symc+minus+syma)+plus+syma;
 formulasErlangC+=mathEnd;
 
 formulasErlangC+=language.statistics.averageWaitingTime+":";
 formulasErlangC+=mathStart;
 formulasErlangC+=funcE(symW)+equals;
-formulasErlangC+=sub("<mi>P</mi>",num1)+mul+frac(num1,symc+symMu+minus+symLambda);
+formulasErlangC+=symP1+mul+frac(num1,symc+symMu+minus+symLambda);
+formulasErlangC+=mathEnd;
+
+formulasErlangC+=language.statistics.variationWaitingTime+":";
+formulasErlangC+=mathStart;
+formulasErlangC+=funcVar(symW)+equals;
+formulasErlangC+=frac(num2+mul+symP1+minus+sup(symP1,num2),sup("<mo>(</mo>"+symc+mul+symMu+minus+symLambda+"<mo>)</mo>",num2));
+formulasErlangC+=mathEnd;
+formulasErlangC+=mathStart;
+formulasErlangC+=funcCV(symW)+equals;
+formulasErlangC+=sqrt(frac(num2,symP1)+minus+num1);
 formulasErlangC+=mathEnd;
 
 formulasErlangC+=language.statistics.averageResidenceTime+":";
 formulasErlangC+=mathStart;
 formulasErlangC+=funcE(symV)+equals;
-formulasErlangC+=sub("<mi>P</mi>",num1)+mul+frac(num1,symc+symMu+minus+symLambda)+plus+frac(num1,symMu);
+formulasErlangC+=symP1+mul+frac(num1,symc+symMu+minus+symLambda)+plus+frac(num1,symMu);
+formulasErlangC+=mathEnd;
+
+formulasErlangC+=language.statistics.variationResidenceTime+":";
+formulasErlangC+=mathStart;
+formulasErlangC+=funcVar(symV)+equals;
+formulasErlangC+=frac(num2+mul+symP1+minus+sup(symP1,num2),sup("<mo>(</mo>"+symc+mul+symMu+minus+symLambda+"<mo>)</mo>",num2));
+formulasErlangC+=plus+funcVar(symS);
+formulasErlangC+=mathEnd;
+formulasErlangC+=mathStart;
+formulasErlangC+=funcCV(symV)+equals;
+formulasErlangC+=frac(sqrt(num2+mul+symP1+minus+sup(symP1,num2)+plus+sup("<mo>(</mo>"+symc+mul+symMu+minus+symLambda+"<mo>)</mo>",num2)+funcVar(symS)),symP1+plus+"<mo>(</mo>"+symc+mul+symMu+minus+symLambda+"<mo>)</mo>"+funcE(symS));
 formulasErlangC+=mathEnd;
 
 formulasErlangC+="<p><b>"+language.statistics.SpecialCase+" c=1:</b></p>";
@@ -179,7 +203,7 @@ formulasErlangC+=mathEnd;
 
 formulasErlangC+=language.statistics.WaitingTimeDistribution+":";
 formulasErlangC+=mathStart;
-formulasErlangC+=sub("<mi>P</mi>",num1)+equals+syma;
+formulasErlangC+=symP1+equals+syma;
 formulasErlangC+=mathEnd;
 formulasErlangC+=mathStart;
 formulasErlangC+=funcP(symW+"<mo>&le;</mo>"+symt)+equals;
@@ -190,6 +214,12 @@ formulasErlangC+=language.statistics.averageNQ+":";
 formulasErlangC+=mathStart;
 formulasErlangC+=funcE(symNQ)+equals;
 formulasErlangC+=frac(sup(syma,num2),num1+minus+syma);
+formulasErlangC+=mathEnd;
+
+formulasErlangC+=language.statistics.variationNQ+":";
+formulasErlangC+=mathStart;
+formulasErlangC+=funcVar(symNQ)+equals;
+formulasErlangC+=frac(sup(syma,num2)+mul+"<mo>(</mo>"+num1+plus+syma+minus+sup(syma,num2)+"<mo>)</mo>",sup("<mo>(</mo>"+num1+minus+syma+"<mo>)</mo>",num2));
 formulasErlangC+=mathEnd;
 
 formulasErlangC+=language.statistics.averageNS+":";
@@ -204,16 +234,43 @@ formulasErlangC+=funcE(symN)+equals;
 formulasErlangC+=frac(syma,num1+minus+syma);
 formulasErlangC+=mathEnd;
 
+formulasErlangC+=language.statistics.variationN+":";
+formulasErlangC+=mathStart;
+formulasErlangC+=funcVar(symN)+equals;
+formulasErlangC+=frac(symRho,sup("<mo>(</mo>"+num1+minus+symRho+"<mo>)</mo>",num2));
+formulasErlangC+=mathEnd;
+
 formulasErlangC+=language.statistics.averageWaitingTime+":";
 formulasErlangC+=mathStart;
 formulasErlangC+=funcE(symW)+equals;
 formulasErlangC+=frac(syma,symMu+"<mo>(</mo>"+num1+minus+syma+"<mo>)</mo>");
 formulasErlangC+=mathEnd;
 
+formulasErlangC+=language.statistics.variationWaitingTime+":";
+formulasErlangC+=mathStart;
+formulasErlangC+=funcVar(symW)+equals;
+formulasErlangC+=frac(num2+mul+syma+minus+sup(syma,num2),sup("<mo>(</mo>"+symMu+minus+symLambda+"<mo>)</mo>",num2));
+formulasErlangC+=mathEnd;
+formulasErlangC+=mathStart;
+formulasErlangC+=funcCV(symW)+equals;
+formulasErlangC+=sqrt(frac(num2,syma)+minus+num1);
+formulasErlangC+=mathEnd;
+
 formulasErlangC+=language.statistics.averageResidenceTime+":";
 formulasErlangC+=mathStart;
 formulasErlangC+=funcE(symV)+equals;
 formulasErlangC+=frac(num1,symMu+"<mo>(</mo>"+num1+minus+syma+"<mo>)</mo>");
+formulasErlangC+=mathEnd;
+
+formulasErlangC+=language.statistics.variationResidenceTime+":";
+formulasErlangC+=mathStart;
+formulasErlangC+=funcVar(symV)+equals;
+formulasErlangC+=frac(num2+mul+syma+minus+sup(syma,num2),sup("<mo>(</mo>"+symMu+minus+symLambda+"<mo>)</mo>",num2));
+formulasErlangC+=plus+funcVar(symS);
+formulasErlangC+=mathEnd;
+formulasErlangC+=mathStart;
+formulasErlangC+=funcCV(symV)+equals;
+formulasErlangC+=frac(sqrt(num2+mul+syma+minus+sup(syma,num2)+plus+sup("<mo>(</mo>"+symMu+minus+symLambda+"<mo>)</mo>",num2)+funcVar(symS)),syma+plus+"<mo>(</mo>"+symMu+minus+symLambda+"<mo>)</mo>"+funcE(symS));
 formulasErlangC+=mathEnd;
 
 
@@ -381,7 +438,7 @@ formulasAC+=infoBlockUtilization;
 
 formulasAC+=language.statistics.auxiliaryFormulas+":";
 formulasAC+=mathStart;
-formulasAC+=sub("<mi>P</mi>",num1)+equals;
+formulasAC+=symP1+equals;
 formulasAC+=frac(
   frac(sup(syma,symc)+mul+symc,symc+opFact+"<mo>(</mo>"+symc+minus+syma+"<mo>)</mo>"),
   sum(symn+equals+num0,symc+minus+num1)+frac(sup(syma,symn),symn+opFact)+plus+frac(sup(syma,symc)+mul+symc,symc+opFact+"<mo>(</mo>"+symc+minus+syma+"<mo>)</mo>")
@@ -389,7 +446,7 @@ formulasAC+=frac(
 formulasAC+=mathEnd;
 formulasAC+=mathStart;
 formulasAC+=sub(funcE(symNQ),"<mtext>M/M/c</mtext>")+equals;
-formulasAC+=sub("<mi>P</mi>",num1)+mul+frac(symRho,num1+minus+symRho);
+formulasAC+=symP1+mul+frac(symRho,num1+minus+symRho);
 formulasAC+=mathEnd;
 
 formulasAC+=language.statistics.averageNQ+":";

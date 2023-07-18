@@ -94,13 +94,13 @@ function valuesFormulaVisiblity(elementId, buttonId) {
     const isVisible=(document.getElementById(elementId).clientHeight>=50);
     const button=document.getElementById(buttonId);
     if (isVisible) {
-      button.innerHTML=language.model.formulaHide;
+      button.innerHTML=" "+language.model.formulaHide;
       button.classList.remove("btn-success");
       button.classList.add("btn-warning");
       button.classList.remove("bi-arrows-expand");
       button.classList.add("bi-arrows-collapse");
     } else {
-      button.innerHTML=language.model.formulaShow;
+      button.innerHTML=" "+language.model.formulaShow;
       button.classList.remove("btn-warning");
       button.classList.add("btn-success");
       button.classList.remove("bi-arrows-collapse");
@@ -149,7 +149,7 @@ function getPlaceholder(record) {
   if (typeof(record.valuesFormula)=='string' && record.valuesFormula!='') {
     const formulaId=record.id+'ValuesFormula';
     content+='<button class="btn btn-success my-1 bi-arrows-expand me-3" type="button" id="'+formulaId+'Button" data-bs-toggle="collapse" data-bs-target="#'+formulaId+'" aria-expanded="false" aria-controls="'+formulaId+'" onclick="valuesFormulaVisiblity(\''+formulaId+'\',\''+formulaId+'Button\')">';
-    content+=language.model.formulaShow;
+    content+=" "+language.model.formulaShow;
     content+='</button>';
   }
   if (record.valuesTilesButtons) content+=record.valuesTilesButtons;

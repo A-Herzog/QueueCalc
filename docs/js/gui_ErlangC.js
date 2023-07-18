@@ -17,7 +17,7 @@ limitations under the License.
 export {tilesErlangC};
 
 import {TilesBuilder, Table} from './tools_gui.js';
-import {MMcZustandsP, ErlangC, ErlangC_EW} from './Erlang.js';
+import {MMcZustandsP, ErlangC, ErlangC_EW, ErlangC_P1} from './Erlang.js';
 import {language} from './Language.js';
 
 const tilesErlangC=new TilesBuilder('ErlangC');
@@ -91,14 +91,27 @@ function calcErlangC(input) {
   result.rho=result.a/result.c;
 
   if (result.rho<1) {
-    result.EW=ErlangC_EW(1/result.EI,1/result.ES,result.c);
+    result.P1=ErlangC_P1(result.a,result.c);
+    const lambda=1/result.EI;
+    const mu=1/result.ES;
+    result.EW=result.P1/(result.c*mu-lambda);
     result.EV=result.EW+result.ES;
     result.ENQ=result.EW/result.EI;
     result.EN=result.EV/result.EI;
     result.ENS=result.EN-result.ENQ;
     result.PNeq0=MMcZustandsP(result.a,result.c,0);
-    result.PWgt0=1-ErlangC(1/result.EI,1/result.ES,result.c,0);
-    if (result.t==null) result.PWlet=null; else result.PWlet=ErlangC(1/result.EI,1/result.ES,result.c,result.t);
+    result.PWgt0=1-ErlangC(lambda,mu,result.c,0);
+    if (result.t==null) result.PWlet=null; else result.PWlet=ErlangC(lambda,mu,result.c,result.t);
+    result.VarW=(2*result.P1-result.P1**2)/(result.c*mu-lambda)**2;
+    result.CVW=Math.sqrt(result.VarW)/result.EW;
+    result.VarV=result.VarW+result.ES**2;
+    result.CVV=Math.sqrt(result.VarV)/result.EV;
+    if (result.c==1) {
+      result.VarN=result.rho/(1-result.rho)**2; /* Var[N]=rho/(1-rho)^2 */
+      result.CVN=Math.sqrt(result.VarN)/result.EN;
+      result.VarNQ=result.rho**2*(1+result.rho-result.rho**2)/(1-result.rho)**2; /* Var[NQ]=rho^2(1+rho-rho^2)/(1-rho)^2 */
+      result.CVNQ=Math.sqrt(result.VarNQ)/result.ENQ;
+    }
   } else {
     result.EW=null;
     result.EV=null;
@@ -181,17 +194,20 @@ function updateErlangCValues() {
   if (data.rho>=1) {
       result+=language.statistics.rhoError;
   } else {
-      result+=language.statistics.averageWaitingTime+": <b>E[W]="+data.EW.toLocaleString()+"</b><br>\n";
-      result+=language.statistics.averageResidenceTime+": <b>E[V]="+data.EV.toLocaleString()+"</b> <small>(=E[W]+E[S])</small><br>\n";
+      result+=result+=language.statistics.P1+": <b>P<sub>1</sub>="+data.P1.toLocaleString()+"</b><br>\n";
+      result+=language.statistics.averageWaitingTime+": <b>E[W]="+data.EW.toLocaleString()+"</b> <small>(Std[W]="+Math.sqrt(data.VarW).toLocaleString()+", CV[W]="+data.CVW.toLocaleString()+")</small><br>\n";
+      result+=language.statistics.averageResidenceTime+": <b>E[V]="+data.EV.toLocaleString()+"</b> <small>(=E[W]+E[S])</small> <small>(Std[V]="+Math.sqrt(data.VarV).toLocaleString()+", CV[V]="+data.CVV.toLocaleString()+")</small><br>\n";
       result+=language.statistics.flowFactor+": <b>E[V]/E[S]="+(data.EV/data.ES).toLocaleString()+"</b><br>\n";
-      result+=language.statistics.averageNQ+": <b>E[N<sub>Q</sub>]="+data.ENQ.toLocaleString()+"</b><br>\n";
+      const infoNQ=(data.c>1)?"":(" <small>(Std[NQ]="+Math.sqrt(data.VarNQ).toLocaleString()+", CV[NQ]="+data.CVNQ.toLocaleString()+")</small>");
+      result+=language.statistics.averageNQ+": <b>E[N<sub>Q</sub>]="+data.ENQ.toLocaleString()+"</b>"+infoNQ+"<br>\n";
       result+=language.statistics.averageNS+": <b>E[N<sub>S</sub>]="+data.ENS.toLocaleString()+"</b><br>\n";
-      result+=language.statistics.averageN+": <b>E[N]="+data.EN.toLocaleString()+"</b> <small>(=E[N<sub>Q</sub>]+E[N<sub>S</sub>])</small><br>\n";
+      const infoN=(data.c>1)?"":(" <small>(Std[N]="+Math.sqrt(data.VarN).toLocaleString()+", CV[N]="+data.CVN.toLocaleString()+")</small>");
+      result+=language.statistics.averageN+": <b>E[N]="+data.EN.toLocaleString()+"</b> <small>(=E[N<sub>Q</sub>]+E[N<sub>S</sub>])</small>"+infoN+"<br>\n";
       result+=language.statistics.emptySystemProbability+": <b>P(N=0)="+(data.PNeq0*100).toLocaleString()+"%</b><br>\n";
       if (data.t!=null) {
           result+=language.statistics.serviceLevel+": <b>P(W&le;"+data.t.toLocaleString()+")="+(data.PWlet*100).toLocaleString()+"%</b> (<small>"+(data.PWlet*100).toLocaleString()+"% "+language.statistics.serviceLevelInfo1+" "+data.t.toLocaleString()+" "+language.statistics.serviceLevelInfo2+")</small><br>\n";
       }
-      result+=language.statistics.waitingProbability+": <b>P(W&gt;0)="+(data.PWgt0*100).toLocaleString()+"%</b> (<small>"+(data.PWgt0*100).toLocaleString()+"% "+language.statistics.waitingProbabilityInfo+")</small><br>\n";
+      result+=language.statistics.waitingProbability+": <b>P(W&gt;0)=P(N&ge;c)="+(data.PWgt0*100).toLocaleString()+"%</b> (<small>"+(data.PWgt0*100).toLocaleString()+"% "+language.statistics.waitingProbabilityInfo+")</small><br>\n";
   }
   result+="</p>\n";
 
