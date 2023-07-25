@@ -35,3 +35,22 @@ nav .nav-item .active {
   background-color: #14E !important;
   border-radius: 4px !important;
 }
+
+.menuButtonTitleShort {
+  display: none;
+}
+
+@media only screen and (max-width: 550px) {
+  .menuButtonTitle {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .menuButtonTitleLong {
+    display: none;
+  }
+  .menuButtonTitleShort {
+    display: inline;
+  }
+}

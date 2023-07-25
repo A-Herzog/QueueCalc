@@ -30,7 +30,7 @@ Section ""
   
   File "..\dist\QueueCalc\QueueCalc-win_x64.exe"
   File "..\dist\QueueCalc\resources.neu"
-  File "..\dist\QueueCalc\WebView2Loader.dll"
+  ; File "..\dist\QueueCalc\WebView2Loader.dll" - not used in newer Neutralinos versions anymore
   
   ExecWait "$TEMP\${PrgName}\QueueCalc-win_x64.exe"
   

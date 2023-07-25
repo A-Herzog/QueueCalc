@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-export {tilesErlangC};
+export {tilesErlangC, calcErlangC};
 
 import {TilesBuilder, Table} from './tools_gui.js';
 import {MMcZustandsP, ErlangC, ErlangC_EW, ErlangC_P1} from './Erlang.js';
@@ -210,6 +210,14 @@ function updateErlangCValues() {
       result+=language.statistics.waitingProbability+": <b>P(W&gt;0)=P(N&ge;c)="+(data.PWgt0*100).toLocaleString()+"%</b> (<small>"+(data.PWgt0*100).toLocaleString()+"% "+language.statistics.waitingProbabilityInfo+")</small><br>\n";
   }
   result+="</p>\n";
+
+  if (data.rho<1) {
+    const settings=[];
+    settings.push("EI="+data.EI);
+    settings.push("ES="+data.ES);
+    settings.push("c="+data.c);
+    result+="<p><a class='btn btn-primary bi-graph-up' href='WaitingTimeDist_"+language.GUI.imageMode+".html?mode=ErlangC&"+settings.join('&')+"' target='_blank'> "+language.WaitingTimeDist.button+"</a></p>";
+  }
 
   document.getElementById('ErlangCValues_results').innerHTML=result;
 }

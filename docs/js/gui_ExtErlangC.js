@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-export {tilesExtErlangC};
+export {tilesExtErlangC, calcExtErlangC};
 
 import {TilesBuilder, Table} from './tools_gui.js';
 import {ErlangC_ENQ, ErlangC_EW, MMcKMZustandsP, ErwErlangC_PA, ErwErlangC, ErwErlangC_ENQ, ErwErlangC_EN, ErwErlangC_EW, ErwErlangC_EV} from './Erlang.js';
@@ -250,6 +250,17 @@ function updateExtErlangCValues() {
     result+=language.statistics.waitingProbability+": <b>P(W&gt;0)="+(data.PWgt0*100).toLocaleString()+"%</b> (<small>"+(data.PWgt0*100).toLocaleString()+"% "+language.statistics.waitingProbabilityInfo+")</small><br>\n";
   }
   result+="</p>\n";
+
+  if (data.K>=data.c) {
+    result+="<p>\n";
+    const settings=[];
+    settings.push("EI="+data.EI);
+    settings.push("ES="+data.ES);
+    settings.push("K="+data.K);
+    settings.push("EWT="+data.EWT);
+    settings.push("c="+data.c);
+    result+="<p><a class='btn btn-primary bi-graph-up' href='WaitingTimeDist_"+language.GUI.imageMode+".html?mode=ExtErlangC&"+settings.join('&')+"' target='_blank'> "+language.WaitingTimeDist.button+"</a></p>";
+  }
 
   document.getElementById('ExtErlangCValues_results').innerHTML=result;
 }

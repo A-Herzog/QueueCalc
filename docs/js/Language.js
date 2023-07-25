@@ -142,6 +142,12 @@ lang.GUI.homeURL="warteschlangensimulation.de";
 lang.GUI.Imprint="Impressum";
 lang.GUI.Privacy="Datenschutz";
 
+lang.WaitingTimeDist={};
+lang.WaitingTimeDist.button="Wartezeitverteilung anzeigen";
+lang.WaitingTimeDist.heading="Wartezeitverteilung";
+lang.WaitingTimeDist.closeWindow="Fenster schließen";
+lang.WaitingTimeDist.closeWindowShort="Schließen";
+
 lang.model={};
 lang.model.explanationsShow="Erklärungen einblenden";
 lang.model.explanationsHide="Erklärungen ausblenden";
@@ -785,6 +791,12 @@ lang.GUI.simulators="Simulators";
 lang.GUI.homeURL="queueingsimulation.de";
 lang.GUI.Imprint="Imprint";
 lang.GUI.Privacy="Privacy";
+
+lang.WaitingTimeDist={};
+lang.WaitingTimeDist.button="Show waiting time distribution";
+lang.WaitingTimeDist.heading="Waiting time distribution";
+lang.WaitingTimeDist.closeWindow="Close window";
+lang.WaitingTimeDist.closeWindowShort="Close";
 
 lang.model={};
 lang.model.explanationsShow="Show explanations";
