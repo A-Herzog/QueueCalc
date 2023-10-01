@@ -22,12 +22,13 @@ import {tilesErlangB} from './gui_ErlangB.js';
 import {tilesErlangC} from './gui_ErlangC.js';
 import {tilesExtErlangC} from './gui_ExtErlangC.js';
 import {tilesPC} from './gui_PC.js';
+import {tilesKingman} from './gui_Kingman.js';
 import {tilesAC} from './gui_AC.js';
 import {tilesExtAC} from './gui_ExtAC.js';
 import {tilesCompare} from './gui_Compare.js';
 import {tilesShortestQueue} from './gui_ShortestQueue.js';
 import {tilesEconomyOfScale} from './gui_EconomyOfScale.js';
-import {formulasErlangB, formulasErlangC, formulasExtErlangC, formulasPC, formulasAC, formulasExtAC, formulasCompare, formulasShortestQueue} from './FormulaBuilder.js';
+import {formulasErlangB, formulasErlangC, formulasExtErlangC, formulasPC, formulasKingman, formulasAC, formulasExtAC, formulasCompare, formulasShortestQueue} from './FormulaBuilder.js';
 import {language} from './Language.js';
 
 
@@ -76,6 +77,7 @@ function buildStartTiles(isDesktopApp) {
   block+=buildStartTile(6,language.GUI.formulaErlangC,language.GUI.formulaErlangCInfo,"ErlangC","100%",false,"svg","159.82 / 47.24");
   block+=buildStartTile(6,language.GUI.formulaExtErlangC,language.GUI.formulaExtErlangCInfo,"ExtErlangC","100%",false,"svg","159.81 / 74.6");
   block+=buildStartTile(6,language.GUI.formulaPC,language.GUI.formulaPCInfo,"PC","100%",false,"svg","159.81 / 74.6");
+  block+=buildStartTile(6,language.GUI.formulaKingman,language.GUI.formulaKingmanInfo,"Kingman","100%",false,"svg","159.82 / 52.78");
   block+=buildStartTile(6,language.GUI.formulaAC,language.GUI.formulaACInfo,"AC","100%",false,"svg","159.82 / 52.78");
   block+=buildStartTile(6,language.GUI.formulaExtAC,language.GUI.formulaExtACInfo,"ExtAC","100%",false,"svg","159.82 / 74.05");
   block+=buildStartTile(6,language.GUI.formulaCompare,language.GUI.formulaCompareInfo,"Compare","100%",false,"svg","602.67 / 279.23",{values: true});
@@ -203,6 +205,25 @@ function getMainGUI(isDesktopApp) {
     tableTiles: tilesPC.tableTiles,
     diagramInfo: language.text.PCDiagram,
     diagramTiles: tilesPC.diagramTiles
+  });
+
+  /* Kingman-Näherungsformel */
+
+  result+=getPlaceholder({
+    id: "Kingman",
+    title: language.GUI.formulaKingmanLong,
+    valuesInfo: language.text.KingmanValues,
+    valuesTilesButtons: tilesKingman.valueTilesButtons,
+    valuesTiles: tilesKingman.valueTiles,
+    valuesFormula: formulasKingman,
+    valuesInfoCards: [
+      {head: language.GUI.formulaKingmanLimitations, body: language.text.KingmanValuesLimitations},
+      getNextStepsButtons("Kingman",language.GUI.nextStepsKingmanTable,language.GUI.nextStepsKingmanDiagram)
+    ],
+    tableInfo: language.text.KingmanTable,
+    tableTiles: tilesKingman.tableTiles,
+    diagramInfo: language.text.KingmanDiagram,
+    diagramTiles: tilesKingman.diagramTiles
   });
 
   /* Allen-Cunneen-Näherungsformel */

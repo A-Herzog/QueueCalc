@@ -43,6 +43,7 @@ mainNavBar.insertBefore(buildMultiNavDropdown("ErlangCMenu",language.GUI.tabErla
 
 mainNavBar.insertBefore(buildMultiNavDropdown("ACMenu",language.GUI.tabGeneralS,[
   {id: "PC", name: language.GUI.tabPC, info: language.GUI.tabPCInfo},
+  {id: "Kingman", name: language.GUI.tabKingman, info: language.GUI.tabKingmanInfo},
   {id: "AC", name: language.GUI.tabAC, info: language.GUI.tabACInfo},
   {id: "ExtAC", name: language.GUI.tabExtAC, info: language.GUI.tabExtACInfo}
 ]),mainNavBar.children[insertCount++]);

@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-export {formulasErlangB, formulasErlangC, formulasExtErlangC, formulasPC, formulasAC, formulasExtAC, formulasCompare, formulasShortestQueue}
+export {formulasErlangB, formulasErlangC, formulasExtErlangC, formulasPC, formulasKingman, formulasAC, formulasExtAC, formulasCompare, formulasShortestQueue}
 
 import {language} from './Language.js';
 
@@ -237,7 +237,7 @@ formulasErlangC+=mathEnd;
 formulasErlangC+=language.statistics.variationN+":";
 formulasErlangC+=mathStart;
 formulasErlangC+=funcVar(symN)+equals;
-formulasErlangC+=frac(symRho,sup("<mo>(</mo>"+num1+minus+symRho+"<mo>)</mo>",num2));
+formulasErlangC+=frac(syma,sup("<mo>(</mo>"+num1+minus+syma+"<mo>)</mo>",num2));
 formulasErlangC+=mathEnd;
 
 formulasErlangC+=language.statistics.averageWaitingTime+":";
@@ -420,6 +420,63 @@ formulasPC+=mathStart;
 formulasPC+=funcE(symV)+equals;
 formulasPC+=frac(sup(symRho,num2)+plus+sup(symLambda,num2)+mul+funcVar(symS),num2+symLambda+"<mo>(</mo>"+num1+minus+symRho+"<mo>)</mo>")+plus+frac(num1,symMu);
 formulasPC+=mathEnd;
+
+
+
+/* Kingman-Näherungsformel */
+
+let formulasKingman="";
+
+formulasKingman+=language.statistics.arrivalAnsServiceRate+":";
+formulasKingman+=infoBlockLambdaMu;
+
+formulasKingman+=language.statistics.Workload+":";
+formulasKingman+=infoBlockWorkLoad;
+
+formulasKingman+=language.statistics.Utilization+":";
+formulasKingman+=mathStart;
+formulasKingman+=symRho+equals+syma;
+formulasKingman+=mathEnd;
+
+formulasKingman+=language.statistics.auxiliaryFormula+":";
+formulasKingman+=mathStart;
+formulasKingman+=sub(funcE(symNQ),"<mtext>M/M/1</mtext>")+equals;
+formulasKingman+=frac(sup(symRho,num2),num1+minus+symRho);
+formulasKingman+=mathEnd;
+
+formulasKingman+=language.statistics.averageNQ+":";
+formulasKingman+=mathStart;
+formulasKingman+=funcE(symNQ)+approx;
+formulasKingman+=sub(funcE(symNQ),"<mtext>M/M/1</mtext>")+mul+frac(funcSCV(symI)+plus+funcSCV(symS),num2);
+formulasKingman+=equals+frac(symRho,num1+minus+symRho)+mul+frac(funcSCV(symI)+plus+funcSCV(symS),num2)+mul+symRho;
+formulasKingman+=mathEnd;
+
+formulasKingman+=language.statistics.averageNS+":";
+formulasKingman+=mathStart;
+formulasKingman+=funcE(symNS)+equals;
+formulasKingman+=syma;
+formulasKingman+=mathEnd;
+
+formulasKingman+=language.statistics.averageN+":";
+formulasKingman+=mathStart;
+formulasKingman+=funcE(symN)+approx;
+formulasKingman+=sub(funcE(symNQ),"<mtext>M/M/1</mtext>")+mul+frac(funcSCV(symI)+plus+funcSCV(symS),num2)+plus+syma;
+formulasKingman+=equals+frac(symRho,num1+minus+symRho)+mul+frac(funcSCV(symI)+plus+funcSCV(symS),num2)+mul+symRho+plus+syma;
+formulasKingman+=mathEnd;
+
+formulasKingman+=language.statistics.averageWaitingTime+":";
+formulasKingman+=mathStart;
+formulasKingman+=funcE(symW)+approx;
+formulasKingman+=sub(funcE(symNQ),"<mtext>M/M/1</mtext>")+mul+frac(num1,symLambda)+mul+frac(funcSCV(symI)+plus+funcSCV(symS),num2);
+formulasKingman+=equals+frac(symRho,num1+minus+symRho)+mul+frac(funcSCV(symI)+plus+funcSCV(symS),num2)+mul+frac(num1,symMu);
+formulasKingman+=mathEnd;
+
+formulasKingman+=language.statistics.averageResidenceTime+":";
+formulasKingman+=mathStart;
+formulasKingman+=funcE(symV)+approx;
+formulasKingman+=sub(funcE(symNQ),"<mtext>M/M/1</mtext>")+mul+frac(num1,symLambda)+mul+frac(funcSCV(symI)+plus+funcSCV(symS),num2)+plus+frac(num1,symMu);
+formulasKingman+=equals+frac(symRho,num1+minus+symRho)+mul+frac(funcSCV(symI)+plus+funcSCV(symS),num2)+mul+frac(num1,symMu)+plus+frac(num1,symMu);
+formulasKingman+=mathEnd;
 
 
 

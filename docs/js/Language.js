@@ -54,6 +54,10 @@ lang.GUI.formulaPC="Pollaczek-Chintschin-Formel";
 lang.GUI.formulaPCLong="Pollaczek-Chintschin-Formel (M/G/1-Modell)";
 lang.GUI.formulaPCInfo="Die Pollaczek-Chintschin-Formel setzt nicht mehr voraus, dass die Bediendauern exponentiell verteilt sind. Dafür aber können nur Modelle mit einem Bediener betrachtet werden (<b>M/G/1</b>-Modell).";
 lang.GUI.formulaPCLimitations="Grenzen Pollaczek-Chintschin-Formel";
+lang.GUI.formulaKingman="Kingman-Näherungsformel";
+lang.GUI.formulaKingmanLong="Kingman-Näherungsformel (G/G/1-Modell)";
+lang.GUI.formulaKingmanInfo="Die Kingman-Näherungsformel setzt nicht mehr voraus, dass die Zwischenankunfts- und die Bedienzeiten exponentiell verteilt sind (<b>G/G/1</b>-Modell). Dies ermöglicht insbesondere die Verwendung von <b>von 1 abweichenden Variationskoeffizienten</b>. Die Kingman-Näherungsformel ist wie die Pollaczek-Chintschin-Formel auf Systeme mit nur einem Bediener beschränkt.";
+lang.GUI.formulaKingmanLimitations="Grenzen der Kingman-Näherungsformel";
 lang.GUI.formulaAC="Allen-Cunneen-Näherungsformel";
 lang.GUI.formulaACLong="Allen-Cunneen-Näherungsformel (G/G/c-Modell)";
 lang.GUI.formulaACInfo="Die Allen-Cunneen-Näherungsformel setzt nicht mehr voraus, dass die Zwischenankunfts- und die Bedienzeiten exponentiell verteilt sind (<b>G/G/c</b>-Modell). Dies ermöglicht insbesondere die Verwendung von <b>von 1 abweichenden Variationskoeffizienten</b>.";
@@ -90,6 +94,8 @@ lang.GUI.tabExtErlangCInfo="M/M/c/K+M";
 lang.GUI.tabGeneralS="Allgemeine Bedienzeiten";
 lang.GUI.tabPC="Pollaczek-Chintschin-Formel";
 lang.GUI.tabPCInfo="M/G/1";
+lang.GUI.tabKingman="Kingman-Näherungsformel";
+lang.GUI.tabKingmanInfo="G/G/1";
 lang.GUI.tabAC="Allen-Cunneen-Näherungsformel";
 lang.GUI.tabACInfo="G/G/c";
 lang.GUI.tabExtAC="Erweiterte Allen-Cunneen-Näherungsformel";
@@ -124,6 +130,8 @@ lang.GUI.nextStepsExtErlangCTable="Mehrere erweiterte Erlang-C Werte als Tabelle
 lang.GUI.nextStepsExtErlangCDiagram="Mehrere erweiterte Erlang-C Werte als Diagramm darstellen";
 lang.GUI.nextStepsPCTable="Mehrere Pollaczek-Chintschin Werte als Tabelle ausgeben";
 lang.GUI.nextStepsPCDiagram="Mehrere Pollaczek-Chintschin Werte als Diagramm darstellen";
+lang.GUI.nextStepsKingmanTable="Mehrere Kingman Werte als Tabelle ausgeben";
+lang.GUI.nextStepsKingmanDiagram="Mehrere Kingman Werte als Diagramm darstellen";
 lang.GUI.nextStepsACTable="Mehrere Allen-Cunneen Werte als Tabelle ausgeben";
 lang.GUI.nextStepsACDiagram="Mehrere Allen-Cunneen Werte als Diagramm darstellen";
 lang.GUI.nextStepsExtACTable="Mehrere erweiterte Allen-Cunneen Werte als Tabelle ausgeben";
@@ -214,6 +222,7 @@ lang.statistics.headingDirectCalculableParameters="Direkt berechenbare Kenngrö�
 lang.statistics.headingErlangBResults="Erlang-B-Ergebnisse";
 lang.statistics.headingErlangCResults="Erlang-C-Ergebnisse";
 lang.statistics.headingPCResults="Pollaczek-Chintschin-Ergebnisse";
+lang.statistics.headingKingmanResults="Kingman-Ergebnisse";
 lang.statistics.headingACResults="Allen-Cunneen-Ergebnisse";
 lang.statistics.headingACCorrectionFactors="Korrekturfaktoren";
 lang.statistics.headingACCorrectionFactorsInfo1="Um die Abweichungen zwischen Näherungsformel und Realität zu verringern, existieren mehrere Korrekturfaktoransätze.";
@@ -273,6 +282,7 @@ lang.statistics.AvailabilityProbability="Wahrscheinlichkeit für die Verfügbark
 lang.statistics.DownTimeMean="Mittlere Ausfallzeit";
 lang.statistics.DownTimeCV="Variationskoeffizient der Ausfallzeiten";
 lang.statistics.rejectionProbability="Abweisungswahrscheinlichkeit";
+lang.statistics.auxiliaryFormula="Hilfsgröße";
 lang.statistics.auxiliaryFormulas="Hilfsgrößen";
 lang.statistics.for="für";
 lang.statistics.SpecialCase="Spezialfall";
@@ -302,7 +312,7 @@ Die beiden bekanntesten Formeln zur Berechnung der Kenngrößen einfacher Wartes
 die <b>Erlang-C-Formel</b> und die <b>Allen-Cunneen-Näherungsformel</b>. Die Erlang-C-Formel geht
 von <b>exponentiell</b> verteilten Zwischenankunftszeiten und Bedienzeiten aus. Ist diese Annahme
 nicht erfüllt (was inbesondere in Bezug auf die Bedienzeiten sehr häufig der Fall ist), entstehen
-Abweichungen zwischen Formelergebnissen und realem Modell. Die Allen-Cunneen-Näherungsformel kann
+Abweichungen zwischen Formelergebnissen und realem Modell. Die Kingman- und die Allen-Cunneen-Näherungsformeln kann
 prinzipiell <b>beliebige Wahrscheinlichkeitsverteilungen</b> für Zwischenankunftszeiten und Bedienzeiten
 berücksichtigen; die Zeitdauern werden hier durch Mittelwerte und Variationskoeffizieten charakterisiert.
 Dafür handelt es sich bei der Allen-Cunneen-Formel jedoch generell nur noch um eine Näherungsformel, d.h. es ist
@@ -500,6 +510,47 @@ finden Sie auf der Seite <a href="javascript:void(0);" onclick="showTab('PCValue
 </p>
 `;
 
+lang.text.KingmanValues=`
+<p>
+Bei der Verwendung der <a href="javascript:void(0);" onclick="showTab('ErlangCValues');">Erlang-C-Formel</a> ist die Exponentialverteilung für die Zwischenankunfts- und Bedienzeiten automatisch festgelegt. Bei der Exponentialverteilung kann
+lediglich der Erwartungswert eingestellt werden. Der Variationskoeffizient beträgt stets 1. Bei der Kingman-Näherungsformel ist keine konkrete Verteilung mehr für
+die Zwischenankunfts- und Bedienzeiten vorgegeben. Es müssen jediglich der <b>Erwartungswert</b> und der <b>Variationskoeffizient</b> eingestellt werden, d.h. die
+Kingman-Näherungsformel bietet hier mehr Freiheiten. Der Nachteil besteht jedoch darin, dass die Ergebnisse nur noch Näherungen sind und keine exakte Übereinstimmung
+mit den realen Werten in dem Modell erwartet werden kann. Außerdem können nur die Kenngrößen bestimmt werden. Eine Verteilungsfunktion der Wartezeiten (P(W&le;t)) lässt
+sich nicht bestimmen.
+</p>
+`;
+
+lang.text.KingmanValuesLimitations=`
+<p class="card-text">
+Folgende häufig wichtige Eigenschaften können auch durch die Allen-Cunneen-Näherungsformel nicht abgebildet werden:
+<ul>
+    <li>Bedieneranzahlen größer als 1 (&rarr; Allen-Cunneen-Näherungsformel)</li>
+    <li>Ungeduld der Kunden (&rarr; erweiterte Erlang-C-Formel)</li>
+    <li>Wiederholer nach einem Warteabbruch (&rarr; Simulation)</li>
+    <li>Weiterleitungen nach einer Bedienung (&rarr; Simulation)</li>
+    <li>Verschiedene Kunden- und/oder Bedienertypen (&rarr; Simulation)</li>
+    <li>Warteschlangennetzwerke (&rarr; Simulation)</li>
+</ul>
+</p>
+`;
+
+lang.text.KingmanTable=`
+<p>
+Wählen Sie für einen Parameter den Modus "<b>Variabel</b>" aus. Dieser wird dann in einem vorgegebenen Bereich variiert.
+Die Kenngrößen des G/G/1-Modells für die jeweiligen Parameter werden als Tabelle ausgegeben. Eine Erklärungen der Bedeutung der Eingabeparameter
+finden Sie auf der Seite <a href="javascript:void(0);" onclick="showTab('KingmanValues');">Kingman-Näherungsformel Einzelwerte</a>.
+</p>
+`;
+
+lang.text.KingmanDiagram=`
+<p>
+Wählen Sie für einen Parameter den Modus "<b>Variabel</b>" aus. Dieser wird dann in einem vorgegebenen Bereich variiert.
+Die Kenngrößen des G/G/1-Modells für die jeweiligen Parameter werden als Diagramm dargestellt. Eine Erklärungen der Bedeutung der Eingabeparameter
+finden Sie auf der Seite <a href="javascript:void(0);" onclick="showTab('KingmanValues');">Kingman-Näherungsformel Einzelwerte</a>.
+</p>
+`;
+
 lang.text.ACValues=`
 <p>
 Bei der Verwendung der <a href="javascript:void(0);" onclick="showTab('ErlangCValues');">Erlang-C-Formel</a> ist die Exponentialverteilung für die Zwischenankunfts- und Bedienzeiten automatisch festgelegt. Bei der Exponentialverteilung kann
@@ -579,7 +630,7 @@ lang.text.ExtACTable=`
 <p>
 Wählen Sie für einen Parameter den Modus "<b>Variabel</b>" aus. Dieser wird dann in einem vorgegebenen Bereich variiert.
 Die Kenngrößen des G/G/c-Modells für die jeweiligen Parameter werden als Tabelle ausgegeben. Eine Erklärungen der Bedeutung der Eingabeparameter
-finden Sie auf der Seite <a href="javascript:void(0);" onclick="showTab('ExtACValues');">erweiterte Allen-Cunneen-Formel Einzelwerte</a>.
+finden Sie auf der Seite <a href="javascript:void(0);" onclick="showTab('ExtACValues');">erweiterte Allen-Cunneen-Näherungsformel Einzelwerte</a>.
 </p>
 `;
 
@@ -587,7 +638,7 @@ lang.text.ExtACDiagram=`
 <p>
 Wählen Sie für einen Parameter den Modus "<b>Variabel</b>" aus. Dieser wird dann in einem vorgegebenen Bereich variiert.
 Die Kenngrößen des G/G/c-Modells für die jeweiligen Parameter werden als Diagramm dargestellt. Eine Erklärungen der Bedeutung der Eingabeparameter
-finden Sie auf der Seite <a href="javascript:void(0);" onclick="showTab('ExtACValues');">erweiterte Allen-Cunneen-Formel Einzelwerte</a>.
+finden Sie auf der Seite <a href="javascript:void(0);" onclick="showTab('ExtACValues');">erweiterte Allen-Cunneen-Näherungsformel Einzelwerte</a>.
 </p>
 `;
 
@@ -704,6 +755,10 @@ lang.GUI.formulaPC="Pollaczek-Chintschin formula";
 lang.GUI.formulaPCLong="Pollaczek-Chintschin formula (M/G/1 model)";
 lang.GUI.formulaPCInfo="The Pollaczek-Chintschin formula no longer requires that the service times are distributed exponentially. But for this only models with one operator can be examined (<b>M/G/1</b> model).";
 lang.GUI.formulaPCLimitations="Limitations of the Pollaczek-Chintschin formula";
+lang.GUI.formulaKingman="Kingman approximation formula";
+lang.GUI.formulaKingmanLong="Kingman approximation formula (G/G/1 model)";
+lang.GUI.formulaKingmanInfo="The Kingman approximation formula no longer requires that the inter-arrival and service times are distributed exponentially  (<b>G/G/1</b>-Modell). In particular, this allows the use of <b>coefficients of variation</b> different from 1. The Kingman approximation formula is just like the Pollaczek-Chintschin formula limited to models with only one operator.";
+lang.GUI.formulaKingmanLimitations="Limitations of the Kingman approximation formula";
 lang.GUI.formulaAC="Allen-Cunneen approximation formula";
 lang.GUI.formulaACLong="Allen-Cunneen approximation formula (G/G/c model)";
 lang.GUI.formulaACInfo="The Allen-Cunneen approximation formula no longer requires that the inter-arrival and service times are distributed exponentially  (<b>G/G/c</b>-Modell). In particular, this allows the use of <b>coefficients of variation</b> different from 1.";
@@ -740,6 +795,8 @@ lang.GUI.tabExtErlangCInfo="M/M/c/K+M";
 lang.GUI.tabGeneralS="General service times";
 lang.GUI.tabPC="Pollaczek-Chintschin formula";
 lang.GUI.tabPCInfo="M/G/1";
+lang.GUI.tabKingman="Kingman approximation formula"
+lang.GUI.tabKingmanInfo="G/G/1";
 lang.GUI.tabAC="Allen-Cunneen approximation formula";
 lang.GUI.tabACInfo="G/G/c";
 lang.GUI.tabExtAC="Extended Allen-Cunneen approximation formula";
@@ -774,6 +831,8 @@ lang.GUI.nextStepsExtErlangCTable="Output multiple extended Erlang-C values as a
 lang.GUI.nextStepsExtErlangCDiagram="Display multiple extended Erlang-C values as a diagram";
 lang.GUI.nextStepsPCTable="Output multiple Pollaczek-Chintschin values as a table";
 lang.GUI.nextStepsPCDiagram="Display multiple Pollaczek-Chintschin values as a diagram";
+lang.GUI.nextStepsKingmanTable="Output multiple Kingman values as a table";
+lang.GUI.nextStepsKingmanDiagram="Display multiple Kingman values as a diagram";
 lang.GUI.nextStepsACTable="Output multiple Allen-Cunneen values as a table";
 lang.GUI.nextStepsACDiagram="Display multiple Allen-Cunneen values as a diagram";
 lang.GUI.nextStepsExtACTable="Output multiple extended Allen-Cunneen values as a table";
@@ -864,6 +923,7 @@ lang.statistics.headingDirectCalculableParameters="Directly calculable parameter
 lang.statistics.headingErlangBResults="Erlang-B results";
 lang.statistics.headingErlangCResults="Erlang-C results";
 lang.statistics.headingPCResults="Pollaczek-Chintschin results";
+lang.statistics.headingKingmanResults="Kingman results";
 lang.statistics.headingACResults="Allen-Cunneen results";
 lang.statistics.headingACCorrectionFactors="Correction factors";
 lang.statistics.headingACCorrectionFactorsInfo1="In order to reduce the deviations between approximate formula and reality, several correction factor approaches exist.";
@@ -923,6 +983,7 @@ lang.statistics.AvailabilityProbability="Probability for the availability of an 
 lang.statistics.DownTimeMean="Average downtime";
 lang.statistics.DownTimeCV="Coefficient of variation of the down times";
 lang.statistics.rejectionProbability="Rejection probability";
+lang.statistics.auxiliaryFormula="Auxiliary formula";
 lang.statistics.auxiliaryFormulas="Auxiliary formulas";
 lang.statistics.for="for";
 lang.statistics.SpecialCase="Special case";
@@ -954,7 +1015,7 @@ are the <b>Erlang-C formula</b> and the <b>Allen-Cunneen approximation formula</
 The Erlang C formula assumes <b>exponentially</b> distributed inter-arrival times and service times.
 If this assumption is not fulfilled (which is very often the case, especially with regard to the
 service times), errors occur between the formula results and the real model.
-The Allen-Cunneen approximation formula can in principle take into account
+The Kingman and the Allen-Cunneen approximation formulas can in principle take into account
 <b>any probability distributions</b> for intermediate arrival times and service times;
 the durations are characterized here by mean values and coefficients of variation.
 However, the Allen-Cunneen formula is generally only an approximation formula, i.e. (slight)
@@ -1155,6 +1216,47 @@ Select the "<b>Variable</b>" mode for a parameter. This is then varied within a 
 The performance indicators of the M/G/1 model for the respective parameters are output as a diagram.
 An explanation of the meaning of the input parameters can be found on the page
 <a href="javascript:void(0);" onclick="showTab('PCValues');">Pollaczek-Chintschin formula individual values</a>.
+</p>
+`;
+
+lang.text.KingmanValues=`
+<p>
+When using the <a href="javascript:void(0);" onclick="showTab('ErlangCValues');">Erlang C formula</a>, the exponential distribution is automatically set for the inter-arrival and service times.
+With the exponential distribution, only the expected value can be set. The coefficient of variation is always 1.
+In the Kingman approximation formula, a specific distribution is no longer specified for the inter-arrival and service times.
+Only the <b>expected value</b> and the <b>coefficient of variation</b> have to be set, i.e. the Kingman approximation formula offers more freedom here.
+However, the disadvantage is that the results are only approximations and no exact match with the real values in the model can be expected.
+In addition, only the performance indicators can be determined. A distribution function of the waiting times (P(W&le;t)) cannot be determined.
+</p>
+`;
+
+lang.text.KingmanValuesLimitations=`
+<p class="card-text">
+The following frequently important properties cannot be mapped by the Kingman approximation formula:
+<ul>
+    <li>Operator count values larger than 1 (&rarr; Allen-Cunneen approximation formula)</li>
+    <li>Impatience of the customers (&rarr; extended Erlang-C formula)</li>
+    <li>Retry after a waiting cancelation (&rarr; Simulation)</li>
+    <li>Forwarding after a service process (&rarr; Simulation)</li>
+    <li>Different customer and/or operator types (&rarr; Simulation)</li>
+    <li>Queueing networks (&rarr; Simulation)</li>
+</ul>
+</p>
+`;
+
+lang.text.KingmanTable=`
+<p>
+Select the "<b>Variable</b>" mode for a parameter. This is then varied within a specified range.
+The performance indicators of the G/G/1 model for the respective parameters are output as a table. An explanation of the meaning of the input parameters can be found on the page
+<a href="javascript:void(0);" onclick="showTab('KingmanValues');">Kingman approximation formula individual values</a>.
+</p>
+`;
+
+lang.text.KingmanDiagram=`
+<p>
+Select the "<b>Variable</b>" mode for a parameter. This is then varied within a specified range.
+The performance indicators of the G/G/1 model for the respective parameters are output as a diagram. An explanation of the meaning of the input parameters can be found on the page
+<a href="javascript:void(0);" onclick="showTab('KingmanValues');">Kingman approximation formula individual values</a>.
 </p>
 `;
 
