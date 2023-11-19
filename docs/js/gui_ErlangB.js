@@ -89,12 +89,12 @@ function calcErlangBTable(mode) {
 
   let table=new Table();
 
-  table.addHeading('E[I]');
-  table.addHeading('E[S]');
-  table.addHeading('c');
-  table.addHeading('a');
-  table.addHeading('&rho;');
-  table.addHeading('P(reject)');
+  table.addHeading('E[I]',language.model.inputInterArrivalTimeMean);
+  table.addHeading('E[S]',language.model.inputServiceTimeMean);
+  table.addHeading('c',language.model.inputNumberOfOperators);
+  table.addHeading('a',language.statistics.Workload);
+  table.addHeading('&rho;',language.statistics.Utilization);
+  table.addHeading('P(reject)',language.statistics.rejectionProbability);
 
   table.calc(input,function(table,input) {
     const data=calcErlangB(input);

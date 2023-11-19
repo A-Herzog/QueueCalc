@@ -132,20 +132,20 @@ function calcErlangCTable(mode) {
 
   let table=new Table();
 
-  table.addHeading('E[I]');
-  table.addHeading('E[S]');
-  table.addHeading('c');
-  table.addHeading('t');
-  table.addHeading('a');
-  table.addHeading('&rho;');
-  table.addHeading('E[W]');
-  table.addHeading('E[V]');
-  table.addHeading('E[N<sub>Q</sub>]');
-  table.addHeading('E[N<sub>S</sub>]');
-  table.addHeading('E[N]');
-  table.addHeading('P(N=0)');
-  table.addHeading('P(W&gt;0)');
-  table.addHeading('P(W&le;t)');
+  table.addHeading('E[I]',language.model.inputInterArrivalTimeMean);
+  table.addHeading('E[S]',language.model.inputServiceTimeMean);
+  table.addHeading('c',language.model.inputNumberOfOperators);
+  table.addHeading('t',language.model.inputServiceLevelSeconds);
+  table.addHeading('a',language.statistics.Workload);
+  table.addHeading('&rho;',language.statistics.Utilization);
+  table.addHeading('E[W]',language.statistics.averageWaitingTime);
+  table.addHeading('E[V]',language.statistics.averageResidenceTime);
+  table.addHeading('E[N<sub>Q</sub>]',language.statistics.averageNQ);
+  table.addHeading('E[N<sub>S</sub>]',language.statistics.averageNS);
+  table.addHeading('E[N]',language.statistics.averageN);
+  table.addHeading('P(N=0)',language.statistics.emptySystemProbability);
+  table.addHeading('P(W&gt;0)',language.statistics.waitingProbability);
+  table.addHeading('P(W&le;t)',language.model.inputServiceLevel);
 
   table.calc(input,function(table,input) {
     const data=calcErlangC(input);

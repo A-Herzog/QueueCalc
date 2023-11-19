@@ -75,9 +75,9 @@ function calcShortestQueueTable(mode) {
 
   let table=new Table();
 
-  table.addHeading('a');
-  table.addHeading('b');
-  table.addHeading('P(W<sub>(b)</sub>&gt;W<sub>(a)</sub>)');
+  table.addHeading('a',language.GUI.formulaShortestQueueA);
+  table.addHeading('b',language.GUI.formulaShortestQueueB);
+  table.addHeading('P(W<sub>(b)</sub>&gt;W<sub>(a)</sub>)',language.GUI.formulaShortestQueueInfoAB);
 
   table.calc(input,function(table,input) {
     const data=calcShortestQueue(input);
@@ -105,7 +105,7 @@ function updateShortestQueueValues() {
   result+=language.GUI.formulaShortestQueueB+": <b>b="+data.b+"</b><br>";
   result+="</p>\n";
 
-  result+="<h5>"+"Wahrscheinlichkeit an der kürzeren Warteschlange länger warten zu müssen"+"</h5>";
+  result+="<h5>"+language.GUI.formulaShortestQueueInfoAB+"</h5>";
   result+="<p>\n";
   result+="<b>P(W<sub>(b)</sub>&gt;W<sub>(a)</sub>)="+(data.p*100).toLocaleString()+"%</b>";
   result+="</p>\n";

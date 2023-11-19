@@ -191,7 +191,7 @@ function getPlaceholder(record) {
     content+="<h2>"+record.title+"</h2>";
     content+="<button type=\"button\" class=\"btn-close\" aria-label=\"Close\" onclick=\"showTab('Home');\"></button><br>";
     content+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+".svg\">";
-    content+=record.tableInfo;
+    if (typeof(record.tableInfo)!='undefined') content+=record.tableInfo;
     if (record.tableTilesButtons) content+=record.tableTilesButtons;
     content+=record.tableTiles;
 
@@ -711,12 +711,14 @@ function getDecimalSeparatorChar() {
 class Table {
   constructor() {
     this.heading=[];
+    this.headingInfo=[];
     this.rows=[];
     this.cols=null;
   }
 
-  addHeading(column) {
+  addHeading(column, info) {
     this.heading.push(column);
+    this.headingInfo.push((typeof(info)=='undefined')?"":info);
   }
 
   addCol(column) {
@@ -774,6 +776,16 @@ class Table {
     }
   }
 
+  get legend() {
+    const result=[];
+    for (let i=0;i<this.heading.length;i++) result.push("<b>"+this.heading[i]+"</b>="+this.headingInfo[i]);
+    return result;
+  }
+
+  get legendHtml() {
+    return "<p class='small'>"+this.legend.join("<br>")+"</p>";
+  }
+
   get html() {
     this.startRow();
     let table='<table class="table table-hover">';
@@ -805,6 +817,9 @@ class Table {
     html+="&nbsp";
     html+="<button type='button' class='btn btn-primary bi-download my-1' onclick='"+downloadCode+"'> "+language.GUI.saveTable+"</button>"
     html+="</p>";
+
+    html+=this.legendHtml;
+
     return html;
   }
 
@@ -871,6 +886,9 @@ class Table {
   diagram(id, xColIndex, xAxisTitle, ySetup) {
     let html='';
     html+='<canvas id="'+id+'_plot" style="width:100%;"></canvas>';
+
+    html+='<p class="small">'+ySetup.map(setup=>setup.columnIndex).map(index=>"<b>"+this.removeSpecialChars(this.heading[index])+"</b>="+this.headingInfo[index]).join("<br>")+'</p>';
+
     html+='<p class="small">'+language.GUI.diagramInfo+'</p>';
 
     let downloadCodeTable="";

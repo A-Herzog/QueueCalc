@@ -113,18 +113,18 @@ function calcEconomyOfScaleTable(mode) {
 
   let table=new Table();
 
-    table.addHeading('E[I]');
-    table.addHeading('CV[I]');
-    table.addHeading('E[S]');
-    table.addHeading('CV[S]');
-    table.addHeading('c');
-    table.addHeading('a');
-    table.addHeading('&rho;');
-    table.addHeading('E[W]');
-    table.addHeading('E[V]');
-    table.addHeading('E[N<sub>Q</sub>]');
-    table.addHeading('E[N<sub>S</sub>]');
-    table.addHeading('E[N]');
+  table.addHeading('E[I]',language.model.inputInterArrivalTimeMean);
+  table.addHeading('CV[I]',language.model.inputInterArrivalTimeCV);
+  table.addHeading('E[S]',language.model.inputServiceTimeMean);
+  table.addHeading('CV[S]',language.model.inputServiceTimeCV);
+  table.addHeading('c',language.model.inputNumberOfOperators);
+  table.addHeading('a',language.statistics.Workload);
+  table.addHeading('&rho;',language.statistics.Utilization);
+  table.addHeading('E[W]',language.statistics.averageWaitingTime);
+  table.addHeading('E[V]',language.statistics.averageResidenceTime);
+  table.addHeading('E[N<sub>Q</sub>]',language.statistics.averageNQ);
+  table.addHeading('E[N<sub>S</sub>]',language.statistics.averageNS);
+  table.addHeading('E[N]',language.statistics.averageN);
 
     table.calc(input,function(table,input) {
       const data=calcEconomyOfScale(input);

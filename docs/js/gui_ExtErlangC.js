@@ -152,26 +152,26 @@ function calcExtErlangCTable(mode) {
 
   let table=new Table();
 
-  table.addHeading('E[I]');
-  table.addHeading('E[S]');
-  table.addHeading('K');
-  table.addHeading('E[WT]');
-  table.addHeading('c');
-  table.addHeading('t');
-  table.addHeading('a ('+language.statistics.characteristicsModeInput+')');
-  table.addHeading('&rho; ('+language.statistics.characteristicsModeInput+')');
-  table.addHeading('P(N=K)');
-  table.addHeading('P(A)');
-  table.addHeading('E[I] ('+language.statistics.characteristicsModeNet+')');
-  table.addHeading('&rho; ('+language.statistics.characteristicsModeNet+')');
-  table.addHeading('E[W]');
-  table.addHeading('E[V]');
-  table.addHeading('E[N<sub>Q</sub>]');
-  table.addHeading('E[N<sub>S</sub>]');
-  table.addHeading('E[N]');
-  table.addHeading('P(N=0)');
-  table.addHeading('P(W&gt;0)');
-  table.addHeading('P(W&le;t)');
+  table.addHeading('E[I]',language.model.inputInterArrivalTimeMean);
+  table.addHeading('E[S]',language.model.inputServiceTimeMean);
+  table.addHeading('K',language.statistics.SystemSize);
+  table.addHeading('E[WT]',language.model.inputWaitingTimeToleranceMean);
+  table.addHeading('c',language.model.inputNumberOfOperators);
+  table.addHeading('t',language.model.inputServiceLevelSeconds);
+  table.addHeading('a ('+language.statistics.characteristicsModeInput+')',language.statistics.Workload+' ('+language.statistics.characteristicsModeInput+')');
+  table.addHeading('&rho; ('+language.statistics.characteristicsModeInput+')',language.statistics.Utilization+' ('+language.statistics.characteristicsModeInput+')');
+  table.addHeading('P(N=K)',language.statistics.blockingProbability);
+  table.addHeading('P(A)',language.statistics.waitingCancelationProbability);
+  table.addHeading('E[I] ('+language.statistics.characteristicsModeNet+')',language.model.inputInterArrivalTimeMean+' ('+language.statistics.characteristicsModeNet+')');
+  table.addHeading('&rho; ('+language.statistics.characteristicsModeNet+')',language.statistics.Utilization+' ('+language.statistics.characteristicsModeNet+')');
+  table.addHeading('E[W]',language.statistics.averageWaitingTime);
+  table.addHeading('E[V]',language.statistics.averageResidenceTime);
+  table.addHeading('E[N<sub>Q</sub>]',language.statistics.averageNQ);
+  table.addHeading('E[N<sub>S</sub>]',language.statistics.averageNS);
+  table.addHeading('E[N]',language.statistics.averageN);
+  table.addHeading('P(N=0)',language.statistics.emptySystemProbability);
+  table.addHeading('P(W&gt;0)',language.statistics.waitingProbability);
+  table.addHeading('P(W&le;t)',language.model.inputServiceLevel);
 
   table.calc(input,function(table,input) {
     const data=calcExtErlangC(input);
