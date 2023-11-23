@@ -142,7 +142,8 @@ function getPlaceholder(record) {
   content+="<h2>"+record.title+"</h2>";
 
   content+="<button type=\"button\" class=\"btn-close\" aria-label=\"Close\" onclick=\"showTab('Home');\"></button><br>";
-  content+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+".svg\">";
+  const dark=(document.documentElement.dataset.bsTheme=='dark')?"_dark":"";
+  content+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+dark+".svg\">";
   content+=record.valuesInfo;
 
   content+='<div class="mb-2">';
@@ -190,7 +191,7 @@ function getPlaceholder(record) {
     content="";
     content+="<h2>"+record.title+"</h2>";
     content+="<button type=\"button\" class=\"btn-close\" aria-label=\"Close\" onclick=\"showTab('Home');\"></button><br>";
-    content+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+".svg\">";
+    content+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+dark+".svg\">";
     if (typeof(record.tableInfo)!='undefined') content+=record.tableInfo;
     if (record.tableTilesButtons) content+=record.tableTilesButtons;
     content+=record.tableTiles;
@@ -207,7 +208,7 @@ function getPlaceholder(record) {
     content="";
     content+="<h2>"+record.title+"</h2>";
     content+="<button type=\"button\" class=\"btn-close\" aria-label=\"Close\" onclick=\"showTab('Home');\"></button><br>";
-    content+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+".svg\">";
+    content+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+dark+".svg\">";
     content+=record.diagramInfo;
     if (record.diagramTilesButtons) content+=record.diagramTilesButtons;
     content+=record.diagramTiles;

@@ -33,6 +33,25 @@ menuHelpQueueingTheory.innerHTML=language.GUI.tabHelpDoc;
 menuHelpGlossary.innerHTML=language.GUI.tabHelpGlossary;
 menuHelpTextbook.innerHTML=language.GUI.tabHelpTextbook;
 
+menuLanguageMode.title=language.GUI.tabLanguageMode;
+menuLanguageModeEn.innerHTML=language.GUI.tabLanguageModeEn;
+menuLanguageModeDe.innerHTML=language.GUI.tabLanguageModeDe;
+if (language.GUI.imageMode=="de") menuLanguageModeDe.classList.add("bi-check"); else menuLanguageModeEn.classList.add("bi-check");
+
+menuColorMode.title=language.GUI.tabColorMode;
+menuColorModeLight.innerHTML=language.GUI.tabColorModeLight;
+menuColorModeDark.innerHTML=language.GUI.tabColorModeDark;
+menuColorModeSystemDefault.innerHTML=language.GUI.tabColorModeSystemDefault;
+
+let selectedColorMode=localStorage.getItem('selectedColorMode');
+if (selectedColorMode==null) {
+  menuColorModeSystemDefault.classList.add("bi-check");
+  const mode=(document.documentElement.dataset.bsTheme=='dark')?language.GUI.tabColorModeDark:language.GUI.tabColorModeLight;
+  menuColorModeSystemDefault.innerHTML=menuColorModeSystemDefault.innerHTML+" ("+mode+")";
+} else {
+  if (document.documentElement.dataset.bsTheme=='dark') menuColorModeDark.classList.add("bi-check"); else menuColorModeLight.classList.add("bi-check");
+}
+
 footerQueueCalc.innerHTML=language.GUI.Name;
 footerQueueCalcImprint.innerHTML=language.GUI.Imprint;
 footerQueueCalcPrivacy.innerHTML=language.GUI.Privacy;

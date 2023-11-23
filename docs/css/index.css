@@ -15,25 +15,48 @@ math {
   display: none;
 }
 
-h6.dropdown-header {
-  color: white;
-}
-
-a {
-  color: #0050FF;
-}
-
-nav .nav-link {
-  color: white;
-}
-
-nav .nav-link:hover {
-  color: #FFA;
-}
-
 nav .nav-item .active {
-  background-color: #14E !important;
   border-radius: 4px !important;
+}
+
+[data-bs-theme="light"] {
+  h6.dropdown-header {
+    color: white;
+  }
+
+  a {
+    color: #0050FF;
+  }
+
+  nav .nav-link {
+    color: white;
+  }
+
+  nav .nav-link:hover {
+    color: #FFA;
+  }
+
+  nav a {
+    color: white;
+  }
+
+  nav .nav-item .active {
+    background-color: #14E !important;
+  }
+
+  .footerPrivacyInfo {
+    color: black;
+  }
+}
+
+[data-bs-theme="dark"] {
+  .bg-primary {
+  background-color: rgba(var(--bs-secondary-rgb),var(--bs-bg-opacity)) !important;
+  }
+
+  .bg-light {
+    background-color: rgba(var(--bs-secondary-rgb),var(--bs-bg-opacity)) !important;
+  }
 }
 
 .menuButtonTitleShort {

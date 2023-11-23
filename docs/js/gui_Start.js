@@ -46,7 +46,8 @@ function buildStartTile(size, title, text, id, imgWidth="100%", showMore=false, 
   } else {
     block+="<a onclick=\"showTab('"+id+"Values');\" style='cursor: pointer;' title='"+title+"'>";
   }
-  block+='<img class="img-fluid" loading=\"lazy\" style="margin: 20px 0px; width: '+imgWidth+';'+aspectRatioStyle+'" src="./images/'+id+'_'+language.GUI.imageMode+'.'+fileFormat+'" alt="'+title+'">';
+  const dark=(document.documentElement.dataset.bsTheme=='dark')?"_dark":"";
+  block+='<img class="img-fluid" loading=\"lazy\" style="margin: 20px 0px; width: '+imgWidth+';'+aspectRatioStyle+'" src="./images/'+id+'_'+language.GUI.imageMode+dark+'.'+fileFormat+'" alt="'+title+'">';
   block+='</a>';
   block+="<p class=\"card-text\">"+text+"</p>";
   if (showMore) {
@@ -325,9 +326,11 @@ function getMainGUI(isDesktopApp) {
   setTimeout(()=>{
     showTab("Home");
 
-    fetch('./js/info_sim_'+language.GUI.imageMode+'.html').then(response=>response.text().then(text=>initObserver('Simulation',text)));
-    fetch('./js/info_qt_'+language.GUI.imageMode+'.html').then(response=>response.text().then(text=>initObserver('QueueingTheory',text)));
-    fetch('./js/info_glossary_'+language.GUI.imageMode+'.html').then(response=>response.text().then(text=>initObserver('Glossary',text)));
+    const dark=(document.documentElement.dataset.bsTheme=="dark")?"_dark":"";
+
+    fetch('./js/info_sim_'+language.GUI.imageMode+'.html').then(response=>response.text().then(text=>initObserver('Simulation',text.replace("%%%DARK%%%",dark))));
+    fetch('./js/info_qt_'+language.GUI.imageMode+'.html').then(response=>response.text().then(text=>initObserver('QueueingTheory',text.replace("%%%DARK%%%",dark))));
+    fetch('./js/info_glossary_'+language.GUI.imageMode+'.html').then(response=>response.text().then(text=>initObserver('Glossary',text.replace("%%%DARK%%%",dark))));
   },100);
 
   return result;
