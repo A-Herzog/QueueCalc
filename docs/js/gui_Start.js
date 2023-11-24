@@ -31,8 +31,20 @@ import {tilesEconomyOfScale} from './gui_EconomyOfScale.js';
 import {formulasErlangB, formulasErlangC, formulasExtErlangC, formulasPC, formulasKingman, formulasAC, formulasExtAC, formulasCompare, formulasShortestQueue} from './FormulaBuilder.js';
 import {language} from './Language.js';
 
-
-
+/**
+ * Generates the html code for a tile for the home page.
+ * @param {Number} size Width in Bootstrap columns
+ * @param {String} title Text to be displayed in the tile title
+ * @param {String} text Info text in the tile
+ * @param {String} id Id of the queueing model
+ * @param {String} imgWidth Width of the queueing model image in the tile (optional, defaults to "100%")
+ * @param {Boolean} showMore Show "More information" button instead of values, table and diagram buttons (optional, defaults to false)
+ * @param {String} fileFormat File extension of the image to be displayed (optional, defaults to "svg")
+ * @param {String} aspectRatio Aspect ratio of the image to allow the html renderer to process before image is loaded (optional, defaults to null, which means "do not output aspect ratio information")
+ * @param {Object} modes Defines if values, table and diagram buttons are to be displayed (optional, defaults to {values: true, table: true, diagram: true})
+ * @param {String} icon Html code for an optional icon to be displayed left of the tile title (optional, defaults to "")
+ * @returns {String} Html code for the tile as text
+ */
 function buildStartTile(size, title, text, id, imgWidth="100%", showMore=false, fileFormat="svg", aspectRatio=null, modes={values: true, table: true, diagram: true}, icon="") {
   let block="";
 
@@ -42,13 +54,13 @@ function buildStartTile(size, title, text, id, imgWidth="100%", showMore=false, 
   let aspectRatioStyle='';
   if (aspectRatio!=null) aspectRatioStyle=' aspect-ratio: '+aspectRatio+';';
   if (showMore) {
-    block+="<a onclick=\"showTab('"+id+"');\" style='cursor: pointer;' title='"+title+"'>";
+    block+="<button class='btn btn-link' onclick=\"showTab('"+id+"');\" title='"+title+"'>";
   } else {
-    block+="<a onclick=\"showTab('"+id+"Values');\" style='cursor: pointer;' title='"+title+"'>";
+    block+="<button class='btn btn-link' onclick=\"showTab('"+id+"Values');\" title='"+title+"'>";
   }
   const dark=(document.documentElement.dataset.bsTheme=='dark')?"_dark":"";
   block+='<img class="img-fluid" loading=\"lazy\" style="margin: 20px 0px; width: '+imgWidth+';'+aspectRatioStyle+'" src="./images/'+id+'_'+language.GUI.imageMode+dark+'.'+fileFormat+'" alt="'+title+'">';
-  block+='</a>';
+  block+='</button>';
   block+="<p class=\"card-text\">"+text+"</p>";
   if (showMore) {
     block+="<button onclick=\"showTab('"+id+"');\" class=\"btn btn-primary my-1 bi-info-circle\"> "+language.GUI.modeMore+"</button>\n";
@@ -69,12 +81,17 @@ function buildStartTile(size, title, text, id, imgWidth="100%", showMore=false, 
   return block;
 }
 
+/**
+ * Generates the html code for the tiles on the home page.
+ * @param {Boolean} isDesktopApp Is the web app running in desktop app mode? (When its already a desktop app the download options will be hidden.)
+ * @returns {String} Html code for the tiles as text
+ */
 function buildStartTiles(isDesktopApp) {
   let block="";
 
   block+="<div class=\"row\">";
 
-  block+=buildStartTile(6,language.GUI.formulaErlangB,language.GUI.formulaErlangBInfo,"ErlangB","70%",false,"svg","114.02 / 62.19");
+  block+=buildStartTile(6,language.GUI.formulaErlangB,language.GUI.formulaErlangBInfo,"ErlangB","100%",false,"svg","114.02 / 62.19");
   block+=buildStartTile(6,language.GUI.formulaErlangC,language.GUI.formulaErlangCInfo,"ErlangC","100%",false,"svg","159.82 / 47.24");
   block+=buildStartTile(6,language.GUI.formulaExtErlangC,language.GUI.formulaExtErlangCInfo,"ExtErlangC","100%",false,"svg","159.81 / 74.6");
   block+=buildStartTile(6,language.GUI.formulaPC,language.GUI.formulaPCInfo,"PC","100%",false,"svg","159.81 / 74.6");
@@ -116,6 +133,11 @@ function buildStartTiles(isDesktopApp) {
   return block;
 }
 
+/**
+ * Generates the html code for all pages.
+ * @param {Boolean} isDesktopApp Is the web app running in desktop app mode? (When its already a desktop app the download options will be hidden.)
+ * @returns {String} Html code for all pages as text
+ */
 function getMainGUI(isDesktopApp) {
   let result="";
 
@@ -123,16 +145,18 @@ function getMainGUI(isDesktopApp) {
 
   result+="<div class=\"tab-pane fade active show\" id=\"Home\" role=\"tabpanel\">";
   result+="<h2>"+language.GUI.Name+"</h2>";
+  /*
   if (typeof(language.GUI.OtherLanguage)!="undefined" && language.GUI.OtherLanguage!="") {
     result+="<div class=\"container border bg-light rounded small\" style=\"display: inline-block; margin: 20px 0px; padding: 4px 10px; width: fit-content;\">";
     result+=language.GUI.OtherLanguage;
     result+="</div>";
   }
+  */
   result+=language.text.start;
   result+=buildStartTiles(isDesktopApp);
   result+="</div>";
 
-  /* Erlang-B-Formel */
+  /* Erlang B formula */
 
   result+=getPlaceholder({
     id: "ErlangB",
@@ -151,7 +175,7 @@ function getMainGUI(isDesktopApp) {
     diagramTiles: tilesErlangB.diagramTiles
   });
 
-  /* Erlang-C-Formel */
+  /* Erlang C formula */
 
   result+=getPlaceholder({
     id: "ErlangC",
@@ -170,7 +194,7 @@ function getMainGUI(isDesktopApp) {
     diagramTiles: tilesErlangC.diagramTiles
   });
 
-  /* Erweiterte Erlang-C-Formel*/
+  /* Extended Erlang C formula*/
 
   result+=getPlaceholder({
     id: "ExtErlangC",
@@ -189,7 +213,7 @@ function getMainGUI(isDesktopApp) {
     diagramTiles: tilesExtErlangC.diagramTiles
   });
 
-  /* Pollaczek-Chintschin-Formel */
+  /* Pollaczek-Chintschin formula */
 
   result+=getPlaceholder({
     id: "PC",
@@ -208,7 +232,7 @@ function getMainGUI(isDesktopApp) {
     diagramTiles: tilesPC.diagramTiles
   });
 
-  /* Kingman-Näherungsformel */
+  /* Kingman approximation formula */
 
   result+=getPlaceholder({
     id: "Kingman",
@@ -227,7 +251,7 @@ function getMainGUI(isDesktopApp) {
     diagramTiles: tilesKingman.diagramTiles
   });
 
-  /* Allen-Cunneen-Näherungsformel */
+  /* Allen-Cunneen approximation formula */
 
   result+=getPlaceholder({
     id: "AC",
@@ -246,7 +270,7 @@ function getMainGUI(isDesktopApp) {
     diagramTiles: tilesAC.diagramTiles
   });
 
-  /* Erweiterte Allen-Cunneen-Näherungsformel */
+  /* Extended Allen-Cunneen approximation formula */
 
   result+=getPlaceholder({
     id: "ExtAC",
@@ -265,7 +289,7 @@ function getMainGUI(isDesktopApp) {
     diagramTiles: tilesExtAC.diagramTiles
   });
 
-  /* Systemdesign: Vergleich verschiedener Strategien */
+  /* System design: Comparison of different strategies */
 
   result+=getPlaceholder({
     id: "Compare",
@@ -280,7 +304,7 @@ function getMainGUI(isDesktopApp) {
     ]
   });
 
-  /* Systemdesign: Wahl der kürzesten Schlange */
+  /* System design: Shortest queue */
 
   result+=getPlaceholder({
     id: "ShortestQueue",
@@ -295,7 +319,7 @@ function getMainGUI(isDesktopApp) {
     diagramTiles: tilesShortestQueue.diagramTiles
   });
 
-  /* Systemdesign: Economy of Scale */
+  /* System design: Economy of Scale */
 
   result+=getPlaceholder({
     id: "EconomyOfScale",
@@ -313,11 +337,11 @@ function getMainGUI(isDesktopApp) {
 
   result+=getSimplePlaceholder("Simulation");
 
-  /* Warteschlangentheorie */
+  /* Queueing theory */
 
   result+=getSimplePlaceholder("QueueingTheory");
 
-  /* Glossar */
+  /* Glossary */
 
   result+=getSimplePlaceholder("Glossary");
 

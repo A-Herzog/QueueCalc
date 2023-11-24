@@ -19,13 +19,28 @@ nav .nav-item .active {
   border-radius: 4px !important;
 }
 
-[data-bs-theme="light"] {
-  h6.dropdown-header {
-    color: white;
-  }
+.btn-link {
+  outline: none !important;
+  padding: 0;
+  border: 0;
+  vertical-align: baseline;
+}
 
+h6.dropdown-header {
+  color: white;
+}
+
+footer a {
+  color: blue;
+}
+
+[data-bs-theme="light"] {
   a {
     color: #0050FF;
+  }
+
+  a.btn-primary {
+    color: white;
   }
 
   nav .nav-link {
@@ -56,6 +71,10 @@ nav .nav-item .active {
 
   .bg-light {
     background-color: rgba(var(--bs-secondary-rgb),var(--bs-bg-opacity)) !important;
+  }
+
+  footer a {
+    color: rgb(139, 185, 254)
   }
 }
 

@@ -16,6 +16,9 @@ limitations under the License.
 
 export {language}
 
+/**
+ * Object containing the language strings for the GUI in the selected language.
+ */
 let lang;
 
 /* German */
@@ -333,14 +336,14 @@ und -Bedienungen sowie um Ausfallzeiten der Bediener ergänzt werden.
 
 <p>
 Weitere Erklärungen zu den Grundbegriffen der Warteschlangentheorie sowie zu den betrachteten analystischen Modellen können auf der Seite
-<a href="javascript:void(0);" onclick="showTab('QueueingTheory');">Warteschlangentheorie</a>
+<button class="btn btn-link" onclick="showTab('QueueingTheory');">Warteschlangentheorie</button>
 nachgelesen werden.
 </p>
 
 <p>
 Sollen komplexere Modelle und insbesondere Warteschlangennetze, d.h. Modelle mit mehreren, in Reihe und/oder parallel
 verschalteten Bedienstationen oder z.B. verschiedenen Kundentypen mit verschiedenen Eigenschaften usw. betrachtet werden,
-so ist dies per <a href="javascript:void(0);" onclick="showTab('Simulation');">Simulation</a>
+so ist dies per <button class="btn btn-link" onclick="showTab('Simulation');">Simulation</button>
 möglich.
 </p>
 `;
@@ -1045,7 +1048,7 @@ batch arrivals and service, as well as operator downtimes.
 
 <p>
 Further explanations of the basic concepts of queueing theory as well as the analytical models considered can be found on the
-<a href="javascript:void(0);" onclick="showTab('QueueingTheory');">Queueing theory</a>
+<button class="btn btn-link" onclick="showTab('QueueingTheory');">Queueing theory</button>
 page.
 </p>
 
@@ -1053,7 +1056,7 @@ page.
 If more complex models and especially queueing networks, i.e. models with several process stations
 connected in series and/or in parallel or e.g. different customer types with different characteristics
 etc. are to be considered, this can be done by
-<a href="javascript:void(0);" onclick="showTab('Simulation');">Simulation</a>.
+<button class="btn btn-link" onclick="showTab('Simulation');">Simulation</button>.
 </p>
 `;
 
