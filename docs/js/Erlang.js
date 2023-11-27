@@ -17,10 +17,15 @@ limitations under the License.
 export {MMcZustandsP, ErlangC_P1, ErlangC_P2, ErlangC, ErlangC_ENQ, ErlangC_EN, ErlangC_EW, ErlangC_EV, ErlangB, MMcKMZustandsP, ErwErlangC_PA, ErwErlangC, ErwErlangC_ENQ, ErwErlangC_EN, ErwErlangC_EW, ErwErlangC_EV};
 
 /*
- * Allgemeine Hilfsfunktionen
+ * Helper functions
  */
 
-/* Berechnet x^n/n! */
+/**
+ * Calculates x^n/n!
+ * @param {Number} x x
+ * @param {Number} n n
+ * @returns {Number} x^n/n!
+ */
 function PotenzFakultaet(x,n) {
   if (n==0) return 1;
   let prod=1;
@@ -31,10 +36,15 @@ function PotenzFakultaet(x,n) {
 
 
 /*
- * M/M/c-System
+ * M/M/c system
  */
 
-/* Berechnet p0 für ein M/M/c-System */
+/**
+ * Calculates p0 for a M/M/c system
+ * @param {Number} a Workload
+ * @param {Number} c Number of operators
+ * @returns {Number} p0 (Probability of an empty system)
+ */
 function MMcZustandsP0(a,c) {
   let sum=0;
   for (let k=0;k<c;k++) sum+=PotenzFakultaet(a,k);
@@ -44,19 +54,37 @@ function MMcZustandsP0(a,c) {
   return 0
 }
 
-/* Berechnet pn für ein M/M/c-System */
+/**
+ * Calculates pn for a M/M/c system
+ * @param {Number} a Workload
+ * @param {Number} c Number of operators
+ * @param {Number} n n
+ * @returns {Number} pn (Probability for n customers in system)
+ */
 function MMcZustandsP(a,c,n) {
   if (n==0) return MMcZustandsP0(a,c);
   if (n<=c) return PotenzFakultaet(a,n)*MMcZustandsP0(a,c);
   return PotenzFakultaet(a,c)*Math.pow(a/c,n-c)*MMcZustandsP0(a,c);
 }
 
-/* Berechnet P1 für ein M/M/c-System */
+/**
+ * Calculates P1 for a M/M/c system
+ * @param {Number} a Workload
+ * @param {Number} c Number of operators
+ * @returns {Number} Erlang C P1
+ */
 function ErlangC_P1(a,c) {
     return PotenzFakultaet(a,c)*c/(c-a)*MMcZustandsP0(a,c);
 }
 
-/* Berechnet P2 für die AC-Formel */
+/**
+ * Calculates P2 by the Allen-Cunneen formula
+ * @param {Number} a Workload
+ * @param {Number} bS Service batch size
+ * @param {Number} c Number of operators
+ * @param {Number} rho Utilization
+ * @returns {Number} Allen-Cunneen P2
+ */
 function ErlangC_P2(a,bS,c,rho) {
     const factor=PotenzFakultaet(a/bS,c)/(1-rho);
     let sum=0;
@@ -64,35 +92,66 @@ function ErlangC_P2(a,bS,c,rho) {
     return factor/(factor+sum);
 }
 
-/* Berechnet P(W<=t) für ein M/M/c-System (also die Erlang-C-Formel) */
+/**
+ * Calculates P(W<=t) for a M/M/c system (this is the Erlang C formula)
+ * @param {Number} lambda Arrival rate &lambda;
+ * @param {Number} mu Service rate &mu;
+ * @param {Number} c Number of operators
+ * @param {Number} t t
+ * @returns {Number} P(W&le;t) (Probability for a customer to have to wait for less or equal t time units)
+ */
 function ErlangC(lambda,mu,c,t) {
   const a=lambda/mu;
   if (a>=c) return 0;
   return 1-ErlangC_P1(a,c)*Math.exp(-(c-a)*mu*t);
 }
 
-/* Berechnet E[NQ] für ein M/M/c/-System */
+/**
+ * Calculates E[NQ] for a M/M/c system
+ * @param {Number} lambda Arrival rate &lambda;
+ * @param {Number} mu Service rate &mu;
+ * @param {Number} c Number of operators
+ * @returns {Number} E[NQ] (Average number of customers in queue)
+ */
 function ErlangC_ENQ(lambda,mu,c) {
   const a=lambda/mu;
   if (a>=c) return 0;
   return ErlangC_P1(a,c)*a/(c-a);
 }
 
-/* Berechnet E[N] für ein M/M/c/-System */
+/**
+ * Calculates E[N] for a M/M/c system
+ * @param {Number} lambda Arrival rate &lambda;
+ * @param {Number} mu Service rate &mu;
+ * @param {Number} c Number of operators
+ * @returns {Number} E[N] (Average number of customers in system)
+ */
 function ErlangC_EN(lambda,mu,c) {
   const a=lambda/mu;
   if (a>=c) return 0;
   return ErlangC_P1(a,c)*a/(c-a)+a;
 }
 
-/* Berechnet E[W] für ein M/M/c/-System */
+/**
+ * Calculates E[W] for a M/M/c system
+ * @param {Number} lambda Arrival rate &lambda;
+ * @param {Number} mu Service rate &mu;
+ * @param {Number} c Number of operators
+ * @returns {Number} E[W] (Average waiting time)
+ */
 function ErlangC_EW(lambda,mu,c) {
   const a=lambda/mu;
   if (a>=c) return 0;
   return ErlangC_P1(a,c)/(c*mu-lambda);
 }
 
-/* Berechnet E[V] für ein M/M/c/-System */
+/**
+ * Calculates E[V] for a M/M/c system
+ * @param {Number} lambda Arrival rate &lambda;
+ * @param {Number} mu Service rate &mu;
+ * @param {Number} c Number of operators
+ * @returns {Number} E[V] (Average residence time)
+ */
 function ErlangC_EV(lambda,mu,c) {
   const a=lambda/mu;
   if (a>=c) return 0;
@@ -102,10 +161,15 @@ function ErlangC_EV(lambda,mu,c) {
 
 
 /*
- * M/M/c/c - System
+ * M/M/c/c system
  */
 
-/* Berechnung von P1 für ein M/M/c/c-System (d.h. Berechnung der Erlang-B-Formel) */
+/**
+ * Calculates P1 for a M/M/c/c dystem (this is the Erlang B formula)
+ * @param {Number} a Workload
+ * @param {Number} c Number of operators
+ * @returns {Number} Probability for a new arriving customer to be rejected
+ */
 function ErlangB(a,c) {
   let sum=0;
   for (let n=0;n<=c;n++) sum+=PotenzFakultaet(a,n);
@@ -115,10 +179,18 @@ function ErlangB(a,c) {
 
 
 /*
- * M/M/c/K + M - System
+ * M/M/c/K + M system
  */
 
-/* Berechnung von Cn für ein M/M/c/K+M-System */
+/**
+ * Calculates Cn for a M/M/c/K+M system
+ * @param {Number} lambda Arrival rate &lambda;
+ * @param {Number} mu Service rate &mu;
+ * @param {Number} nu Waiting cancelation rate &nu;
+ * @param {Number} c Number of operators
+ * @param {Number} n n
+ * @returns {Number} Cn
+ */
 function MMcKMCn(lambda,mu,nu,c,n) {
   const a=lambda/mu;
   if (n<=c) return PotenzFakultaet(a,n);
@@ -127,7 +199,16 @@ function MMcKMCn(lambda,mu,nu,c,n) {
   return prod;
 }
 
-/* Berechnet pn für ein M/M/c/K+M-System */
+/**
+ * Calculates pn for a M/M/c/K+M system
+ * @param {Number} lambda Arrival rate &lambda;
+ * @param {Number} mu Service rate &mu;
+ * @param {Number} nu Waiting cancelation rate &nu;
+ * @param {Number} c Number of operators
+ * @param {Number} K System size
+ * @param {Number} n n
+ * @returns {Number} pn (Probability for n customers in system)
+ */
 function MMcKMZustandsP(lambda,mu,nu,c,K,n) {
   let p0=0;
   for (let i=0;i<=K;i++) p0+=MMcKMCn(lambda,mu,nu,c,i);
@@ -138,7 +219,15 @@ function MMcKMZustandsP(lambda,mu,nu,c,K,n) {
   return MMcKMCn(lambda,mu,nu,c,n)*p0;
 }
 
-/* Berechnet P(A) für ein M/M/c/K+M-System */
+/**
+ * Calculates P(A) for a M/M/c/K+M system
+ * @param {Number} lambda Arrival rate &lambda;
+ * @param {Number} mu Service rate &mu;
+ * @param {Number} nu Waiting cancelation rate &nu;
+ * @param {Number} c Number of operators
+ * @param {Number} K System size
+ * @returns {Number} P(A) (Probability for a customer to cancel waiting)
+ */
 function ErwErlangC_PA(lambda,mu,nu,c,K) {
   const p0=MMcKMZustandsP(lambda,mu,nu,c,K,0);
   let sum=0;
@@ -146,7 +235,10 @@ function ErwErlangC_PA(lambda,mu,nu,c,K) {
   return sum;
 }
 
-/* Log-Gamma-Funktion  */
+/** Log-Gamma function
+ * @param {Number} x
+ * @returns {Number} Log-Gamma of x
+ */
 function gammaln(x) {
   let j = 0;
   const cof = [
@@ -162,7 +254,12 @@ function gammaln(x) {
   return Math.log(2.5066282746310005 * ser / xx) - tmp;
 };
 
-/* Untere regularisierte unvollständige Gamma-Funktion P(a,x) */
+/**
+ * Lower regularized incomplete Gamma function P(a,x)
+ * @param {Number} a
+ * @param {Number} x
+ * @returns {Number} P(a,x)
+ */
 function lowRegGamma(a,x) {
   const aln = gammaln(a);
   let ap = a;
@@ -197,7 +294,16 @@ function lowRegGamma(a,x) {
   return (1 - h * Math.exp(-x + a * Math.log(x) - (aln)));
 };
 
-/* Berechnung von P(W<=t) für ein M/M/c/K+M-System (also die erweiterte Erlang-C-Formel) */
+/**
+ * Calculates P(W<=t) for a M/M/c/K+M system (this is the extended Erlang C formula)
+ * @param {Number} lambda Arrival rate &lambda;
+ * @param {Number} mu Service rate &mu;
+ * @param {Number} nu Waiting cancelation rate &nu;
+ * @param {Number} c Number of operators
+ * @param {Number} K System size
+ * @param {Number} t t
+ * @returns {Number} P(W&le;t) (Probability for a customer to have to wait for less or equal t time units)
+ */
 function ErwErlangC(lambda,mu,nu,c,K,t) {
   const p0=MMcKMZustandsP(lambda,mu,nu,c,K,0);
 
@@ -214,7 +320,15 @@ function ErwErlangC(lambda,mu,nu,c,K,t) {
   return p;
 }
 
-/* Berechnet E[NQ] für ein M/M/c/K+M-System */
+/**
+ * Calculates E[NQ] for a M/M/c/K+M system
+ * @param {Number} lambda Arrival rate &lambda;
+ * @param {Number} mu Service rate &mu;
+ * @param {Number} nu Waiting cancelation rate &nu;
+ * @param {Number} c Number of operators
+ * @param {Number} K System size
+ * @returns {Number} E[NQ] (Average number of customers in queue)
+ */
 function ErwErlangC_ENQ(lambda,mu,nu,c,K) {
     const p0=MMcKMZustandsP(lambda,mu,nu,c,K,0);
     let sum=0;
@@ -222,7 +336,15 @@ function ErwErlangC_ENQ(lambda,mu,nu,c,K) {
     return sum;
 }
 
-/* Berechnet E[N] für ein M/M/c/K+M-System */
+/**
+ * Calculates E[N] for a M/M/c/K+M system
+ * @param {Number} lambda Arrival rate &lambda;
+ * @param {Number} mu Service rate &mu;
+ * @param {Number} nu Waiting cancelation rate &nu;
+ * @param {Number} c Number of operators
+ * @param {Number} K System size
+ * @returns {Number} E[N] (Average number of customers in system)
+ */
 function ErwErlangC_EN(lambda,mu,nu,c,K) {
   const p0=MMcKMZustandsP(lambda,mu,nu,c,K,0);
   let sum=0;
@@ -230,12 +352,28 @@ function ErwErlangC_EN(lambda,mu,nu,c,K) {
   return sum;
 }
 
-/* Berechnet E[W] für ein M/M/c/K+M-System */
+/**
+ * Calculates E[W] for a M/M/c/K+M system
+ * @param {Number} lambda Arrival rate &lambda;
+ * @param {Number} mu Service rate &mu;
+ * @param {Number} nu Waiting cancelation rate &nu;
+ * @param {Number} c Number of operators
+ * @param {Number} K System size
+ * @returns {Number} E[W] (Average waiting time)
+ */
 function ErwErlangC_EW(lambda,mu,nu,c,K) {
   return ErwErlangC_ENQ(lambda,mu,nu,c,K)/lambda;
 }
 
-/* Berechnet E[V] für ein M/M/c/K+M-System */
+/**
+ * Calculates E[V] for a M/M/c/K+M system
+ * @param {Number} lambda Arrival rate &lambda;
+ * @param {Number} mu Service rate &mu;
+ * @param {Number} nu Waiting cancelation rate &nu;
+ * @param {Number} c Number of operators
+ * @param {Number} K System size
+ * @returns {Number} E[V] (Average residence time)
+ */
 function ErwErlangC_EV(lambda,mu,nu,c,K) {
   return ErwErlangC_EN(lambda,mu,nu,c,K)/lambda;
 }

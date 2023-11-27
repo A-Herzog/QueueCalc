@@ -20,6 +20,9 @@ import {TilesBuilder, Table} from './tools_gui.js';
 import {language} from './Language.js';
 import {calcAC} from './gui_AC.js';
 
+/**
+ * Input tiles for the economy of scale
+ */
 const tilesEconomyOfScale=new TilesBuilder('EconomyOfScale');
 
 tilesEconomyOfScale.add(
@@ -100,6 +103,11 @@ tilesEconomyOfScale.add(
   false
 );
 
+/**
+ * Calculates the economy of scale results for an individual set of input parameters.
+ * @param {Object} input Input values
+ * @returns {Object} Results
+ */
 function calcEconomyOfScale(input) {
   /* rho=ES/EI/c => EI=ES/c/rho */
   const EI=input[1]/input[3]/input[4];
@@ -107,6 +115,11 @@ function calcEconomyOfScale(input) {
   return calcAC(input);
 }
 
+/**
+ * Generates a results table based on the input values in table or diagram mode.
+ * @param {String} mode Which input elements are to be used ("Table" or "Diagram")?
+ * @returns {Object} Table object with the calculated values.
+ */
 function calcEconomyOfScaleTable(mode) {
   const input=tilesEconomyOfScale.rangeValues(mode);
   if (input==null) return null;
@@ -148,50 +161,64 @@ function calcEconomyOfScaleTable(mode) {
   return table;
 }
 
-/* Tabelle */
+/* Table */
 
+/**
+ * Callback to notify the tiles system that a fix/range tab has changed (in table mode).
+ * @param {Object} sender Tab which was changed
+ */
 function changeTabEconomyOfScaleTable(sender) {
-    tilesEconomyOfScale.updateTabs(sender,'Table');
-    updateEconomyOfScaleTable();
+  tilesEconomyOfScale.updateTabs(sender,'Table');
+  updateEconomyOfScaleTable();
+}
+
+/**
+ * Callback for updating the table results.
+ */
+function updateEconomyOfScaleTable() {
+  let table=calcEconomyOfScaleTable('Table');
+  if (table!=null) document.getElementById('EconomyOfScaleTable_results').innerHTML=table.html+table.buttons;
+}
+
+/* Diagram */
+
+/**
+ * Callback to notify the tiles system that a fix/range tab has changed (in diagram mode).
+ * @param {Object} sender Tab which was changed
+ */
+function changeTabEconomyOfScaleDiagram(sender) {
+  tilesEconomyOfScale.updateTabs(sender,'Diagram');
+  updateEconomyOfScaleDiagram();
+}
+
+/**
+ * Callback for updating the diagram results.
+ */
+function updateEconomyOfScaleDiagram() {
+  const table=calcEconomyOfScaleTable('Diagram');
+  if (table==null) return;
+
+  let xAxisTitle='';
+  switch (table.xValuesCol) {
+    case 0: xAxisTitle='E[I] ('+language.statistics.unitTime+')'; break;
+    case 1: xAxisTitle='CV[I]'; break;
+    case 2: xAxisTitle='E[S] ('+language.statistics.unitTime+')'; break;
+    case 3: xAxisTitle='CV[S]'; break;
+    case 4: xAxisTitle='c ('+language.statistics.unitNumber+')'; break;
   }
 
-  function updateEconomyOfScaleTable() {
-    let table=calcEconomyOfScaleTable('Table');
-    if (table!=null) document.getElementById('EconomyOfScaleTable_results').innerHTML=table.html+table.buttons;
-  }
+  const ySetup=[
+    {columnIndex: 4+3, color: 'red', mode: 'time'}, /* E[W] */
+    {columnIndex: 4+4, color: 'green', mode: 'time'}, /* E[V] */
+    {columnIndex: 4+5, color: 'orange', mode: 'number'}, /* E[NQ] */
+    {columnIndex: 4+7, color: 'blue', mode: 'number'}, /* E[N] */
+    {columnIndex: 4+2, color: 'gray', mode: 'percent'}, /* rho */
+  ];
 
-  /* Diagramm */
+  table.diagram('EconomyOfScaleDiagram_results',table.xValuesCol,xAxisTitle,ySetup);
+}
 
-  function changeTabEconomyOfScaleDiagram(sender) {
-    tilesEconomyOfScale.updateTabs(sender,'Diagram');
-    updateEconomyOfScaleDiagram();
-  }
-
-  function updateEconomyOfScaleDiagram() {
-    const table=calcEconomyOfScaleTable('Diagram');
-    if (table==null) return;
-
-    let xAxisTitle='';
-    switch (table.xValuesCol) {
-      case 0: xAxisTitle='E[I] ('+language.statistics.unitTime+')'; break;
-      case 1: xAxisTitle='CV[I]'; break;
-      case 2: xAxisTitle='E[S] ('+language.statistics.unitTime+')'; break;
-      case 3: xAxisTitle='CV[S]'; break;
-      case 4: xAxisTitle='c ('+language.statistics.unitNumber+')'; break;
-    }
-
-    const ySetup=[
-      {columnIndex: 4+3, color: 'red', mode: 'time'}, /* E[W] */
-      {columnIndex: 4+4, color: 'green', mode: 'time'}, /* E[V] */
-      {columnIndex: 4+5, color: 'orange', mode: 'number'}, /* E[NQ] */
-      {columnIndex: 4+7, color: 'blue', mode: 'number'}, /* E[N] */
-      {columnIndex: 4+2, color: 'gray', mode: 'percent'}, /* rho */
-    ];
-
-    table.diagram('EconomyOfScaleDiagram_results',table.xValuesCol,xAxisTitle,ySetup);
-  }
-
-  /* Allgemeine Vorbereitungen */
+/* General setup */
 
 window.updateEconomyOfScaleTable=updateEconomyOfScaleTable;
 window.updateEconomyOfScaleDiagram=updateEconomyOfScaleDiagram;

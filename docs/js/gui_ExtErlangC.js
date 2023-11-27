@@ -20,6 +20,9 @@ import {TilesBuilder, Table} from './tools_gui.js';
 import {ErlangC_ENQ, ErlangC_EW, MMcKMZustandsP, ErwErlangC_PA, ErwErlangC, ErwErlangC_ENQ, ErwErlangC_EN, ErwErlangC_EW, ErwErlangC_EV} from './Erlang.js';
 import {language} from './Language.js';
 
+/**
+ * Input tiles for the extended Erlang C formula
+ */
 const tilesExtErlangC=new TilesBuilder('ExtErlangC');
 
 tilesExtErlangC.add(
@@ -107,6 +110,11 @@ tilesExtErlangC.add(
   true,
 );
 
+/**
+ * Calculates the extended Erlang C formula results for an individual set of input parameters.
+ * @param {Object} input Input values
+ * @returns {Object} Results
+ */
 function calcExtErlangC(input) {
     const result={};
 
@@ -146,6 +154,11 @@ function calcExtErlangC(input) {
     return result;
 }
 
+/**
+ * Generates a results table based on the input values in table or diagram mode.
+ * @param {String} mode Which input elements are to be used ("Table" or "Diagram")?
+ * @returns {Object} Table object with the calculated values.
+ */
 function calcExtErlangCTable(mode) {
   const input=tilesExtErlangC.rangeValues(mode);
   if (input==null) return null;
@@ -200,8 +213,11 @@ function calcExtErlangCTable(mode) {
   return table;
 }
 
-/* Einzelwerte */
+/* Individual values */
 
+/**
+ * Callback for updating the individual values results.
+ */
 function updateExtErlangCValues() {
   const input=tilesExtErlangC.valuesValues;
   if (input==null) return;
@@ -265,54 +281,68 @@ function updateExtErlangCValues() {
   document.getElementById('ExtErlangCValues_results').innerHTML=result;
 }
 
-/* Tabelle */
+/* Table */
 
+/**
+ * Callback to notify the tiles system that a fix/range tab has changed (in table mode).
+ * @param {Object} sender Tab which was changed
+ */
 function changeTabExtErlangCTable(sender) {
   tilesExtErlangC.updateTabs(sender,'Table');
   updateExtErlangCTable();
 }
 
+/**
+ * Callback for updating the table results.
+ */
 function updateExtErlangCTable() {
   let table=calcExtErlangCTable('Table');
   if (table!=null) document.getElementById('ExtErlangCTable_results').innerHTML=table.html+table.buttons;
 }
 
-/* Diagramm */
+/* Diagram */
 
+/**
+ * Callback to notify the tiles system that a fix/range tab has changed (in diagram mode).
+ * @param {Object} sender Tab which was changed
+ */
 function changeTabExtErlangCDiagram(sender) {
   tilesExtErlangC.updateTabs(sender,'Diagram');
   updateExtErlangCDiagram();
 }
 
+/**
+ * Callback for updating the diagram results.
+ */
 function updateExtErlangCDiagram() {
-    const table=calcExtErlangCTable('Diagram');
-    if (table==null) return;
+  const table=calcExtErlangCTable('Diagram');
+  if (table==null) return;
 
-    let xAxisTitle='';
-    switch (table.xValuesCol) {
-      case 0: xAxisTitle='E[I] ('+language.statistics.unitTime+')'; break;
-      case 1: xAxisTitle='E[S] ('+language.statistics.unitTime+')'; break;
-      case 2: xAxisTitle='K ('+language.statistics.unitNumber+')'; break;
-      case 3: xAxisTitle='E[WT] ('+language.statistics.unitTime+')'; break;
-      case 4: xAxisTitle='c ('+language.statistics.unitNumber+')'; break;
-      case 5: xAxisTitle='t ('+language.statistics.unitTime+')'; break;
-    }
+  let xAxisTitle='';
+  switch (table.xValuesCol) {
+    case 0: xAxisTitle='E[I] ('+language.statistics.unitTime+')'; break;
+    case 1: xAxisTitle='E[S] ('+language.statistics.unitTime+')'; break;
+    case 2: xAxisTitle='K ('+language.statistics.unitNumber+')'; break;
+    case 3: xAxisTitle='E[WT] ('+language.statistics.unitTime+')'; break;
+    case 4: xAxisTitle='c ('+language.statistics.unitNumber+')'; break;
+    case 5: xAxisTitle='t ('+language.statistics.unitTime+')'; break;
+  }
 
-    const ySetup=[
-      {columnIndex: 9, color: 'red', mode: 'percent'}, /* P(A) */
-      {columnIndex: 12, color: 'yellow', mode: 'time'}, /* E[W] */
-      {columnIndex: 13, color: 'green', mode: 'time'}, /* E[V] */
-      {columnIndex: 14, color: 'orange', mode: 'number'}, /* E[NQ] */
-      {columnIndex: 16, color: 'blue', mode: 'number'}, /* E[N] */
-      {columnIndex: 7, color: 'lightgray', mode: 'percent'}, /* rho */
-      {columnIndex: 11, color: 'gray', mode: 'percent'}, /* rhoNet */
-      {columnIndex: 19, color: 'black', mode: 'percent'} /* P(W<=t) */
-    ];
+  const ySetup=[
+    {columnIndex: 9, color: 'red', mode: 'percent'}, /* P(A) */
+    {columnIndex: 12, color: 'yellow', mode: 'time'}, /* E[W] */
+    {columnIndex: 13, color: 'green', mode: 'time'}, /* E[V] */
+    {columnIndex: 14, color: 'orange', mode: 'number'}, /* E[NQ] */
+    {columnIndex: 16, color: 'blue', mode: 'number'}, /* E[N] */
+    {columnIndex: 7, color: 'lightgray', mode: 'percent'}, /* rho */
+    {columnIndex: 11, color: 'gray', mode: 'percent'}, /* rhoNet */
+    {columnIndex: 19, color: 'black', mode: 'percent'} /* P(W<=t) */
+  ];
 
-    table.diagram('ExtErlangCDiagram_results',table.xValuesCol,xAxisTitle,ySetup);
+  table.diagram('ExtErlangCDiagram_results',table.xValuesCol,xAxisTitle,ySetup);
 }
 
-/* Allgemeine Vorbereitungen */
+/* General setup */
 
 window.updateExtErlangCValues=updateExtErlangCValues;
 window.updateExtErlangCTable=updateExtErlangCTable;

@@ -20,6 +20,9 @@ import {TilesBuilder, Table} from './tools_gui.js';
 import {ErlangB} from './Erlang.js';
 import {language} from './Language.js';
 
+/**
+ * Input tiles for the Erlang B formula
+ */
 const tilesErlangB=new TilesBuilder('ErlangB');
 
 tilesErlangB.add(
@@ -64,6 +67,11 @@ tilesErlangB.add(
   "PositiveInt"
 );
 
+/**
+ * Calculates the Erlang B formula results for an individual set of input parameters.
+ * @param {Object} input Input values
+ * @returns {Object} Results
+ */
 function calcErlangB(input) {
   const result={};
 
@@ -109,8 +117,11 @@ function calcErlangBTable(mode) {
   return table;
 }
 
-/* Einzelwerte */
+/* Individual values */
 
+/**
+ * Callback for updating the individual values results.
+ */
 function updateErlangBValues() {
   const input=tilesErlangB.valuesValues;
   if (input==null) return;
@@ -136,25 +147,39 @@ function updateErlangBValues() {
   document.getElementById('ErlangBValues_results').innerHTML=result;
 }
 
-/* Tabelle */
+/* Table */
 
+/**
+ * Callback to notify the tiles system that a fix/range tab has changed (in table mode).
+ * @param {Object} sender Tab which was changed
+ */
 function changeTabErlangBTable(sender) {
   tilesErlangB.updateTabs(sender,'Table');
   updateErlangBTable();
 }
 
+/**
+ * Callback for updating the table results.
+ */
 function updateErlangBTable() {
   let table=calcErlangBTable('Table');
   if (table!=null) document.getElementById('ErlangBTable_results').innerHTML=table.html+table.buttons;
 }
 
-/* Diagramm */
+/* Diagram */
 
+/**
+ * Callback to notify the tiles system that a fix/range tab has changed (in diagram mode).
+ * @param {Object} sender Tab which was changed
+ */
 function changeTabErlangBDiagram(sender) {
   tilesErlangB.updateTabs(sender,'Diagram');
   updateErlangBDiagram();
 }
 
+/**
+ * Callback for updating the diagram results.
+ */
 function updateErlangBDiagram() {
   const table=calcErlangBTable('Diagram');
   if (table==null) return;
@@ -174,7 +199,7 @@ function updateErlangBDiagram() {
   table.diagram('ErlangBDiagram_results',table.xValuesCol,xAxisTitle,ySetup);
 }
 
-/* Allgemeine Vorbereitungen */
+/* General setup */
 
 window.updateErlangBValues=updateErlangBValues;
 window.updateErlangBTable=updateErlangBTable;

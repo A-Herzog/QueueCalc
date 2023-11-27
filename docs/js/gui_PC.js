@@ -19,6 +19,9 @@ export {tilesPC};
 import {TilesBuilder, Table} from './tools_gui.js';
 import {language} from './Language.js';
 
+/**
+ * Input tiles for the Pollaczek-Chintschin formula
+ */
 const tilesPC=new TilesBuilder('PC');
 
 tilesPC.add(
@@ -63,12 +66,11 @@ tilesPC.add(
   "NotNegativeFloat"
 );
 
-function factorial(n) {
-  let result=1;
-  for (let i=2;i<=n;i++) result*=i;
-  return result;
-}
-
+/**
+ * Calculates the Pollaczek-Chintschin formula results for an individual set of input parameters.
+ * @param {Object} input Input values
+ * @returns {Object} Results
+ */
 function calcPC(input) {
   const result={};
 
@@ -108,6 +110,11 @@ function calcPC(input) {
   return result;
 }
 
+/**
+ * Generates a results table based on the input values in table or diagram mode.
+ * @param {String} mode Which input elements are to be used ("Table" or "Diagram")?
+ * @returns {Object} Table object with the calculated values.
+ */
 function calcPCTable(mode) {
   const input=tilesPC.rangeValues(mode);
   if (input==null) return null;
@@ -144,8 +151,11 @@ function calcPCTable(mode) {
   return table;
 }
 
-/* Einzelwerte */
+/* Individual values */
 
+/**
+ * Callback for updating the individual values results.
+ */
 function updatePCValues() {
   const input=tilesPC.valuesValues;
   if (input==null) return;
@@ -183,25 +193,39 @@ function updatePCValues() {
   document.getElementById('PCValues_results').innerHTML=result;
 }
 
-/* Tabelle */
+/* Table */
 
+/**
+ * Callback to notify the tiles system that a fix/range tab has changed (in table mode).
+ * @param {Object} sender Tab which was changed
+ */
 function changeTabPCTable(sender) {
   tilesPC.updateTabs(sender,'Table');
   updatePCTable();
 }
 
+/**
+ * Callback for updating the table results.
+ */
 function updatePCTable() {
   let table=calcPCTable('Table');
   if (table!=null) document.getElementById('PCTable_results').innerHTML=table.html+table.buttons;
 }
 
-/* Diagramm */
+/* Diagram */
 
+/**
+ * Callback to notify the tiles system that a fix/range tab has changed (in diagram mode).
+ * @param {Object} sender Tab which was changed
+ */
 function changeTabPCDiagram(sender) {
   tilesPC.updateTabs(sender,'Diagram');
   updatePCDiagram();
 }
 
+/**
+ * Callback for updating the diagram results.
+ */
 function updatePCDiagram() {
   const table=calcPCTable('Diagram');
   if (table==null) return;
@@ -224,7 +248,7 @@ function updatePCDiagram() {
   table.diagram('PCDiagram_results',table.xValuesCol,xAxisTitle,ySetup);
 }
 
-/* Allgemeine Vorbereitungen */
+/* General setup */
 
 window.updatePCValues=updatePCValues;
 window.updatePCTable=updatePCTable;

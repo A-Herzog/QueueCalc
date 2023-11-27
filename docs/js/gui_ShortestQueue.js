@@ -18,7 +18,11 @@ export {tilesShortestQueue};
 
 import {TilesBuilder, Table} from './tools_gui.js';
 import {language} from './Language.js';
+import {binom} from './tools.js';
 
+/**
+ * Input tiles for the shortest queue system design model
+ */
 const tilesShortestQueue=new TilesBuilder('ShortestQueue');
 
 tilesShortestQueue.add(
@@ -49,19 +53,18 @@ tilesShortestQueue.add(
   "PositiveInt"
 );
 
-function binom(n,k) {
-  let prod=1;
-  for (let i=1;i<=k;i++) prod*=(n-i+1)/i;
-  return prod;
-}
-
+/**
+ * Calculates the shortest queue system design results for an individual set of input parameters.
+ * @param {Object} input Input values
+ * @returns {Object} Results
+ */
 function calcShortestQueue(input) {
   const result={};
 
   result.a=Math.max(input[0],input[1]);
   result.b=Math.min(input[0],input[1]);
 
-  /* vgl. Hanschke, Stochastik II, Beispiel 16.23 */
+  /* see Hanschke, Stochastik II, example 16.23 */
   let sum=0;
   for (let k=0;k<=result.b-1;k++) sum+=binom(result.a+k-1,k)*(0.5**k);
   result.p=(0.5**result.a)*sum;
@@ -69,6 +72,11 @@ function calcShortestQueue(input) {
   return result;
 }
 
+/**
+ * Generates a results table based on the input values in table or diagram mode.
+ * @param {String} mode Which input elements are to be used ("Table" or "Diagram")?
+ * @returns {Object} Table object with the calculated values.
+ */
 function calcShortestQueueTable(mode) {
   const input=tilesShortestQueue.rangeValues(mode);
   if (input==null) return null;
@@ -89,9 +97,11 @@ function calcShortestQueueTable(mode) {
   return table;
 }
 
+/* Individual values */
 
-/* Einzelwerte */
-
+/**
+ * Callback for updating the individual values results.
+ */
 function updateShortestQueueValues() {
   const input=tilesShortestQueue.valuesValues;
   if (input==null) return;
@@ -113,25 +123,39 @@ function updateShortestQueueValues() {
   document.getElementById('ShortestQueueValues_results').innerHTML=result;
 }
 
-/* Tabelle */
+/* Table */
 
+/**
+ * Callback to notify the tiles system that a fix/range tab has changed (in table mode).
+ * @param {Object} sender Tab which was changed
+ */
 function changeTabShortestQueueTable(sender) {
   tilesShortestQueue.updateTabs(sender,'Table');
   updateShortestQueueTable();
 }
 
+/**
+ * Callback for updating the table results.
+ */
 function updateShortestQueueTable() {
   let table=calcShortestQueueTable('Table');
   if (table!=null) document.getElementById('ShortestQueueTable_results').innerHTML=table.html+table.buttons;
 }
 
-/* Diagramm */
+/* Diagram */
 
+/**
+ * Callback to notify the tiles system that a fix/range tab has changed (in diagram mode).
+ * @param {Object} sender Tab which was changed
+ */
 function changeTabShortestQueueDiagram(sender) {
   tilesShortestQueue.updateTabs(sender,'Diagram');
   updateShortestQueueDiagram();
 }
 
+/**
+ * Callback for updating the diagram results.
+ */
 function updateShortestQueueDiagram() {
   const table=calcShortestQueueTable('Diagram');
   if (table==null) return;
@@ -149,7 +173,7 @@ function updateShortestQueueDiagram() {
   table.diagram('ShortestQueueDiagram_results',table.xValuesCol,xAxisTitle,ySetup);
 }
 
-/* Allgemeine Vorbereitungen */
+/* General setup */
 
 window.updateShortestQueueValues=updateShortestQueueValues;
 window.updateShortestQueueTable=updateShortestQueueTable;

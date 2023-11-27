@@ -18,7 +18,11 @@ export {tilesCompare};
 
 import {TilesBuilder} from './tools_gui.js';
 import {language} from './Language.js';
+import {factorial} from './tools.js';
 
+/**
+ * Input tiles for the strategy comparison system design model
+ */
 const tilesCompare=new TilesBuilder('Compare');
 
 tilesCompare.add(
@@ -77,12 +81,16 @@ tilesCompare.add(
   "NotNegativeFloat"
 );
 
-function factorial(n) {
-  let result=1;
-  for (let i=2;i<=n;i++) result*=i;
-  return result;
-}
-
+/**
+ * Helper function for calculating Allen-Cunneen approximation formula values
+ * @param {Number} lambda Arrival rate &lambda;
+ * @param {Number} mu Service rate &mu;
+ * @param {Number} CVI Coefficient of variation of the inter-arrival times
+ * @param {Number} CVS Coefficient of variation of the service times
+ * @param {Number} bS Service batch size
+ * @param {Number} c Number of operators
+ * @returns {Object} Results
+ */
 function calcAC(lambda, mu, CVI, CVS, bS, c) {
   const result={};
 
@@ -108,6 +116,11 @@ function calcAC(lambda, mu, CVI, CVS, bS, c) {
   return result;
 }
 
+/**
+ * Calculates the strategy comparison system design results for an individual set of input parameters.
+ * @param {Object} input Input values
+ * @returns {Object} Results
+ */
 function calcCompare(input) {
   const result={};
 
@@ -132,25 +145,43 @@ function calcCompare(input) {
   return result;
 }
 
-/* Einzelwerte */
+/* Individual values */
 
+/**
+ * Returns the rank of obj[property] in the list of all objects.
+ * @param {Object} obj Object to rank in the list
+ * @param {Array} all List of all objects
+ * @param {String} property Property by which the object is to be ranked in the list
+ * @returns {Number} 1-based rank of obj[property] in the list of all objects
+ */
 function getRank(obj, all, property) {
   const list=all.map(record=>record[property]);
   list.sort((a,b)=>a-b);
   return list.indexOf(obj[property])+1;
 }
 
+/**
+ * Ranks the object by waiting, residence etc. times in the list of all results
+ * @param {Object} data Result data to be ranked
+ * @param {Array} all List of all results
+ * @returns {String} Html code of the results including their ranks as text
+ */
 function getModelResults(data, all) {
   let result="";
   const rankW=getRank(data,all,"EW");
   const rankV=getRank(data,all,"EV");
+  const rankNQ=getRank(data,all,"ENQ");
+  const rankN=getRank(data,all,"EN");
   result+=language.statistics.averageWaitingTime+": <b>E[W]="+data.EW.toLocaleString()+"</b> <small>("+rankW+". "+language.statistics.headingCompareResultsRank+")</small><br>\n";
   result+=language.statistics.averageResidenceTime+": <b>E[V]="+data.EV.toLocaleString()+"</b> <small>("+rankV+". "+language.statistics.headingCompareResultsRank+")</small><br>\n";
-  result+=language.statistics.averageNQ+": <b>E[N<sub>Q</sub>]="+data.ENQ.toLocaleString()+"</b><br>\n";
-  result+=language.statistics.averageN+": <b>E[N]="+data.EN.toLocaleString()+"</b><br>\n";
+  result+=language.statistics.averageNQ+": <b>E[N<sub>Q</sub>]="+data.ENQ.toLocaleString()+"</b> <small>("+rankNQ+". "+language.statistics.headingCompareResultsRank+")</small><br>\n";
+  result+=language.statistics.averageN+": <b>E[N]="+data.EN.toLocaleString()+"</b> <small>("+rankN+". "+language.statistics.headingCompareResultsRank+")</small><br>\n";
   return result;
 }
 
+/**
+ * Callback for updating the individual values results.
+ */
 function updateCompareValues() {
   const input=tilesCompare.valuesValues;
   if (input==null) return;
@@ -192,6 +223,6 @@ function updateCompareValues() {
   document.getElementById('CompareValues_results').innerHTML=result;
 }
 
-/* Allgemeine Vorbereitungen */
+/* General setup */
 
 window.updateCompareValues=updateCompareValues;

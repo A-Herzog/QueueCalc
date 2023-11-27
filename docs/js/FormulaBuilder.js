@@ -87,8 +87,7 @@ const infoBlockUtilization=mathStart+symRho+equals+frac(symLambda,symc+mul+symMu
 
 
 
-/* Erlang-B-Formel */
-
+/** Erlang B formulas as MathML */
 let formulasErlangB="";
 
 formulasErlangB+=language.statistics.arrivalAnsServiceRate+":";
@@ -117,8 +116,7 @@ formulasErlangB+=mathEnd;
 
 
 
-/* Erlang-C-Formel */
-
+/** Erlang C formulas as MathML */
 let formulasErlangC="";
 
 formulasErlangC+=language.statistics.arrivalAnsServiceRate+":";
@@ -275,8 +273,7 @@ formulasErlangC+=mathEnd;
 
 
 
-/* Erweiterte Erlang-C-Formel*/
-
+/** Extended Erlang C formulas as MathML */
 let formulasExtErlangC="";
 
 formulasExtErlangC+=language.statistics.arrivalAnsServiceRate+":";
@@ -381,8 +378,7 @@ formulasExtErlangC+=mathEnd;
 
 
 
-/* Pollaczek-Chintschin-Formel */
-
+/** Pollaczek-Chintschin formulas as MathML */
 let formulasPC="";
 
 formulasPC+=language.statistics.arrivalAnsServiceRate+":";
@@ -423,8 +419,7 @@ formulasPC+=mathEnd;
 
 
 
-/* Kingman-Näherungsformel */
-
+/** Kingman approximation formulas as MathML */
 let formulasKingman="";
 
 formulasKingman+=language.statistics.arrivalAnsServiceRate+":";
@@ -480,8 +475,7 @@ formulasKingman+=mathEnd;
 
 
 
-/* Allen-Cunneen-Näherungsformel */
-
+/** Allen-Cunneen approximation formulas as MathML */
 let formulasAC="";
 
 formulasAC+=language.statistics.arrivalAnsServiceRate+":";
@@ -538,8 +532,7 @@ formulasAC+=mathEnd;
 
 
 
-/* Erweiterte Allen-Cunneen-Näherungsformel */
-
+/** Extended Allen-Cunneen approximation formulas as MathML */
 let formulasExtAC="";
 
 formulasExtAC+=language.statistics.arrivalAnsServiceRate+":";
@@ -642,8 +635,7 @@ formulasExtAC+=mathEnd;
 
 
 
-/* Systemdesign: Vergleich verschiedener Strategien */
-
+/** System design: Comparison of different strategies - MathML */
 let formulasCompare="";
 
 formulasCompare+="<p><b>"+language.statistics.compere.common+"</b>:</p>";
@@ -712,8 +704,7 @@ formulasCompare+="</ul>";
 
 
 
-/* Systemdesign: Wahl der kürzesten Schlange */
-
+/** System design: Choosing the shortest queue - MathML */
 let formulasShortestQueue="";
 
 formulasShortestQueue+="<p>a="+language.GUI.formulaShortestQueueA+"</p>";

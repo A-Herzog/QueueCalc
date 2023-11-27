@@ -19,7 +19,11 @@ export {tilesAC, calcAC};
 import {TilesBuilder, Table} from './tools_gui.js';
 import {ErlangC_ENQ, ErlangC_EW} from './Erlang.js';
 import {language} from './Language.js';
+import {factorial} from './tools.js';
 
+/**
+ * Input tiles for the Allen-Cunneen approximation formula
+ */
 const tilesAC=new TilesBuilder('AC');
 
 tilesAC.add(
@@ -92,12 +96,11 @@ tilesAC.add(
   "PositiveInt"
 );
 
-function factorial(n) {
-  let result=1;
-  for (let i=2;i<=n;i++) result*=i;
-  return result;
-}
-
+/**
+ * Calculates the Allen-Cunneen approximation formula results for an individual set of input parameters.
+ * @param {Object} input Input values
+ * @returns {Object} Results
+ */
 function calcAC(input) {
   const result={};
 
@@ -154,6 +157,11 @@ function calcAC(input) {
   return result;
 }
 
+/**
+ * Generates a results table based on the input values in table or diagram mode.
+ * @param {String} mode Which input elements are to be used ("Table" or "Diagram")?
+ * @returns {Object} Table object with the calculated values.
+ */
 function calcACTable(mode) {
   const input=tilesAC.rangeValues(mode);
   if (input==null) return null;
@@ -194,8 +202,11 @@ function calcACTable(mode) {
   return table;
 }
 
-/* Einzelwerte */
+/* Individual values */
 
+/**
+ * Callback for updating the individual values results.
+ */
 function updateACValues() {
   const input=tilesAC.valuesValues;
   if (input==null) return;
@@ -249,25 +260,39 @@ function updateACValues() {
   document.getElementById('ACValues_results').innerHTML=result;
 }
 
-/* Tabelle */
+/* Table */
 
+/**
+ * Callback to notify the tiles system that a fix/range tab has changed (in table mode).
+ * @param {Object} sender Tab which was changed
+ */
 function changeTabACTable(sender) {
   tilesAC.updateTabs(sender,'Table');
   updateACTable();
 }
 
+/**
+ * Callback for updating the table results.
+ */
 function updateACTable() {
   let table=calcACTable('Table');
   if (table!=null) document.getElementById('ACTable_results').innerHTML=table.html+table.buttons;
 }
 
-/* Diagramm */
+/* Diagram */
 
+/**
+ * Callback to notify the tiles system that a fix/range tab has changed (in diagram mode).
+ * @param {Object} sender Tab which was changed
+ */
 function changeTabACDiagram(sender) {
   tilesAC.updateTabs(sender,'Diagram');
   updateACDiagram();
 }
 
+/**
+ * Callback for updating the diagram results.
+ */
 function updateACDiagram() {
   const table=calcACTable('Diagram');
   if (table==null) return;
@@ -292,7 +317,7 @@ function updateACDiagram() {
   table.diagram('ACDiagram_results',table.xValuesCol,xAxisTitle,ySetup);
 }
 
-/* Allgemeine Vorbereitungen */
+/* General setup */
 
 window.updateACValues=updateACValues;
 window.updateACTable=updateACTable;

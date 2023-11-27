@@ -19,7 +19,11 @@ export {tilesKingman, calcKingman};
 import {TilesBuilder, Table} from './tools_gui.js';
 import {ErlangC_ENQ, ErlangC_EW} from './Erlang.js';
 import {language} from './Language.js';
+import {factorial} from './tools.js';
 
+/**
+ * Input tiles for the Kingman approximation formula
+ */
 const tilesKingman=new TilesBuilder('Kingman');
 
 tilesKingman.add(
@@ -78,12 +82,11 @@ tilesKingman.add(
   "NotNegativeFloat"
 );
 
-function factorial(n) {
-  let result=1;
-  for (let i=2;i<=n;i++) result*=i;
-  return result;
-}
-
+/**
+ * Calculates the Kingman approximation formula results for an individual set of input parameters.
+ * @param {Object} input Input values
+ * @returns {Object} Results
+ */
 function calcKingman(input) {
   const result={};
 
@@ -140,6 +143,11 @@ function calcKingman(input) {
   return result;
 }
 
+/**
+ * Generates a results table based on the input values in table or diagram mode.
+ * @param {String} mode Which input elements are to be used ("Table" or "Diagram")?
+ * @returns {Object} Table object with the calculated values.
+ */
 function calcKingmanTable(mode) {
   const input=tilesKingman.rangeValues(mode);
   if (input==null) return null;
@@ -178,8 +186,11 @@ function calcKingmanTable(mode) {
   return table;
 }
 
-/* Einzelwerte */
+/* Individual values */
 
+/**
+ * Callback for updating the individual values results.
+ */
 function updateKingmanValues() {
   const input=tilesKingman.valuesValues;
   if (input==null) return;
@@ -232,25 +243,39 @@ function updateKingmanValues() {
   document.getElementById('KingmanValues_results').innerHTML=result;
 }
 
-/* Tabelle */
+/* Table */
 
+/**
+ * Callback to notify the tiles system that a fix/range tab has changed (in table mode).
+ * @param {Object} sender Tab which was changed
+ */
 function changeTabKingmanTable(sender) {
   tilesKingman.updateTabs(sender,'Table');
   updateKingmanTable();
 }
 
+/**
+ * Callback for updating the table results.
+ */
 function updateKingmanTable() {
   let table=calcKingmanTable('Table');
   if (table!=null) document.getElementById('KingmanTable_results').innerHTML=table.html+table.buttons;
 }
 
-/* Diagramm */
+/* Diagram */
 
+/**
+ * Callback to notify the tiles system that a fix/range tab has changed (in diagram mode).
+ * @param {Object} sender Tab which was changed
+ */
 function changeTabKingmanDiagram(sender) {
   tilesKingman.updateTabs(sender,'Diagram');
   updateKingmanDiagram();
 }
 
+/**
+ * Callback for updating the diagram results.
+ */
 function updateKingmanDiagram() {
   const table=calcKingmanTable('Diagram');
   if (table==null) return;
@@ -274,7 +299,7 @@ function updateKingmanDiagram() {
   table.diagram('KingmanDiagram_results',table.xValuesCol,xAxisTitle,ySetup);
 }
 
-/* Allgemeine Vorbereitungen */
+/* General setup */
 
 window.updateKingmanValues=updateKingmanValues;
 window.updateKingmanTable=updateKingmanTable;

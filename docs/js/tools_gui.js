@@ -14,18 +14,26 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-export {selectLanguage, buildMultiNavDropdown, showTab, getPlaceholder, getNextStepsButtons, getSimplePlaceholder, initObserver, TilesBuilder, Table}
+export {selectLanguage, buildMultiNavDropdown, showTab, initObserver, getPlaceholder, getNextStepsButtons, getSimplePlaceholder, TilesBuilder, Table}
 
 import {getPositiveFloat, getNotNegativeFloat, getPositiveInt, getNotNegativeInt, isVariabel} from './tools.js';
 import {language} from './Language.js';
 
-/* Sprachauswahl */
+/* Language selection */
 
+/**
+ * Ensures the current location is the location for the right language.
+ * @param {String} file
+ */
 function selectLanguageFile(file) {
   if (window.location.href.endsWith(file)) return;
   window.location.href='./'+file;
 }
 
+/**
+ * Selects the language of the web app by the preferred browser language or the user selection (via local storage)
+ * @param {Array} languages Object containing the language ids and the names of the web app main files per language
+ */
 function selectLanguage(languages) {
   let selectedLanguage=localStorage.getItem('selectedLanguage');
 
@@ -39,8 +47,15 @@ function selectLanguage(languages) {
   }
 }
 
-/* Menü */
+/* Menu */
 
+/**
+ * Generates the html code for a dropdown menu as text
+ * @param {String} id Base name for the id of the menu (the id will be this string with "Menu" added)
+ * @param {String} name Name for the menu to be shown in the menu bar
+ * @param {Array} records Array of entries in the menu
+ * @returns {String}  Html code for the menu
+ */
 function buildMultiNavDropdown(id, name, records) {
   const li=document.createElement("li");
   li.className="nav-item dropdown";
@@ -74,6 +89,10 @@ function buildMultiNavDropdown(id, name, records) {
   return li;
 }
 
+/**
+ * Activates a page of the web app (as a tab)
+ * @param {String} id Id attribute value of the element to be shown as tab
+ */
 function showTab(id) {
   const element=document.querySelector('#navbar_main a[href=\'#'+id+'\']');
   element.click();
@@ -87,8 +106,13 @@ function showTab(id) {
   }
 }
 
-/* Platzhalter */
+/* Placeholders for the tabs */
 
+/**
+ * Configures the button to show or hide the formulas for a queueing model
+ * @param {String} elementId Value of the id attribute of the formulas area from which visibility the button configuration should be derived
+ * @param {String} buttonId Value of the id attribute of the button to change
+ */
 function valuesFormulaVisiblity(elementId, buttonId) {
   setTimeout(()=>{
     const isVisible=(document.getElementById(elementId).clientHeight>=50);
@@ -110,6 +134,11 @@ function valuesFormulaVisiblity(elementId, buttonId) {
 }
 window.valuesFormulaVisiblity=valuesFormulaVisiblity;
 
+/**
+ * Added the content to a placeholder element when it gets visible for the first time.
+ * @param {String} elementId Value of the id attribute of the element which should be filled when it gets visible for the first time
+ * @param {String} content Content for the element
+ */
 function initObserver(elementId, content) {
   setTimeout(()=>{
   const targetNode=document.getElementById(elementId);
@@ -127,6 +156,11 @@ function initObserver(elementId, content) {
   },100);
 }
 
+/**
+ * Generates the html code for the placeholders for individual values, table and diagram for a queueing model
+ * @param {Object} record Configuration of the queueing model
+ * @returns {String} Html code as text
+ */
 function getPlaceholder(record) {
   let block="";
   let content;
@@ -219,6 +253,13 @@ function getPlaceholder(record) {
   return block;
 }
 
+/**
+ * Returns an object containing title and content of the "Next steps" box on the individual values tab.
+ * @param {String} id Base id for the current queueing model
+ * @param {String} tableButtonText Text in the "Table" button
+ * @param {String} diagramButtonText Text in the "Diagram" button
+ * @returns {Object}  Object with attributes "head" and "body" with information for the "Next steps" box
+ */
 function getNextStepsButtons(id, tableButtonText, diagramButtonText) {
   return {
    head: language.GUI.nextSteps,
@@ -228,6 +269,11 @@ function getNextStepsButtons(id, tableButtonText, diagramButtonText) {
   };
 }
 
+/**
+ * Generates the html code for a plain placeholder element (not for individual values, tables and diagrams).
+ * @param {String} id Full id value for the placeholder
+ * @returns {String} Html code of the placeholder element as text
+ */
 function getSimplePlaceholder(id) {
   let block="";
 
@@ -237,8 +283,18 @@ function getSimplePlaceholder(id) {
   return block;
 }
 
-/* Eingabezeile */
+/* Input lines */
 
+/**
+ * Generates the html code for an input element (for a fixed value, not multiple element for a range).
+ * @param {String} id Value for the id attribute of the input element
+ * @param {any} value Initial value (can be a string or a number)
+ * @param {Boolean} isPercent If this is true and if the initial value is a number its converted to a percent string
+ * @param {String} updateCallback Name of the callback function to be invoked on changes
+ * @param {String} label  Label to be displayed before the input element ("label:=")
+ * @param {String} errorInfo Error info to be shown below the input element if the element is switched to invalid
+ * @returns {String} Html code of the input element (and the surrounding elements) as text
+ */
 function buildInputField(id, value, isPercent, updateCallback, label, errorInfo='') {
   if (typeof(value)=='number') {
     if (isPercent) {
@@ -262,6 +318,13 @@ function buildInputField(id, value, isPercent, updateCallback, label, errorInfo=
   return block;
 }
 
+/**
+ * Generates the html code for a yes/no switch element.
+ * @param {String} id Value for the id attribute of the element
+ * @param {String} updateCallback Name of the callback function to be invoked on changes
+ * @param {String} label Label to be shown on the right side of the switch
+ * @returns {String} Html code of the element (and the surrounding elements) as text
+ */
 function buildSwitchField(id, updateCallback, label) {
   let block="";
   block+="<p class=\"card-text\"><form class=\"form-floating\">";
@@ -274,8 +337,22 @@ function buildSwitchField(id, updateCallback, label) {
   return block;
 }
 
-/* Eingabekacheln */
+/* Input tiles */
 
+/**
+ * Generates the html code for a tile containing an input element for an individual value.
+ * @param {Number} size Width in boostrap columns
+ * @param {String} title Title of the tile
+ * @param {String} id Value for the id attribute of the input element
+ * @param {any} value Initial value (can be a string or a number)
+ * @param {Boolean} isPercent If this is true and if the initial value is a number its converted to a percent string
+ * @param {String} updateCallback Name of the callback function to be invoked on changes
+ * @param {String} label  Label to be displayed before the input element ("label:=")
+ * @param {String} errorInfo  Error info to be shown below the input element if the element is switched to invalid
+ * @param {String} info Text to be shown directly below the input element (optional)
+ * @param {String} info2 Text to be shown in the footer of the tile (optional)
+ * @returns {String} Html code of the tile as text
+ */
 function buildInputTile(size, title, id, value, isPercent, updateCallback, label, errorInfo, info='', info2='') {
   let block="";
 
@@ -295,6 +372,23 @@ function buildInputTile(size, title, id, value, isPercent, updateCallback, label
   return block;
 }
 
+/**
+ * Generates the html code for a tile containing a single input element (fixed value) and three input elements (start, step, end) for a range value as tabs.
+ * @param {Number} size Width in boostrap columns
+ * @param {String} title Title of the tile
+ * @param {*} id Base id of the elements
+ * @param {any} value Initial value (can be a string or a number) for the fixed value input element and for the start input element in range mode
+ * @param {any} step Initial value for the step input element
+ * @param {any} valueTo Initial value for the end value input element
+ * @param {Boolean} isPercent If this is true and if the initial value is a number its converted to a percent string
+ * @param {String} tabChangeCallback Name of the callback function to be invoked on switching between fixed value and range mode
+ * @param {String} updateCallback Name of the callback function to be invoked on changes in the input elements
+ * @param {String} label Label to be displayed before the fixed value, the start and the end value input element ("label:=")
+ * @param {String} errorInfo Error info to be shown below the fixed value and the start/end value input elements if the elements are switched to invalid (optional)
+ * @param {String} errorInfoStep Error info to be shown below the step wide range input element if the element is switched to invalid (optional)
+ * @param {Boolean} active Is range mode initially active? (optional)
+ * @returns {String} Html code of the tile as text
+ */
 function buildRangeTile(size, title, id, value, step, valueTo, isPercent, tabChangeCallback, updateCallback, label, errorInfo='', errorInfoStep='', active=false) {
   let block="";
 
@@ -325,6 +419,17 @@ function buildRangeTile(size, title, id, value, step, valueTo, isPercent, tabCha
   return block;
 }
 
+/**
+ * Generates the html code for a tile containing switches.
+ * @param {Number} size Width in boostrap columns
+ * @param {String} title Title of the tile
+ * @param {Array} ids Array of the ids of the switches
+ * @param {String} updateCallback Name of the callback function to be invoked on changes to the switches
+ * @param {Array} labels Array of the labels to be displayed next to the switches
+ * @param {String} info Text to be shown directly below the switches (optional)
+ * @param {String} info2 Text to be shown in the footer of the tile (optional)
+ * @returns {String} Html code of the tile as text
+ */
 function buildSwitchTile(size, title, ids, updateCallback, labels, info='', info2='') {
   let block="";
 
@@ -344,8 +449,13 @@ function buildSwitchTile(size, title, ids, updateCallback, labels, info='', info
   return block;
 }
 
-/* Ausgabekachel */
+/* Output tiles */
 
+/**
+ * Generates the html code for an output tile
+ * @param {String} id Value of the id attribute of the content element in the tile
+ * @returns {String} Html code of the tile as text
+ */
 function buildResultsTile(id) {
   let block="";
 
@@ -362,14 +472,37 @@ function buildResultsTile(id) {
   return block;
 }
 
-/* Kachel-System */
+/* Tiles system */
 
+/**
+ * System for generating and managing input tiles.
+ */
 class TilesBuilder {
+  /**
+   * Constructor
+   * @param {String} formula Base name for the formula display system for the queueing system
+   */
   constructor(formula) {
     this.formula=formula;
     this.tiles=[];
   }
 
+  /**
+   * Adds an input tile.
+   * @param {String} name Name to be shown in the title of the tile.
+   * @param {String} label Label to be displayed before the fixed value, the start and the end value input element ("label:=")
+   * @param {String} id Base id for the input elements
+   * @param {any} valueFrom Initial start value and initial fixed value
+   * @param {any} valueStep Initial step size
+   * @param {any} valueTo Initial end value
+   * @param {String} errorValue Error info to be shown below the fixed value and the start/end value input elements if the elements are switched to invalid (optional)
+   * @param {String} errorStep Error info to be shown below the step wide range input element if the element is switched to invalid
+   * @param {String} info Text to be shown directly below the input element (optional)
+   * @param {String} info2 Text to be shown in the footer of the tile (optional)
+   * @param {String} format One of the values 'PositiveFloat', 'NotNegativeFloat', 'PositiveInt', 'NotNegativeInt' or 'rho'
+   * @param {Boolean} optional Is this value optional for calculating the model? (optional, defaults to false)
+   * @param {Boolean} variable Can this value be switched to range mode? (optional, defaults to true)
+   */
   add(name, label, id, valueFrom, valueStep, valueTo, errorValue, errorStep, info1, info2, format, optional=false, variable=true) {
     const tile={};
     tile.type="input";
@@ -390,6 +523,14 @@ class TilesBuilder {
     this.tiles.push(tile);
   }
 
+  /**
+   * Adds a tile containing switches.
+   * @param {String} name Name to be shown in the title of the tile.
+   * @param {Array} labels Array of the labels to be displayed next to the switches
+   * @param {Array} ids Array of the ids of the switches
+   * @param {String} info Text to be shown directly below the input element (optional)
+   * @param {String} info2 Text to be shown in the footer of the tile (optional)
+   */
   addSwitch(name, labels, ids, info1, info2) {
     const tile={};
     tile.type="switch";
@@ -401,6 +542,9 @@ class TilesBuilder {
     this.tiles.push(tile);
   }
 
+  /**
+   * {String} Returns the html code for the show/hide formulas and the show/hide tile information buttons.
+   */
   get valueTilesButtons() {
     let block='';
 
@@ -410,6 +554,9 @@ class TilesBuilder {
     return block;
   }
 
+  /**
+   * {String} Return the html code for the configured tiles in individual values mode.
+   */
   get valueTiles() {
     let block='';
 
@@ -448,7 +595,12 @@ class TilesBuilder {
     return block;
   }
 
-  rangeTiles(mode) {
+  /**
+   * Return the html code for the configured tiles in range mode (this means for tables and diagrams).
+   * @param {String} mode Additional value for the id tags (usually "Table" or "Diagram")
+   * @returns {String}  Html code for the range tiles as text
+   */
+  #rangeTiles(mode) {
     let block="<div class=\"row\" id=\""+this.formula+mode+"InputArea\">";
 
     let firstInput=true;
@@ -504,15 +656,27 @@ class TilesBuilder {
     return block;
   }
 
+  /**
+   * Return the html code for the configured tiles in range mode for tables.
+   */
   get tableTiles() {
-    return this.rangeTiles('Table');
+    return this.#rangeTiles('Table');
   }
 
+  /**
+   * Return the html code for the configured tiles in range mode for diagrams.
+   */
   get diagramTiles() {
-    return this.rangeTiles('Diagram');
+    return this.#rangeTiles('Diagram');
   }
 
-  getIDs(mode) {
+
+  /**
+   * Returns the ids of all input elements in range mode for tables or diagrams.
+   * @param {String} mode Additional value for the id tags (usually "Table" or "Diagram")
+   * @returns {Array} List of all id attribute values of the input elements
+   */
+  #getIDs(mode) {
     const IDs=[];
     for (let i=0;i<this.tiles.length;i++) {
       const tile=this.tiles[i];
@@ -523,11 +687,16 @@ class TilesBuilder {
 
   #updateTabsWorking=false;
 
+  /**
+   * Notifies the elements that the fixed/range tab has changed.
+   * @param {Object} sender Changed input element
+   * @param {String} mode "Table" or "Diagram"
+   */
   updateTabs(sender, mode) {
     if (this.#updateTabsWorking) return;
     this.#updateTabsWorking=true;
     const changedId=sender.getAttribute("data-bs-target");
-    const allIds=this.getIDs(mode);
+    const allIds=this.#getIDs(mode);
 
     for (let i=0;i<allIds.length;i++) {
       if ("#"+allIds[i]+"_Variabel"!=changedId) {
@@ -542,11 +711,22 @@ class TilesBuilder {
     this.#updateTabsWorking=false;
   }
 
+  /**
+   * Tests if a format is a percent style format.
+   * @param {String} format Format (one of 'PositiveFloat', 'NotNegativeFloat', 'PositiveInt', 'NotNegativeInt' or 'rho')
+   * @returns {Boolean} Returns true, if the format is a percent style format.
+   */
   #formatIsPercent(format) {
     if (format=='rho') return true;
     return false;
   }
 
+  /**
+   * Reads the numerical value from one input element.
+   * @param {String} id Value of the id attribute of the input element
+   * @param {String} format Format (one of 'PositiveFloat', 'NotNegativeFloat', 'PositiveInt', 'NotNegativeInt' or 'rho')
+   * @returns {Number} Returns the number or null, if the value in the input element is invalid
+   */
   #loadValue(id, format) {
     if (format=='PositiveFloat') return getPositiveFloat(id);
     if (format=='NotNegativeFloat') return getNotNegativeFloat(id);
@@ -556,6 +736,9 @@ class TilesBuilder {
     return null;
   }
 
+  /**
+   * {Array} Returns a list of the numerical values from the individual values input elements (or null, if one ore multiple values are invalid).
+   */
   get valuesValues() {
     const values=[];
     for (let i=0;i<this.tiles.length;i++) {
@@ -578,6 +761,11 @@ class TilesBuilder {
     return values;
   }
 
+  /**
+   * Returns a list of the numerical values from the table or diagram values input elements (or null, if one ore multiple values are invalid).
+   * @param {String} mode "Table" or "Diagram"
+   * @returns {Array} List of numerical input values
+   */
   rangeValues(mode) {
     const values=[];
 
@@ -634,6 +822,10 @@ class TilesBuilder {
   }
 }
 
+/**
+ * Hides the information elements in the tiles.
+ * @param {String} formula Queueing model
+ */
 function hideValueInfo(formula) {
   for (let element of document.getElementsByClassName(formula+'ValuesInfoHide')) element.style.display="none";
   for (let element of document.getElementsByClassName(formula+'ValuesInfoShow')) element.style.display="";
@@ -647,6 +839,10 @@ function hideValueInfo(formula) {
   }
 }
 
+/**
+ * Shows the information elements in the tiles.
+ * @param {String} formula Queueing model
+ */
 function showValueInfo(formula) {
   for (let element of document.getElementsByClassName(formula+'ValuesInfoHide')) element.style.display="";
   for (let element of document.getElementsByClassName(formula+'ValuesInfoShow')) element.style.display="none";
@@ -663,8 +859,16 @@ function showValueInfo(formula) {
 window.hideValueInfo=hideValueInfo;
 window.showValueInfo=showValueInfo;
 
-/* Diagrammkonfiguration */
+/* Diagram configuration */
 
+/**
+ * Generates a Chart.js options object.
+ * @param {String} xAxisTitle Title for the x-axis
+ * @param {Boolean} hasTimeYAxis Will there be data sets with a time-based y-axis?
+ * @param {Boolean} hasNumberYAxis Will there be data sets with a plain-numbers-based y-axis?
+ * @param {Boolean} hasPercentYAxis Will there be data sets with a percent-based y-axis?
+ * @returns Chart.js options object
+ */
 function getChartOptions(xAxisTitle, hasTimeYAxis, hasNumberYAxis, hasPercentYAxis) {
   const options={
     scales: {
@@ -700,16 +904,26 @@ function getChartOptions(xAxisTitle, hasTimeYAxis, hasNumberYAxis, hasPercentYAx
   return options;
 }
 
-/* Hilfsfunktionen für Tabelle */
+/* Helper functions for tables */
 
+/**
+ * Return the locale decimal separator character (for example "," in German locale and "." in English locale).
+ * @returns Locale decimal separator character.
+ */
 function getDecimalSeparatorChar() {
     const n=1.1;
     return n.toLocaleString().substring(1,2);
 }
 
-/* Tabelle */
+/* Table */
 
+/**
+ * Table data handling class
+ */
 class Table {
+  /**
+   * Constructor
+   */
   constructor() {
     this.heading=[];
     this.headingInfo=[];
@@ -717,38 +931,64 @@ class Table {
     this.cols=null;
   }
 
+  /**
+   * Adds a column to the table.
+   * @param {String} column Text to be displayed in the column heading
+   * @param {String} info Legend info for the column.
+   */
   addHeading(column, info) {
     this.heading.push(column);
     this.headingInfo.push((typeof(info)=='undefined')?"":info);
   }
 
+  /**
+   * Adds a value to the next column in the current row.
+   * @param {any} column Value to be displayed in the cell (String or Number)
+   */
   addCol(column) {
     if (this.cols==null) this.cols=[];
     if (typeof(column)=='number') column=column.toLocaleString();
     if (column==null) this.cols.push(''); else this.cols.push(column);
   }
 
+  /**
+   * Adds a value to the next column in the current row.
+   * @param {any} column Value to be displayed in the cell (String or Number)
+   * @param {String} unit Unit to be displayed next to the value
+   */
   addCol(column, unit) {
     if (this.cols==null) this.cols=[];
     if (typeof(column)=='number') column=column.toLocaleString();
     if (unit==null || unit=='') {
       if (column==null) this.cols.push(''); else this.cols.push(column);
     } else {
-      if (column==null) this.cols.push(''); else this.cols.push(column+' '+unit); /* Das Leerzeichen zwischen dem Zahlenwert und der Einheit (meist '%') ist notwendig, damit die Diagrammkomponente den Wert als Protenzangabe interpretieren kann. */
+      if (column==null) this.cols.push(''); else this.cols.push(column+' '+unit); /* The space between the number and the unit (mostly "%") is required since the diagram system can not interpret the value otherwise. */
     }
   }
 
+  /**
+   * Adds a value (which is to be displayed as a percent value) to the next column in the current row.
+   * @param {Number} column Value to be displayed in the cell ("0.5" will become "50 %")
+   */
   addColPercent(column) {
     if (this.cols==null) this.cols=[];
     if (column==null) this.cols.push(''); else this.addCol(column*100,'%');
   }
 
-  startRow() {
+  /**
+   * Starts a new row.
+   */
+  #startRow() {
     if (this.cols==null) return;
     this.rows.push(this.cols);
     this.cols=null;
   }
 
+  /**
+   * Recalculates the values in the table.
+   * @param {Array} input Input values
+   * @param {Function} lambda Calculation lambda (will get the table object and the input as parameters)
+   */
   calc(input, lambda) {
     for (let i=0;i<input.length;i++) if (typeof(input[i])=='object') {
       let range=input[i];
@@ -758,7 +998,7 @@ class Table {
           const values=[];
           for (let j=0;j<input.length;j++) values.push(input[j]);
           values[i]=v;
-          this.startRow();
+          this.#startRow();
           lambda(this,values);
           rowCount++;
           if (rowCount>=500) break; /* Zu viele Einträge überlasten sonst ggf. die Chart-Engine */
@@ -768,7 +1008,7 @@ class Table {
           const values=[];
           for (let j=0;j<input.length;j++) values.push(input[j]);
           values[i]=v;
-          this.startRow();
+          this.#startRow();
           lambda(this,values);
         }
       }
@@ -777,18 +1017,27 @@ class Table {
     }
   }
 
+  /**
+   * {Array} Returns the legend as a list of html lines.
+   */
   get legend() {
     const result=[];
     for (let i=0;i<this.heading.length;i++) result.push("<b>"+this.heading[i]+"</b>="+this.headingInfo[i]);
     return result;
   }
 
+  /**
+   * {String} Returns the legend as a html paragraph.
+   */
   get legendHtml() {
     return "<p class='small'>"+this.legend.join("<br>")+"</p>";
   }
 
+  /**
+   * {String} Returns the html code for the table.
+   */
   get html() {
-    this.startRow();
+    this.#startRow();
     let table='<table class="table table-hover">';
     table+='<thread><tr>';
     for (let i=0;i<this.heading.length;i++) table+='<th scope="col">'+this.heading[i]+'</th>';
@@ -805,6 +1054,9 @@ class Table {
     return table;
   }
 
+  /**
+   * {String} Returns the html code for the copy/export buttons.
+   */
   get buttons() {
     let downloadCode="";
     downloadCode="const element=document.createElement(\"a\");";
@@ -824,7 +1076,12 @@ class Table {
     return html;
   }
 
-  removeSpecialChars(s) {
+  /**
+   * Removes html tags and entities from a string.
+   * @param {String} s String with html tags and entities
+   * @returns String without html tags and entities
+   */
+  #removeSpecialChars(s) {
     if (typeof(s)=='undefined') return '';
     s=s.replaceAll("<sub>","");
     s=s.replaceAll("</sub>","");
@@ -834,10 +1091,13 @@ class Table {
     return s;
   }
 
+  /**
+   * {String} Returns the table as plain text (for export / copy to clipboard).
+   */
   get text() {
-    this.startRow();
-    let table=this.removeSpecialChars(this.heading[0]);
-    for (let i=1;i<this.heading.length;i++) table+="\t"+this.removeSpecialChars(this.heading[i]);
+    this.#startRow();
+    let table=this.#removeSpecialChars(this.heading[0]);
+    for (let i=1;i<this.heading.length;i++) table+="\t"+this.#removeSpecialChars(this.heading[i]);
     for (let i=0;i<this.rows.length;i++) {
       table+="\n";
       const row=this.rows[i];
@@ -847,12 +1107,21 @@ class Table {
     return table;
   }
 
+  /**
+   * {Number} Number of columns.
+   */
   get colCount() {
     return this.heading.length;
   }
 
-  column(index) {
-    this.startRow();
+  /**
+   * Returns the values in a column as numbers
+   * (used as data sets for diagrams).
+   * @param {Number} index 0-based index of the column
+   * @returns {Array} List of all values (not including the heading) in a column as numbers
+   */
+  #column(index) {
+    this.#startRow();
 
     const keep=getDecimalSeparatorChar();
     const remove=(keep==',')?'.':',';
@@ -884,11 +1153,18 @@ class Table {
     return col;
   }
 
+  /**
+   * Generates a Chart.js diagram and sets it a inner html in an existing html tag.
+   * @param {String} id Value of the id attribute of the element with is to be filled with the diagram.
+   * @param {Number} xColIndex 0-based index of the column to be used for the x-axis
+   * @param {String} xAxisTitle Title of the x-axis
+   * @param {Array} ySetup Columns setup (list of objects with attributes 'columnIndex', 'color' and 'mode')
+   */
   diagram(id, xColIndex, xAxisTitle, ySetup) {
     let html='';
     html+='<canvas id="'+id+'_plot" style="width:100%;"></canvas>';
 
-    html+='<p class="small">'+ySetup.map(setup=>setup.columnIndex).map(index=>"<b>"+this.removeSpecialChars(this.heading[index])+"</b>="+this.headingInfo[index]).join("<br>")+'</p>';
+    html+='<p class="small">'+ySetup.map(setup=>setup.columnIndex).map(index=>"<b>"+this.#removeSpecialChars(this.heading[index])+"</b>="+this.headingInfo[index]).join("<br>")+'</p>';
 
     html+='<p class="small">'+language.GUI.diagramInfo+'</p>';
 
@@ -933,10 +1209,10 @@ class Table {
     for (let i=0;i<ySetup.length;i++) {
       const setup=ySetup[i];
       const set={};
-      set.label=this.removeSpecialChars(this.heading[setup.columnIndex]);
+      set.label=this.#removeSpecialChars(this.heading[setup.columnIndex]);
       set.fill=false;
       set.borderColor=setup.color;
-      set.data=this.column(setup.columnIndex);
+      set.data=this.#column(setup.columnIndex);
       if (setup.mode=='time') hasY1=true;
       if (setup.mode=='number') {set.yAxisID='y2'; hasY2=true;}
       if (setup.mode=='percent') {set.yAxisID='y3'; hasY3=true;}
@@ -946,7 +1222,7 @@ class Table {
     new Chart(id+'_plot', {
       type: "line",
       data: {
-        labels: this.column(xColIndex),
+        labels: this.#column(xColIndex),
         datasets: datasets
       },
       options: getChartOptions(xAxisTitle,hasY1,hasY2,hasY3)

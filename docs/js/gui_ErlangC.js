@@ -20,6 +20,9 @@ import {TilesBuilder, Table} from './tools_gui.js';
 import {MMcZustandsP, ErlangC, ErlangC_EW, ErlangC_P1} from './Erlang.js';
 import {language} from './Language.js';
 
+/**
+ * Input tiles for the Erlang C formula
+ */
 const tilesErlangC=new TilesBuilder('ErlangC');
 
 tilesErlangC.add(
@@ -79,6 +82,11 @@ tilesErlangC.add(
   true,
 );
 
+/**
+ * Calculates the Erlang C formula results for an individual set of input parameters.
+ * @param {Object} input Input values
+ * @returns {Object} Results
+ */
 function calcErlangC(input) {
   const result={};
 
@@ -126,6 +134,11 @@ function calcErlangC(input) {
   return result;
 }
 
+/**
+ * Generates a results table based on the input values in table or diagram mode.
+ * @param {String} mode Which input elements are to be used ("Table" or "Diagram")?
+ * @returns {Object} Table object with the calculated values.
+ */
 function calcErlangCTable(mode) {
   const input=tilesErlangC.rangeValues(mode);
   if (input==null) return null;
@@ -170,8 +183,11 @@ function calcErlangCTable(mode) {
   return table;
 }
 
-/* Einzelwerte */
+/* Individual values */
 
+/**
+ * Callback for updating the individual values results.
+ */
 function updateErlangCValues() {
   const input=tilesErlangC.valuesValues;
   if (input==null) return;
@@ -222,25 +238,39 @@ function updateErlangCValues() {
   document.getElementById('ErlangCValues_results').innerHTML=result;
 }
 
-/* Tabelle */
+/* Table */
 
+/**
+ * Callback to notify the tiles system that a fix/range tab has changed (in table mode).
+ * @param {Object} sender Tab which was changed
+ */
 function changeTabErlangCTable(sender) {
   tilesErlangC.updateTabs(sender,'Table');
   updateErlangCTable();
 }
 
+/**
+ * Callback for updating the table results.
+ */
 function updateErlangCTable() {
   let table=calcErlangCTable('Table');
   if (table!=null) document.getElementById('ErlangCTable_results').innerHTML=table.html+table.buttons;
 }
 
-/* Diagramm */
+/* Diagram */
 
+/**
+ * Callback to notify the tiles system that a fix/range tab has changed (in diagram mode).
+ * @param {Object} sender Tab which was changed
+ */
 function changeTabErlangCDiagram(sender) {
   tilesErlangC.updateTabs(sender,'Diagram');
   updateErlangCDiagram();
 }
 
+/**
+ * Callback for updating the diagram results.
+ */
 function updateErlangCDiagram() {
   const table=calcErlangCTable('Diagram');
   if (table==null) return;
@@ -265,7 +295,7 @@ function updateErlangCDiagram() {
   table.diagram('ErlangCDiagram_results',table.xValuesCol,xAxisTitle,ySetup);
 }
 
-/* Allgemeine Vorbereitungen */
+/* General setup */
 
 window.updateErlangCValues=updateErlangCValues;
 window.updateErlangCTable=updateErlangCTable;

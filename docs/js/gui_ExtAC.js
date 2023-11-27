@@ -19,7 +19,11 @@ export {tilesExtAC};
 import {TilesBuilder, Table} from './tools_gui.js';
 import {ErlangC_ENQ, ErlangC_EW} from './Erlang.js';
 import {language} from './Language.js';
+import {powerFactorial} from './tools.js';
 
+/**
+ * Input tiles for the extended Allen-Cunneen approximation formula
+ */
 const tilesExtAC=new TilesBuilder('ExtAC');
 
 tilesExtAC.add(
@@ -170,19 +174,11 @@ tilesExtAC.addSwitch(
   language.statistics.headingACCorrectionFactorsInfo2
 )
 
-function factorial(n) {
-  let result=1;
-  for (let i=2;i<=n;i++) result*=i;
-  return result;
-}
-
-function powerFactorial(a, c) {
-	/* a^c/c! */
-	let result=1;
-	for (let i=1;i<=c;i++) result*=(a/i);
-	return result;
-}
-
+/**
+ * Calculates the extended Allen-Cunneen approximation formula results for an individual set of input parameters.
+ * @param {Object} input Input values
+ * @returns {Object} Results
+ */
 function calcExtAC(input) {
   const result={};
 
@@ -201,8 +197,8 @@ function calcExtAC(input) {
   const useHanschke=input[10][1];
 
 	/*
-	 * Rechnungen sind mit
-	 * Hanschke: "Approximations for the mean queue length of the GIX/G(b,b)/c queue" abgeglichen.
+	 * Calculations are checked with
+	 * Hanschke: "Approximations for the mean queue length of the GIX/G(b,b)/c queue".
 	 */
 
 	const lambda=(1/result.EI)*result.bI; /* Umrechnung von Arrival-Batches auf einzelne Kunden */
@@ -267,6 +263,11 @@ function calcExtAC(input) {
   return result;
 }
 
+/**
+ * Generates a results table based on the input values in table or diagram mode.
+ * @param {String} mode Which input elements are to be used ("Table" or "Diagram")?
+ * @returns {Object} Table object with the calculated values.
+ */
 function calcExtACTable(mode) {
   const input=tilesExtAC.rangeValues(mode);
   if (input==null) return null;
@@ -317,8 +318,11 @@ function calcExtACTable(mode) {
   return table;
 }
 
-/* Einzelwerte */
+/* Individual values */
 
+/**
+ * Callback for updating the individual values results.
+ */
 function updateExtACValues() {
   const input=tilesExtAC.valuesValues;
   if (input==null) return;
@@ -381,13 +385,20 @@ function updateExtACValues() {
   document.getElementById('ExtACValues_results').innerHTML=result;
 }
 
-/* Tabelle */
+/* Table */
 
+/**
+ * Callback to notify the tiles system that a fix/range tab has changed (in table mode).
+ * @param {Object} sender Tab which was changed
+ */
 function changeTabExtACTable(sender) {
   tilesExtAC.updateTabs(sender,'Table');
   updateExtACTable();
 }
 
+/**
+ * Callback for updating the table results.
+ */
 function updateExtACTable() {
   let table=calcExtACTable('Table');
   if (table!=null) document.getElementById('ExtACTable_results').innerHTML=table.html+table.buttons;
@@ -395,11 +406,18 @@ function updateExtACTable() {
 
 /* Diagramm */
 
+/**
+ * Callback to notify the tiles system that a fix/range tab has changed (in diagram mode).
+ * @param {Object} sender Tab which was changed
+ */
 function changeTabExtACDiagram(sender) {
   tilesExtAC.updateTabs(sender,'Diagram');
   updateExtACDiagram();
 }
 
+/**
+ * Callback for updating the diagram results.
+ */
 function updateExtACDiagram() {
   const table=calcExtACTable('Diagram');
   if (table==null) return;
@@ -429,7 +447,7 @@ function updateExtACDiagram() {
   table.diagram('ExtACDiagram_results',table.xValuesCol,xAxisTitle,ySetup);
 }
 
-/* Allgemeine Vorbereitungen */
+/* General setup */
 
 window.updateExtACValues=updateExtACValues;
 window.updateExtACTable=updateExtACTable;
