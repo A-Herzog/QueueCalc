@@ -30,6 +30,10 @@ h6.dropdown-header {
   color: white;
 }
 
+nav .nav-link {
+  color: white;
+}
+
 footer a {
   color: blue;
 }
@@ -40,10 +44,6 @@ footer a {
   }
 
   a.btn-primary {
-    color: white;
-  }
-
-  nav .nav-link {
     color: white;
   }
 
@@ -73,8 +73,16 @@ footer a {
     background-color: rgba(var(--bs-secondary-rgb),var(--bs-bg-opacity)) !important;
   }
 
+  nav .nav-link {
+    color: rgba(255, 255, 255, 0.55);
+  }
+
+  nav .nav-link:hover {
+    color: white;
+  }
+
   footer a {
-    color: rgb(139, 185, 254)
+    color: rgb(139, 185, 254);
   }
 }
 
