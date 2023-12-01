@@ -859,6 +859,30 @@ function showValueInfo(formula) {
 window.hideValueInfo=hideValueInfo;
 window.showValueInfo=showValueInfo;
 
+/* Diagram system loader */
+
+/** Is Chart.js already loaded? */
+let chartJsLoaded=false;
+
+/**
+ * Loaded Chart.js (if not already loaded) and then executes a lambda expression.
+ * @param {Function} then Will be executed when Chart.js is available.
+ */
+function loadChartJs(then) {
+  if (chartJsLoaded) {
+    then();
+    return;
+  }
+
+  chartJsLoaded=true;
+
+  const script=document.createElement("script");
+  script.src="./libs/chart.umd.js";
+  script.async = false;
+  script.onload=then;
+  document.head.appendChild(script);
+}
+
 /* Diagram configuration */
 
 /**
@@ -1219,6 +1243,7 @@ class Table {
       datasets.push(set);
     }
 
+    loadChartJs(()=>{
     new Chart(id+'_plot', {
       type: "line",
       data: {
@@ -1226,6 +1251,7 @@ class Table {
         datasets: datasets
       },
       options: getChartOptions(xAxisTitle,hasY1,hasY2,hasY3)
+    });
     });
   }
 }
