@@ -210,7 +210,7 @@ function updateErlangCValues() {
   if (data.rho>=1) {
       result+=language.statistics.rhoError;
   } else {
-      result+=result+=language.statistics.P1+": <b>P<sub>1</sub>="+data.P1.toLocaleString()+"</b><br>\n";
+      result+=language.statistics.P1+": <b>P<sub>1</sub>="+data.P1.toLocaleString()+"</b><br>\n";
       result+=language.statistics.averageWaitingTime+": <b>E[W]="+data.EW.toLocaleString()+"</b> <small>(Std[W]="+Math.sqrt(data.VarW).toLocaleString()+", CV[W]="+data.CVW.toLocaleString()+")</small><br>\n";
       result+=language.statistics.averageResidenceTime+": <b>E[V]="+data.EV.toLocaleString()+"</b> <small>(=E[W]+E[S])</small> <small>(Std[V]="+Math.sqrt(data.VarV).toLocaleString()+", CV[V]="+data.CVV.toLocaleString()+")</small><br>\n";
       result+=language.statistics.flowFactor+": <b>E[V]/E[S]="+(data.EV/data.ES).toLocaleString()+"</b><br>\n";
