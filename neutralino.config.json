@@ -1,14 +1,14 @@
 {
   "$schema": "https://raw.githubusercontent.com/neutralinojs/neutralinojs/main/schemas/neutralino.config.schema.json",
   "applicationId": "QueueCalc",
-  "version": "1.0.0",
+  "version": "2.0.0",
   "defaultMode": "window",
   "port": 0,
   "documentRoot": "/docs/",
   "url": "/",
   "enableServer": true,
   "enableNativeAPI": true,
-  "tokenSecurity": "one-time",
+  "tokenSecurity": "none",
   "logging": {
     "enabled": false,
     "writeToLogFile": false
@@ -26,22 +26,24 @@
       "height": 900,
       "minWidth": 1024,
       "minHeight": 768,
+      "center": true,
       "fullScreen": false,
       "alwaysOnTop": false,
       "icon": "/docs/favicon.ico",
       "enableInspector": false,
       "borderless": false,
-      "maximize": true,
+      "maximize": false,
       "hidden": false,
       "resizable": true,
-      "exitProcessOnClose": true
+      "exitProcessOnClose": false,
+      "useSavedState": false
     }
   },
   "cli": {
     "binaryName": "QueueCalc",
     "resourcesPath": "/docs/",
     "clientLibrary": "docs/libs/neutralino.js",
-    "binaryVersion": "4.9.0",
+    "binaryVersion": "4.14.1",
     "clientVersion": "3.8.0"
   }
 }

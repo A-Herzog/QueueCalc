@@ -35,7 +35,10 @@
   <script src="./libs/neutralino.js"></script>
   <script>
     const isDesktopApp=(typeof(NL_OS)!='undefined');
-    if (isDesktopApp) Neutralino.init();
+    if (isDesktopApp) {
+      Neutralino.init();
+      Neutralino.events.on("windowClose",()=>Neutralino.app.exit());
+    }
     let selectedColorMode=localStorage.getItem('selectedColorMode');
     if (selectedColorMode==null) selectedColorMode=(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)?"dark":"light";
     document.documentElement.dataset.bsTheme=selectedColorMode;
