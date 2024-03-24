@@ -17,7 +17,7 @@ limitations under the License.
 export {tilesErlangC, calcErlangC};
 
 import {TilesBuilder, Table} from './tools_gui.js';
-import {MMcZustandsP, ErlangC, ErlangC_EW, ErlangC_P1} from './Erlang.js';
+import {MMcZustandsP, ErlangC, ErlangC_P1} from './Erlang.js';
 import {language} from './Language.js';
 
 /**
@@ -186,6 +186,22 @@ function calcErlangCTable(mode) {
 /* Individual values */
 
 /**
+ * Generates a string for a button to open a distribution viewer
+ * @param {Object} data Object containing the Erlang C input parameters
+ * @param {Number} display Selects what to display
+ * @param {String} buttonTitle  Button title
+ * @returns HTML code for the button as a string
+ */
+function distributionButton(data, display, buttonTitle) {
+  const settings=[];
+  settings.push("display="+display);
+  settings.push("EI="+data.EI);
+  settings.push("ES="+data.ES);
+  settings.push("c="+data.c);
+  return "<a class='btn btn-primary bi-graph-up me-3 mt-2' href='Dist_"+language.GUI.imageMode+".html?mode=ErlangC&"+settings.join('&')+"' target='_blank'> "+buttonTitle+"</a>";
+}
+
+/**
  * Callback for updating the individual values results.
  */
 function updateErlangCValues() {
@@ -228,11 +244,12 @@ function updateErlangCValues() {
   result+="</p>\n";
 
   if (data.rho<1) {
-    const settings=[];
-    settings.push("EI="+data.EI);
-    settings.push("ES="+data.ES);
-    settings.push("c="+data.c);
-    result+="<p><a class='btn btn-primary bi-graph-up' href='WaitingTimeDist_"+language.GUI.imageMode+".html?mode=ErlangC&"+settings.join('&')+"' target='_blank'> "+language.WaitingTimeDist.button+"</a></p>";
+    result+="<p>";
+    result+=distributionButton(data,0,language.WaitingTimeDist.button);
+    result+=distributionButton(data,1,language.WaitingTimeDistN.button);
+    result+=distributionButton(data,2,language.WaitingTimeDistNQ.button);
+    result+=distributionButton(data,3,language.WaitingTimeDistCBusy.button);
+    result+="</p>";
   }
 
   document.getElementById('ErlangCValues_results').innerHTML=result;

@@ -14,12 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-/* Language */
+/* Imports */
 
 import {language} from './js/Language.js';
 import {parseFloatStrict} from './js/tools.js';
 import {calcErlangC} from './js/gui_ErlangC.js';
 import {calcExtErlangC} from './js/gui_ExtErlangC.js';
+import {MMcZustandsP} from './js/Erlang.js';
 
 /* Heading */
 
@@ -41,7 +42,7 @@ closeButton.onclick=()=>{
 
 function getSetupFromSearchString() {
   const modes={
-    'ErlangC': ["EI","ES","c"],
+    'ErlangC': ["EI","ES","c","display"],
     'ExtErlangC': ["EI","ES","K","EWT","c"]
   };
 
@@ -70,9 +71,9 @@ function getSetupFromSearchString() {
   return data;
 }
 
-function calcErlangCTable(input) {
+function calcErlangCTablePWt(input) {
   const inputVec=[input.EI, input.ES, Math.round(input.c), 0];
-  results=[];
+  const results=[];
   for (let t=0;t<=10_000;t++) {
     inputVec[3]=t;
     const PWlet=calcErlangC(inputVec).PWlet;
@@ -80,6 +81,56 @@ function calcErlangCTable(input) {
     results.push([t,PWlet]);
     if (PWlet>=0.99) break;
   }
+  return results;
+}
+
+function calcErlangCTablePNn(input) {
+  const a=input.ES/input.EI;
+  const c=Math.round(input.c);
+  if (a>=c) return null;
+  const results=[];
+  let sum=0;
+  for (let n=0;n<=10_000;n++) {
+    const p=MMcZustandsP(a,c,n);
+    sum+=p;
+    results.push([n,p]);
+    if (sum>=0.99) break;
+  }
+  return results;
+}
+
+function calcErlangCTablePNQn(input) {
+  const a=input.ES/input.EI;
+  const c=Math.round(input.c);
+  if (a>=c) return null;
+  const results=[];
+  let sum=0;
+  for (let n=0;n<=c;n++) {
+    const p=MMcZustandsP(a,c,n);
+    sum+=p;
+  }
+  results.push([0,sum]);
+  for (let n=c+1;n<=10_000;n++) {
+    const p=MMcZustandsP(a,c,n);
+    sum+=p;
+    results.push([n-c,p]);
+    if (sum>=0.99) break;
+  }
+  return results;
+}
+
+function calcErlangCTablePBusyCn(input) {
+  const a=input.ES/input.EI;
+  const c=Math.round(input.c);
+  if (a>=c) return null;
+  const results=[];
+  let sum=0;
+  for (let n=0;n<c;n++) {
+    const p=MMcZustandsP(a,c,n);
+    sum+=p;
+    results.push([n,p]);
+  }
+  results.push([c,1-sum]);
   return results;
 }
 
@@ -136,14 +187,48 @@ function addRow(tbody, row) {
 
 const input=getSetupFromSearchString();
 let results=null;
-if (input!=null && input['mode']=='ErlangC') results=calcErlangCTable(input);
-if (input!=null && input['mode']=='ExtErlangC') results=calcExtErlangCTable(input);
+const labelPlain={}, labelHTML={};
+let title;
+if (input!=null && input['mode']=='ErlangC') {
+  switch (input['display']) {
+    case 0: /* P(W<=t) */
+      results=calcErlangCTablePWt(input);
+      title=language.WaitingTimeDist.heading;
+      labelPlain.x="t"; labelPlain.y="P(W<=t)";
+      labelHTML.x="t"; labelHTML.y="P(W&le;t)"
+      break;
+    case 1: /* P(N=n)=p_n */
+      results=calcErlangCTablePNn(input);
+      title=language.WaitingTimeDistN.heading;
+      labelPlain.x="n"; labelPlain.y="P(N=n)";
+      labelHTML.x="n"; labelHTML.y="P(N=n)"
+      break;
+    case 2: /* P(NQ=n) */
+      results=calcErlangCTablePNQn(input);
+      title=language.WaitingTimeDistNQ.heading;
+      labelPlain.x="n"; labelPlain.y="P(NQ=n)";
+      labelHTML.x="n"; labelHTML.y="P(N<sub>Q</sub>=n)";
+      break;
+    case 3: /* P(busyC=n) */
+      results=calcErlangCTablePBusyCn(input);
+      title=language.WaitingTimeDistCBusy.heading;
+      labelPlain.x="n"; labelPlain.y=language.WaitingTimeDistCBusy.yLabel;
+      labelHTML.x="n"; labelHTML.y=language.WaitingTimeDistCBusy.yLabel;
+      break;
+  }
+}
+if (input!=null && input['mode']=='ExtErlangC') {
+  results=calcExtErlangCTable(input);
+  title=language.WaitingTimeDist.heading;
+  labelPlain.x="t"; labelPlain.y="P(W<=t)";
+  labelHTML.x="t"; labelHTML.y="P(W&le;t)"
+}
 
 /* Diagram */
 
 if (results!=null) {
   const set={
-    label: "P(W<=t)",
+    label: labelPlain.y,
     fill: false,
     borderColor: "blue",
     data: results.map(row=>row[1]),
@@ -151,13 +236,15 @@ if (results!=null) {
     pointHoverRadius: 10
   };
 
+  const maxValue=Math.min(1,Math.ceil(results.map(row=>row[1]).reduce((a,b)=>Math.max(a,b))*1.05*50)/50);
+  console.log(Math.max(results.map(row=>row[1])));
   new Chart('dist_plot', {
     type: "line",
     data: {labels: results.map(row=>row[0]), datasets: [set]},
     options: {
       scales: {
-        x: {title: {display: true, text: "t"}},
-        y: {title: {display: true, text: "P(W<=t)"}, min: 0, max: 1, ticks: {callback: function(value, index, values) {return (value*100).toLocaleString()+'%';}}}
+        x: {title: {display: true, text: labelPlain.x}},
+        y: {title: {display: true, text: labelPlain.y}, min: 0, max: maxValue, ticks: {callback: function(value, index, values) {return (value*100).toLocaleString()+'%';}}}
       },
       plugins: {legend: {display: false}}
     }});
@@ -167,7 +254,7 @@ if (results!=null) {
 
 if (results!=null) {
   let table, tbody;
-  [table,tbody]=buildTableElement(tableArea,["t","P(W&\le;t)"],results.length>100);
+  [table,tbody]=buildTableElement(tableArea,[labelHTML.x,labelHTML.y],results.length>100);
   for (let row of results) addRow(tbody,[row[0].toLocaleString(),(row[1]*100).toLocaleString(undefined,{minimumFractionDigits: 3})+"%"]);
 }
 
@@ -176,7 +263,7 @@ if (results!=null) {
 if (results!=null) {
   const exportString="t\tP(W<=t)\n"+results.map(row=>row[0].toLocaleString()+"\t"+row[1].toLocaleString()).join("\n");
 
-  dist_heading.innerHTML=language.WaitingTimeDist.heading+" P(W&le;t)";
+  dist_heading.innerHTML=title+" "+labelHTML.y;
 
   copyButton.innerHTML=" "+language.GUI.copyDiagram;
   copyButtonTable.innerHTML=language.GUI.copyDiagramTable;

@@ -216,6 +216,24 @@ function calcExtErlangCTable(mode) {
 /* Individual values */
 
 /**
+ * Generates a string for a button to open a distribution viewer
+ * @param {Object} data Object containing the Erlang C input parameters
+ * @param {Number} display Selects what to display
+ * @param {String} buttonTitle  Button title
+ * @returns HTML code for the button as a string
+ */
+function distributionButton(data, display, buttonTitle) {
+  const settings=[];
+  settings.push("display="+display);
+  settings.push("EI="+data.EI);
+  settings.push("ES="+data.ES);
+  settings.push("K="+data.K);
+  settings.push("EWT="+data.EWT);
+  settings.push("c="+data.c);
+  return "<a class='btn btn-primary bi-graph-up me-3 mt-2' href='Dist_"+language.GUI.imageMode+".html?mode=ExtErlangC&"+settings.join('&')+"' target='_blank'> "+buttonTitle+"</a>";
+}
+
+/**
  * Callback for updating the individual values results.
  */
 function updateExtErlangCValues() {
@@ -269,13 +287,8 @@ function updateExtErlangCValues() {
 
   if (data.K>=data.c) {
     result+="<p>\n";
-    const settings=[];
-    settings.push("EI="+data.EI);
-    settings.push("ES="+data.ES);
-    settings.push("K="+data.K);
-    settings.push("EWT="+data.EWT);
-    settings.push("c="+data.c);
-    result+="<p><a class='btn btn-primary bi-graph-up' href='WaitingTimeDist_"+language.GUI.imageMode+".html?mode=ExtErlangC&"+settings.join('&')+"' target='_blank'> "+language.WaitingTimeDist.button+"</a></p>";
+    result+=distributionButton(data,0,language.WaitingTimeDist.button);
+    result+="</p>\n";
   }
 
   document.getElementById('ExtErlangCValues_results').innerHTML=result;
