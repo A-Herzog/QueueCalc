@@ -20,7 +20,7 @@ import {language} from './js/Language.js';
 import {parseFloatStrict} from './js/tools.js';
 import {calcErlangC} from './js/gui_ErlangC.js';
 import {calcExtErlangC} from './js/gui_ExtErlangC.js';
-import {MMcZustandsP} from './js/Erlang.js';
+import {MMcZustandsP, MMcKMZustandsP} from './js/Erlang.js';
 
 /* Heading */
 
@@ -43,7 +43,7 @@ closeButton.onclick=()=>{
 function getSetupFromSearchString() {
   const modes={
     'ErlangC': ["EI","ES","c","display"],
-    'ExtErlangC': ["EI","ES","K","EWT","c"]
+    'ExtErlangC': ["EI","ES","K","EWT","c","display"]
   };
 
   const search=window.location.search;
@@ -134,7 +134,7 @@ function calcErlangCTablePBusyCn(input) {
   return results;
 }
 
-function calcExtErlangCTable(input) {
+function calcExtErlangCTablePWt(input) {
   const inputVec=[input.EI, input.ES, Math.round(input.K), input.EWT, Math.round(input.c), 0];
   results=[];
   for (let t=0;t<=1000;t++) {
@@ -144,6 +144,62 @@ function calcExtErlangCTable(input) {
     results.push([t,PWlet]);
     if (PWlet>=0.99) break;
   }
+  return results;
+}
+
+function calcExtErlangCTablePNn(input) {
+  const lambda=1/input.EI;
+  const mu=1/input.ES;
+  const nu=1/input.EWT;
+  const K=input.K;
+  const c=input.c;
+  const results=[];
+  let sum=0;
+  for (let n=0;n<=K;n++) {
+    const p=MMcKMZustandsP(lambda,mu,nu,c,K,n);
+    sum+=p;
+    results.push([n,p]);
+    if (sum>=0.999) break;
+  }
+  return results;
+}
+
+function calcExtErlangCTablePNQn(input) {
+  const lambda=1/input.EI;
+  const mu=1/input.ES;
+  const nu=1/input.EWT;
+  const K=input.K;
+  const c=input.c;
+  const results=[];
+  let sum=0;
+  for (let n=0;n<=c;n++) {
+    const p=MMcKMZustandsP(lambda,mu,nu,c,K,n);
+    sum+=p;
+  }
+  results.push([0,sum]);
+  for (let n=c+1;n<=10_000;n++) {
+    const p=MMcKMZustandsP(lambda,mu,nu,c,K,n);
+    sum+=p;
+    results.push([n-c,p]);
+    if (sum>=0.999) break;
+  }
+  return results;
+}
+
+function calcExtErlangCTablePBusyCn(input) {
+  const lambda=1/input.EI;
+  const mu=1/input.ES;
+  const nu=1/input.EWT;
+  const K=input.K;
+  const c=input.c;
+  const results=[];
+  let sum=0;
+  for (let n=0;n<c;n++) {
+    const p=MMcKMZustandsP(lambda,mu,nu,c,K,n);
+    sum+=p;
+    results.push([n,p]);
+  }
+  results.push([c,1-sum]);
   return results;
 }
 
@@ -218,10 +274,32 @@ if (input!=null && input['mode']=='ErlangC') {
   }
 }
 if (input!=null && input['mode']=='ExtErlangC') {
-  results=calcExtErlangCTable(input);
-  title=language.WaitingTimeDist.heading;
-  labelPlain.x="t"; labelPlain.y="P(W<=t)";
-  labelHTML.x="t"; labelHTML.y="P(W&le;t)"
+  switch (input['display']) {
+    case 0: /* P(W<=t) */
+      results=calcExtErlangCTablePWt(input);
+      title=language.WaitingTimeDist.heading;
+      labelPlain.x="t"; labelPlain.y="P(W<=t)";
+      labelHTML.x="t"; labelHTML.y="P(W&le;t)";
+      break;
+    case 1: /* P(N=n)=p_n */
+      results=calcExtErlangCTablePNn(input);
+      title=language.WaitingTimeDistN.heading;
+      labelPlain.x="n"; labelPlain.y="P(N=n)";
+      labelHTML.x="n"; labelHTML.y="P(N=n)"
+      break;
+    case 2: /* P(NQ=n) */
+      results=calcExtErlangCTablePNQn(input);
+      title=language.WaitingTimeDistNQ.heading;
+      labelPlain.x="n"; labelPlain.y="P(NQ=n)";
+      labelHTML.x="n"; labelHTML.y="P(N<sub>Q</sub>=n)";
+      break;
+    case 3: /* P(busyC=n) */
+      results=calcExtErlangCTablePBusyCn(input);
+      title=language.WaitingTimeDistCBusy.heading;
+      labelPlain.x="n"; labelPlain.y=language.WaitingTimeDistCBusy.yLabel;
+      labelHTML.x="n"; labelHTML.y=language.WaitingTimeDistCBusy.yLabel;
+      break;
+  }
 }
 
 /* Diagram */
@@ -237,7 +315,6 @@ if (results!=null) {
   };
 
   const maxValue=Math.min(1,Math.ceil(results.map(row=>row[1]).reduce((a,b)=>Math.max(a,b))*1.05*50)/50);
-  console.log(Math.max(results.map(row=>row[1])));
   new Chart('dist_plot', {
     type: "line",
     data: {labels: results.map(row=>row[0]), datasets: [set]},

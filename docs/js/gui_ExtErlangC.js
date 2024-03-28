@@ -288,6 +288,9 @@ function updateExtErlangCValues() {
   if (data.K>=data.c) {
     result+="<p>\n";
     result+=distributionButton(data,0,language.WaitingTimeDist.button);
+    result+=distributionButton(data,1,language.WaitingTimeDistN.button);
+    result+=distributionButton(data,2,language.WaitingTimeDistNQ.button);
+    result+=distributionButton(data,3,language.WaitingTimeDistCBusy.button);
     result+="</p>\n";
   }
 
