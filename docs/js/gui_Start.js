@@ -118,12 +118,15 @@ function buildStartTiles(isDesktopApp) {
   block+="<a id=\"downloadODS\" target=\"_blank\" href=\"./Erlang/Erlang.ods\" download=\"Erlang.ods\" title=\""+language.GUI.tabDownloadsLibreOffice+"\" style=\"display: none;\"></a>";
   block+="<a id=\"downloadJS\" target=\"_blank\" href=\"./Erlang/Erlang.js\" download=\"Erlang.js\" title=\""+language.GUI.tabDownloadsJS+"\" style=\"display: none;\"></a>";
   block+="<a id=\"downloadPY\" target=\"_blank\" href=\"./Erlang/Erlang.py\" download=\"Erlang.py\" title=\""+language.GUI.tabDownloadsPython+"\" style=\"display: none;\"></a>";
+  block+="<a id=\"downloadIPYNB\" target=\"_blank\" href=\"./Erlang/Erlang.ipynb\" download=\"Erlang.ipynb\" title=\""+language.GUI.tabDownloadsPythonNB+"\" style=\"display: none;\"></a>";
   block+="<a id=\"downloadR\" target=\"_blank\" href=\"./Erlang/Erlang.R\" download=\"Erlang.R\" title=\""+language.GUI.tabDownloadsR+"\" style=\"display: none;\"></a>";
+
   block+="<button onclick=\"document.getElementById('downloadXLSM').click();\" class=\"btn btn-primary my-1 bi-table\"> "+language.GUI.tabDownloadsExcel+"</button>\n";
   block+="<button onclick=\"document.getElementById('downloadODS').click();\" class=\"btn btn-primary my-1 bi-table\"> "+language.GUI.tabDownloadsLibreOffice+"</button>\n";
   block+="<br>";
   block+="<button onclick=\"document.getElementById('downloadJS').click();\" class=\"btn btn-primary my-1 bi-code\"> "+language.GUI.tabDownloadsJS+"</button>\n";
-  block+="<button onclick=\"document.getElementById('downloadPY').click();\" class=\"btn btn-primary my-1 bi-code\"> "+language.GUI.tabDownloadsPython+"</button>\n";
+  block+="<button onclick=\"document.getElementById('downloadPY').click();\" class=\"btn btn-primary my-1 bi-filetype-py\"> "+language.GUI.tabDownloadsPython+"</button>\n";
+  block+="<button onclick=\"document.getElementById('downloadIPYNB').click();\" class=\"btn btn-primary my-1 bi-filetype-py\"> "+language.GUI.tabDownloadsPythonNB+"</button>\n";
   block+="<button onclick=\"document.getElementById('downloadR').click();\" class=\"btn btn-primary my-1 bi-code\"> "+language.GUI.tabDownloadsR+"</button>\n";
 
   block+="</div></div></div>";
