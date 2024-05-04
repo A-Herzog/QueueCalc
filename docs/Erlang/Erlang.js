@@ -117,8 +117,9 @@ function MMcKMZustandsP(lambda,mu,nu,c,K,n) {
 /* Berechnet P(A) für ein M/M/c/K+M-System */
 function ErwErlangC_PA(lambda,mu,nu,c,K) {
   const p0=MMcKMZustandsP(lambda,mu,nu,c,K,0);
+  const inputReject=MMcKMZustandsP(lambda,mu,nu,c,K,K);
   let sum=0;
-  for (let n=c+1;n<=K;n++) sum+=nu/lambda*(n-c)*p0*MMcKMCn(lambda,mu,nu,c,n);
+  for (let n=c+1;n<=K;n++) sum+=nu/(lambda*(1-inputReject))*(n-c)*p0*MMcKMCn(lambda,mu,nu,c,n);
   return sum;
 }
 
