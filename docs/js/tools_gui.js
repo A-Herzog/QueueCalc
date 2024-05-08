@@ -167,7 +167,7 @@ function getPlaceholder(record) {
 
   if (typeof(record.imageMaxWidth)=='undefined') record.imageMaxWidth=650;
 
-  /* Einzelwerte */
+  /* Individual values */
 
   block+="<div class=\"tab-pane fade\" id=\""+record.id+"Values\" role=\"tabpanel\">";
   block+="</div>";
@@ -216,7 +216,7 @@ function getPlaceholder(record) {
 
   initObserver(record.id+"Values",content);
 
-  /* Tabelle */
+  /* Table */
 
   if (typeof(record.tableTiles)!='undefined') {
     block+="<div class=\"tab-pane fade\" id=\""+record.id+"Table\" role=\"tabpanel\">";
@@ -233,7 +233,7 @@ function getPlaceholder(record) {
     initObserver(record.id+"Table",content);
   }
 
-  /* Diagramm */
+  /* Diagram */
 
   if (typeof(record.diagramTiles)!='undefined') {
     block+="<div class=\"tab-pane fade\" id=\""+record.id+"Diagram\" role=\"tabpanel\">";
@@ -1062,19 +1062,23 @@ class Table {
    */
   get html() {
     this.#startRow();
-    let table='<table class="table table-hover">';
-    table+='<thread><tr>';
-    for (let i=0;i<this.heading.length;i++) table+='<th scope="col">'+this.heading[i]+'</th>';
-    table+='</tr></thread>';
+    let table='<div style="overflow-x: scroll; margin: 0; padding: 0;"><table class="table table-hover">';
+    table+='<thead><tr>';
+    for (let i=0;i<this.heading.length;i++) table+='<th scope="col" title=\"'+this.headingInfo[i]+'\">'+this.heading[i]+'</th>';
+    table+='</tr></thead>';
     table+='<tbody>';
     for (let i=0;i<this.rows.length;i++) {
       table+="<tr>";
       const row=this.rows[i];
-      for (let j=0;j<row.length;j++) table+='<td>'+row[j]+'</td>';
+      for (let j=0;j<row.length;j++) {
+        let cell=row[j];
+        if (cell.endsWith(' %')) cell=cell.replaceAll(' %','%');
+        table+='<td>'+cell+'</td>';
+      }
       table+="</tr>";
     }
     table+='</tbody>';
-    table+='</table>';
+    table+='</table></div>';
     return table;
   }
 
@@ -1178,13 +1182,93 @@ class Table {
   }
 
   /**
+   * Generates a delta between the old and the new value
+   * @param {String} oldValue Old value
+   * @param {String} newValue New value
+   * @returns Text for the delta between the values
+   */
+  #calcDelta(oldValue, newValue) {
+    let isPercent=false;
+    if (oldValue.endsWith(" %")) {
+      isPercent=true;
+      oldValue=oldValue.substring(0,oldValue.length-2);
+    }
+    if (newValue.endsWith(" %")) {
+      isPercent=true;
+      newValue=newValue.substring(0,newValue.length-2);
+    }
+    oldValue=parseFloat(oldValue.replaceAll(",","."));
+    newValue=parseFloat(newValue.replaceAll(",","."));
+    const delta=newValue-oldValue;
+
+    let result=delta.toLocaleString();
+    if (delta>0) result="+"+result;
+    if (isPercent) result+="%";
+    return result;
+  }
+
+  /**
+   * Generates a html table containing one input and the defined output values and delta vales between the rows
+   * @param {Object} deltaTableSetup Object has to have to properties "x": number of the input column, "y": list of the numbers of the output columns
+   * @returns html code for the table
+   */
+  #buildDeltaTable(deltaTableSetup) {
+    const html=[];
+
+    html.push("<div style=\"overflow-x: scroll; margin: 0; padding: 0;\">");
+    html.push("<table class=\"table table-hover\">");
+
+    html.push("<thead>");
+    html.push("<tr>");
+    html.push("<th scope=\"col\" title=\""+this.headingInfo[deltaTableSetup.x]+"\">"+this.heading[deltaTableSetup.x]+"</th>");
+    for (let y of deltaTableSetup.y) html.push("<th scope=\"col\" title=\""+this.headingInfo[y]+"\">"+this.heading[y]+"</th>");
+    html.push("</tr>");
+    html.push("</thead>");
+
+    html.push("<tbody>");
+    let last=null;
+    for (let row of this.rows) {
+      if (last!=null) {
+        html.push("<tr>");
+        html.push("<td></td>");
+        for (let y of deltaTableSetup.y) {
+          const lastValue=last[y];
+          const currentValue=row[y];
+          html.push("<td class=\"small text-muted\"><strong>&darr;</strong> "+this.#calcDelta(lastValue,currentValue)+"</td>");
+        }
+        html.push("</tr>");
+      }
+
+      html.push("<tr>");
+      let cell=row[deltaTableSetup.x];
+      if (cell.endsWith(' %')) cell=cell.replaceAll(' %','%');
+      html.push("<th scope=\"row\">"+cell+"</th>");
+      for (let y of deltaTableSetup.y) {
+        cell=row[y];
+        if (cell.endsWith(' %')) cell=cell.replaceAll(' %','%');
+        html.push("<td>"+cell+"</td>");
+      }
+      html.push("</tr>");
+
+      last=row;
+    }
+    html.push("</tbody>");
+
+    html.push("</table>");
+    html.push("</div>");
+
+    return html.join("\n");
+  }
+
+  /**
    * Generates a Chart.js diagram and sets it a inner html in an existing html tag.
    * @param {String} id Value of the id attribute of the element with is to be filled with the diagram.
    * @param {Number} xColIndex 0-based index of the column to be used for the x-axis
    * @param {String} xAxisTitle Title of the x-axis
    * @param {Array} ySetup Columns setup (list of objects with attributes 'columnIndex', 'color' and 'mode')
+   * @param {Object} addDeltaTable Generates a value delta table below the diagram (optional, defaults to false). Object has to have to properties "x": number of the input column, "y": list of the numbers of the output columns
    */
-  diagram(id, xColIndex, xAxisTitle, ySetup) {
+  diagram(id, xColIndex, xAxisTitle, ySetup, addDeltaTable=false) {
     let html='';
     html+='<canvas id="'+id+'_plot" style="width:100%;"></canvas>';
 
@@ -1223,6 +1307,8 @@ class Table {
     html+="</div>";
 
     html+="</p>";
+
+    if (addDeltaTable) html+=this.#buildDeltaTable(addDeltaTable);
 
     document.getElementById(id).innerHTML=html;
 
