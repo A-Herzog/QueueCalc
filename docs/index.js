@@ -87,6 +87,7 @@ mainNavBar.insertBefore(buildMultiNavDropdown("DesignMenu",language.GUI.tabDesig
   {id: "Compare", name: language.GUI.tabCompare, modes: {values: true}},
   {id: "ShortestQueue", name: language.GUI.tabShortestQueue},
   {id: "EconomyOfScale", name: language.GUI.tabEconomyOfScale, modes: {table: true, diagram: true}},
+  {id: "CallCenter", name: language.GUI.tabCallCenter, modes: {diagram: true}},
 ]),mainNavBar.children[insertCount++]);
 
 /* Content */

@@ -87,7 +87,10 @@ lang.GUI.formulaShortestQueueBInfo2="";
 lang.GUI.formulaShortestQueueInfoAB="Wahrscheinlichkeit an der kürzeren Warteschlange länger warten zu müssen";
 lang.GUI.formulaEconomyOfScale="Economy of Scale";
 lang.GUI.formulaEconomyOfScaleLong="Economy of Scale (Positiver Skaleneffekt)";
-lang.GUI.formulaEconomyOfScaleInfo="Die Economy of Scale beschreibt in Bezug auf stochatische Systeme den Effekt, dass die Wartezeiten bei insgesamt identischer Auslastung bei größeren Systemen kürzer ausfallen, als bei kleineren Systemen. Bei Warteschlangenmodellen mit mehr Bedienern können sich Schwankungen im Ankunftsstrom und bei den Bedienzeiten besser gegenseitig ausgleichen als bei kleineren Systemen.";
+lang.GUI.formulaEconomyOfScaleInfo="Die Economy of Scale beschreibt in Bezug auf stochastische Systeme den Effekt, dass die Wartezeiten bei insgesamt identischer Auslastung bei größeren Systemen kürzer ausfallen, als bei kleineren Systemen. Bei Warteschlangenmodellen mit mehr Bedienern können sich Schwankungen im Ankunftsstrom und bei den Bedienzeiten besser gegenseitig ausgleichen als bei kleineren Systemen.";
+lang.GUI.formulaCallCenter="Callcenter-Planung";
+lang.GUI.formulaCallCenterLong="Callcenter-Planung";
+lang.GUI.formulaCallCenterInfo="In diesem Modell können die Auswirkungen des Hinzufügens oder Entfernens einzelner Bediener von der Bedienstation untersucht werden. Neben einem Diagramm, in dem die Kenngrößen in Abhängigkeit von der Anzahl an eingesetzten Agenten angezeigt werden, wird in Tabellenform ausgegeben, welche konkreten Auswirkungen einzelne Veränderungsschritte haben.";
 lang.GUI.tabHome="Start";
 lang.GUI.tabErlangB="Erlang-B-Formel";
 lang.GUI.tabErlangBInfo="M/M/c/C";
@@ -108,6 +111,7 @@ lang.GUI.tabDesign="Systemdesign";
 lang.GUI.tabCompare="Vergleich verschiedener Strategien";
 lang.GUI.tabShortestQueue="Wahl der kürzesten Schlange";
 lang.GUI.tabEconomyOfScale="Economy of Scale";
+lang.GUI.tabCallCenter="Callcenter-Planung";
 lang.GUI.tabSimulation='Simulation';
 lang.GUI.tabSimulationInfo='Wenn die Möglichkeiten der (erweiterten) Erlang-C-Formel und der (erweiterten) Allen-Cunneen-Näherungsformel zur Modellierung eines Warteschlangensystems nicht mehr ausreichen, kann eines der hier angebotenen Opensource <b>Simulationswerkzeuge</b> eingesetzt werden.';
 lang.GUI.tabHelp="Hilfe";
@@ -742,6 +746,17 @@ Im Kontext der Warteschlangentheorie ist jedoch besonders der Effekt, dass sich 
 In dem Rechenmodell kann die mittlere Auslastung (&rho;) der Bediener fest vorgegeben werden. Wird nun die Anzahl an Bedienern (c) verändert, so ändert sich automatisch auch die Zwischenankunftszeit (E[I]), so dass insgesamt die Auslastung (&rho;=E[S]/E[I]/c) konstant bleibt. Auf diese Weise können über die Variation der Anzahl an Bedienern verschieden große Systeme jeweils bei exakt derselben Auslastung verglichen werden.
 </p>`;
 
+lang.text.CallCenterDiagram=`
+<p>
+Sofern Anrufwiederholungen nicht abgebildet werden müssen, können Callcenter über die <a href="javascript:void(0);" onclick="showTab('ExtErlangCValues');">erweiterte Erlang-C-Formel</a> abgebildet werden.
+Während Anrufsraten und Bediendauern meist nicht beeinflussbar sind, ist die Anzahl an eingesetzten Agenten die Stellgröße, über die Betriebskosten und Leistungskenngrößen des Systems optimiert werden können.
+Je mehr Agenten eingesetzt werden, desto besser fallen die Kenngrößen aus, aber auch desto mehr Lohnkosten fallen an.
+</p>
+<p>
+Auf diese Seite kann die Anzahl an Agenten für vorgegebene Rahmenparameter variiert werden. Die Auswirkungen der verschiedenen Anzahlen an Agenten werden nicht nur in grafischer Form dargestellt, sondern auch
+als Tabelle inkl. Zusatzzeilen zur Angabe der jeweiligen Veränderungen von Schritt zu Schritt.
+</p>`;
+
 /* English */
 
 const languageEN={};
@@ -809,6 +824,9 @@ lang.GUI.formulaShortestQueueInfoAB="Probability of having to wait longer in the
 lang.GUI.formulaEconomyOfScale="Economy of Scale";
 lang.GUI.formulaEconomyOfScaleLong="Economy of Scale";
 lang.GUI.formulaEconomyOfScaleInfo="In terms of stochastic systems, the economy of scale describes the effect that waiting times are shorter in larger systems than in smaller systems, with an overall identical workload. In queueing models with more operators, fluctuations in the arrival stream and in the service times can balance each other out better than in smaller systems.";
+lang.GUI.formulaCallCenter="Call center planning";
+lang.GUI.formulaCallCenterLong="Call center planning";
+lang.GUI.formulaCallCenterInfo="This model can be used to examine the effects of adding or removing individual operators from the process station. In addition to a diagram in which the results are displayed as a function of the number of agents used, the specific effects of individual change steps are shown in tabular form.";
 lang.GUI.tabHome="Start";
 lang.GUI.tabErlangB="Erlang-B formula";
 lang.GUI.tabErlangBInfo="M/M/c/C";
@@ -829,6 +847,7 @@ lang.GUI.tabDesign="System design";
 lang.GUI.tabCompare="Comparison of different strategies";
 lang.GUI.tabShortestQueue="Choice of the shortest queue";
 lang.GUI.tabEconomyOfScale="Economy of Scale";
+lang.GUI.tabCallCenter="Call center planning";
 lang.GUI.tabSimulation='Simulation';
 lang.GUI.tabSimulationInfo='If the capabilities of the (extended) Erlang-C formula and the (extended) Allen-Cunneen approximation formula are not sufficient anymore to model a queueing system, one of the open source <b>simulation tools</b> offered here can be used.';
 lang.GUI.tabHelp="Help";
@@ -1471,6 +1490,17 @@ In the context of queueing theory, the effect that in larger systems the fluctua
 </p>
 <p>
 In the calculation model, the average utilization (&rho;) of the operators can be fixed. If the number of operators (c) is now changed, the inter-arrival time (E[I]) also changes automatically, so that the overall utilization (&rho;=E[S]/E[I]/c) remains constant. In this way, by varying the number of operators, systems of different sizes can each be compared at exactly the same workload.
+</p>`;
+
+lang.text.CallCenterDiagram=`
+<p>
+If retry is not needed to be mapped, call centers can be mapped using the <a href="javascript:void(0);" onclick="showTab('ExtErlangCValues');">extended Erlang C formula</a>.
+While arrival rates and service times cannot usually be influenced, the number of agents deployed is the control variable that can be used to optimize the operating costs and performance parameters of the system.
+The more agents deployed, the better the performance indicators, but also the higher the labor costs.
+</p>
+<p>
+On this page, the number of agents can be varied for specified framework parameters. The effects of the different numbers of agents are not only displayed in graphical form,
+but also as a table including additional lines to indicate the respective changes from step to step.
 </p>`;
 
 /* Activate language */

@@ -28,6 +28,7 @@ import {tilesExtAC} from './gui_ExtAC.js';
 import {tilesCompare} from './gui_Compare.js';
 import {tilesShortestQueue} from './gui_ShortestQueue.js';
 import {tilesEconomyOfScale} from './gui_EconomyOfScale.js';
+import {tilesCallCenter} from './gui_CallCenter.js';
 import {formulasErlangB, formulasErlangC, formulasExtErlangC, formulasPC, formulasKingman, formulasAC, formulasExtAC, formulasCompare, formulasShortestQueue} from './FormulaBuilder.js';
 import {language} from './Language.js';
 
@@ -101,6 +102,7 @@ function buildStartTiles(isDesktopApp) {
   block+=buildStartTile(6,language.GUI.formulaCompare,language.GUI.formulaCompareInfo,"Compare","100%",false,"svg","602.67 / 279.23",{values: true});
   block+=buildStartTile(6,language.GUI.formulaShortestQueue,language.GUI.formulaShortestQueueInfo,"ShortestQueue","100%",false,"svg","602.67 / 319.07");
   block+=buildStartTile(6,language.GUI.formulaEconomyOfScale,language.GUI.formulaEconomyOfScaleInfo,"EconomyOfScale","100%",false,"svg","151.34 / 93.66",{table: true, diagram: true});
+  block+=buildStartTile(6,language.GUI.formulaCallCenter,language.GUI.formulaCallCenterInfo,"CallCenter","100%",false,"svg","151.34 / 61.89",{diagram: true});
   block+=buildStartTile(6,language.GUI.tabSimulation,language.GUI.tabSimulationInfo,"Simulation","100%",true,'webp','640 / 481',false,"<i class='bi-caret-right-square'></i> ");
 
   block+="<div class=\"col-lg-6\"><div class=\"card\">";
@@ -327,13 +329,22 @@ function getMainGUI(isDesktopApp) {
   result+=getPlaceholder({
     id: "EconomyOfScale",
     title: language.GUI.formulaEconomyOfScaleLong,
-    valuesTilesButtons: tilesEconomyOfScale.valueTilesButtons,
     tableInfo: language.text.EconomyOfScaleTable,
     tableTilesButtons: tilesEconomyOfScale.valueTilesButtons,
     tableTiles: tilesEconomyOfScale.tableTiles,
     diagramInfo: language.text.EconomyOfScaleDiagram,
     diagramTilesButtons: tilesEconomyOfScale.valueTilesButtons,
     diagramTiles: tilesEconomyOfScale.diagramTiles
+  });
+
+  /* System design: Call center */
+
+  result+=getPlaceholder({
+    id: "CallCenter",
+    title: language.GUI.formulaCallCenterLong,
+    diagramInfo: language.text.CallCenterDiagram,
+    diagramTilesButtons: tilesCallCenter.valueTilesButtons,
+    diagramTiles: tilesCallCenter.diagramTiles
   });
 
   /* Simulation */
