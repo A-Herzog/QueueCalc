@@ -101,6 +101,11 @@ Der Flussgrad ist das Verhältnis von Verweilzeit zu Bedienzeit. Der Flussgrad i
 In einem geschlossenen Warteschlangennetz zirkuliert eine endliche, feste Anzahl an Kunden. Im Gegensatz zu einem offenen Warteschlangennetz, verfügt ein geschlossenes Warteschlangennetz meist über keinen Ausgang.
 <p>
 
+<h5>Longest job first</h5>
+<p>
+Ist diese Priorisierung gewählt, so werden Kunden mit langen Bediendauern bevorzugt bedient. Kunden, deren Bedienung nur wenig Zeit in Anspruch nehmen wird, müssen entsprechend länger warten. Die Priorisierung nach langer Bediendauer führt zu (im Vergleich zu einer FIFO-Priorisierung) längeren mittleren Wartezeiten über alle Kunden und erhöht außerdem die Streuung der Wartezeiten erheblich. Voraussetzung für die Anwendung dieser Priorisierung ist es, dass die Bediendauern der Kunden bereits zu dem Zeitpunkt, an dem sich die Kunden an die Warteschlange anstellen, bekannt sind.
+</p>
+
 <h5>Nachbearbeitungszeit</h5>
 <p>
 Die Nachbearbeitungszeit ist die Zeitspanne, die ein Bediener an einer Bedienstation nach dem ab Abschluss einer Bedienung eines Kunden benötigt, bevor er wieder für weitere Bedienprozesse zur Verfügung steht. Während der Nachbearbeitungszeit befindet sich der zuvor bediente Kunde bereits nicht mehr an der Bedienstation.
@@ -128,7 +133,7 @@ Die Push-Produktion stellt den Normalfall in einem Warteschlangenmodell dar. Ist
 
 <h5>Rüstzeit</h5>
 <p>
-Rüstzeiten können an Bedienstationenen auftreten, wenn beim Wechsel von einem Kundentyp zu einem anderen die Station als solches umkonfiguriert werden muss. Die Rüstzeit ist der jeweiligen Bedienzeit eines Kunden vorgelagert.
+Rüstzeiten können an Bedienstationen auftreten, wenn beim Wechsel von einem Kundentyp zu einem anderen die Station als solches umkonfiguriert werden muss. Die Rüstzeit ist der jeweiligen Bedienzeit eines Kunden vorgelagert.
 </p>
 
 <h5>Schiebende Fertigung</h5>
@@ -136,9 +141,14 @@ Rüstzeiten können an Bedienstationenen auftreten, wenn beim Wechsel von einem 
 Die schiebende Fertigung, auch Push-Produktion genannt, stellt den Normalfall in einem Warteschlangenmodell dar. Ist eine Bedienstation mit der Bedienung eines Kunden fertig, so schiebt sie den Kunden zur nächsten Station. Die Weiterleitung des Kunden ist dabei unabhängig davon, wie viele Kunden an der Folgestation bereits warten.
 </p>
 
+<h5>Shortest job first</h5>
+<p>
+Ist diese Priorisierung gewählt, so werden Kunden mit kurzen Bediendauern bevorzugt bedient. Kunden, deren Bedienung länger dauern wird, müssen entsprechend länger warten. Die Priorisierung nach kurzer Bediendauer führt zu kürzeren mittleren Wartezeiten über alle Kunden, erhöht allerdings die Streuung der Wartezeiten erheblich. Voraussetzung für die Anwendung dieser Priorisierung ist es, dass die Bediendauern der Kunden bereits zu dem Zeitpunkt, an dem sich die Kunden an die Warteschlange anstellen, bekannt sind.
+</p>
+
 <h5>Ungeduld</h5>
 <p>
-Sind die Kunden an einer Bedienstationen nur bereit, begrenzt lange auf ihre Bedienung zu warten, so spricht man von der Ungedulg der Kunden. Wie lange die Kunden in diesem Fall bereit sind zu warten, bevor sie das Warten aufgeben und die Station unbedient verlassen, wird über die Wartezeittoleranzen der Kunden festgelegt.
+Sind die Kunden an einer Bedienstationen nur bereit, begrenzt lange auf ihre Bedienung zu warten, so spricht man von der Ungeduld der Kunden. Wie lange die Kunden in diesem Fall bereit sind zu warten, bevor sie das Warten aufgeben und die Station unbedient verlassen, wird über die Wartezeittoleranzen der Kunden festgelegt.
 </p>
 
 <h5>Verweilzeit</h5>
@@ -168,7 +178,7 @@ Wartezeiten der Kunden entstehen insbesondere an Bedienstation. Ein Kunde muss i
 
 <h5>Wartezeittoleranz</h5>
 <p>
-Die Wartezeittoleranz gibt an, wie lange die Kunden an einer Bedienstation bereit sind auf ihre Bedienung zu warten. Es muss keine Wartezeittoleranz definiert werden; in diesem Fall sind die Kunden bereit, beliebig lange zu warten. Die eine endliche Wartezeittoleranz definiert und überschreitet ein Kunde diese Wartezeittoleranz, so bricht er den Wartevorgang ab und verlässt die Bedientation, ohne bedient worden zu sein.
+Die Wartezeittoleranz gibt an, wie lange die Kunden an einer Bedienstation bereit sind auf ihre Bedienung zu warten. Es muss keine Wartezeittoleranz definiert werden; in diesem Fall sind die Kunden bereit, beliebig lange zu warten. Die eine endliche Wartezeittoleranz definiert und überschreitet ein Kunde diese Wartezeittoleranz, so bricht er den Wartevorgang ab und verlässt die Bedienstation, ohne bedient worden zu sein.
 </p>
 
 <h5>Ziehende Fertigung</h5>

@@ -81,6 +81,11 @@ If clients at a process station are only willing to wait a limited amount of tim
 At a source, the inter-arrival times indicate the time intervals between the arrivals of two consecutive clients. The longer the inter-arrival times, the fewer clients arrive in the system per unit of time.
 </p>
 
+<h5>Longest job first</h5>
+<p>
+If this prioritization is selected, clients with long service times will be served first. Clients whose service will be short will have to wait longer. Prioritization by long service times leads to longer average waiting times for all clients (compared to the FIFO order) and also significantly increases the variation of the waiting times. A prerequisite for the application of this prioritization is that the service times of the clients are already known at the time when the clients join the queue.
+</p>
+
 <h5>Open queueing network</h5>
 <p>
 An open queueing network represents the normal case for a queueing model: Clients arrive at one or more sources, are served at one or more process stations, and eventually leave the system via one or more exits. A counter design to this is represented by closed queueing networks, in which a finite, fixed number of clients circulate continuously.
@@ -129,6 +134,11 @@ The service time specifies how long the process of serving a client (or, in the 
 <h5>Setup time</h5>
 <p>
 Setup times can occur at process stations if the station as such has to be reconfigured when changing from one client type to another. The setup time is upstream of the respective service time of a client.
+</p>
+
+<h5>Shortest job first</h5>
+<p>
+If this prioritization is selected, clients with short service times will be served first. Clients whose service will take longer will have to wait longer. Prioritization by short service times leads to shorter average waiting times for all clients, but significantly increases the variation of the waiting times. A prerequisite for the application of this prioritization is that the service times of the clients are already known at the time when the clients join the queue.
 </p>
 
 <h5>Teardown time</h5>
