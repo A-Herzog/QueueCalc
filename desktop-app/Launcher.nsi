@@ -1,4 +1,5 @@
 !define PrgName "Queue calculator"
+!define PrgTempPathName "QueueCalc"
 !define PrgFileName "QueueCalc"
 !define PrgIcon "..\docs\favicon.ico"
 !define Copyright "Alexander Herzog"
@@ -26,13 +27,13 @@ ShowInstDetails nevershow
 RequestExecutionLevel user
 
 Section ""
-  SetOutPath "$TEMP\${PrgName}"
+  SetOutPath "$TEMP\${PrgTempPathName}"
   
   File "..\dist\QueueCalc\QueueCalc-win_x64.exe"
   File "..\dist\QueueCalc\resources.neu"
   ; File "..\dist\QueueCalc\WebView2Loader.dll" - not used in newer Neutralinos versions anymore
   
-  ExecWait "$TEMP\${PrgName}\QueueCalc-win_x64.exe"
+  ExecWait "$TEMP\${PrgTempPathName}\QueueCalc-win_x64.exe"
   
-  RmDir /r "$TEMP\${PrgName}"
+  RmDir /r "$TEMP\${PrgTempPathName}"
 SectionEnd

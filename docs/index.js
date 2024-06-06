@@ -14,6 +14,13 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
+/* Init Neutralino in desktop mode */
+
+if (isDesktopApp) {
+  Neutralino.init();
+  Neutralino.events.on("windowClose",()=>Neutralino.app.exit());
+}
+
 /* Language selector */
 
 import {selectLanguage, buildMultiNavDropdown, showTab} from './js/tools_gui.js';
@@ -44,6 +51,7 @@ menuColorModeDark.innerHTML=language.GUI.tabColorModeDark;
 menuColorModeSystemDefault.innerHTML=language.GUI.tabColorModeSystemDefault;
 
 let selectedColorMode=localStorage.getItem('selectedColorMode');
+document.documentElement.dataset.bsTheme=selectedColorMode;
 if (selectedColorMode==null) {
   menuColorModeSystemDefault.classList.add("bi-check");
   const mode=(document.documentElement.dataset.bsTheme=='dark')?language.GUI.tabColorModeDark:language.GUI.tabColorModeLight;

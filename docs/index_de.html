@@ -33,20 +33,11 @@
   <link href="./css/index.css" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
   <script defer src="./libs/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"></script>
   <script src="./libs/neutralino.js"></script>
-  <script>
-    const isDesktopApp=(typeof(NL_OS)!='undefined');
-    if (isDesktopApp) {
-      Neutralino.init();
-      Neutralino.events.on("windowClose",()=>Neutralino.app.exit());
-    }
-    let selectedColorMode=localStorage.getItem('selectedColorMode');
-    if (selectedColorMode==null) selectedColorMode=(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)?"dark":"light";
-    document.documentElement.dataset.bsTheme=selectedColorMode;
-  </script>
+  <script>const isDesktopApp=(typeof(NL_OS)!='undefined');</script>
 </head>
 
 <body>
-<div id="infoLoading">Loading...<noscript><br><span style='color: red';>This webapp requires Javascript to be executed.</span></noscript></div>
+<div id="infoLoading">Loading...<noscript><br><span style='color: red;'>This webapp requires Javascript to be executed.</span></noscript></div>
 <div id="mainContent" style="display: none;">
 
 
