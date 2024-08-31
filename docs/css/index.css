@@ -7,10 +7,6 @@ h2 {
   margin-top: 10px;
 }
 
-math {
-  font-size: 125%;
-}
-
 .hidden {
   display: none;
 }
@@ -103,4 +99,9 @@ footer a {
   .menuButtonTitleShort {
     display: inline;
   }
+}
+
+math {
+  font-size: 107%;
+  font-family: sans-serif;
 }
