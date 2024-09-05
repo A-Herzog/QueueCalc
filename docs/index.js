@@ -51,14 +51,15 @@ menuColorModeDark.innerHTML=language.GUI.tabColorModeDark;
 menuColorModeSystemDefault.innerHTML=language.GUI.tabColorModeSystemDefault;
 
 let selectedColorMode=localStorage.getItem('selectedColorMode');
-document.documentElement.dataset.bsTheme=selectedColorMode;
 if (selectedColorMode==null) {
+  selectedColorMode=(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches)?"dark":"light";
   menuColorModeSystemDefault.classList.add("bi-check");
-  const mode=(document.documentElement.dataset.bsTheme=='dark')?language.GUI.tabColorModeDark:language.GUI.tabColorModeLight;
+  const mode=(selectedColorMode=='dark')?language.GUI.tabColorModeDark:language.GUI.tabColorModeLight;
   menuColorModeSystemDefault.innerHTML=menuColorModeSystemDefault.innerHTML+" ("+mode+")";
 } else {
-  if (document.documentElement.dataset.bsTheme=='dark') menuColorModeDark.classList.add("bi-check"); else menuColorModeLight.classList.add("bi-check");
+  if (selectedColorMode=='dark') menuColorModeDark.classList.add("bi-check"); else menuColorModeLight.classList.add("bi-check");
 }
+document.documentElement.dataset.bsTheme=selectedColorMode;
 
 footerQueueCalc.innerHTML=language.GUI.Name;
 footerQueueCalcImprint.innerHTML=language.GUI.Imprint;
