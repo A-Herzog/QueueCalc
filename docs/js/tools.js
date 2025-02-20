@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-export {parseFloatStrict, getFloat, getPositiveFloat, getNotNegativeFloat, getInt, getPositiveInt, getNotNegativeInt, isVariabel, factorial, powerFactorial, binom}
+export {parseFloatStrict, getFloat, getFloatFromString, getPositiveFloat, getNotNegativeFloat, getInt, getPositiveInt, getNotNegativeInt, isVariabel, factorial, powerFactorial, binom}
 
 /**
  * Converts a string to a floating point number.
@@ -28,6 +28,27 @@ function parseFloatStrict(value) {
     .test(value))
     return Number(value);
 return NaN;
+}
+
+/**
+ * Converts a number in a string to a floating point number.
+ * The string can also represent a percent value (i.e. ends with "%").
+ * @param {String} s String containing the number
+ * @returns Floating point number or null if the string could not be interpreted as a number
+ */
+function getFloatFromString(s) {
+  if (typeof(s.replaceAll)=='function') s=s.replaceAll(",",".");
+  let scale=1;
+  if (s.endsWith('%')) {
+    scale=0.01;
+    s=s.substring(0,s.length-1);
+  }
+  const num=parseFloatStrict(s);
+  if (isNaN(num)) {
+    return null;
+  }
+  return num*scale;
+
 }
 
 /**

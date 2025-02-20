@@ -165,6 +165,7 @@ lang.GUI.simulators="Simulatoren";
 lang.GUI.homeURL="warteschlangensimulation.de";
 lang.GUI.Imprint="Impressum";
 lang.GUI.Privacy="Datenschutz";
+lang.GUI.Permalink="Permalink zu diesen Einstellungen";
 
 lang.WaitingTimeDist={};
 lang.WaitingTimeDist.button="Wartezeitverteilung anzeigen";
@@ -901,6 +902,7 @@ lang.GUI.simulators="Simulators";
 lang.GUI.homeURL="queueingsimulation.de";
 lang.GUI.Imprint="Imprint";
 lang.GUI.Privacy="Privacy";
+lang.GUI.Permalink="Permalink to these settings";
 
 lang.WaitingTimeDist={};
 lang.WaitingTimeDist.button="Show waiting time distribution";

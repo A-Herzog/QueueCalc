@@ -26,8 +26,8 @@ import {language} from './Language.js';
  * @param {String} file
  */
 function selectLanguageFile(file) {
-  if (window.location.href.endsWith(file)) return;
-  window.location.href='./'+file;
+  if (window.location.pathname.endsWith(file)) return false;
+  window.location.pathname=document.location.pathname.substring(0,document.location.pathname.lastIndexOf("/")+1)+file;
 }
 
 /**
@@ -75,11 +75,17 @@ function buildMultiNavDropdown(id, name, records) {
     const showTable=(typeof(record.modes)=='undefined' || record.modes.table==true);
     const showDiagram=(typeof(record.modes)=='undefined' || record.modes.diagram==true);
     if (showValues && !showTable && !showDiagram) {
-      block+="<li role=\"tab\"><a class=\"dropdown-item bi-123\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Values\" data-bs-target=\"#"+record.id+"Values\"> "+language.GUI.modeValuesOnly+"</a></li>";
+      block+="<li role=\"tab\" id=\"menu"+record.id+"Values\"><a class=\"dropdown-item bi-123\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Values\" data-bs-target=\"#"+record.id+"Values\"> "+language.GUI.modeValuesOnly+"</a></li>";
     } else {
-      if (showValues) block+="<li role=\"tab\"><a class=\"dropdown-item bi-123\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Values\" data-bs-target=\"#"+record.id+"Values\"> "+language.GUI.modeValues+"</a></li>";
-      if (showTable) block+="<li role=\"tab\"><a class=\"dropdown-item bi-table\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Table\" data-bs-target=\"#"+record.id+"Table\"> "+language.GUI.modeTable+"</a></li>";
-      if (showDiagram) block+="<li role=\"tab\"><a class=\"dropdown-item bi-graph-up\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Diagram\" data-bs-target=\"#"+record.id+"Diagram\"> "+language.GUI.modeDiagram+"</a></li>";
+      if (showValues) {
+        block+="<li role=\"tab\" id=\"menu"+record.id+"Values\"><a class=\"dropdown-item bi-123\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Values\" data-bs-target=\"#"+record.id+"Values\"> "+language.GUI.modeValues+"</a></li>";
+      }
+      if (showTable) {
+        block+="<li role=\"tab\" id=\"menu"+record.id+"Table\"><a class=\"dropdown-item bi-table\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Table\" data-bs-target=\"#"+record.id+"Table\"> "+language.GUI.modeTable+"</a></li>";
+      }
+      if (showDiagram) {
+        block+="<li role=\"tab\" id=\"menu"+record.id+"Diagram\"><a class=\"dropdown-item bi-graph-up\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Diagram\" data-bs-target=\"#"+record.id+"Diagram\"> "+language.GUI.modeDiagram+"</a></li>";
+      }
     }
   }
   block+="</ul>";
@@ -188,7 +194,12 @@ function getPlaceholder(record) {
     content+='</button>';
   }
   if (record.valuesTilesButtons) content+=record.valuesTilesButtons;
+  if (!isDesktopApp) {
+    content+="<a href=\"\" id=\""+record.id+"ValuesPermalink\">"+language.GUI.Permalink+"</a>";
+  }
   content+='</div>';
+
+  content+=record.valuesTiles;
 
   if (typeof(record.valuesFormula)=='string' && record.valuesFormula!='') {
     const formulaId=record.id+'ValuesFormula';
@@ -198,8 +209,6 @@ function getPlaceholder(record) {
     content+='</div>';
     content+='</div>';
   }
-
-  content+=record.valuesTiles;
 
   if (typeof(record.valuesInfoCards)!='undefined') {
     content+="<div class=\"row\">";
@@ -224,10 +233,15 @@ function getPlaceholder(record) {
 
     content="";
     content+="<h2>"+record.title+"</h2>";
+
     content+="<button type=\"button\" class=\"btn-close\" aria-label=\"Close\" onclick=\"showTab('Home');\"></button><br>";
     content+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+dark+".svg\">";
     if (typeof(record.tableInfo)!='undefined') content+=record.tableInfo;
+
     if (record.tableTilesButtons) content+=record.tableTilesButtons;
+
+    content+="<a href=\"\" id=\""+record.id+"TablePermalink\">"+language.GUI.Permalink+"</a>";
+
     content+=record.tableTiles;
 
     initObserver(record.id+"Table",content);
@@ -241,10 +255,15 @@ function getPlaceholder(record) {
 
     content="";
     content+="<h2>"+record.title+"</h2>";
+
     content+="<button type=\"button\" class=\"btn-close\" aria-label=\"Close\" onclick=\"showTab('Home');\"></button><br>";
     content+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+dark+".svg\">";
     content+=record.diagramInfo;
+
     if (record.diagramTilesButtons) content+=record.diagramTilesButtons;
+
+    content+="<a href=\"\" id=\""+record.id+"DiagramPermalink\">"+language.GUI.Permalink+"</a>";
+
     content+=record.diagramTiles;
 
     initObserver(record.id+"Diagram",content);
@@ -548,8 +567,8 @@ class TilesBuilder {
   get valueTilesButtons() {
     let block='';
 
-    block+='<button type="button" class="btn btn-warning my-1 bi-arrows-collapse '+this.formula+'ValuesInfoHide" onclick="hideValueInfo(\''+this.formula+'\')"> '+language.model.explanationsHide+'</button>';
-    block+='<button type="button" class="btn btn-success my-1 bi-arrows-expand '+this.formula+'ValuesInfoShow" onclick="showValueInfo(\''+this.formula+'\')" style="display: none;"> '+language.model.explanationsShow+'</button>';
+    block+='<button type="button" class="btn btn-warning my-1 me-3 bi-arrows-collapse '+this.formula+'ValuesInfoHide" onclick="hideValueInfo(\''+this.formula+'\')"> '+language.model.explanationsHide+'</button>';
+    block+='<button type="button" class="btn btn-success my-1 me-3 bi-arrows-expand '+this.formula+'ValuesInfoShow" onclick="showValueInfo(\''+this.formula+'\')" style="display: none;"> '+language.model.explanationsShow+'</button>';
 
     return block;
   }
@@ -560,6 +579,7 @@ class TilesBuilder {
   get valueTiles() {
     let block='';
 
+    /* Input area */
     block+="<div class=\"row\" id=\""+this.formula+"InputArea\">";
 
     for (let tile of this.tiles) {
@@ -591,7 +611,10 @@ class TilesBuilder {
     }
 
     block+="</div>";
+
+    /* Output area */
     block+=buildResultsTile(this.formula+"Values");
+
     return block;
   }
 
@@ -698,6 +721,7 @@ class TilesBuilder {
     const changedId=sender.getAttribute("data-bs-target");
     const allIds=this.#getIDs(mode);
 
+    if (!changedId.endsWith("_Fix"))
     for (let i=0;i<allIds.length;i++) {
       if ("#"+allIds[i]+"_Variabel"!=changedId) {
         let showTabId='#'+allIds[i]+"_Fix";
@@ -737,6 +761,43 @@ class TilesBuilder {
   }
 
   /**
+   * Updates to permalink for this tile
+   * @param {String} mode "Values", "Table" or "Diagram"
+   * @param {*} values Current values of the input fields
+   */
+  #updatePermalink(mode, values) {
+    /* Collect values */
+    const settings=new Map();
+    for (let i=0;i<Math.min(this.tiles.length,values.length);i++) {
+      const id=this.tiles[i].id;
+      const value=values[i];
+      if (Array.isArray(value)) {
+        settings.set(id+"From",value[0]);
+        settings.set(id+"Step",value[1]);
+        settings.set(id+"To",value[2]);
+      } else {
+        settings.set(id,value);
+      }
+    }
+    const settingsArray=[];
+    settings.forEach((value,key)=>settingsArray.push(key+"="+value.toLocaleString()));
+
+    /* Get current menu item number */
+    const currentItemA=document.getElementsByClassName("dropdown-item active");
+    if (currentItemA.length!=1) return;
+    const currentItemId=currentItemA[0].parentNode.id;
+    if (!currentItemId.startsWith("menu")) return;
+    const currentFunction="function="+currentItemId.substring(4);
+
+    /* Get location */
+    const url=window.location.protocol+"//"+window.location.host+window.location.pathname;
+
+    /* Update link */
+    const link=document.getElementById(this.formula+mode+"Permalink");
+    if (link!=null) link.href=url+"?"+currentFunction+"&"+settingsArray.join("&");
+  }
+
+  /**
    * {Array} Returns a list of the numerical values from the individual values input elements (or null, if one ore multiple values are invalid).
    */
   get valuesValues() {
@@ -758,6 +819,9 @@ class TilesBuilder {
       }
       values.push(value);
     }
+
+    this.#updatePermalink("Values",values);
+
     return values;
   }
 
@@ -817,6 +881,8 @@ class TilesBuilder {
       }
       values.push(value);
     }
+
+    this.#updatePermalink(mode,values);
 
     return values;
   }
@@ -1329,15 +1395,34 @@ class Table {
       datasets.push(set);
     }
 
+    const labels=this.#column(xColIndex);
+    const options=getChartOptions(xAxisTitle,hasY1,hasY2,hasY3);
     loadChartJs(()=>{
-    new Chart(id+'_plot', {
-      type: "line",
-      data: {
-        labels: this.#column(xColIndex),
-        datasets: datasets
-      },
-      options: getChartOptions(xAxisTitle,hasY1,hasY2,hasY3)
-    });
+      initChart(id,labels,datasets,options);
     });
   }
+}
+
+const charts=new Map();
+
+function initChart(id, labels, datasets, options) {
+  if (typeof(Chart)=='undefined') {
+    setTimeout(()=>initChart(id,labels,datasets,options),100);
+    return;
+  }
+
+  if (charts.has(id)) {
+    charts.get(id).destroy();
+  }
+
+  const chart=new Chart(id+'_plot', {
+    type: "line",
+    data: {
+      labels: labels,
+      datasets: datasets
+    },
+    options: options
+  });
+
+  charts.set(id,chart);
 }

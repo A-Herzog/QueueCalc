@@ -127,3 +127,9 @@ function rewriteLinksInOfflineMode() {
 
 rewriteLinksInOfflineMode();
 for (let link of document.querySelectorAll("a[data-bs-toggle]")) link.addEventListener('shown.bs.tab',()=>rewriteLinksInOfflineMode());
+
+/* Process parameters */
+
+import {setupFromParameters} from './js/PermalinkTools.js';
+
+setupFromParameters();
