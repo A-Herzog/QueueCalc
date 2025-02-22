@@ -46,6 +46,10 @@ function setupTabFromParameters(id) {
       continue;
     }
   }
+
+  /* Update results */
+  const updateFunction=window["update"+id];
+  if (typeof(updateFunction)=='function') updateFunction();
 }
 
 /**

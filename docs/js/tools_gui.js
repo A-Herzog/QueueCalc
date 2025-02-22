@@ -199,8 +199,6 @@ function getPlaceholder(record) {
   }
   content+='</div>';
 
-  content+=record.valuesTiles;
-
   if (typeof(record.valuesFormula)=='string' && record.valuesFormula!='') {
     const formulaId=record.id+'ValuesFormula';
     content+='<div class="collapse mb-3" id="'+formulaId+'">';
@@ -209,6 +207,8 @@ function getPlaceholder(record) {
     content+='</div>';
     content+='</div>';
   }
+
+  content+=record.valuesTiles;
 
   if (typeof(record.valuesInfoCards)!='undefined') {
     content+="<div class=\"row\">";
