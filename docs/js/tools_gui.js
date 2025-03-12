@@ -770,6 +770,7 @@ class TilesBuilder {
     const settings=new Map();
     for (let i=0;i<Math.min(this.tiles.length,values.length);i++) {
       const id=this.tiles[i].id;
+      if (typeof(id)=='undefined') continue;
       const value=values[i];
       if (Array.isArray(value)) {
         settings.set(id+"From",value[0]);
