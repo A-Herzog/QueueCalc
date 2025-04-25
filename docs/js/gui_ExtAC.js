@@ -440,6 +440,7 @@ function updateExtACDiagram() {
     {columnIndex: 6+6, color: 'red', mode: 'time'}, /* E[W] */
     {columnIndex: 6+7, color: 'green', mode: 'time'}, /* E[V] */
     {columnIndex: 6+8, color: 'orange', mode: 'number'}, /* E[NQ] */
+    {columnIndex: 6+9, color: 'lightgray', mode: 'number'}, /* E[NS] */
     {columnIndex: 6+10, color: 'blue', mode: 'number'}, /* E[N] */
     {columnIndex: 6+5, color: 'gray', mode: 'percent'}, /* rho */
   ];

@@ -200,8 +200,8 @@ function updateCallCenterDiagram() {
     case 0: xAxisTitle='E[I] ('+language.statistics.unitTime+')'; break;
     case 1: xAxisTitle='E[S] ('+language.statistics.unitTime+')'; break;
     case 2: xAxisTitle='E[WT] ('+language.statistics.unitTime+')'; break;
-    case 3: xAxisTitle='c ('+language.statistics.unitNumber+')'; break;
-    case 4: xAxisTitle='t ('+language.statistics.unitTime+')'; break;
+    case 3: xAxisTitle='t ('+language.statistics.unitTime+')'; break;
+    case 4: xAxisTitle='c ('+language.statistics.unitNumber+')'; break;
   }
 
   const ySetup=[
@@ -209,9 +209,10 @@ function updateCallCenterDiagram() {
     {columnIndex: 11, color: 'yellow', mode: 'time'}, /* E[W] */
     {columnIndex: 12, color: 'green', mode: 'time'}, /* E[V] */
     {columnIndex: 13, color: 'orange', mode: 'number'}, /* E[NQ] */
+    {columnIndex: 14, color: 'lightgray', mode: 'number'}, /* E[NS] */
     {columnIndex: 15, color: 'blue', mode: 'number'}, /* E[N] */
-    {columnIndex: 7, color: 'lightgray', mode: 'percent'}, /* rho */
-    {columnIndex: 10, color: 'gray', mode: 'percent'}, /* rhoNet */
+    {columnIndex: 7, color: 'gray', mode: 'percent'}, /* rho */
+    {columnIndex: 10, color: 'darkgray', mode: 'percent'}, /* rhoNet */
     {columnIndex: 18, color: 'black', mode: 'percent'} /* P(W<=t) */
   ];
 

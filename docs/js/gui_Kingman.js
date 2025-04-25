@@ -292,6 +292,7 @@ function updateKingmanDiagram() {
     {columnIndex: 3+3, color: 'red', mode: 'time'}, /* E[W] */
     {columnIndex: 3+4, color: 'green', mode: 'time'}, /* E[V] */
     {columnIndex: 3+5, color: 'orange', mode: 'number'}, /* E[NQ] */
+    {columnIndex: 3+6, color: 'lightgray', mode: 'number'}, /* E[NS] */
     {columnIndex: 3+7, color: 'blue', mode: 'number'}, /* E[N] */
     {columnIndex: 3+2, color: 'gray', mode: 'percent'}, /* rho */
   ];

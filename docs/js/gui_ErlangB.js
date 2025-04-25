@@ -99,6 +99,7 @@ function calcErlangBTable(mode) {
 
   table.addHeading('E[I]',language.model.inputInterArrivalTimeMean);
   table.addHeading('E[S]',language.model.inputServiceTimeMean);
+  table.addHeading('E[N<sub>S</sub>]',language.statistics.averageNS);
   table.addHeading('c',language.model.inputNumberOfOperators);
   table.addHeading('a',language.statistics.Workload);
   table.addHeading('&rho;',language.statistics.Utilization);
@@ -108,6 +109,7 @@ function calcErlangBTable(mode) {
     const data=calcErlangB(input);
     table.addCol(data.EI);
     table.addCol(data.ES);
+    table.addCol(data.a); /* E[NS] */
     table.addCol(data.c);
     table.addCol(data.a);
     table.addColPercent(data.rho);
@@ -192,8 +194,9 @@ function updateErlangBDiagram() {
   }
 
   const ySetup=[
-    {columnIndex: 5, color: 'blue', mode: 'percent'}, /* P(reject) */
-    {columnIndex: 4, color: 'gray', mode: 'percent'}, /* rho */
+    {columnIndex: 6, color: 'red', mode: 'percent'}, /* P(reject) */
+    {columnIndex: 2, color: 'gray', mode: 'number'}, /* E[NS] */
+    {columnIndex: 5, color: 'blue', mode: 'percent'}, /* rho */
   ];
 
   table.diagram('ErlangBDiagram_results',table.xValuesCol,xAxisTitle,ySetup);

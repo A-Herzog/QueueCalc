@@ -241,6 +241,7 @@ function updatePCDiagram() {
     {columnIndex: 2+3, color: 'red', mode: 'time'}, /* E[W] */
     {columnIndex: 2+4, color: 'green', mode: 'time'}, /* E[V] */
     {columnIndex: 2+5, color: 'orange', mode: 'number'}, /* E[NQ] */
+    {columnIndex: 2+6, color: 'lightgray', mode: 'number'}, /* E[NS] */
     {columnIndex: 2+7, color: 'blue', mode: 'number'}, /* E[N] */
     {columnIndex: 2+2, color: 'gray', mode: 'percent'}, /* rho */
   ];

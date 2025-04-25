@@ -350,8 +350,9 @@ function updateExtErlangCDiagram() {
     {columnIndex: 13, color: 'green', mode: 'time'}, /* E[V] */
     {columnIndex: 14, color: 'orange', mode: 'number'}, /* E[NQ] */
     {columnIndex: 16, color: 'blue', mode: 'number'}, /* E[N] */
-    {columnIndex: 7, color: 'lightgray', mode: 'percent'}, /* rho */
-    {columnIndex: 11, color: 'gray', mode: 'percent'}, /* rhoNet */
+    {columnIndex: 15, color: 'lightgray', mode: 'number'}, /* E[NS] */
+    {columnIndex: 7, color: 'gray', mode: 'percent'}, /* rho */
+    {columnIndex: 11, color: 'darkgray', mode: 'percent'}, /* rhoNet */
     {columnIndex: 19, color: 'black', mode: 'percent'} /* P(W<=t) */
   ];
 

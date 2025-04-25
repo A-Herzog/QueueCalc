@@ -305,6 +305,7 @@ function updateErlangCDiagram() {
     {columnIndex: 7, color: 'green', mode: 'time'}, /* E[V] */
     {columnIndex: 8, color: 'orange', mode: 'number'}, /* E[NQ] */
     {columnIndex: 10, color: 'blue', mode: 'number'}, /* E[N] */
+    {columnIndex: 9, color: 'lightgray', mode: 'number'}, /* E[NS] */
     {columnIndex: 5, color: 'gray', mode: 'percent'}, /* rho */
     {columnIndex: 13, color: 'black', mode: 'percent'} /* P(W<=t) */
   ];

@@ -310,6 +310,7 @@ function updateACDiagram() {
     {columnIndex: 4+3, color: 'red', mode: 'time'}, /* E[W] */
     {columnIndex: 4+4, color: 'green', mode: 'time'}, /* E[V] */
     {columnIndex: 4+5, color: 'orange', mode: 'number'}, /* E[NQ] */
+    {columnIndex: 4+6, color: 'lightgray', mode: 'number'}, /* E[NS] */
     {columnIndex: 4+7, color: 'blue', mode: 'number'}, /* E[N] */
     {columnIndex: 4+2, color: 'gray', mode: 'percent'}, /* rho */
   ];
