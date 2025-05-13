@@ -10,9 +10,12 @@ To use queue calculator just go to
 
 ![Website status](https://img.shields.io/website?url=https%3A%2F%2Fa-herzog.github.io%2FQueueCalc%2F)
 
-You can also download queue calculator as an offline usable Windows application:
+## Download
 
-**[QueueCalc.exe](https://github.com/A-Herzog/QueueCalc/releases/latest/download/QueueCalc.exe)**
+You can also download queue calculator as an offline usable application:
+
+* **[QueueCalc.exe](https://github.com/A-Herzog/QueueCalc/releases/latest/download/QueueCalc.exe)** (for Windows)
+* **[QueueCalc_Linux_MacOS.zip](https://github.com/A-Herzog/QueueCalc/releases/latest/download/QueueCalc_Linux_MacOS.zip)** (for Linux and MacOS)
 
 ## License
 
