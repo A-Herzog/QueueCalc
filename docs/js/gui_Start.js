@@ -110,8 +110,12 @@ function buildStartTiles(isDesktopApp) {
   block+="<div class=\"card-body\">";
   if (!isDesktopApp) {
     block+="<p class=\"card-text\">"+language.GUI.tabDownloadAppInfo+"</p>";
-    block+="<a id=\"downloadApp\" target=\"_blank\" href=\"https://github.com/A-Herzog/QueueCalc/releases/latest/download/QueueCalc.exe\" title=\""+language.GUI.tabDownloadApp+"\" style=\"display: none;\"></a>";
-    block+="<button onclick=\"document.getElementById('downloadApp').click();\" class=\"btn btn-primary my-1 bi-windows\"> "+language.GUI.tabDownloadApp+"</button>\n";
+    block+="<a id=\"downloadApp\" target=\"_blank\" href=\"https://github.com/A-Herzog/QueueCalc/releases/latest/download/QueueCalc.exe\" title=\""+language.GUI.tabDownloadAppExe+"\" style=\"display: none;\"></a>";
+    block+="<button onclick=\"document.getElementById('downloadApp').click();\" class=\"btn btn-primary my-1 bi-windows\"> "+language.GUI.tabDownloadAppExe+"</button>\n";
+
+    block+="<a id=\"downloadAppZip\" target=\"_blank\" href=\"https://github.com/A-Herzog/QueueCalc/releases/latest/download/QueueCalc_Linux_MacOS.zip\" title=\""+language.GUI.tabDownloadAppZip+"\" style=\"display: none;\"></a>";
+    block+="<button onclick=\"document.getElementById('downloadAppZip').click();\" class=\"btn btn-primary my-1 bi-file-zip\"> "+language.GUI.tabDownloadAppZip+"</button>\n";
+
     block+="<p class=\"card-text mt-4\">"+language.GUI.tabDownloadsInfo+"</p>";
   } else {
     block+="<p class=\"card-text\">"+language.GUI.tabDownloadsInfo+"</p>";
