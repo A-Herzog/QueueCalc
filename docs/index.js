@@ -77,7 +77,7 @@ footerSimulators.innerHTML=language.GUI.simulators;
 let insertCount=1;
 
 mainNavBar.insertBefore(buildMultiNavDropdown("ErlangBMenu",language.GUI.tabErlangB,[
-  {id: "ErlangB", name: language.GUI.tabErlangB, info: language.GUI.tabErlangBInfo}
+  {id: "ErlangB", name: language.GUI.tabErlangB, info: language.GUI.tabErlangBInfo, modes: {values: true, values2: true, table: true, diagram: true}}
 ]),mainNavBar.children[insertCount++]);
 
 mainNavBar.insertBefore(buildMultiNavDropdown("ErlangCMenu",language.GUI.tabErlangC,[

@@ -72,6 +72,7 @@ function buildMultiNavDropdown(id, name, records) {
     if (typeof(record.info)=='string') info=" <small>("+record.info+")</small>";
     block+="<li><h6 class=\"dropdown-header\"><strong>"+record.name+"</strong>"+info+"</h6></li>";
     const showValues=(typeof(record.modes)=='undefined' || record.modes.values==true);
+    const showValues2=(typeof(record.modes)!='undefined' && record.modes.values2==true);
     const showTable=(typeof(record.modes)=='undefined' || record.modes.table==true);
     const showDiagram=(typeof(record.modes)=='undefined' || record.modes.diagram==true);
     if (showValues && !showTable && !showDiagram) {
@@ -85,6 +86,9 @@ function buildMultiNavDropdown(id, name, records) {
       }
       if (showDiagram) {
         block+="<li role=\"tab\" id=\"menu"+record.id+"Diagram\"><a class=\"dropdown-item bi-graph-up\" data-bs-toggle=\"tab\" href=\"#"+record.id+"Diagram\" data-bs-target=\"#"+record.id+"Diagram\"> "+language.GUI.modeDiagram+"</a></li>";
+      }
+      if (showValues2) {
+        block+="<li role=\"tab\" id=\"menu"+record.id+"2Values\"><a class=\"dropdown-item bi-person-plus\" data-bs-toggle=\"tab\" href=\"#"+record.id+"2Values\" data-bs-target=\"#"+record.id+"2Values\"> "+language.GUI.modeValues2+"</a></li>";
       }
     }
   }
@@ -224,6 +228,61 @@ function getPlaceholder(record) {
   }
 
   initObserver(record.id+"Values",content);
+
+  /* Individual values (2) */
+
+  if (record.valuesTiles2) {
+
+    block+="<div class=\"tab-pane fade\" id=\""+record.id+"2Values\" role=\"tabpanel\">";
+    block+="</div>";
+
+    content="";
+    content+="<h2>"+record.title+"</h2>";
+
+    content+="<button type=\"button\" class=\"btn-close\" aria-label=\"Close\" onclick=\"showTab('Home');\"></button><br>";
+    const dark=(document.documentElement.dataset.bsTheme=='dark')?"_dark":"";
+    content+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+dark+".svg\">";
+    content+=record.values2Info;
+
+    content+='<div class="mb-2">';
+    if (typeof(record.valuesFormula)=='string' && record.valuesFormula!='') {
+      const formulaId=record.id+'2ValuesFormula';
+      content+='<button class="btn btn-success my-1 bi-arrows-expand me-3" type="button" id="'+formulaId+'Button" data-bs-toggle="collapse" data-bs-target="#'+formulaId+'" aria-expanded="false" aria-controls="'+formulaId+'" onclick="valuesFormulaVisiblity(\''+formulaId+'\',\''+formulaId+'Button\')">';
+      content+=" "+language.model.formulaShow;
+      content+='</button>';
+    }
+    if (record.valuesTiles2Buttons) content+=record.valuesTiles2Buttons;
+    if (!isDesktopApp) {
+      content+="<a href=\"\" id=\""+record.id+"2ValuesPermalink\">"+language.GUI.Permalink+"</a>";
+    }
+    content+='</div>';
+
+    if (typeof(record.valuesFormula)=='string' && record.valuesFormula!='') {
+      const formulaId=record.id+'2ValuesFormula';
+      content+='<div class="collapse mb-3" id="'+formulaId+'">';
+      content+='<div class="card card-body">';
+      content+=record.valuesFormula;
+      content+='</div>';
+      content+='</div>';
+    }
+
+    content+=record.valuesTiles2;
+
+    if (typeof(record.valuesInfoCards)!='undefined') {
+      content+="<div class=\"row\">";
+      const len=record.valuesInfoCards.length;
+      const width=Math.round(12/len);
+      for (let card of record.valuesInfoCards) {
+        content+="<div class=\"col-lg-"+width+"\"><div class=\"card\">";
+        content+="<div class=\"card-header\"><h5>"+card.head+"</h5></div>";
+        content+="<div class=\"card-body\">"+card.body+"</div>";
+        content+="</div></div>";
+      }
+      content+="</div>";
+    }
+
+    initObserver(record.id+"2Values",content);
+  }
 
   /* Table */
 
@@ -741,7 +800,7 @@ class TilesBuilder {
    * @returns {Boolean} Returns true, if the format is a percent style format.
    */
   #formatIsPercent(format) {
-    if (format=='rho') return true;
+    if (format=='rho' || format=='reject') return true;
     return false;
   }
 
@@ -756,7 +815,8 @@ class TilesBuilder {
     if (format=='NotNegativeFloat') return getNotNegativeFloat(id);
     if (format=='PositiveInt') return getPositiveInt(id);
     if (format=='NotNegativeInt') return getNotNegativeInt(id);
-    if (format=='rho') {const value=getNotNegativeFloat(id); return (value==null || value>=1.0)?null:value;}
+    if (format=='rho') {const value=getNotNegativeFloat(id); return (value==null || value>=1.0 || value==0)?null:value;}
+    if (format=='reject') {const value=getNotNegativeFloat(id); return (value==null || value>=1.0)?null:value;}
     return null;
   }
 

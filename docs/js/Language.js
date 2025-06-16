@@ -37,6 +37,7 @@ lang.GUI.modeValues="Einzelwerte";
 lang.GUI.modeValuesOnly="Werte";
 lang.GUI.modeTable="Tabelle";
 lang.GUI.modeDiagram="Diagramm";
+lang.GUI.modeValues2="Bedieneranzahl";
 lang.GUI.modeRangeStart="Startwert";
 lang.GUI.modeRangeStep="Schrittweite";
 lang.GUI.modeRangeEnd="Endwert";
@@ -218,7 +219,7 @@ lang.model.inputNumberOfOperatorsInfo1="Die angegebene Anzahl an Bedienern arbei
 lang.model.inputNumberOfOperatorsInfo2="";
 lang.model.inputServiceLevel="Service-Level";
 lang.model.inputServiceLevelSeconds="Service-Level Sekundenwert";
-lang.model.inputServiceLevelInfo1="Dieser Wert ist optional. Wird hier ein Wert &ge;0 angegeben, so wird zusätzlich zu den üblichen Kenngrößen berechnet, wie groß der Anzeil der Kunden ist, der höchsten so lange wie hier angegeben warten musste (<b>P(W&le;t)</b>).";
+lang.model.inputServiceLevelInfo1="Dieser Wert ist optional. Wird hier ein Wert &ge;0 angegeben, so wird zusätzlich zu den üblichen Kenngrößen berechnet, wie groß der Anteil der Kunden ist, der höchsten so lange wie hier angegeben warten musste (<b>P(W&le;t)</b>).";
 lang.model.inputServiceLevelInfo2="";
 lang.model.inputSystemSize="Systemgröße";
 lang.model.inputSystemSizeInfo1="Kunden, die eintreffen während alle Warteplätze belegt sind, werden abgewiesen.";
@@ -236,8 +237,12 @@ lang.model.inputDownTimeCV="Variationskoeffizient der Ausfallzeiten";
 lang.model.inputDownTimeCVInfo1="Wenn ein Bediener nicht immer verfügbar ist (d.h. <b>P(Up)&lt;1</b> ist), gibt CV[Dt] den Variationskoeffizienten der Ausfallzeiten an.";
 lang.model.inputDownTimeCVInfo2="";
 lang.model.inputUtilization="Auslastung";
-lang.model.inputUtilizationInfo1="Die Auslastung der Bediener zwischen &ge;0% und &lt;100% gewählt werden.";
+lang.model.inputUtilizationInfo1="Die Auslastung der Bediener kann zwischen &ge;0% und &lt;100% gewählt werden.";
 lang.model.inputUtilizationInfo2="Normalerweise kann die Auslastung der Bediener nicht direkt vorgegeben werden. In diesem Modell wird werden die Zwischenankunftszeiten so gewählt, dass sich die eingestellte Auslastung ergibt: <b>E[I]=E[S]/c/rho</b>.";
+lang.model.inputUtilizationInfo2c="Normalerweise kann die Auslastung der Bediener nicht direkt vorgegeben werden. In diesem Modell wird die Anzahl an Bedienern so gewählt, dass sich die eingestellte Auslastung ergibt.";
+lang.model.inputPReject="Abweisungswahrscheinlichkeit";
+lang.model.inputPRejectInfo1="Die Abweisungswahrscheinlichkeit kann zwischen &ge;0% und &lt;100% gewählt werden.";
+lang.model.inputPRejectInfo2="Normalerweise kann die Abweisungswahrscheinlichkeit nicht direkt vorgegeben werden. In diesem Modell wird die Anzahl an Bedienern so gewählt, dass die eingestellte Abweisungswahrscheinlichkeit nicht überschritten wird.";
 
 lang.statistics={};
 lang.statistics.unitTime='Zeit';
@@ -315,6 +320,8 @@ lang.statistics.auxiliaryFormula="Hilfsgröße";
 lang.statistics.auxiliaryFormulas="Hilfsgrößen";
 lang.statistics.for="für";
 lang.statistics.SpecialCase="Spezialfall";
+lang.statistics.valueSet="eingestellt";
+lang.statistics.valueCalculated="berechnet";
 
 lang.statistics.compere={};
 lang.statistics.compere.common="Gemeinsame Warteschlange";
@@ -377,6 +384,22 @@ Das Modell besitzt <b>keinen Warteraum</b>. Kunden, die eintreffen während alle
 </p>
 <p>
 Zur Berechnung der Kenngrößen des Warteschlangensystems müssen lediglich die Ankunftsrate, die Bedienrate und die Anzahl an parallelen Bedienern angegeben werden.
+Die Ausgabe wird bei Veränderung der Parameter jeweils automatisch aktualisiert.
+</p>
+`;
+
+lang.text.ErlangBValues2=`
+<p>
+Die Erlang-B-Formel wurde Anfang des 20. Jahrhunderts von dem dänischen Mathematiker <a href="http://de.wikipedia.org/wiki/Agner_Krarup_Erlang" target="_blank">Agner Krarup Erlang</a> aufgestellt,
+um die Leistungsbemessung der damals noch manuell erfolgenden Telefonvermittlung zu optimieren.
+</p>
+<p>
+In dem Erlang-Modell wird angenommen, dass die Zwischenankunftszeiten der Kunden, die Bedienzeiten und auch die Wartezeittoleranzen der Kunden exponential verteilt sind.
+Außerdem wird angenommen, dass sich das System im stationären Zustand befindet.
+Das Modell besitzt <b>keinen Warteraum</b>. Kunden, die eintreffen während alle Bediener belegt sind, <b>werden abgewiesen</b>.
+</p>
+<p>
+Basierend auf einer Ankunftsrate und einer Bedienrate kann auf dieser Seite berechnet werden, wie viele Bediener mindestens benötigt werden, damit eine vorgegebene Abbruchwahrscheinlichkeit nicht überschritten wird.
 Die Ausgabe wird bei Veränderung der Parameter jeweils automatisch aktualisiert.
 </p>
 `;
@@ -775,6 +798,7 @@ lang.GUI.modeValues="Individual values";
 lang.GUI.modeValuesOnly="Values";
 lang.GUI.modeTable="Table";
 lang.GUI.modeDiagram="Diagram";
+lang.GUI.modeValues2="Number of operators";
 lang.GUI.modeRangeStart="Start value";
 lang.GUI.modeRangeStep="Step wide";
 lang.GUI.modeRangeEnd="End value";
@@ -976,6 +1000,10 @@ lang.model.inputDownTimeCVInfo2="";
 lang.model.inputUtilization="Utilization";
 lang.model.inputUtilizationInfo1="The utilization of the operators can be selected between &ge;0% and &lt;100%.";
 lang.model.inputUtilizationInfo2="Normally, the utilization of the operators cannot be specified directly. In this model, the inter-arrival times are adjusted so that the set utilization results: <b>E[I]=E[S]/c/rho</b>.";
+lang.model.inputUtilizationInfo2c="Normally, the utilization of the operators cannot be specified directly. In this model, the number of operators is adjusted so that the set utilization results.";
+lang.model.inputPReject="Rejection probability";
+lang.model.inputPRejectInfo1="The rejection probability can be selected between &ge;0% and &lt;100%.";
+lang.model.inputPRejectInfo2="Normally, the rejection probability cannot be specified directly. In this model, the number of operators is adjusted so that the set rejection probability is not exceeded.";
 
 lang.statistics={};
 lang.statistics.unitTime='Time';
@@ -1053,6 +1081,8 @@ lang.statistics.auxiliaryFormula="Auxiliary formula";
 lang.statistics.auxiliaryFormulas="Auxiliary formulas";
 lang.statistics.for="for";
 lang.statistics.SpecialCase="Special case";
+lang.statistics.valueSet="set";
+lang.statistics.valueCalculated="calculated";
 
 lang.statistics.compere={};
 lang.statistics.compere.common="Common queue";
@@ -1118,6 +1148,23 @@ The model does <b>not</b> have any waiting space. Customers arriving while all o
 </p>
 <p>
 To calculate the performance indicators of the queueing system, only the arrival rate, the service rate and the number of parallel operators have to be specified.
+The output is updated automatically when the parameters are changed.
+</p>
+`;
+
+lang.text.ErlangBValues2=`
+<p>
+The Erlang-B formula was established in the early 20th century by the Danish mathematician <a href="https://en.wikipedia.org/wiki/Agner_Krarup_Erlang" target="_blank">Agner Krarup Erlang</a>,
+to optimize the performance measurement of telephone switching, which was still done manually at the time.
+</p>
+<p>
+In the Erlang model, it is assumed that the inter-arrival times of the customers, the service times and also the waiting time tolerances of the customers are exponentially distributed.
+It is also assumed that the system is in steady state.
+The model does <b>not</b> have any waiting space. Customers arriving while all operators are busy <b>will be rejected</b>.
+
+</p>
+<p>
+Based on an arrival rate and an service rate, this page can be used to calculate the minimum number of operators required to ensure that a specified rejection probability is not exceeded.
 The output is updated automatically when the parameters are changed.
 </p>
 `;

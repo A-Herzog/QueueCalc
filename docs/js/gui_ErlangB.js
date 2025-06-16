@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-export {tilesErlangB};
+export {tilesErlangB, tilesErlangB2};
 
 import {TilesBuilder, Table} from './tools_gui.js';
 import {ErlangB} from './Erlang.js';
@@ -24,6 +24,7 @@ import {language} from './Language.js';
  * Input tiles for the Erlang B formula
  */
 const tilesErlangB=new TilesBuilder('ErlangB');
+const tilesErlangB2=new TilesBuilder('ErlangB2');
 
 tilesErlangB.add(
   language.model.inputInterArrivalTimeMean,
@@ -65,6 +66,50 @@ tilesErlangB.add(
   language.model.inputNumberOfOperatorsInfo1,
   language.model.inputNumberOfOperatorsInfo2,
   "PositiveInt"
+);
+
+tilesErlangB2.add(
+  language.model.inputInterArrivalTimeMean,
+  "E[I]",
+  "EI",
+  100,
+  5,
+  150,
+  language.model.invalidPositiveFloat,
+  language.model.invalidPositiveFloat,
+  language.model.inputInterArrivalTimeMeanInfo1,
+  language.model.inputInterArrivalTimeMeanInfo2,
+  "PositiveFloat"
+);
+
+tilesErlangB2.add(
+  language.model.inputServiceTimeMean,
+  "E[S]",
+  "ES",
+  400,
+  5,
+  200,
+  language.model.invalidPositiveFloat,
+  language.model.invalidPositiveFloat,
+  language.model.inputServiceTimeMeanInfo1,
+  language.model.inputServiceTimeMeanInfo2,
+  "PositiveFloat"
+);
+
+tilesErlangB2.add(
+  language.model.inputPReject,
+  "P(reject)",
+  "Preject",
+  0.2,
+  0.1,
+  0.2,
+  language.model.invalidNotNegativeFloat,
+  language.model.invalidPositiveFloat,
+  language.model.inputPRejectInfo1,
+  language.model.inputPRejectInfo2,
+  "reject",
+  false,
+  false
 );
 
 /**
@@ -149,6 +194,51 @@ function updateErlangBValues() {
   document.getElementById('ErlangBValues_results').innerHTML=result;
 }
 
+/**
+ * Callback for updating the individual values results (2).
+ */
+function updateErlangB2Values() {
+  const input=tilesErlangB2.valuesValues;
+  if (input==null) return;
+
+  const data={};
+  data.EI=input[0];
+  data.ES=input[1];
+  data.Preject=input[2];
+  data.a=data.ES/data.EI;
+
+  data.c=1;
+  while (true) {
+    data.PrejectCalc=ErlangB(data.a,data.c);
+    const lambdaNet=1/data.EI*(1-data.Preject);
+    data.rho=lambdaNet*data.ES/data.c;
+    if (data.PrejectCalc<=data.Preject) break;
+    data.c++;
+  }
+
+  let result='';
+  result+="<h5>"+language.statistics.headingInputParameters+"</h5>\n";
+  result+="<p>\n";
+  result+=language.statistics.arrivalRate+': <b>&lambda;='+(1/data.EI).toLocaleString()+"</b> <small>("+language.statistics.arrivalRateInfo+" E[I]="+data.EI.toLocaleString()+")</small><br>\n";
+  result+=language.statistics.serviceRate+': <b>&mu;='+(1/data.ES).toLocaleString()+"</b> <small>("+language.statistics.serviceRateInfo+" E[S]="+data.ES.toLocaleString()+")</small><br>\n";
+  result+=language.statistics.rejectionProbability+" ("+language.statistics.valueSet+"): <b>P(reject)="+(data.Preject*100).toLocaleString()+"%</b>\n";
+  result+="</p>\n";
+
+  result+="<h5>"+language.statistics.headingDirectCalculableParameters+"</h5>\n";
+  result+="<p>\n";
+  result+=language.statistics.Workload+": <b>a="+data.a.toLocaleString()+" "+language.statistics.WorkloadErlang+"</b>\n";
+  result+="</p>\n";
+
+  result+="<h5>"+language.statistics.headingErlangBResults+"</h5>\n";
+  result+="<p>\n";
+  result+=language.statistics.NumberOfOperators+': <b>c='+data.c+"</b><br>\n";
+  result+=language.statistics.Utilization+": <b>&rho;="+(data.rho*100).toLocaleString()+"%</b><br>\n";
+  result+=language.statistics.rejectionProbability+" ("+language.statistics.valueCalculated+"): <b>P(reject)="+(data.PrejectCalc*100).toLocaleString()+"%</b>\n";
+  result+="</p>\n";
+
+  document.getElementById('ErlangB2Values_results').innerHTML=result;
+}
+
 /* Table */
 
 /**
@@ -205,6 +295,7 @@ function updateErlangBDiagram() {
 /* General setup */
 
 window.updateErlangBValues=updateErlangBValues;
+window.updateErlangB2Values=updateErlangB2Values;
 window.updateErlangBTable=updateErlangBTable;
 window.updateErlangBDiagram=updateErlangBDiagram;
 window.changeTabErlangBTable=changeTabErlangBTable;

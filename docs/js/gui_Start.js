@@ -18,7 +18,7 @@ export {getMainGUI};
 
 import {getPlaceholder, getNextStepsButtons, getSimplePlaceholder, showTab, initObserver} from './tools_gui.js';
 
-import {tilesErlangB} from './gui_ErlangB.js';
+import {tilesErlangB, tilesErlangB2} from './gui_ErlangB.js';
 import {tilesErlangC} from './gui_ErlangC.js';
 import {tilesExtErlangC} from './gui_ExtErlangC.js';
 import {tilesPC} from './gui_PC.js';
@@ -42,11 +42,11 @@ import {language} from './Language.js';
  * @param {Boolean} showMore Show "More information" button instead of values, table and diagram buttons (optional, defaults to false)
  * @param {String} fileFormat File extension of the image to be displayed (optional, defaults to "svg")
  * @param {String} aspectRatio Aspect ratio of the image to allow the html renderer to process before image is loaded (optional, defaults to null, which means "do not output aspect ratio information")
- * @param {Object} modes Defines if values, table and diagram buttons are to be displayed (optional, defaults to {values: true, table: true, diagram: true})
+ * @param {Object} modes Defines if values, table and diagram buttons are to be displayed (optional, defaults to {values: true, values2: false, table: true, diagram: true})
  * @param {String} icon Html code for an optional icon to be displayed left of the tile title (optional, defaults to "")
  * @returns {String} Html code for the tile as text
  */
-function buildStartTile(size, title, text, id, imgWidth="100%", showMore=false, fileFormat="svg", aspectRatio=null, modes={values: true, table: true, diagram: true}, icon="") {
+function buildStartTile(size, title, text, id, imgWidth="100%", showMore=false, fileFormat="svg", aspectRatio=null, modes={values: true, values2: false, table: true, diagram: true}, icon="") {
   let block="";
 
   block+="<div class=\"col-lg-"+size+"\"><div class=\"card\">";
@@ -67,6 +67,7 @@ function buildStartTile(size, title, text, id, imgWidth="100%", showMore=false, 
     block+="<button onclick=\"showTab('"+id+"');\" class=\"btn btn-primary my-1 bi-info-circle\"> "+language.GUI.modeMore+"</button>\n";
   } else {
     const showValues=(modes.values==true);
+    const showValues2=(modes.values2==true);
     const showTable=(modes.table==true);
     const showDiagram=(modes.diagram==true);
     if (showValues && !showTable && !showDiagram) {
@@ -74,7 +75,8 @@ function buildStartTile(size, title, text, id, imgWidth="100%", showMore=false, 
     } else {
       if (showValues) block+="<button onclick=\"showTab('"+id+"Values');\" class=\"btn btn-primary my-1 bi-123\"> "+language.GUI.modeValues+"</button>\n";
       if (showTable) block+="<button onclick=\"showTab('"+id+"Table');\" class=\"btn btn-primary my-1 bi-table\"> "+language.GUI.modeTable+"</button>\n";
-      if (showDiagram) block+="<button onclick=\"showTab('"+id+"Diagram');\" class=\"btn btn-primary my-1 bi-graph-up\"> "+language.GUI.modeDiagram+"</button>";
+      if (showDiagram) block+="<button onclick=\"showTab('"+id+"Diagram');\" class=\"btn btn-primary my-1 bi-graph-up\"> "+language.GUI.modeDiagram+"</button>\n";
+      if (showValues2) block+="<button onclick=\"showTab('"+id+"2Values');\" class=\"btn btn-primary my-1 bi-person-plus\"> "+language.GUI.modeValues2+"</button>\n";
     }
   }
   block+="</div></div></div>";
@@ -92,7 +94,7 @@ function buildStartTiles(isDesktopApp) {
 
   block+="<div class=\"row\">";
 
-  block+=buildStartTile(6,language.GUI.formulaErlangB,language.GUI.formulaErlangBInfo,"ErlangB","100%",false,"svg","114.02 / 62.19");
+  block+=buildStartTile(6,language.GUI.formulaErlangB,language.GUI.formulaErlangBInfo,"ErlangB","100%",false,"svg","114.02 / 62.19", {values: true, values2: true, table: true, diagram: true});
   block+=buildStartTile(6,language.GUI.formulaErlangC,language.GUI.formulaErlangCInfo,"ErlangC","100%",false,"svg","159.82 / 47.24");
   block+=buildStartTile(6,language.GUI.formulaExtErlangC,language.GUI.formulaExtErlangCInfo,"ExtErlangC","100%",false,"svg","159.81 / 74.6");
   block+=buildStartTile(6,language.GUI.formulaPC,language.GUI.formulaPCInfo,"PC","100%",false,"svg","159.81 / 74.6");
@@ -171,8 +173,11 @@ function getMainGUI(isDesktopApp) {
     id: "ErlangB",
     title: language.GUI.formulaErlangBLong,
     valuesInfo: language.text.ErlangBValues,
+    values2Info: language.text.ErlangBValues2,
     valuesTilesButtons: tilesErlangB.valueTilesButtons,
+    valuesTiles2Buttons: tilesErlangB2.valueTilesButtons,
     valuesTiles: tilesErlangB.valueTiles,
+    valuesTiles2: tilesErlangB2.valueTiles,
     valuesFormula: formulasErlangB,
     valuesInfoCards: [
       {head: language.GUI.formulaErlangBLimitations, body: language.text.ErlangBValuesLimitations},
