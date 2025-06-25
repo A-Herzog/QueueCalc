@@ -713,5 +713,6 @@ formulasShortestQueue+="<p>W<sub>(a)</sub>="+language.GUI.formulaShortestQueueAW
 formulasShortestQueue+="<p>W<sub>(b)</sub>="+language.GUI.formulaShortestQueueBWaitingTime+"</p>";
 formulasShortestQueue+=mathStart;
 formulasShortestQueue+=funcP(sub(symW,"<mo>(</mo><mi>b</mi><mo>)</mo>")+"<mo>&gt;</mo>"+sub(symW,"<mo>(</mo><mi>a</mi><mo>)</mo>"))+equals;
+formulasShortestQueue+="<msup><mrow><mo>(</mo>"+frac("<mn>1</mn>","<mn>2</mn>")+"<mo>)</mo></mrow><mi>a</mi></msup>";
 formulasShortestQueue+=sum(symk+equals+num0,"<mi>b</mi>"+minus+num1)+binom("<mi>a</mi>"+plus+symk+minus+num1,symk)+mul+frac(num1,sup(num2,symk));
 formulasShortestQueue+=mathEnd;
