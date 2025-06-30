@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-export {parseFloatStrict, getFloat, getFloatFromString, getPositiveFloat, getNotNegativeFloat, getInt, getPositiveInt, getNotNegativeInt, isVariabel, factorial, powerFactorial, binom}
+export {parseFloatStrict, getFloat, getFloatFromString, getPositiveFloat, getNotNegativeFloat, getInt, getPositiveInt, getNotNegativeInt, isVariabel, factorial, powerFactorial, binom, setValid}
 
 /**
  * Converts a string to a floating point number.

@@ -14,7 +14,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-export {tilesErlangC, calcErlangC};
+export {tilesErlangC, tilesErlangC2, calcErlangC};
 
 import {TilesBuilder, Table} from './tools_gui.js';
 import {MMcZustandsP, ErlangC, ErlangC_P1} from './Erlang.js';
@@ -24,6 +24,7 @@ import {language} from './Language.js';
  * Input tiles for the Erlang C formula
  */
 const tilesErlangC=new TilesBuilder('ErlangC');
+const tilesErlangC2=new TilesBuilder('ErlangC2');
 
 tilesErlangC.add(
   language.model.inputInterArrivalTimeMean,
@@ -80,6 +81,62 @@ tilesErlangC.add(
   language.model.inputServiceLevelInfo2,
   "NotNegativeFloat",
   true,
+);
+
+tilesErlangC2.add(
+  language.model.inputInterArrivalTimeMean,
+  "E[I]",
+  "EI",
+  100,
+  5,
+  150,
+  language.model.invalidPositiveFloat,
+  language.model.invalidPositiveFloat,
+  language.model.inputInterArrivalTimeMeanInfo1,
+  language.model.inputInterArrivalTimeMeanInfo2,
+  "PositiveFloat"
+);
+
+tilesErlangC2.add(
+  language.model.inputServiceTimeMean,
+  "E[S]",
+  "ES",
+  400,
+  5,
+  200,
+  language.model.invalidPositiveFloat,
+  language.model.invalidPositiveFloat,
+  language.model.inputServiceTimeMeanInfo1,
+  language.model.inputServiceTimeMeanInfo2,
+  "PositiveFloat"
+);
+
+tilesErlangC2.add(
+  language.model.inputServiceLevelSeconds,
+  "t",
+  "t",
+  20,
+  1,
+  0,
+  language.model.invalidNotNegativeFloat,
+  language.model.invalidPositiveFloat,
+  language.model.inputServiceLevelInfo3t,
+  "",
+  "NotNegativeFloat"
+);
+
+tilesErlangC2.add(
+  language.model.inputServiceLevel,
+  "P(W&\le;t)",
+  "servicelevel",
+  0.8,
+  0.1,
+  0.2,
+  language.model.invalidPercent,
+  language.model.invalidPositiveFloat,
+  language.model.inputServiceLevelInfo3P,
+  "",
+  "servicelevel"
 );
 
 /**
@@ -255,6 +312,83 @@ function updateErlangCValues() {
   document.getElementById('ErlangCValues_results').innerHTML=result;
 }
 
+/**
+ * Callback for updating the individual values results (2).
+ */
+function updateErlangC2Values() {
+  const input=tilesErlangC2.valuesValues;
+  if (input==null) return;
+
+  const temp={};
+  temp.EI=input[0];
+  temp.ES=input[1];
+  temp.t=input[2];
+  temp.servicelevel=input[3];
+  temp.minC=Math.ceil(temp.ES/temp.EI);
+  if ((temp.ES/temp.EI)%1==0) temp.minC++;
+
+  if (temp.t==0 && temp.servicelevel==1) {
+    document.getElementById('ErlangC2Values_results').innerHTML=language.model.impossibleServiceLevel;
+    return;
+  }
+
+  let data;
+  let c=temp.minC-1;
+  do {
+    c++;
+    const tempInput=[temp.EI, temp.ES, c, temp.t];
+    data=calcErlangC(tempInput);
+  } while (data.PWlet<temp.servicelevel);
+
+  let result='';
+  result+="<h5>"+language.statistics.headingInputParameters+"</h5>\n";
+  result+="<p>\n";
+  result+=language.statistics.arrivalRate+': <b>&lambda;='+(1/data.EI).toLocaleString()+"</b> <small>("+language.statistics.arrivalRateInfo+" E[I]="+data.EI.toLocaleString()+")</small><br>\n";
+  result+=language.statistics.serviceRate+': <b>&mu;='+(1/data.ES).toLocaleString()+"</b> <small>("+language.statistics.serviceRateInfo+" E[S]="+data.ES.toLocaleString()+")</small><br>\n";
+  result+=language.statistics.serviceLevel+": <b>P(W&le;"+data.t.toLocaleString()+")="+(temp.servicelevel*100).toLocaleString()+"%</b>\n";
+  result+="</p>\n";
+
+  result+="<h5>"+language.statistics.headingDirectCalculableParameters+"</h5>\n";
+  result+="<p>\n";
+  result+=language.statistics.Workload+": <b>a="+data.a.toLocaleString()+" "+language.statistics.WorkloadErlang+"</b><br>\n";
+  result+="</p>\n";
+
+  result+="<h5>"+language.statistics.headingErlangCResults+"</h5>\n";
+  result+="<p>\n";
+  result+=language.statistics.NumberOfOperators+': <b>c='+data.c+"</b><br>\n";
+  if (data.rho>=1) {
+      result+=language.statistics.rhoError;
+  } else {
+      result+=language.statistics.Utilization+": <b>&rho;="+(data.rho*100).toLocaleString()+"%</b><br>\n";
+      result+=language.statistics.P1+": <b>P<sub>1</sub>="+data.P1.toLocaleString()+"</b><br>\n";
+      result+=language.statistics.averageWaitingTime+": <b>E[W]="+data.EW.toLocaleString()+"</b> <small>(Std[W]="+Math.sqrt(data.VarW).toLocaleString()+", CV[W]="+data.CVW.toLocaleString()+")</small><br>\n";
+      result+=language.statistics.averageResidenceTime+": <b>E[V]="+data.EV.toLocaleString()+"</b> <small>(=E[W]+E[S])</small> <small>(Std[V]="+Math.sqrt(data.VarV).toLocaleString()+", CV[V]="+data.CVV.toLocaleString()+")</small><br>\n";
+      result+=language.statistics.flowFactor+": <b>E[V]/E[S]="+(data.EV/data.ES).toLocaleString()+"</b><br>\n";
+      const infoNQ=(data.c>1)?"":(" <small>(Std[NQ]="+Math.sqrt(data.VarNQ).toLocaleString()+", CV[NQ]="+data.CVNQ.toLocaleString()+")</small>");
+      result+=language.statistics.averageNQ+": <b>E[N<sub>Q</sub>]="+data.ENQ.toLocaleString()+"</b>"+infoNQ+"<br>\n";
+      result+=language.statistics.averageNS+": <b>E[N<sub>S</sub>]="+data.ENS.toLocaleString()+"</b><br>\n";
+      const infoN=(data.c>1)?"":(" <small>(Std[N]="+Math.sqrt(data.VarN).toLocaleString()+", CV[N]="+data.CVN.toLocaleString()+")</small>");
+      result+=language.statistics.averageN+": <b>E[N]="+data.EN.toLocaleString()+"</b> <small>(=E[N<sub>Q</sub>]+E[N<sub>S</sub>])</small>"+infoN+"<br>\n";
+      result+=language.statistics.emptySystemProbability+": <b>P(N=0)="+(data.PNeq0*100).toLocaleString()+"%</b><br>\n";
+      if (data.t!=null) {
+          result+=language.statistics.serviceLevel+": <b>P(W&le;"+data.t.toLocaleString()+")="+(data.PWlet*100).toLocaleString()+"%</b> (<small>"+(data.PWlet*100).toLocaleString()+"% "+language.statistics.serviceLevelInfo1+" "+data.t.toLocaleString()+" "+language.statistics.serviceLevelInfo2+")</small><br>\n";
+      }
+      result+=language.statistics.waitingProbability+": <b>P(W&gt;0)=P(N&ge;c)="+(data.PWgt0*100).toLocaleString()+"%</b> (<small>"+(data.PWgt0*100).toLocaleString()+"% "+language.statistics.waitingProbabilityInfo+")</small><br>\n";
+  }
+  result+="</p>\n";
+
+  if (data.rho<1) {
+    result+="<p>";
+    result+=distributionButton(data,0,language.WaitingTimeDist.button);
+    result+=distributionButton(data,1,language.WaitingTimeDistN.button);
+    result+=distributionButton(data,2,language.WaitingTimeDistNQ.button);
+    result+=distributionButton(data,3,language.WaitingTimeDistCBusy.button);
+    result+="</p>";
+  }
+
+  document.getElementById('ErlangC2Values_results').innerHTML=result;
+}
+
 /* Table */
 
 /**
@@ -316,6 +450,7 @@ function updateErlangCDiagram() {
 /* General setup */
 
 window.updateErlangCValues=updateErlangCValues;
+window.updateErlangC2Values=updateErlangC2Values;
 window.updateErlangCTable=updateErlangCTable;
 window.updateErlangCDiagram=updateErlangCDiagram;
 window.changeTabErlangCTable=changeTabErlangCTable;

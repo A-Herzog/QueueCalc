@@ -131,11 +131,11 @@ tilesExtAC.add(
   1,
   0.1,
   0.5,
-  language.model.invalidPositiveFloat,
+  language.model.invalidPercent,
   language.model.invalidPositiveFloat,
   language.model.inputAvailabilityInfo1,
   language.model.inputAvailabilityInfo2,
-  "PositiveFloat"
+  "PUp"
 );
 
 tilesExtAC.add(

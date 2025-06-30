@@ -94,7 +94,7 @@ tilesEconomyOfScale.add(
   0.8,
   0.1,
   0.8,
-  language.model.invalidNotNegativeFloat,
+  language.model.invalidPercent,
   language.model.invalidPositiveFloat,
   language.model.inputUtilizationInfo1,
   language.model.inputUtilizationInfo2,

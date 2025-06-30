@@ -81,7 +81,7 @@ mainNavBar.insertBefore(buildMultiNavDropdown("ErlangBMenu",language.GUI.tabErla
 ]),mainNavBar.children[insertCount++]);
 
 mainNavBar.insertBefore(buildMultiNavDropdown("ErlangCMenu",language.GUI.tabErlangC,[
-  {id: "ErlangC", name: language.GUI.tabErlangC, info: language.GUI.tabErlangCInfo},
+  {id: "ErlangC", name: language.GUI.tabErlangC, info: language.GUI.tabErlangCInfo, modes: {values: true, values2: true, table: true, diagram: true}},
   {id: "ExtErlangC", name: language.GUI.tabExtErlangC, info: language.GUI.tabExtErlangCInfo}
 ]),mainNavBar.children[insertCount++]);
 

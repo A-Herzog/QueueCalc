@@ -103,7 +103,7 @@ tilesErlangB2.add(
   0.2,
   0.1,
   0.2,
-  language.model.invalidNotNegativeFloat,
+  language.model.invalidPercent,
   language.model.invalidPositiveFloat,
   language.model.inputPRejectInfo1,
   language.model.inputPRejectInfo2,

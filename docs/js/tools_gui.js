@@ -16,7 +16,7 @@ limitations under the License.
 
 export {selectLanguage, buildMultiNavDropdown, showTab, initObserver, getPlaceholder, getNextStepsButtons, getSimplePlaceholder, TilesBuilder, Table}
 
-import {getPositiveFloat, getNotNegativeFloat, getPositiveInt, getNotNegativeInt, isVariabel} from './tools.js';
+import {getPositiveFloat, getNotNegativeFloat, getPositiveInt, getNotNegativeInt, isVariabel, setValid} from './tools.js';
 import {language} from './Language.js';
 
 /* Language selection */
@@ -385,7 +385,9 @@ function buildInputField(id, value, isPercent, updateCallback, label, errorInfo=
   block+="<p class=\"card-text\"><form class=\"form-floating\">";
   block+="<div class=\"input-group\">";
   block+="<span class=\"input-group-text\">"+label+":=</span>";
-  block+="<input type=\"text\" class=\"form-control\" id=\""+id+"\" value=\""+value+"\" oninput=\""+updateCallback+"()\">";
+  let percentInfo="";
+  if (isPercent) percentInfo=" data-percent='true'";
+  block+="<input type=\"text\" class=\"form-control\" id=\""+id+"\" value=\""+value+"\" oninput=\""+updateCallback+"()\""+percentInfo+">";
   if (errorInfo!='') block+="<div class=\"invalid-feedback\">"+errorInfo+"</div>";
   block+="</div>";
   block+="</form></p>";
@@ -800,7 +802,7 @@ class TilesBuilder {
    * @returns {Boolean} Returns true, if the format is a percent style format.
    */
   #formatIsPercent(format) {
-    if (format=='rho' || format=='reject') return true;
+    if (format=='rho' || format=='reject' || format=='servicelevel' || format=='PUp') return true;
     return false;
   }
 
@@ -817,6 +819,8 @@ class TilesBuilder {
     if (format=='NotNegativeInt') return getNotNegativeInt(id);
     if (format=='rho') {const value=getNotNegativeFloat(id); return (value==null || value>=1.0 || value==0)?null:value;}
     if (format=='reject') {const value=getNotNegativeFloat(id); return (value==null || value>=1.0)?null:value;}
+    if (format=='servicelevel') {const value=getNotNegativeFloat(id); return (value==null || value>1.0)?null:value;}
+    if (format=='PUp') {const value=getNotNegativeFloat(id); return (value==null || value>1.0 || value==0)?null:value;}
     return null;
   }
 
@@ -870,6 +874,7 @@ class TilesBuilder {
         const id=this.formula+'Values_'+tile.id;
         value=this.#loadValue(id,tile.format);
         if (value==null && !tile.optional) {
+          setValid(id,false);
           document.getElementById(this.formula+'Values_results').innerHTML=language.model.invalid;
           return null;
         }
@@ -923,6 +928,7 @@ class TilesBuilder {
             const id=this.formula+mode+'_'+tile.id+'_Fix_Input';
             value=this.#loadValue(id,tile.format);
             if (value==null && !tile.optional) {
+              setValid(id,false);
               document.getElementById(this.formula+mode+'_results').innerHTML=language.model.invalid;
               return null;
             }
@@ -931,6 +937,7 @@ class TilesBuilder {
           const id=this.formula+mode+'_'+tile.id;
           value=this.#loadValue(id,tile.format);
           if (value==null && !tile.optional) {
+            setValid(id,false);
             document.getElementById(this.formula+mode+'_results').innerHTML=language.model.invalid;
             return null;
           }

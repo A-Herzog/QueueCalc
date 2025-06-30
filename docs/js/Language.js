@@ -195,6 +195,7 @@ lang.model.invalidNotNegativeInt="Es muss eine <b>nichtnegative Ganzzahl</b> ang
 lang.model.invalidNotNegativeFloat="Es muss eine <b>nichtnegative Zahl</b> angegeben werden.";
 lang.model.invalidPositiveInt="Es muss eine <b>positive Ganzzahl</b> angegeben werden.";
 lang.model.invalidPositiveFloat="Es muss eine <b>positive Zahl</b> angegeben werden.";
+lang.model.invalidPercent="Es muss eine <b>Wahrscheinlichkeit</b> angegeben werden (Wert zwischen 0 und 1).";
 lang.model.noParameterChosen="Es wurde kein zu variierender Parameter gewählt.";
 lang.model.inputInterArrivalTimeMean="Mittlere Zwischenankunftszeit";
 lang.model.inputInterArrivalTimeMeanInfo1="Die mittlere Zwischenankunftszeit gibt die durchschnittliche Zeitspanne zwischen zwei unmittelbar aufeinander folgenden Kundenankünften an.";
@@ -221,6 +222,8 @@ lang.model.inputServiceLevel="Service-Level";
 lang.model.inputServiceLevelSeconds="Service-Level Sekundenwert";
 lang.model.inputServiceLevelInfo1="Dieser Wert ist optional. Wird hier ein Wert &ge;0 angegeben, so wird zusätzlich zu den üblichen Kenngrößen berechnet, wie groß der Anteil der Kunden ist, der höchsten so lange wie hier angegeben warten musste (<b>P(W&le;t)</b>).";
 lang.model.inputServiceLevelInfo2="";
+lang.model.inputServiceLevelInfo3t="Dieser Wert gibt an, <strong>wie viele Sekunden</strong> ein bestimmter Anteil an Kunden maximal warten soll.";
+lang.model.inputServiceLevelInfo3P="Dieser Wert gibt an, hoch der <strong>Anteil der Kunden</strong> der höchstens <strong>t</strong> Sekunden warten soll, maxmal sein darf (<b>P(W&le;t)</b>).";
 lang.model.inputSystemSize="Systemgröße";
 lang.model.inputSystemSizeInfo1="Kunden, die eintreffen während alle Warteplätze belegt sind, werden abgewiesen.";
 lang.model.inputSystemSizeInfo2="K ist die Summe aus Warte- und Bedienplätzen, d.h. K muss mindestens so groß wie c sein.";
@@ -243,6 +246,7 @@ lang.model.inputUtilizationInfo2c="Normalerweise kann die Auslastung der Bediene
 lang.model.inputPReject="Abweisungswahrscheinlichkeit";
 lang.model.inputPRejectInfo1="Die Abweisungswahrscheinlichkeit kann zwischen &ge;0% und &lt;100% gewählt werden.";
 lang.model.inputPRejectInfo2="Normalerweise kann die Abweisungswahrscheinlichkeit nicht direkt vorgegeben werden. In diesem Modell wird die Anzahl an Bedienern so gewählt, dass die eingestellte Abweisungswahrscheinlichkeit nicht überschritten wird.";
+lang.model.impossibleServiceLevel="Das eingestellte Service-Level kann in einem stochastischen System nicht erreicht werden. Gefordert wird, dass nie irgendein Kunde jemals warten muss. Dies kann nicht garantiert werden.";
 
 lang.statistics={};
 lang.statistics.unitTime='Zeit';
@@ -447,6 +451,21 @@ Zur Berechnung der Kenngrößen des Warteschlangensystems müssen lediglich die 
 Die Ausgabe wird bei Veränderung der Parameter jeweils automatisch aktualisiert.
 </p>
 `;
+
+lang.text.ErlangCValues2=`
+<p>
+Die Erlang-C-Formel wurde Anfang des 20. Jahrhunderts von dem dänischen Mathematiker <a href="http://de.wikipedia.org/wiki/Agner_Krarup_Erlang" target="_blank">Agner Krarup Erlang</a> aufgestellt,
+um die Leistungsbemessung der damals noch manuell erfolgenden Telefonvermittlung zu optimieren.
+</p>
+<p>
+In dem Erlang-Modell wird angenommen, dass die Zwischenankunftszeiten der Kunden, die Bedienzeiten und auch die Wartezeittoleranzen der Kunden exponential verteilt sind.
+Außerdem wird angenommen, dass sich das System im stationären Zustand befindet.
+</p>
+<p>
+<p>
+Basierend auf einer Ankunftsrate und einer Bedienrate kann auf dieser Seite berechnet werden, wie viele Bediener mindestens benötigt werden, damit ein vorgegebenes Service-Level erreicht wird.
+Die Ausgabe wird bei Veränderung der Parameter jeweils automatisch aktualisiert.
+</p>`;
 
 lang.text.ErlangCValuesLimitations=`
 <p class="card-text">
@@ -956,6 +975,7 @@ lang.model.invalidNotNegativeInt="A <b>non-negative integer</b> has to be entere
 lang.model.invalidNotNegativeFloat="A <b>non-negative number</b> has to be entered.";
 lang.model.invalidPositiveInt="A <b>positive integer</b> has to be entered.";
 lang.model.invalidPositiveFloat="A <b>positive number</b> has to be entered.";
+lang.model.invalidPercent="A <b>probability</b> has to be entered (value between 0 and 1).";
 lang.model.noParameterChosen="No parameter to be varied was chosen.";
 lang.model.inputInterArrivalTimeMean="Mean inter-arrival time";
 lang.model.inputInterArrivalTimeMeanInfo1="The mean inter-arrival time specifies the average time span between two immediately consecutive customer arrivals.";
@@ -982,6 +1002,8 @@ lang.model.inputServiceLevel="Service level";
 lang.model.inputServiceLevelSeconds="Service level seconds value";
 lang.model.inputServiceLevelInfo1="This value is optional. If a value &ge;0 is specified here, then in addition to the usual parameters, the number of customers who had to wait the maximum time specified here is calculated (<b>P(W&le;t)</b>).";
 lang.model.inputServiceLevelInfo2="";
+lang.model.inputServiceLevelInfo3t="This value specifies <strong>how many seconds</strong> a certain proportion of customers should wait at most.";
+lang.model.inputServiceLevelInfo3P="This value specifies the <strong>maximum proportion</strong> of customers who should wait a maximum of <strong>t</strong> seconds (<b>P(W&le;t)</b>).";
 lang.model.inputSystemSize="System size";
 lang.model.inputSystemSizeInfo1="Customers arriving while all waiting spaces are occupied will be turned away.";
 lang.model.inputSystemSizeInfo2="K is the sum of waiting and serving places, i.e. K must be at least as large as c.";
@@ -1004,6 +1026,7 @@ lang.model.inputUtilizationInfo2c="Normally, the utilization of the operators ca
 lang.model.inputPReject="Rejection probability";
 lang.model.inputPRejectInfo1="The rejection probability can be selected between &ge;0% and &lt;100%.";
 lang.model.inputPRejectInfo2="Normally, the rejection probability cannot be specified directly. In this model, the number of operators is adjusted so that the set rejection probability is not exceeded.";
+lang.model.impossibleServiceLevel="The set service level cannot be achieved in a stochastic system. The requirement is that no customer should ever have to wait. This cannot be guaranteed.";
 
 lang.statistics={};
 lang.statistics.unitTime='Time';
@@ -1209,6 +1232,21 @@ It is also assumed that the system is in steady state.
 </p>
 <p>
 To calculate the performance indicators of the queueing system, only the arrival rate, the service rate and the number of parallel operators have to be specified.
+The output is updated automatically when the parameters are changed.
+</p>
+`;
+
+lang.text.ErlangCValues2=`
+<p>
+The Erlang-C formula was established in the early 20th century by the Danish mathematician <a href="https://en.wikipedia.org/wiki/Agner_Krarup_Erlang" target="_blank">Agner Krarup Erlang</a>,
+to optimize the performance measurement of telephone switching, which was still done manually at the time.
+</p>
+<p>
+In the Erlang model, it is assumed that the inter-arrival times of the customers, the service times and also the waiting time tolerances of the customers are exponentially distributed.
+It is also assumed that the system is in steady state.
+</p>
+<p>
+Based on an arrival rate and an service rate, this page can be used to calculate the minimum number of operators required to ensure that a specified service level is reached.
 The output is updated automatically when the parameters are changed.
 </p>
 `;

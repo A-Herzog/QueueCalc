@@ -19,7 +19,7 @@ export {getMainGUI};
 import {getPlaceholder, getNextStepsButtons, getSimplePlaceholder, showTab, initObserver} from './tools_gui.js';
 
 import {tilesErlangB, tilesErlangB2} from './gui_ErlangB.js';
-import {tilesErlangC} from './gui_ErlangC.js';
+import {tilesErlangC, tilesErlangC2} from './gui_ErlangC.js';
 import {tilesExtErlangC} from './gui_ExtErlangC.js';
 import {tilesPC} from './gui_PC.js';
 import {tilesKingman} from './gui_Kingman.js';
@@ -95,7 +95,7 @@ function buildStartTiles(isDesktopApp) {
   block+="<div class=\"row\">";
 
   block+=buildStartTile(6,language.GUI.formulaErlangB,language.GUI.formulaErlangBInfo,"ErlangB","100%",false,"svg","114.02 / 62.19", {values: true, values2: true, table: true, diagram: true});
-  block+=buildStartTile(6,language.GUI.formulaErlangC,language.GUI.formulaErlangCInfo,"ErlangC","100%",false,"svg","159.82 / 47.24");
+  block+=buildStartTile(6,language.GUI.formulaErlangC,language.GUI.formulaErlangCInfo,"ErlangC","100%",false,"svg","159.82 / 47.24", {values: true, values2: true, table: true, diagram: true});
   block+=buildStartTile(6,language.GUI.formulaExtErlangC,language.GUI.formulaExtErlangCInfo,"ExtErlangC","100%",false,"svg","159.81 / 74.6");
   block+=buildStartTile(6,language.GUI.formulaPC,language.GUI.formulaPCInfo,"PC","100%",false,"svg","159.81 / 74.6");
   block+=buildStartTile(6,language.GUI.formulaKingman,language.GUI.formulaKingmanInfo,"Kingman","100%",false,"svg","159.82 / 52.78");
@@ -195,8 +195,11 @@ function getMainGUI(isDesktopApp) {
     id: "ErlangC",
     title: language.GUI.formulaErlangCLong,
     valuesInfo: language.text.ErlangCValues,
+    values2Info: language.text.ErlangCValues2,
     valuesTilesButtons: tilesErlangC.valueTilesButtons,
+    valuesTiles2Buttons: tilesErlangC2.valueTilesButtons,
     valuesTiles: tilesErlangC.valueTiles,
+    valuesTiles2: tilesErlangC2.valueTiles,
     valuesFormula: formulasErlangC,
     valuesInfoCards: [
       {head: language.GUI.formulaErlangCLimitations, body: language.text.ErlangCValuesLimitations},

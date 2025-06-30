@@ -65,7 +65,13 @@ function setupTabKeyFixed(id, key, value) {
   const input=document.getElementById(id+"_"+key);
   if (input!=null) {
     const numValue=getFloatFromString(value);
-    if (numValue!=null) input.value=value;
+    if (numValue!=null) {
+      if (input.dataset.percent) {
+        input.value=(numValue*100).toLocaleString()+"%";
+      } else {
+        input.value=value;
+      }
+    }
   }
 
   const tabButtonLine=document.getElementById(id+"_"+key+"_Tabs");
