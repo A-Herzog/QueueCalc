@@ -2,6 +2,8 @@
 
 Queue calculator is a web service for calculating the characteristics of different queueing models.
 
+[![Screenshot showing the user-interface of Queue calculator](ScreenshotQueueCalc.png)](https://a-herzog.github.io/QueueCalc)
+
 ## Usage
 
 To use queue calculator just go to
