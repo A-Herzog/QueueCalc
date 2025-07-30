@@ -824,12 +824,7 @@ class TilesBuilder {
     return null;
   }
 
-  /**
-   * Updates to permalink for this tile
-   * @param {String} mode "Values", "Table" or "Diagram"
-   * @param {*} values Current values of the input fields
-   */
-  #updatePermalink(mode, values) {
+  #buildPermalink(mode, values) {
     /* Collect values */
     const settings=new Map();
     for (let i=0;i<Math.min(this.tiles.length,values.length);i++) {
@@ -851,15 +846,34 @@ class TilesBuilder {
     const currentItemA=document.getElementsByClassName("dropdown-item active");
     if (currentItemA.length!=1) return;
     const currentItemId=currentItemA[0].parentNode.id;
-    if (!currentItemId.startsWith("menu")) return;
+    if (!currentItemId.startsWith("menu")) return null;
     const currentFunction="function="+currentItemId.substring(4);
 
     /* Get location */
     const url=window.location.protocol+"//"+window.location.host+window.location.pathname;
 
+    /* Build link */
+    return url+"?"+currentFunction+"&"+settingsArray.join("&");
+  }
+
+  /**
+   * Updates to permalink for this tile
+   * @param {String} mode "Values", "Table" or "Diagram"
+   * @param {*} values Current values of the input fields
+   */
+  #updatePermalink(mode, values) {
+    const permalink=this.#buildPermalink(mode,values);
+    if (permalink==null) return;
+
     /* Update link */
     const link=document.getElementById(this.formula+mode+"Permalink");
-    if (link!=null) link.href=url+"?"+currentFunction+"&"+settingsArray.join("&");
+    if (link!=null) link.href=permalink;
+
+    /* Update history */
+    if (window.history && window.history.replaceState) {
+      if (window.history.state && window.history.state.link==permalink) return;
+      window.history.pushState({link: permalink}, '', permalink);
+    }
   }
 
   /**
@@ -1494,3 +1508,8 @@ function initChart(id, labels, datasets, options) {
 
   charts.set(id,chart);
 }
+
+
+window.addEventListener("popstate",(event)=>{
+  window.location= event.state?.link || document.location.href;
+});
