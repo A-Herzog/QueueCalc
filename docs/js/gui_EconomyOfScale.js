@@ -124,7 +124,7 @@ function calcEconomyOfScaleTable(mode) {
   const input=tilesEconomyOfScale.rangeValues(mode);
   if (input==null) return null;
 
-  let table=new Table();
+  let table=new Table(language.GUI.formulaEconomyOfScaleLong+" - "+language.GUI.results);
 
   table.addHeading('E[I]',language.model.inputInterArrivalTimeMean);
   table.addHeading('CV[I]',language.model.inputInterArrivalTimeCV);

@@ -129,7 +129,7 @@ function calcCallCenterTable(mode) {
   const input=tilesCallCenter.rangeValues(mode);
   if (input==null) return null;
 
-  let table=new Table();
+  let table=new Table(language.GUI.formulaCallCenterLong+" - "+language.GUI.results);
 
   table.addHeading('E[I]',language.model.inputInterArrivalTimeMean);
   table.addHeading('E[S]',language.model.inputServiceTimeMean);

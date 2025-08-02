@@ -31,13 +31,13 @@ limitations under the License.
 If arrivals and service are <strong>timed</strong> (i.e., a customer arrives every exactly 60 seconds, for example, and a service always takes exactly 59 seconds), there will be no queues. In all other cases, temporary queues may occur. The queueing theory provides insights into how long the resulting queues are on average, how long customers will have to wait on average, and also the distribution of waiting times.
 </p>
 
-<h5>Waiting times in customer service</h5>
+<h4 class='h5'>Waiting times in customer service</h4>
 
 <p>
 On this basis, the owners of the systems can make optimizations. In the call center sector, for example, the goal is often that 80% of callers should not have to wait longer than 20 seconds. With a known average number of callers per minute and a known average waiting time, the necessary number of operators is now sought to meet these targets.
 </p>
 
-<h5>Waiting times in production</h5>
+<h4 class='h5'>Waiting times in production</h4>
 
 <p>
 Current <a href="https://link.springer.com/book/10.1007/978-3-642-01405-5" target="_blank">research</a> shows that workpieces typically wait <strong>75% of the total cycle time</strong> as they move through a production line, meaning that reducing mean wait times has a significant impact on total cycle time.
@@ -45,13 +45,13 @@ Current <a href="https://link.springer.com/book/10.1007/978-3-642-01405-5" targe
 
 <h3>Basic concepts</h3>
 
-<h5>Clients and operators</h5>
+<h4 class='h5'>Clients and operators</h4>
 
 <p>
 In queueing theory, one always speaks of "clients" and "operators". The clients can be e.g. airplanes and the operators can be runways and so on.
 </p>
 
-<h5>Arrivals</h5>
+<h4 class='h5'>Arrivals</h4>
 
 <p>
 Arrivals are measured in clients per hour, clients per minute, etc., i.e. it is considered how many clients arrive on average in a certain period of time. Instead of working with the mean number of arrivals, the mean time between two arrivals, the so-called <strong>mean inter-arrival time E[I]</strong>, is usually used. The smaller E[I] is, the more clients will arrive per time unit.
@@ -61,7 +61,7 @@ Arrivals are measured in clients per hour, clients per minute, etc., i.e. it is 
 When studying a queueing system, it is important to consider how uniformly clients arrive. If a client arrives every exactly 60 seconds and a service takes exactly 59 seconds each, no one has to wait. If, however, the interval between two arrivals is once 30 and once 90 seconds (i.e. still 60 seconds on average), waiting times will occur. Therefore, it is helpful if the standard deviation of the inter-arrival times Std[I] is also known. If clients cannot see the queues and do not coordinate, Std[I]=E[I] applies. For timed arrivals, it holds Std[I]=0.
 </p>
 
-<h5>Arriva rate</h5>
+<h4 class='h5'>Arriva rate</h4>
 
 <p>
 As an alternative to the mean inter-arrival time E[I], the arrival rate &lambda; is also frequently used. It is the reciprocal of the mean inter-arrival time. I.e. a short mean inter-arrival time corresponds to a high value of &lambda;:
@@ -90,7 +90,7 @@ As an alternative to the mean inter-arrival time E[I], the arrival rate &lambda;
 So, for example, a mean inter-arrival time of 2 minutes corresponds to an arrival rate of ½ client per minute.
 </p>
 
-<h5>Service</h5>
+<h4 class='h5'>Service</h4>
 
 <p>
 The service process is characterized by the average <strong>service time E[S]</strong>. The larger E[S] is, the longer an operation takes.
@@ -100,7 +100,7 @@ The service process is characterized by the average <strong>service time E[S]</s
 Here, too, the more uniform the service times are, the fewer waiting times will occur. Therefore, it is also advantageous if the variations of the service times are known in the form of the <strong>standard deviation of the service times Std[S]</strong>.
 </p>
 
-<h5>Service rate</h5>
+<h4 class='h5'>Service rate</h4>
 
 <p>
 Analogous to the arrival rate, the <strong>service rate &mu;</strong> is defined as the reciprocal of the mean service time. The longer the mean service time, the smaller is &mu;:
@@ -129,7 +129,7 @@ Analogous to the arrival rate, the <strong>service rate &mu;</strong> is defined
 If the average service time is e.g. 3 minutes, this corresponds to a service rate of 1/3 clients per minute.
 </p>
 
-<h5>Basic model of queueing theory</h5>
+<h4 class='h5'>Basic model of queueing theory</h4>
 
 <p>
 <img src="./images/BaseModel_en%%%DARK%%%.svg" loading="lazy" width="700" alt="Basic model of queueing theory" title="Basic model of queueing theory">
@@ -158,7 +158,7 @@ This basic model can be extended in many ways, e.g.:
 The basic model of the queueing theory represents a basic component of a <strong>queueing network</strong>. In a queueing network, several such components are coupled, e.g. to represent an entire production line.
 </p>
 
-<h5>Service order</h5>
+<h4 class='h5'>Service order</h4>
 
 <p>
 The service order specifies which of the waiting clients is to be served next. If the clients form a <strong>classic queue</strong>, the client who has already waited the longest, i.e. is at the front of the queue, will be served next. This is referred to as the <strong>first come first serve (FCFS)</strong> or <strong>first in first out (FIFO)</strong> operating rule. However, if the clients are (heavy) workpieces that have been stacked, the lowest workpiece may not be removed directly from this stack, i.e. it is placed on top of the stack and also pulled from the top. In this case, the <strong>last come first serve (LCFS)</strong> or the <strong>last in first out (LIFO)</strong> operating rule applies.
@@ -172,7 +172,7 @@ LIFO leads to strongly varying throughput times of individual workpieces through
 In addition, if clients of different types arrive at a queue, a <strong>priority formula</strong> can be used to select the client to be served next in each case.
 </p>
 
-<h5>Probability distributions</h5>
+<h4 class='h5'>Probability distributions</h4>
 
 <p>
 In the simplest case, arrivals and serves are described only by arrival and serve rate, i.e., a complex process in each case is characterized by only a single number. If a client arrives at the system every exactly 2 minutes, this results in an average inter-arrival time of 2 minutes or an arrival rate of 0.5 clients per minute. If, however, the inter-arrival time is now 1 and 3 minutes alternately, then it is just as true that the mean inter-arrival time is 2 minutes, but it is likely to be significantly more difficult to serve such a client arrival stream without waiting times.
@@ -200,7 +200,7 @@ In summary: For the inter-arrival times, the exponential distribution is suitabl
 If the standard deviation of the service times is not known, values in the range 0.2x to 0.8x of the expected value are usually used. The higher the human influence on the service times, the higher the standard deviation should be, or the more automated the process, the lower the standard deviation should be.
 </p>
 
-<h5>Kendall notation</h5>
+<h4 class='h5'>Kendall notation</h4>
 
 <p>
 Queueing models can be described by the so-called Kendall notation. In its simplest form, this description has the following appearance:
@@ -231,7 +231,7 @@ For the description of more complex models there are numerous <a href="https://d
 
 <h3>Parameters</h3>
 
-<h5>Workload</h5>
+<h4 class='h5'>Workload</h4>
 
 <p>
 The <strong>workload a</strong> is the quotient of arrival and service rate:
@@ -260,7 +260,7 @@ a = \frac{\lambda}{\mu} = \frac{Number of arrivals}{Number of service processes 
 (In the last fraction, the numerator and denominator each refer to the same unit of time). The workload, when rounded up to the next integer, indicates the minimum number of operators required for the system to operate stably in the long term. If c&lt;a, then on average more clients will arrive than the operators can serve on average, i.e. in the long term the queue will become longer and longer.
 </p>
 
-<h5>Utilization</h5>
+<h4 class='h5'>Utilization</h4>
 
 <p>
 The <strong>utilization &rho;</strong> is a value between 0 and 1. It results when the workload is divided by the number of operators:
@@ -293,13 +293,13 @@ While those who have to pay the operators or buy the process stations want a hig
 In a queueing system without queue abandoners or other special features, the condition &rho;&lt;1 means that &lambda;&lt;c&mu; has to be hold.
 </p>
 
-<h5>Waiting time</h5>
+<h4 class='h5'>Waiting time</h4>
 
 <p>
 The <strong>mean waiting time E[W]</strong> of the clients is obtained by an analytical formula (see below) for simple models or by a simulation for more complex models.
 </p>
 
-<h5>Residence time</h5>
+<h4 class='h5'>Residence time</h4>
 
 <p>
 The total amount of time a client spends at a process station is made up of the waiting time and the service time. For the mean <strong>residence time E[V]</strong> holds:
@@ -326,13 +326,13 @@ The mean residence time is the sum of the mean waiting time E[W] and the mean se
 In the industrial context, the residence time is also referred to as the cycle time. The aim is usually to minimize the cycle time. Since the necessary service times are usually fixed by the operating speed of the respective machines, this practically means that the avoidable waiting times are to be reduced.
 </p>
 
-<h5>Delivery reliability</h5>
+<h4 class='h5'>Delivery reliability</h4>
 
 <p>
 Assuming that the machines do not work faster or slower in long queues, i.e. that the waiting times and the service times are stochastically independent, the variation of the residence times is also equal to the sum of the variation of the waiting times and the service times. A high variation of the residence times means that the completion dates of individual products can only be predicted with difficulty, i.e. delivery dates promised in advance can often not be met. Consequently, the aim is to keep the variation in residence times as low as possible. Since the variation in service times can usually be influenced just as little as the average service time, this means that the variation in waiting times should be minimized.
 </p>
 
-<h5>WIP</h5>
+<h4 class='h5'>WIP</h4>
 
 <p>
 The abbreviation "WIP" stands for "Work units in process", i.e. the number of workpieces in the process (waiting or in service). The <strong>average number of workpieces or clients in the system</strong> is denoted by <strong>E[N]</strong>.
@@ -344,7 +344,7 @@ If one is only interested in the average number of waiting clients, the symbol <
 
 <h3>Calculation of the performance indicators</h3>
 
-<h5>Little's law</h5>
+<h4 class='h5'>Little's law</h4>
 
 <p>
 Little's law establishes a relationship between the number of clients in the system and the mean residence time, or between the number of clients waiting and the mean waiting time:
@@ -395,7 +395,7 @@ E[V] = \frac{E[N]}{\lambda}
 Little's law applies regardless of which distributions are given for inter-arrival and service times.
 </p>
 
-<h5>Further simple relations</h5>
+<h4 class='h5'>Further simple relations</h4>
 
 <p>
 The residence time is the sum of the waiting time and the service time:
@@ -439,7 +439,7 @@ I.e. the average queue length E[N<sub>Q</sub>] and the average number of clients
 If &lambda;, &mu; and c are given, it is sufficient to know one of the other quantities E[W], E[V], E[N<sub>Q</sub>] or E[N] to be able to calculate the other performance indicators. However, exactly this determination of one of the four values is not easy in most cases.
 </p>
 
-<h5>One-operator model</h5>
+<h4 class='h5'>One-operator model</h4>
 
 <p>
 For M/M/1 models, i.e., for exponentially distributed inter-arrival and service times and one operator, the performance indicators can be easily calculated. The following apply:
@@ -485,7 +485,7 @@ E[V] = \frac{a}{\mu-\lambda}+\frac{1}{\mu}
 </math></p>
 
 
-<h5>Erlang C formula</h5>
+<h4 class='h5'>Erlang C formula</h4>
 
 <p>
 If the inter-arrival times and the service times are exponentially distributed and there are c&ge;1 operators in the system, then according to the Kendall notation it is an M/M/c model. For this, P(W&le;t), i.e. the probability that a client has to wait at most t&ge;0 seconds, can be calculated using the Erlang C formula:
@@ -562,7 +562,7 @@ E[V] = P_1 \frac{1}{c\mu-\lambda} + \frac{1}{\mu}
 The Erlang C formula can also be extended to include impatient customers (i.e. waiting cancellers). This formula will not be printed here.
 </p>
 
-<h5>Allen-Cunneen approximation formula</h5>
+<h4 class='h5'>Allen-Cunneen approximation formula</h4>
 
 <p>
 If the inter-arrival or service times are no longer exponentially distributed, i.e. if E[I]=Std[I] and E[S]=Std[S] do not apply anymore, the models can no longer be solved exactly for c>1. For this case the Allen-Cunneen approximation formula is available.
@@ -668,7 +668,7 @@ Since the mainframe weeks of those days are now smartphone seconds, it is only w
 <h3>More about queueing theory</h3>
 
 <a href="https://link.springer.com/book/10.1007/978-3-658-34668-3" target="_blank">
-<img src="./images/CoverHerzogSimulationMitDemWarteschlangensimulator_small.png" loading="lazy" style="float: right;" width="200px;" alt="Simulation mit dem Warteschlangensimulator">
+<img src="./images/CoverHerzogSimulationMitDemWarteschlangensimulator_small.png" loading="lazy" style="float: right;" width="200px;" alt="Simulation mit dem Warteschlangensimulator" title="Simulation mit dem Warteschlangensimulator">
 </a>
 
 <p>
@@ -697,4 +697,4 @@ In principle, simulation methods can be used to represent all desired model prop
 The runtimes for many models are in the single-digit second range, so that earlier statements that simulations are too slow and that it is better to use an (inaccurate but fast) approximation formula are now outdated.
 </p>
 
-<p>The <a href="javascript:void(0);" onclick="showTab('Simulation');">Simulation</a> page presents some open source programs and web services for modeling and simulating queueing networks.</p>
+<p>The <button class="btn btn-link" onclick="showTab('Simulation');">Simulation</button> page presents some open source programs and web services for modeling and simulating queueing networks.</p>

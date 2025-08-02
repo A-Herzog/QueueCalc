@@ -272,7 +272,7 @@ function calcExtACTable(mode) {
   const input=tilesExtAC.rangeValues(mode);
   if (input==null) return null;
 
-  let table=new Table();
+  let table=new Table(language.GUI.formulaExtACLong+" - "+language.GUI.results);
 
   table.addHeading('E[I]',language.model.inputInterArrivalTimeMean);
   table.addHeading('CV[I]',language.model.inputInterArrivalTimeCV);
@@ -329,7 +329,7 @@ function updateExtACValues() {
   const data=calcExtAC(input);
 
   let result='';
-  result+="<h5>"+language.statistics.headingInputParameters+"</h5>\n";
+  result+="<h4 class='h5'>"+language.statistics.headingInputParameters+"</h4>\n";
   result+="<p>\n";
 
   let infoBI='';
@@ -353,13 +353,13 @@ function updateExtACValues() {
 
   result+="</p>\n";
 
-  result+="<h5>"+language.statistics.headingDirectCalculableParameters+"</h5>\n";
+  result+="<h4 class='h5'>"+language.statistics.headingDirectCalculableParameters+"</h4>\n";
   result+="<p>\n";
   result+=language.statistics.Workload+": <b>a="+data.a.toLocaleString()+" "+language.statistics.WorkloadErlang+"</b><br>\n";
   result+=language.statistics.Utilization+": <b>&rho;="+(data.rho*100).toLocaleString()+"%</b>\n";
   result+="</p>\n";
 
-  result+="<h5>"+language.statistics.headingACResults+"</h5>\n";
+  result+="<h4 class='h5'>"+language.statistics.headingACResults+"</h4>\n";
   result+="<p>\n";
   if (data.rho>=1) {
       result+=language.statistics.rhoError;
@@ -374,7 +374,7 @@ function updateExtACValues() {
   result+="</p>\n";
 
   if (typeof(data.KLB)!='undefined' || typeof(data.H)!='undefined') {
-    result+="<h5>"+language.statistics.headingACCorrectionFactors+"</h5>\n";
+    result+="<h4 class='h5'>"+language.statistics.headingACCorrectionFactors+"</h4>\n";
     result+="<p>\n";
     if (typeof(data.KLB)!='undefined') result+=language.statistics.CorrectionFactorKLB+"="+data.KLB.toLocaleString();
     if (typeof(data.KLB)!='undefined' && typeof(data.H)!='undefined') result+="<br>";

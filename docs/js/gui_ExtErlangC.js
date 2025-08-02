@@ -163,7 +163,7 @@ function calcExtErlangCTable(mode) {
   const input=tilesExtErlangC.rangeValues(mode);
   if (input==null) return null;
 
-  let table=new Table();
+  let table=new Table(language.GUI.formulaExtErlangCLong+" - "+language.GUI.results);
 
   table.addHeading('E[I]',language.model.inputInterArrivalTimeMean);
   table.addHeading('E[S]',language.model.inputServiceTimeMean);
@@ -242,7 +242,7 @@ function updateExtErlangCValues() {
   const data=calcExtErlangC(input);
 
   let result='';
-  result+="<h5>"+language.statistics.headingInputParameters+"</h5>\n";
+  result+="<h4 class='h5'>"+language.statistics.headingInputParameters+"</h4>\n";
   result+="<p>\n";
   result+=language.statistics.arrivalRate+': <b>&lambda;='+(1/data.EI).toLocaleString()+"</b> <small>("+language.statistics.arrivalRateInfo+" E[I]="+data.EI.toLocaleString()+")</small><br>\n";
   result+=language.statistics.serviceRate+': <b>&mu;='+(1/data.ES).toLocaleString()+"</b> <small>("+language.statistics.serviceRateInfo+" E[S]="+data.ES.toLocaleString()+")</small><br>\n";
@@ -250,13 +250,13 @@ function updateExtErlangCValues() {
   result+=language.statistics.SystemSize+': <b>K='+data.K+"</b> <small>("+language.statistics.SystemSizeInfo+": "+(data.K+data.c)+")</small><br>\n";
   result+=language.statistics.NumberOfOperators+': <b>c='+data.c+"</b>\n";
   result+="</p>\n";
-  result+="<h5>"+language.statistics.headingDirectCalculableParameters+"</h5>\n";
+  result+="<h4 class='h5'>"+language.statistics.headingDirectCalculableParameters+"</h4>\n";
   result+="<p>\n";
   result+=language.statistics.Workload+": <b>a="+(data.ES/data.EI).toLocaleString()+" "+language.statistics.WorkloadErlang+"</b><br>\n";
   result+=language.statistics.Utilization+": <b>&rho;="+(data.rho*100).toLocaleString()+"%</b><br>\n";
   result+="<small>("+language.statistics.UtilizationInputInfo+")</small>\n";
   result+="</p>\n";
-  result+="<h5>"+language.statistics.headingErlangCResults+"</h5>\n";
+  result+="<h4 class='h5'>"+language.statistics.headingErlangCResults+"</h4>\n";
   result+="<p>\n";
   if (data.K<data.c) {
     result+=language.statistics.SystemSizeError;

@@ -168,6 +168,7 @@ lang.GUI.homeURL="warteschlangensimulation.de";
 lang.GUI.Imprint="Impressum";
 lang.GUI.Privacy="Datenschutz";
 lang.GUI.Permalink="Permalink zu diesen Einstellungen";
+lang.GUI.ModelImage="Darstellung des Warteschlangenmodells";
 
 lang.WaitingTimeDist={};
 lang.WaitingTimeDist.button="Wartezeitverteilung anzeigen";
@@ -425,7 +426,7 @@ lang.text.ErlangBTable=`
 <p>
 Wählen Sie für einen Parameter den Modus "<b>Variabel</b>" aus. Dieser wird dann in einem vorgegebenen Bereich variiert.
 Die Kenngrößen des M/M/c/c-Modells für die jeweiligen Parameter werden als Tabelle ausgegeben. Eine Erklärungen der Bedeutung der Eingabeparameter
-finden Sie auf der Seite <a href="javascript:void(0);" onclick="showTab('ErlangBValues');">Erlang-B-Formel Einzelwerte</a>.
+finden Sie auf der Seite <button class="btn btn-link" onclick="showTab('ErlangBValues');">Erlang-B-Formel Einzelwerte</button>.
 </p>
 `;
 
@@ -433,7 +434,7 @@ lang.text.ErlangBDiagram=`
 <p>
 Wählen Sie für einen Parameter den Modus "<b>Variabel</b>" aus. Dieser wird dann in einem vorgegebenen Bereich variiert.
 Die Kenngrößen des M/M/c/c-Modells für die jeweiligen Parameter werden als Diagramm dargestellt. Eine Erklärungen der Bedeutung der Eingabeparameter
-finden Sie auf der Seite <a href="javascript:void(0);" onclick="showTab('ErlangBValues');">Erlang-B-Formel Einzelwerte</a>.
+finden Sie auf der Seite <button class="btn btn-link" onclick="showTab('ErlangBValues');">Erlang-B-Formel Einzelwerte</button>.
 </p>
 `;
 
@@ -485,7 +486,7 @@ lang.text.ErlangCTable=`
 <p>
 Wählen Sie für einen Parameter den Modus "<b>Variabel</b>" aus. Dieser wird dann in einem vorgegebenen Bereich variiert.
 Die Kenngrößen des M/M/c-Modells für die jeweiligen Parameter werden als Tabelle ausgegeben. Eine Erklärungen der Bedeutung der Eingabeparameter
-finden Sie auf der Seite <a href="javascript:void(0);" onclick="showTab('ErlangCValues');">Erlang-C-Formel Einzelwerte</a>.
+finden Sie auf der Seite <button class="btn btn-link" onclick="showTab('ErlangCValues');">Erlang-C-Formel Einzelwerte</button>.
 </p>
 `;
 
@@ -493,13 +494,13 @@ lang.text.ErlangCDiagram=`
 <p>
 Wählen Sie für einen Parameter den Modus "<b>Variabel</b>" aus. Dieser wird dann in einem vorgegebenen Bereich variiert.
 Die Kenngrößen des M/M/c-Modells für die jeweiligen Parameter werden als Diagramm dargestellt. Eine Erklärungen der Bedeutung der Eingabeparameter
-finden Sie auf der Seite <a href="javascript:void(0);" onclick="showTab('ErlangCValues');">Erlang-C-Formel Einzelwerte</a>.
+finden Sie auf der Seite <button class="btn btn-link" onclick="showTab('ErlangCValues');">Erlang-C-Formel Einzelwerte</button>.
 </p>
 `;
 
 lang.text.ExtErlangCValues=`
 <p>
-Die erweiterte Erlang-C-Formel ergänzt das für die <a href="javascript:void(0);" onclick="showTab('ErlangCValues');">Erlang-C-Formel</a>
+Die erweiterte Erlang-C-Formel ergänzt das für die <button class="btn btn-link" onclick="showTab('ErlangCValues');">Erlang-C-Formel</button>
 betrachtete Modell um eine begrenzte <b>Wartezeittoleranz</b> der Kunden sowie um eine Begrenzung der <b>Größe des Warteraums</b>. Treffen Kunden ein, während
 alle Warte- und Bedienplätze belegt sind, so werden diese abgewiesen.
 </p>
@@ -507,7 +508,7 @@ alle Warte- und Bedienplätze belegt sind, so werden diese abgewiesen.
 <p>
 Die generelle Einschränkung der Erlang-Modelle, dass alls Zufallsgrößen gemäß der Exponentialverteilung verteilt sein müssen, beleibt weiter bestehen. Sollen beliebige
 Wahrscheinlichkeitsverteilungen (die nur noch über ihre Kenngrößen charakterisiert werden), so muss auf die
-<a href="javascript:void(0);" onclick="showTab('ACValues');">Allen-Cunneen-Näherungsformel</a> zurückgegriffen werden.
+<button class="btn btn-link" onclick="showTab('ACValues');">Allen-Cunneen-Näherungsformel</button> zurückgegriffen werden.
 </p>
 `;
 
@@ -528,7 +529,7 @@ lang.text.ExtErlangCTable=`
 <p>
 Wählen Sie für einen Parameter den Modus "<b>Variabel</b>" aus. Dieser wird dann in einem vorgegebenen Bereich variiert.
 Die Kenngrößen des M/M/c/K+M-Modells für die jeweiligen Parameter werden als Tabelle ausgegeben. Eine Erklärungen der Bedeutung der Eingabeparameter
-finden Sie auf der Seite <a href="javascript:void(0);" onclick="showTab('ExtErlangCValues');">erweiterte Erlang-C-Formel Einzelwerte</a>.
+finden Sie auf der Seite <button class="btn btn-link" onclick="showTab('ExtErlangCValues');">erweiterte Erlang-C-Formel Einzelwerte</button>.
 </p>
 `;
 
@@ -536,17 +537,17 @@ lang.text.ExtErlangCDiagram=`
 <p>
 Wählen Sie für einen Parameter den Modus "<b>Variabel</b>" aus. Dieser wird dann in einem vorgegebenen Bereich variiert.
 Die Kenngrößen des M/M/c/K+M-Modells für die jeweiligen Parameter werden als Diagramm dargestellt. Eine Erklärungen der Bedeutung der Eingabeparameter
-finden Sie auf der Seite <a href="javascript:void(0);" onclick="showTab('ExtErlangCValues');">erweiterte Erlang-C-Formel Einzelwerte</a>.
+finden Sie auf der Seite <button class="btn btn-link" onclick="showTab('ExtErlangCValues');">erweiterte Erlang-C-Formel Einzelwerte</button>.
 </p>
 `;
 
 lang.text.PCValues=`
 <p>
-Bei der Verwendung der <a href="javascript:void(0);" onclick="showTab('ErlangCValues');">Erlang-C-Formel</a> ist die Exponentialverteilung für die Zwischenankunfts- und Bedienzeiten automatisch festgelegt.
+Bei der Verwendung der <button class="btn btn-link" onclick="showTab('ErlangCValues');">Erlang-C-Formel</button> ist die Exponentialverteilung für die Zwischenankunfts- und Bedienzeiten automatisch festgelegt.
 Bei der Exponentialverteilung kann lediglich der Erwartungswert eingestellt werden. Der Variationskoeffizient beträgt stets 1. Bei der Pollaczek-Chintschin-Formel ist für die Bediendauern keine konkrete Verteilung
 vorgegeben. Es müssen jediglich der <b>Erwartungswert</b> und der <b>Variationskoeffizient</b> eingestellt werden, d.h. die
 Pollaczek-Chintschin-Formel bietet hier mehr Freiheiten. Der Nachteil besteht jedoch darin, die Formel nur für <b>c=1</b> Bediener gilt. Sollen allgemeine Bediendauern
-und Bedieneranzahlen &gt;1 betrachtet werden, so muss stattdessen zur <a href="javascript:void(0);" onclick="showTab('ACValues');">Allen-Cunneen-Näherungsformel</a>
+und Bedieneranzahlen &gt;1 betrachtet werden, so muss stattdessen zur <button class="btn btn-link" onclick="showTab('ACValues');">Allen-Cunneen-Näherungsformel</button>
 übergegangen werden, die jedoch keine exakten Ergebnisse, sondern nur Näherungswerte liefert.
 </p>
 `;
@@ -569,7 +570,7 @@ lang.text.PCTable=`
 <p>
 Wählen Sie für einen Parameter den Modus "<b>Variabel</b>" aus. Dieser wird dann in einem vorgegebenen Bereich variiert.
 Die Kenngrößen des M/G/1-Modells für die jeweiligen Parameter werden als Tabelle ausgegeben. Eine Erklärungen der Bedeutung der Eingabeparameter
-finden Sie auf der Seite <a href="javascript:void(0);" onclick="showTab('PCValues');">Pollaczek-Chintschin-Formel Einzelwerte</a>.
+finden Sie auf der Seite <button class="btn btn-link" onclick="showTab('PCValues');">Pollaczek-Chintschin-Formel Einzelwerte</button>.
 </p>
 `;
 
@@ -577,13 +578,13 @@ lang.text.PCDiagram=`
 <p>
 Wählen Sie für einen Parameter den Modus "<b>Variabel</b>" aus. Dieser wird dann in einem vorgegebenen Bereich variiert.
 Die Kenngrößen des M/G/1-Modells für die jeweiligen Parameter werden als Diagramm dargestellt. Eine Erklärungen der Bedeutung der Eingabeparameter
-finden Sie auf der Seite <a href="javascript:void(0);" onclick="showTab('PCValues');">Pollaczek-Chintschin-Formel Einzelwerte</a>.
+finden Sie auf der Seite <button class="btn btn-link" onclick="showTab('PCValues');">Pollaczek-Chintschin-Formel Einzelwerte</button>.
 </p>
 `;
 
 lang.text.KingmanValues=`
 <p>
-Bei der Verwendung der <a href="javascript:void(0);" onclick="showTab('ErlangCValues');">Erlang-C-Formel</a> ist die Exponentialverteilung für die Zwischenankunfts- und Bedienzeiten automatisch festgelegt. Bei der Exponentialverteilung kann
+Bei der Verwendung der <button class="btn btn-link" onclick="showTab('ErlangCValues');">Erlang-C-Formel</button> ist die Exponentialverteilung für die Zwischenankunfts- und Bedienzeiten automatisch festgelegt. Bei der Exponentialverteilung kann
 lediglich der Erwartungswert eingestellt werden. Der Variationskoeffizient beträgt stets 1. Bei der Kingman-Näherungsformel ist keine konkrete Verteilung mehr für
 die Zwischenankunfts- und Bedienzeiten vorgegeben. Es müssen jediglich der <b>Erwartungswert</b> und der <b>Variationskoeffizient</b> eingestellt werden, d.h. die
 Kingman-Näherungsformel bietet hier mehr Freiheiten. Der Nachteil besteht jedoch darin, dass die Ergebnisse nur noch Näherungen sind und keine exakte Übereinstimmung
@@ -610,7 +611,7 @@ lang.text.KingmanTable=`
 <p>
 Wählen Sie für einen Parameter den Modus "<b>Variabel</b>" aus. Dieser wird dann in einem vorgegebenen Bereich variiert.
 Die Kenngrößen des G/G/1-Modells für die jeweiligen Parameter werden als Tabelle ausgegeben. Eine Erklärungen der Bedeutung der Eingabeparameter
-finden Sie auf der Seite <a href="javascript:void(0);" onclick="showTab('KingmanValues');">Kingman-Näherungsformel Einzelwerte</a>.
+finden Sie auf der Seite <button class="btn btn-link" onclick="showTab('KingmanValues');">Kingman-Näherungsformel Einzelwerte</button>.
 </p>
 `;
 
@@ -618,13 +619,13 @@ lang.text.KingmanDiagram=`
 <p>
 Wählen Sie für einen Parameter den Modus "<b>Variabel</b>" aus. Dieser wird dann in einem vorgegebenen Bereich variiert.
 Die Kenngrößen des G/G/1-Modells für die jeweiligen Parameter werden als Diagramm dargestellt. Eine Erklärungen der Bedeutung der Eingabeparameter
-finden Sie auf der Seite <a href="javascript:void(0);" onclick="showTab('KingmanValues');">Kingman-Näherungsformel Einzelwerte</a>.
+finden Sie auf der Seite <button class="btn btn-link" onclick="showTab('KingmanValues');">Kingman-Näherungsformel Einzelwerte</button>.
 </p>
 `;
 
 lang.text.ACValues=`
 <p>
-Bei der Verwendung der <a href="javascript:void(0);" onclick="showTab('ErlangCValues');">Erlang-C-Formel</a> ist die Exponentialverteilung für die Zwischenankunfts- und Bedienzeiten automatisch festgelegt. Bei der Exponentialverteilung kann
+Bei der Verwendung der <button class="btn btn-link" onclick="showTab('ErlangCValues');">Erlang-C-Formel</button> ist die Exponentialverteilung für die Zwischenankunfts- und Bedienzeiten automatisch festgelegt. Bei der Exponentialverteilung kann
 lediglich der Erwartungswert eingestellt werden. Der Variationskoeffizient beträgt stets 1. Bei der Allen-Cunneen-Näherungsformel ist keine konkrete Verteilung mehr für
 die Zwischenankunfts- und Bedienzeiten vorgegeben. Es müssen jediglich der <b>Erwartungswert</b> und der <b>Variationskoeffizient</b> eingestellt werden, d.h. die
 Allen-Cunneen-Näherungsformel bietet hier mehr Freiheiten. Der Nachteil besteht jedoch darin, dass die Ergebnisse nur noch Näherungen sind und keine exakte Übereinstimmung
@@ -650,7 +651,7 @@ lang.text.ACTable=`
 <p>
 Wählen Sie für einen Parameter den Modus "<b>Variabel</b>" aus. Dieser wird dann in einem vorgegebenen Bereich variiert.
 Die Kenngrößen des G/G/c-Modells für die jeweiligen Parameter werden als Tabelle ausgegeben. Eine Erklärungen der Bedeutung der Eingabeparameter
-finden Sie auf der Seite <a href="javascript:void(0);" onclick="showTab('ACValues');">Allen-Cunneen-Formel Einzelwerte</a>.
+finden Sie auf der Seite <button class="btn btn-link" onclick="showTab('ACValues');">Allen-Cunneen-Formel Einzelwerte</button>.
 </p>
 `;
 
@@ -658,14 +659,14 @@ lang.text.ACDiagram=`
 <p>
 Wählen Sie für einen Parameter den Modus "<b>Variabel</b>" aus. Dieser wird dann in einem vorgegebenen Bereich variiert.
 Die Kenngrößen des G/G/c-Modells für die jeweiligen Parameter werden als Diagramm dargestellt. Eine Erklärungen der Bedeutung der Eingabeparameter
-finden Sie auf der Seite <a href="javascript:void(0);" onclick="showTab('ACValues');">Allen-Cunneen-Formel Einzelwerte</a>.
+finden Sie auf der Seite <button class="btn btn-link" onclick="showTab('ACValues');">Allen-Cunneen-Formel Einzelwerte</button>.
 </p>
 `;
 
 lang.text.ExtACValues=`
 <p>
 Die erweiterte Allen-Cunneen-Näherungsformel ergänzt die Modellierungsmöglichkeiten der
-<a href="javascript:void(0);" onclick="showTab('ACValues');">Allen-Cunneen-Näherungsformel</a>
+<button class="btn btn-link" onclick="showTab('ACValues');">Allen-Cunneen-Näherungsformel</button>
 um <b>Ankunfts- und Bedien-Batches</b> sowie um eine <b>begrenzte Verfügbarkeit</b> der Bediener.
 </p>
 <p>
@@ -701,7 +702,7 @@ lang.text.ExtACTable=`
 <p>
 Wählen Sie für einen Parameter den Modus "<b>Variabel</b>" aus. Dieser wird dann in einem vorgegebenen Bereich variiert.
 Die Kenngrößen des G/G/c-Modells für die jeweiligen Parameter werden als Tabelle ausgegeben. Eine Erklärungen der Bedeutung der Eingabeparameter
-finden Sie auf der Seite <a href="javascript:void(0);" onclick="showTab('ExtACValues');">erweiterte Allen-Cunneen-Näherungsformel Einzelwerte</a>.
+finden Sie auf der Seite <button class="btn btn-link" onclick="showTab('ExtACValues');">erweiterte Allen-Cunneen-Näherungsformel Einzelwerte</button>.
 </p>
 `;
 
@@ -709,7 +710,7 @@ lang.text.ExtACDiagram=`
 <p>
 Wählen Sie für einen Parameter den Modus "<b>Variabel</b>" aus. Dieser wird dann in einem vorgegebenen Bereich variiert.
 Die Kenngrößen des G/G/c-Modells für die jeweiligen Parameter werden als Diagramm dargestellt. Eine Erklärungen der Bedeutung der Eingabeparameter
-finden Sie auf der Seite <a href="javascript:void(0);" onclick="showTab('ExtACValues');">erweiterte Allen-Cunneen-Näherungsformel Einzelwerte</a>.
+finden Sie auf der Seite <button class="btn btn-link" onclick="showTab('ExtACValues');">erweiterte Allen-Cunneen-Näherungsformel Einzelwerte</button>.
 </p>
 `;
 
@@ -792,7 +793,7 @@ In dem Rechenmodell kann die mittlere Auslastung (&rho;) der Bediener fest vorge
 
 lang.text.CallCenterDiagram=`
 <p>
-Sofern Anrufwiederholungen nicht abgebildet werden müssen, können Callcenter über die <a href="javascript:void(0);" onclick="showTab('ExtErlangCValues');">erweiterte Erlang-C-Formel</a> abgebildet werden.
+Sofern Anrufwiederholungen nicht abgebildet werden müssen, können Callcenter über die <button class="btn btn-link" onclick="showTab('ExtErlangCValues');">erweiterte Erlang-C-Formel</button> abgebildet werden.
 Während Anrufsraten und Bediendauern meist nicht beeinflussbar sind, ist die Anzahl an eingesetzten Agenten die Stellgröße, über die Betriebskosten und Leistungskenngrößen des Systems optimiert werden können.
 Je mehr Agenten eingesetzt werden, desto besser fallen die Kenngrößen aus, aber auch desto mehr Lohnkosten fallen an.
 </p>
@@ -948,6 +949,7 @@ lang.GUI.homeURL="queueingsimulation.de";
 lang.GUI.Imprint="Imprint";
 lang.GUI.Privacy="Privacy";
 lang.GUI.Permalink="Permalink to these settings";
+lang.GUI.ModelImage="Illustration of the queueing model";
 
 lang.WaitingTimeDist={};
 lang.WaitingTimeDist.button="Show waiting time distribution";
@@ -1209,7 +1211,7 @@ lang.text.ErlangBTable=`
 <p>
 Select the "<b>Variable</b>" mode for a parameter. This is then varied within a specified range.
 The performance indicators of the M/M/c/c model for the respective parameters are output as a table. An explanation of the meaning of the input parameters can be found on the page
-<a href="javascript:void(0);" onclick="showTab('ErlangBValues');">Erlang-B formula individual values</a>.
+<button class="btn btn-link" onclick="showTab('ErlangBValues');">Erlang-B formula individual values</button>.
 </p>
 `;
 
@@ -1217,7 +1219,7 @@ lang.text.ErlangCDiagram=`
 <p>
 Select the "<b>Variable</b>" mode for a parameter. This is then varied within a specified range.
 The performance indicators of the M/M/c/c model for the respective parameters are output as a diagram. An explanation of the meaning of the input parameters can be found on the page
-<a href="javascript:void(0);" onclick="showTab('ErlangBValues');">Erlang-B formula individual values</a>.
+<button class="btn btn-link" onclick="showTab('ErlangBValues');">Erlang-B formula individual values</button>.
 </p>
 `;
 
@@ -1269,7 +1271,7 @@ lang.text.ErlangCTable=`
 <p>
 Select the "<b>Variable</b>" mode for a parameter. This is then varied within a specified range.
 The performance indicators of the M/M/c model for the respective parameters are output as a table. An explanation of the meaning of the input parameters can be found on the page
-<a href="javascript:void(0);" onclick="showTab('ErlangCValues');">Erlang-C formula individual values</a>.
+<button class="btn btn-link" onclick="showTab('ErlangCValues');">Erlang-C formula individual values</button>.
 </p>
 `;
 
@@ -1277,21 +1279,21 @@ lang.text.ErlangCDiagram=`
 <p>
 Select the "<b>Variable</b>" mode for a parameter. This is then varied within a specified range.
 The performance indicators of the M/M/c model for the respective parameters are output as a diagram. An explanation of the meaning of the input parameters can be found on the page
-<a href="javascript:void(0);" onclick="showTab('ErlangCValues');">Erlang-C formula individual values</a>.
+<button class="btn btn-link" onclick="showTab('ErlangCValues');">Erlang-C formula individual values</button>.
 </p>
 `;
 
 lang.text.ExtErlangCValues=`
 <p>
 The extended Erlang C formula adds a limited <b>waiting time tolerance</b> of the customers as well as a <b>limitation of the size of the waiting room</b>
-to the model considered for the <a href="javascript:void(0);" onclick="showTab('ErlangCValues');">Erlang C formula</a>.
+to the model considered for the <button class="btn btn-link" onclick="showTab('ErlangCValues');">Erlang C formula</button>.
 If customers arrive while all waiting and service stations are occupied, they are rejected to enter the queue.
 </p>
 
 <p>
 The general restriction of the Erlang models that all random variables must be distributed according to the exponential distribution remains.
 If arbitrary probability distributions (which are characterized only by their parameters) are to be used,
-the <a href="javascript:void(0);" onclick="showTab('ACValues');">Allen-Cunneen approximation formula</a> must be applied.
+the <button class="btn btn-link" onclick="showTab('ACValues');">Allen-Cunneen approximation formula</button> must be applied.
 </p>
 `;
 
@@ -1313,7 +1315,7 @@ lang.text.ExtErlangCTable=`
 Select the "<b>Variable</b>" mode for a parameter. This is then varied within a specified range.
 The performance indicators of the M/M/c/K+M model for the respective parameters are output as a table.
 An explanation of the meaning of the input parameters can be found on the page
-<a href="javascript:void(0);" onclick="showTab('ExtErlangCValues');">extended Erlang-C formula individual values</a>.
+<button class="btn btn-link" onclick="showTab('ExtErlangCValues');">extended Erlang-C formula individual values</button>.
 </p>
 `;
 
@@ -1322,18 +1324,18 @@ lang.text.ExtErlangCDiagram=`
 Select the "<b>Variable</b>" mode for a parameter. This is then varied within a specified range.
 The performance indicators of the M/M/c/K+M model for the respective parameters are output as a diagram.
 An explanation of the meaning of the input parameters can be found on the page
-<a href="javascript:void(0);" onclick="showTab('ExtErlangCValues');">extended Erlang-C formula individual values</a>.
+<button class="btn btn-link" onclick="showTab('ExtErlangCValues');">extended Erlang-C formula individual values</button>.
 </p>
 `;
 
 lang.text.PCValues=`
 <p>
-When using the <a href="javascript:void(0);" onclick="showTab('ErlangCValues');">Erlang C formula</a>, the exponential distribution is automatically set for the inter-arrival and service times.
+When using the <button class="btn btn-link" onclick="showTab('ErlangCValues');">Erlang C formula</button>, the exponential distribution is automatically set for the inter-arrival and service times.
 With the exponential distribution, only the expected value can be set. The coefficient of variation is always 1.
 In the Pollaczek-Chintschin formula, a specific distribution is no longer specified for the service times.
 Only the <b>expected value</b> and the <b>coefficient of variation</b> have to be set, i.e. the Pollaczek-Chintschin formula offers more freedom here.
 However, the disadvantage is it can only be used for <b>c=1</b> operator. If results for &gt;1 operators are needed, the
-<a href="javascript:void(0);" onclick="showTab('ACValues');">Allen-Cunneen approximation formula</a> has to be used,
+<button class="btn btn-link" onclick="showTab('ACValues');">Allen-Cunneen approximation formula</button> has to be used,
 which, however, does not provide exact results, but only approximate values.
 </p>
 `;
@@ -1357,7 +1359,7 @@ lang.text.PCTable=`
 Select the "<b>Variable</b>" mode for a parameter. This is then varied within a specified range.
 The performance indicators of the M/G/1 model for the respective parameters are output as a table.
 An explanation of the meaning of the input parameters can be found on the page
-<a href="javascript:void(0);" onclick="showTab('PCValues');">Pollaczek-Chintschin formula individual values</a>.
+<button class="btn btn-link" onclick="showTab('PCValues');">Pollaczek-Chintschin formula individual values</button>.
 </p>
 `;
 
@@ -1366,13 +1368,13 @@ lang.text.PCDiagram=`
 Select the "<b>Variable</b>" mode for a parameter. This is then varied within a specified range.
 The performance indicators of the M/G/1 model for the respective parameters are output as a diagram.
 An explanation of the meaning of the input parameters can be found on the page
-<a href="javascript:void(0);" onclick="showTab('PCValues');">Pollaczek-Chintschin formula individual values</a>.
+<button class="btn btn-link" onclick="showTab('PCValues');">Pollaczek-Chintschin formula individual values</button>.
 </p>
 `;
 
 lang.text.KingmanValues=`
 <p>
-When using the <a href="javascript:void(0);" onclick="showTab('ErlangCValues');">Erlang C formula</a>, the exponential distribution is automatically set for the inter-arrival and service times.
+When using the <button class="btn btn-link" onclick="showTab('ErlangCValues');">Erlang C formula</button>, the exponential distribution is automatically set for the inter-arrival and service times.
 With the exponential distribution, only the expected value can be set. The coefficient of variation is always 1.
 In the Kingman approximation formula, a specific distribution is no longer specified for the inter-arrival and service times.
 Only the <b>expected value</b> and the <b>coefficient of variation</b> have to be set, i.e. the Kingman approximation formula offers more freedom here.
@@ -1399,7 +1401,7 @@ lang.text.KingmanTable=`
 <p>
 Select the "<b>Variable</b>" mode for a parameter. This is then varied within a specified range.
 The performance indicators of the G/G/1 model for the respective parameters are output as a table. An explanation of the meaning of the input parameters can be found on the page
-<a href="javascript:void(0);" onclick="showTab('KingmanValues');">Kingman approximation formula individual values</a>.
+<button class="btn btn-link" onclick="showTab('KingmanValues');">Kingman approximation formula individual values</button>.
 </p>
 `;
 
@@ -1407,13 +1409,13 @@ lang.text.KingmanDiagram=`
 <p>
 Select the "<b>Variable</b>" mode for a parameter. This is then varied within a specified range.
 The performance indicators of the G/G/1 model for the respective parameters are output as a diagram. An explanation of the meaning of the input parameters can be found on the page
-<a href="javascript:void(0);" onclick="showTab('KingmanValues');">Kingman approximation formula individual values</a>.
+<button class="btn btn-link" onclick="showTab('KingmanValues');">Kingman approximation formula individual values</button>.
 </p>
 `;
 
 lang.text.ACValues=`
 <p>
-When using the <a href="javascript:void(0);" onclick="showTab('ErlangCValues');">Erlang C formula</a>, the exponential distribution is automatically set for the inter-arrival and service times.
+When using the <button class="btn btn-link" onclick="showTab('ErlangCValues');">Erlang C formula</button>, the exponential distribution is automatically set for the inter-arrival and service times.
 With the exponential distribution, only the expected value can be set. The coefficient of variation is always 1.
 In the Allen-Cunneen approximation formula, a specific distribution is no longer specified for the inter-arrival and service times.
 Only the <b>expected value</b> and the <b>coefficient of variation</b> have to be set, i.e. the Allen-Cunneen approximation formula offers more freedom here.
@@ -1439,7 +1441,7 @@ lang.text.ACTable=`
 <p>
 Select the "<b>Variable</b>" mode for a parameter. This is then varied within a specified range.
 The performance indicators of the G/G/c model for the respective parameters are output as a table. An explanation of the meaning of the input parameters can be found on the page
-<a href="javascript:void(0);" onclick="showTab('ACValues');">Allen-Cunneen approximation formula individual values</a>.
+<button class="btn btn-link" onclick="showTab('ACValues');">Allen-Cunneen approximation formula individual values</button>.
 </p>
 `;
 
@@ -1447,14 +1449,14 @@ lang.text.ACDiagram=`
 <p>
 Select the "<b>Variable</b>" mode for a parameter. This is then varied within a specified range.
 The performance indicators of the G/G/c model for the respective parameters are output as a diagram. An explanation of the meaning of the input parameters can be found on the page
-<a href="javascript:void(0);" onclick="showTab('ACValues');">Allen-Cunneen approximation formula individual values</a>.
+<button class="btn btn-link" onclick="showTab('ACValues');">Allen-Cunneen approximation formula individual values</button>.
 </p>
 `;
 
 lang.text.ExtACValues=`
 <p>
 The extended Allen-Cunneen approximation formula adds <b>arrival and service batches</b> and <b>limited operator availability</b>
-to the modeling capabilities of the <a href="javascript:void(0);" onclick="showTab('ACValues');">Allen-Cunneen approximation formula</a>.
+to the modeling capabilities of the <button class="btn btn-link" onclick="showTab('ACValues');">Allen-Cunneen approximation formula</button>.
 </p>
 <p>
 <b>Arrival batches</b> mean that not one customer arrives per arrival event, but always a certain number of customers greater than 1.
@@ -1490,7 +1492,7 @@ lang.text.ExtACTable=`
 <p>
 Select the "<b>Variable</b>" mode for a parameter. This is then varied within a specified range.
 The performance indicators of the G/G/c model for the respective parameters are output as a table. An explanation of the meaning of the input parameters can be found on the page
-<a href="javascript:void(0);" onclick="showTab('ExtACValues');">extended Allen-Cunneen approximation formula individual values</a>.
+<button class="btn btn-link" onclick="showTab('ExtACValues');">extended Allen-Cunneen approximation formula individual values</button>.
 </p>
 `;
 
@@ -1498,7 +1500,7 @@ lang.text.ExtACDiagram=`
 <p>
 Select the "<b>Variable</b>" mode for a parameter. This is then varied within a specified range.
 The performance indicators of the G/G/c model for the respective parameters are output as a diagram. An explanation of the meaning of the input parameters can be found on the page
-<a href="javascript:void(0);" onclick="showTab('ExtACValues');">extended Allen-Cunneen approximation formula individual values</a>.
+<button class="btn btn-link" onclick="showTab('ExtACValues');">extended Allen-Cunneen approximation formula individual values</button>.
 </p>
 `;
 
@@ -1583,7 +1585,7 @@ In the calculation model, the average utilization (&rho;) of the operators can b
 
 lang.text.CallCenterDiagram=`
 <p>
-If retry is not needed to be mapped, call centers can be mapped using the <a href="javascript:void(0);" onclick="showTab('ExtErlangCValues');">extended Erlang C formula</a>.
+If retry is not needed to be mapped, call centers can be mapped using the <button class="btn btn-link" onclick="showTab('ExtErlangCValues');">extended Erlang C formula</button>.
 While arrival rates and service times cannot usually be influenced, the number of agents deployed is the control variable that can be used to optimize the operating costs and performance parameters of the system.
 The more agents deployed, the better the performance indicators, but also the higher the labor costs.
 </p>

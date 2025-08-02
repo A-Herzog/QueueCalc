@@ -81,7 +81,7 @@ function calcShortestQueueTable(mode) {
   const input=tilesShortestQueue.rangeValues(mode);
   if (input==null) return null;
 
-  let table=new Table();
+  let table=new Table(language.GUI.formulaShortestQueueLong+" - "+language.GUI.results);
 
   table.addHeading('a',language.GUI.formulaShortestQueueA);
   table.addHeading('b',language.GUI.formulaShortestQueueB);
@@ -109,13 +109,13 @@ function updateShortestQueueValues() {
 
   let result='';
 
-  result+="<h5>"+language.statistics.headingInputParameters+"</h5>\n";
+  result+="<h4 class='h5'>"+language.statistics.headingInputParameters+"</h4>\n";
   result+="<p>\n";
   result+=language.GUI.formulaShortestQueueA+": <b>a="+data.a+"</b><br>";
   result+=language.GUI.formulaShortestQueueB+": <b>b="+data.b+"</b><br>";
   result+="</p>\n";
 
-  result+="<h5>"+language.GUI.formulaShortestQueueInfoAB+"</h5>";
+  result+="<h4 class='h5'>"+language.GUI.formulaShortestQueueInfoAB+"</h4>";
   result+="<p>\n";
   result+="<b>P(W<sub>(b)</sub>&gt;W<sub>(a)</sub>)="+(data.p*100).toLocaleString()+"%</b>";
   result+="</p>\n";

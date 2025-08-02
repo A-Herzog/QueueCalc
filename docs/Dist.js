@@ -209,6 +209,11 @@ function buildTableElement(parent, cols, longTable=false) {
   const table=document.createElement("table");
   table.className="table table-striped border"+(longTable?" table-sm":"");
 
+  const caption=document.createElement("caption");
+  caption.innerHTML=language.WaitingTimeDist.heading;
+  caption.style.display="none";
+  table.appendChild(caption);
+
   let tr, th;
 
   const thead=document.createElement("thead");
@@ -219,6 +224,7 @@ function buildTableElement(parent, cols, longTable=false) {
   for (let cell of cols) {
     tr.appendChild(th=document.createElement("th"));
     if (typeof(cell)=='string') th.innerHTML=cell; else th.innerHTML=cell[0];
+    th.scope="col";
   }
 
   const tbody=document.createElement("tbody");

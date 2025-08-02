@@ -152,7 +152,7 @@ function calcKingmanTable(mode) {
   const input=tilesKingman.rangeValues(mode);
   if (input==null) return null;
 
-  let table=new Table();
+  let table=new Table(language.GUI.formulaKingmanLong+" - "+language.GUI.results);
 
   table.addHeading('E[I]',language.model.inputInterArrivalTimeMean);
   table.addHeading('CV[I]',language.model.inputInterArrivalTimeCV);
@@ -197,7 +197,7 @@ function updateKingmanValues() {
   const data=calcKingman(input);
 
   let result='';
-  result+="<h5>"+language.statistics.headingInputParameters+"</h5>\n";
+  result+="<h4 class='h5'>"+language.statistics.headingInputParameters+"</h4>\n";
   result+="<p>\n";
 
   let infoBI='';
@@ -220,13 +220,13 @@ function updateKingmanValues() {
 
   result+="</p>\n";
 
-  result+="<h5>"+language.statistics.headingDirectCalculableParameters+"</h5>\n";
+  result+="<h4 class='h5'>"+language.statistics.headingDirectCalculableParameters+"</h4>\n";
   result+="<p>\n";
   result+=language.statistics.Workload+": <b>a="+data.a.toLocaleString()+" "+language.statistics.WorkloadErlang+"</b><br>\n";
   result+=language.statistics.Utilization+": <b>&rho;="+(data.rho*100).toLocaleString()+"%</b>\n";
   result+="</p>\n";
 
-  result+="<h5>"+language.statistics.headingKingmanResults+"</h5>\n";
+  result+="<h4 class='h5'>"+language.statistics.headingKingmanResults+"</h4>\n";
   result+="<p>\n";
   if (data.rho>=1) {
       result+=language.statistics.rhoError;

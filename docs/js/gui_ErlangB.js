@@ -140,7 +140,7 @@ function calcErlangBTable(mode) {
   const input=tilesErlangB.rangeValues(mode);
   if (input==null) return null;
 
-  let table=new Table();
+  let table=new Table(language.GUI.formulaErlangBLong+" - "+language.GUI.results);
 
   table.addHeading('E[I]',language.model.inputInterArrivalTimeMean);
   table.addHeading('E[S]',language.model.inputServiceTimeMean);
@@ -175,18 +175,18 @@ function updateErlangBValues() {
   const data=calcErlangB(input);
 
   let result='';
-  result+="<h5>"+language.statistics.headingInputParameters+"</h5>\n";
+  result+="<h4 class='h5'>"+language.statistics.headingInputParameters+"</h4>\n";
   result+="<p>\n";
   result+=language.statistics.arrivalRate+': <b>&lambda;='+(1/data.EI).toLocaleString()+"</b> <small>("+language.statistics.arrivalRateInfo+" E[I]="+data.EI.toLocaleString()+")</small><br>\n";
   result+=language.statistics.serviceRate+': <b>&mu;='+(1/data.ES).toLocaleString()+"</b> <small>("+language.statistics.serviceRateInfo+" E[S]="+data.ES.toLocaleString()+")</small><br>\n";
   result+=language.statistics.NumberOfOperators+': <b>c='+data.c+"</b>\n";
   result+="</p>\n";
-  result+="<h5>"+language.statistics.headingDirectCalculableParameters+"</h5>\n";
+  result+="<h4 class='h5'>"+language.statistics.headingDirectCalculableParameters+"</h4>\n";
   result+="<p>\n";
   result+=language.statistics.Workload+": <b>a="+data.a.toLocaleString()+" "+language.statistics.WorkloadErlang+"</b><br>\n";
   result+=language.statistics.Utilization+": <b>&rho;="+(data.rho*100).toLocaleString()+"%</b> <small>("+language.statistics.UtilizationErlangC+": "+(data.rhoErlangC*100).toLocaleString()+"%)</small>\n";
   result+="</p>\n";
-  result+="<h5>"+language.statistics.headingErlangBResults+"</h5>\n";
+  result+="<h4 class='h5'>"+language.statistics.headingErlangBResults+"</h4>\n";
   result+="<p>\n";
   result+=language.statistics.rejectionProbability+": <b>P(reject)="+(data.Preject*100).toLocaleString()+"%</b><br>\n";
   result+="</p>\n";
@@ -217,19 +217,19 @@ function updateErlangB2Values() {
   }
 
   let result='';
-  result+="<h5>"+language.statistics.headingInputParameters+"</h5>\n";
+  result+="<h4 class='h5'>"+language.statistics.headingInputParameters+"</h4>\n";
   result+="<p>\n";
   result+=language.statistics.arrivalRate+': <b>&lambda;='+(1/data.EI).toLocaleString()+"</b> <small>("+language.statistics.arrivalRateInfo+" E[I]="+data.EI.toLocaleString()+")</small><br>\n";
   result+=language.statistics.serviceRate+': <b>&mu;='+(1/data.ES).toLocaleString()+"</b> <small>("+language.statistics.serviceRateInfo+" E[S]="+data.ES.toLocaleString()+")</small><br>\n";
   result+=language.statistics.rejectionProbability+" ("+language.statistics.valueSet+"): <b>P(reject)="+(data.Preject*100).toLocaleString()+"%</b>\n";
   result+="</p>\n";
 
-  result+="<h5>"+language.statistics.headingDirectCalculableParameters+"</h5>\n";
+  result+="<h4 class='h5'>"+language.statistics.headingDirectCalculableParameters+"</h4>\n";
   result+="<p>\n";
   result+=language.statistics.Workload+": <b>a="+data.a.toLocaleString()+" "+language.statistics.WorkloadErlang+"</b>\n";
   result+="</p>\n";
 
-  result+="<h5>"+language.statistics.headingErlangBResults+"</h5>\n";
+  result+="<h4 class='h5'>"+language.statistics.headingErlangBResults+"</h4>\n";
   result+="<p>\n";
   result+=language.statistics.NumberOfOperators+': <b>c='+data.c+"</b><br>\n";
   result+=language.statistics.Utilization+": <b>&rho;="+(data.rho*100).toLocaleString()+"%</b><br>\n";

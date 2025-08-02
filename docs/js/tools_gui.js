@@ -187,7 +187,7 @@ function getPlaceholder(record) {
 
   content+="<button type=\"button\" class=\"btn-close\" aria-label=\"Close\" onclick=\"showTab('Home');\"></button><br>";
   const dark=(document.documentElement.dataset.bsTheme=='dark')?"_dark":"";
-  content+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+dark+".svg\">";
+  content+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+dark+".svg\" alt=\""+language.GUI.ModelImage+" - "+record.title+"\" title=\""+language.GUI.ModelImage+" - "+record.title+"\">";
   content+=record.valuesInfo;
 
   content+='<div class="mb-2">';
@@ -220,7 +220,7 @@ function getPlaceholder(record) {
     const width=Math.round(12/len);
     for (let card of record.valuesInfoCards) {
       content+="<div class=\"col-lg-"+width+"\"><div class=\"card\">";
-      content+="<div class=\"card-header\"><h5>"+card.head+"</h5></div>";
+      content+="<div class=\"card-header\"><h3 class='h5'>"+card.head+"</h3></div>";
       content+="<div class=\"card-body\">"+card.body+"</div>";
       content+="</div></div>";
     }
@@ -241,7 +241,7 @@ function getPlaceholder(record) {
 
     content+="<button type=\"button\" class=\"btn-close\" aria-label=\"Close\" onclick=\"showTab('Home');\"></button><br>";
     const dark=(document.documentElement.dataset.bsTheme=='dark')?"_dark":"";
-    content+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+dark+".svg\">";
+    content+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+dark+".svg\" alt=\""+language.GUI.ModelImage+" - "+record.title+"\" title=\""+language.GUI.ModelImage+" - "+record.title+"\">";
     content+=record.values2Info;
 
     content+='<div class="mb-2">';
@@ -274,7 +274,7 @@ function getPlaceholder(record) {
       const width=Math.round(12/len);
       for (let card of record.valuesInfoCards) {
         content+="<div class=\"col-lg-"+width+"\"><div class=\"card\">";
-        content+="<div class=\"card-header\"><h5>"+card.head+"</h5></div>";
+        content+="<div class=\"card-header\"><h3 class='h5'>"+card.head+"</h3></div>";
         content+="<div class=\"card-body\">"+card.body+"</div>";
         content+="</div></div>";
       }
@@ -294,7 +294,7 @@ function getPlaceholder(record) {
     content+="<h2>"+record.title+"</h2>";
 
     content+="<button type=\"button\" class=\"btn-close\" aria-label=\"Close\" onclick=\"showTab('Home');\"></button><br>";
-    content+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+dark+".svg\">";
+    content+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+dark+".svg\" alt=\""+language.GUI.ModelImage+" - "+record.title+"\" title=\""+language.GUI.ModelImage+" - "+record.title+"\">";
     if (typeof(record.tableInfo)!='undefined') content+=record.tableInfo;
 
     if (record.tableTilesButtons) content+=record.tableTilesButtons;
@@ -316,7 +316,7 @@ function getPlaceholder(record) {
     content+="<h2>"+record.title+"</h2>";
 
     content+="<button type=\"button\" class=\"btn-close\" aria-label=\"Close\" onclick=\"showTab('Home');\"></button><br>";
-    content+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+dark+".svg\">";
+    content+="<img class=\"img-fluid\" loading=\"lazy\" style=\"margin: 20px 0px; width: 100%; max-width: "+record.imageMaxWidth+"px;\" src=\"./images/"+record.id+"_"+language.GUI.imageMode+dark+".svg\" alt=\""+language.GUI.ModelImage+" - "+record.title+"\" title=\""+language.GUI.ModelImage+" - "+record.title+"\">";
     content+=record.diagramInfo;
 
     if (record.diagramTilesButtons) content+=record.diagramTilesButtons;
@@ -384,7 +384,7 @@ function buildInputField(id, value, isPercent, updateCallback, label, errorInfo=
   let block="";
   block+="<p class=\"card-text\"><form class=\"form-floating\">";
   block+="<div class=\"input-group\">";
-  block+="<span class=\"input-group-text\">"+label+":=</span>";
+  block+="<label class=\"input-group-text\" for=\""+id+"\">"+label+":=</label>";
   let percentInfo="";
   if (isPercent) percentInfo=" data-percent='true'";
   block+="<input type=\"text\" class=\"form-control\" id=\""+id+"\" value=\""+value+"\" oninput=\""+updateCallback+"()\""+percentInfo+">";
@@ -437,7 +437,7 @@ function buildInputTile(size, title, id, value, isPercent, updateCallback, label
   let block="";
 
   block+="<div class=\"col-lg-"+size+"\"><div class=\"card\">";
-  block+="<div class=\"card-header\"><h5>"+title+"</h5></div>";
+  block+="<div class=\"card-header\"><h3 class='h5'>"+title+"</h3></div>";
   block+="<div class=\"card-body\">";
   block+="<p class=\"card-text\">"+buildInputField(id,value,isPercent,updateCallback,label,errorInfo)+"</p>";
   if (info!='') block+="<p class=\"card-text card-input-info1\">"+info+"</p>";
@@ -473,7 +473,7 @@ function buildRangeTile(size, title, id, value, step, valueTo, isPercent, tabCha
   let block="";
 
   block+="<div class=\"col-lg-"+size+"\"><div class=\"card\">";
-  block+="<div class=\"card-header\"><h5>"+title+"</h5></div>";
+  block+="<div class=\"card-header\"><h3 class='h5'>"+title+"</h3></div>";
   block+="<div class=\"card-body\">";
   block+="<ul class=\"nav nav-tabs\" id=\""+id+"_Tabs\" role=\"tablist\">";
   block+="<li class=\"nav-item\" role=\"presentation\">";
@@ -514,7 +514,7 @@ function buildSwitchTile(size, title, ids, updateCallback, labels, info='', info
   let block="";
 
   block+="<div class=\"col-lg-"+size+"\"><div class=\"card\">";
-  block+="<div class=\"card-header\"><h5>"+title+"</h5></div>";
+  block+="<div class=\"card-header\"><h3 class='h5'>"+title+"</h3></div>";
   block+="<div class=\"card-body\">";
   for (let i=0;i<ids.length;i++) block+=buildSwitchField(ids[i],updateCallback,labels[i]);
   if (info!='') block+="<p class=\"card-text card-input-info1\">"+info+"</p>";
@@ -541,7 +541,7 @@ function buildResultsTile(id) {
 
   block+="<div class=\"row\">";
   block+="<div class=\"col-lg-12\"><div class=\"card\">";
-  block+="<div class=\"card-header\"><h5>"+language.GUI.results+"</h5></div>";
+  block+="<div class=\"card-header\"><h3 class='h5'>"+language.GUI.results+"</h3></div>";
   block+="<div class=\"card-body\">";
   block+="<p class=\"card-text\" id=\""+id+"_results\">";
   block+="</p>";
@@ -1094,13 +1094,19 @@ function getDecimalSeparatorChar() {
  */
 class Table {
   /**
+   * Caption of the table
+   */
+  #caption;
+
+  /**
    * Constructor
    */
-  constructor() {
+  constructor(caption) {
     this.heading=[];
     this.headingInfo=[];
     this.rows=[];
     this.cols=null;
+    this.#caption=caption;
   }
 
   /**
@@ -1205,14 +1211,21 @@ class Table {
     return "<p class='small'>"+this.legend.join("<br>")+"</p>";
   }
 
+  #headingId(index) {
+    if (index<0 || index>=this.headingInfo.length) return '';
+    let id=this.#caption+' - '+this.headingInfo[index];
+    id=id.replace(/[^A-Za-z0-9]/g,'');
+    return id;
+  }
+
   /**
    * {String} Returns the html code for the table.
    */
   get html() {
     this.#startRow();
-    let table='<div style="overflow-x: scroll; margin: 0; padding: 0;"><table class="table table-hover">';
+    let table='<div style="overflow-x: scroll; margin: 0; padding: 0;"><table class="table table-hover"><caption style="display: none;">'+this.#caption+'</caption>';
     table+='<thead><tr>';
-    for (let i=0;i<this.heading.length;i++) table+='<th scope="col" title=\"'+this.headingInfo[i]+'\">'+this.heading[i]+'</th>';
+    for (let i=0;i<this.heading.length;i++) table+='<th scope="col" title=\"'+this.headingInfo[i]+'\" id=\"'+this.#headingId(i)+'\">'+this.heading[i]+'</th>';
     table+='</tr></thead>';
     table+='<tbody>';
     for (let i=0;i<this.rows.length;i++) {
@@ -1221,7 +1234,7 @@ class Table {
       for (let j=0;j<row.length;j++) {
         let cell=row[j];
         if (cell.endsWith(' %')) cell=cell.replaceAll(' %','%');
-        table+='<td>'+cell+'</td>';
+        table+='<td headers="'+this.#headingId(j)+'">'+cell+'</td>';
       }
       table+="</tr>";
     }
@@ -1364,12 +1377,12 @@ class Table {
     const html=[];
 
     html.push("<div style=\"overflow-x: scroll; margin: 0; padding: 0;\">");
-    html.push("<table class=\"table table-hover\">");
+    html.push("<table class=\"table table-hover\"><caption style=\"display: none;\">"+this.#caption+"</caption>");
 
     html.push("<thead>");
     html.push("<tr>");
-    html.push("<th scope=\"col\" title=\""+this.headingInfo[deltaTableSetup.x]+"\">"+this.heading[deltaTableSetup.x]+"</th>");
-    for (let y of deltaTableSetup.y) html.push("<th scope=\"col\" title=\""+this.headingInfo[y]+"\">"+this.heading[y]+"</th>");
+    html.push("<th scope=\"col\" title=\""+this.headingInfo[deltaTableSetup.x]+"\" id=\""+this.#headingId(deltaTableSetup.x)+"\">"+this.heading[deltaTableSetup.x]+"</th>");
+    for (let y of deltaTableSetup.y) html.push("<th scope=\"col\" title=\""+this.headingInfo[y]+"\" id=\""+this.#headingId(y)+"\">"+this.heading[y]+"</th>");
     html.push("</tr>");
     html.push("</thead>");
 
@@ -1382,7 +1395,7 @@ class Table {
         for (let y of deltaTableSetup.y) {
           const lastValue=last[y];
           const currentValue=row[y];
-          html.push("<td class=\"small text-muted\"><strong>&darr;</strong> "+this.#calcDelta(lastValue,currentValue)+"</td>");
+          html.push("<td class=\"small text-muted\" headers=\""+this.#headingId(y)+"\"><strong>&darr;</strong> "+this.#calcDelta(lastValue,currentValue)+"</td>");
         }
         html.push("</tr>");
       }
@@ -1394,7 +1407,7 @@ class Table {
       for (let y of deltaTableSetup.y) {
         cell=row[y];
         if (cell.endsWith(' %')) cell=cell.replaceAll(' %','%');
-        html.push("<td>"+cell+"</td>");
+        html.push("<td headers=\""+this.#headingId(y)+"\">"+cell+"</td>");
       }
       html.push("</tr>");
 
@@ -1441,16 +1454,16 @@ class Table {
     html+="<div class='dropdown' style='display: inline-block;'>";
     html+="<button class='btn btn-primary bi-clipboard dropdown-toggle my-1' type='button' data-bs-toggle='dropdown' aria-expanded='false'>&nbsp;"+language.GUI.copyDiagram+"</button>";
     html+="<ul class='dropdown-menu'>";
-    html+="<li><a class='dropdown-item' style='cursor: pointer;' onclick='navigator.clipboard.writeText(atob(\""+btoa(this.text)+"\"));'>"+language.GUI.copyDiagramTable+"</a></li>";
-    html+="<li><a class='dropdown-item' style='cursor: pointer;' onclick='if (typeof(ClipboardItem)!=\"undefined\") { document.getElementById(\""+id+"_plot\").toBlob(blob=>navigator.clipboard.write([new ClipboardItem({\"image/png\": blob})])); } else {alert(\""+language.GUI.copyDiagramImageError+"\")}'>"+language.GUI.copyDiagramImage+"</a></li>";
+    html+="<li><button class='dropdown-item' style='cursor: pointer;' onclick='navigator.clipboard.writeText(atob(\""+btoa(this.text)+"\"));'>"+language.GUI.copyDiagramTable+"</button></li>";
+    html+="<li><button class='dropdown-item' style='cursor: pointer;' onclick='if (typeof(ClipboardItem)!=\"undefined\") { document.getElementById(\""+id+"_plot\").toBlob(blob=>navigator.clipboard.write([new ClipboardItem({\"image/png\": blob})])); } else {alert(\""+language.GUI.copyDiagramImageError+"\")}'>"+language.GUI.copyDiagramImage+"</button></li>";
     html+="</ul>";
     html+="</div>";
     html+="&nbsp;";
     html+="<div class='dropdown' style='display: inline-block;'>";
     html+="<button class='btn btn-primary bi-download dropdown-toggle my-1' type='button' data-bs-toggle='dropdown' aria-expanded='false'>&nbsp;"+language.GUI.saveDiagram+"</button>";
     html+="<ul class='dropdown-menu'>";
-    html+="<li><a class='dropdown-item' style='cursor: pointer;' onclick='"+downloadCodeTable+"'>"+language.GUI.saveDiagramTable+"</a></li>";
-    html+="<li><a class='dropdown-item' style='cursor: pointer;' onclick='"+downloadCodeImage+"'>"+language.GUI.saveDiagramImage+"</a></li>";
+    html+="<li><button class='dropdown-item' style='cursor: pointer;' onclick='"+downloadCodeTable+"'>"+language.GUI.saveDiagramTable+"</button></li>";
+    html+="<li><button class='dropdown-item' style='cursor: pointer;' onclick='"+downloadCodeImage+"'>"+language.GUI.saveDiagramImage+"</button></li>";
     html+="</ul>";
     html+="</div>";
 

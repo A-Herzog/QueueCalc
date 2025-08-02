@@ -31,13 +31,13 @@ limitations under the License.
 Sind Ankünfte und Bedienungen <strong>getaktet</strong> (d.h. trifft z.B. alle exakt 60 Sekunden ein Kunde ein und dauert eine Bedienung immer exakt 59 Sekunden), so entstehen keine Warteschlangen. In allen anderen Fällen kann es zu temporären Staus kommen. Die Warteschlangentheorie liefert Erkenntnisse darüber, wie lang die entstehenden Warteschlangen im Mittel sind, wie lange Kunden im Mittel warten müssen und auch, wie die Verteilung der Wartezeiten ausfällt.
 </p>
 
-<h5>Wartezeiten im Kundenservice</h5>
+<h4 class='h5'>Wartezeiten im Kundenservice</h4>
 
 <p>
 Auf dieser Basis können die Betreiber der Systeme Optimierungen vornehmen. So wird im Callcenter-Bereich häufig angestrebt, dass 80% der Anrufer nicht länger als 20 Sekunden warten müssen. Bei bekannter mittlerer Anzahl an Anrufern pro Minute und bekannter mittlerer Bediendauer ist nun die notwendige Anzahl an Bedienern gesucht, um diese Vorgaben zu erfüllen.
 </p>
 
-<h5>Wartezeiten in der Produktion</h5>
+<h4 class='h5'>Wartezeiten in der Produktion</h4>
 
 <p>
 Aktuelle <a href="https://link.springer.com/book/10.1007/978-3-642-01405-5" target="_blank">Untersuchungen</a> zeigen, dass Werkstücke auf dem Weg durch eine Produktion typischerweise <strong>75% der gesamten Durchlaufzeit</strong> warten, d.h. eine Verkürzung der mittleren Wartezeiten hat einen erheblichen Einfluss auf die Gesamtdurchlaufzeit.
@@ -45,13 +45,13 @@ Aktuelle <a href="https://link.springer.com/book/10.1007/978-3-642-01405-5" targ
 
 <h3>Grundbegriffe</h3>
 
-<h5>Kunden und Bediener</h5>
+<h4 class='h5'>Kunden und Bediener</h4>
 
 <p>
 In der Warteschlangentheorie spricht man stets von „Kunden“ und „Bedienern“. Bei den Kunden kann es sich konkret z.B. um Flugzeuge handeln und bei den Bedienern dann um Landebahnen usw.
 </p>
 
-<h5>Ankünfte</h5>
+<h4 class='h5'>Ankünfte</h4>
 
 <p>
 Ankünfte werden in Kunden pro Stunde, Kunden pro Minute usw. gemessen, d.h. es wird betrachtet, wie viele Kunden im Mittel in einer bestimmten Zeitspanne eintreffen. Statt mit der mittleren Anzahl an Ankünften zu arbeiten, wird meist die mittlere Zeit zwischen zwei Ankünften, die sogenannte <strong>mittlere Zwischenankunftszeit E[I]</strong> verwendet. Je kleiner E[I] ist, desto mehr Kunden treffen pro Zeiteinheit ein.
@@ -61,7 +61,7 @@ Ankünfte werden in Kunden pro Stunde, Kunden pro Minute usw. gemessen, d.h. es 
 Für die Untersuchung eines Warteschlangensystems kommt es darauf an, wie gleichmäßig die Kunden eintreffen. Trifft alle exakt 60 Sekunden ein Kunde ein und dauert eine Bedienung jeweils exakt 59 Sekunden, so muss niemand warten. Beträgt der Abstand zwischen zwei Ankünften jedoch einmal 30 und einmal 90 Sekunden (also im Mittel immer noch 60 Sekunden), so wird es zu Wartezeiten kommen. Daher ist es hilfreich, wenn auch die <strong>Standardabweichung der Zwischenankunftszeiten Std[I]</strong> bekannt ist. Wenn die Kunden die Warteschlangen nicht einsehen können und sich nicht absprechen, so gilt Std[I]=E[I]. Bei getakteten Ankünften gilt Std[I]=0.
 </p>
 
-<h5>Ankunftsrate</h5>
+<h4 class='h5'>Ankunftsrate</h4>
 
 <p>
 Alternativ zur mittleren Zwischenankunftszeit E[I] wird auch häufig die Ankunftsrate &lambda; angegeben. Sie ist der Kehrwert der mittleren Zwischenankunftszeit. D.h. eine kurze mittleren Zwischenankunftszeit entspricht einem hohen Wert von &lambda;:
@@ -90,7 +90,7 @@ Alternativ zur mittleren Zwischenankunftszeit E[I] wird auch häufig die Ankunft
 Einer mittleren Zwischenankunftszeit von 2 Minuten entspricht also beispielsweise eine Ankunftsrate von ½ Kunden pro Minute.
 </p>
 
-<h5>Bedienungen</h5>
+<h4 class='h5'>Bedienungen</h4>
 
 <p>
 Die Bedienungen werden über die mittlere <strong>Bediendauer E[S]</strong> charakterisiert. Je größer E[S] ist, desto länger dauert eine Bedienung.
@@ -100,7 +100,7 @@ Die Bedienungen werden über die mittlere <strong>Bediendauer E[S]</strong> char
 Auch hier gilt: Je gleichmäßiger die Bedienungen sind, desto weniger Wartezeiten entstehen. Daher ist es auch hier von Vorteil, wenn die Streuung der Bediendauern in Form der <strong>Standardabweichung der Bediendauern Std[S]</strong> bekannt ist.
 </p>
 
-<h5>Bedienrate</h5>
+<h4 class='h5'>Bedienrate</h4>
 
 <p>
 Analog zur Ankunftsrate definiert man die <strong>Bedienrate &mu;</strong> als den Kehrwert der mittleren Bediendauer. Je längere die mittlere Bediendauer, desto kleiner ist &mu;:
@@ -129,7 +129,7 @@ Analog zur Ankunftsrate definiert man die <strong>Bedienrate &mu;</strong> als d
 Beträgt die mittlere Bediendauer z.B. 3 Minuten, so entspricht dies einer Bedienrate von 1/3 Kunden pro Minute.
 </p>
 
-<h5>Grundmodell der Warteschlangentheorie</h5>
+<h4 class='h5'>Grundmodell der Warteschlangentheorie</h4>
 
 <p>
 <img src="./images/BaseModel_de%%%DARK%%%.svg" loading="lazy" width="700" alt="Grundmodell der Warteschlangentheorie" title="Grundmodell der Warteschlangentheorie">
@@ -158,7 +158,7 @@ Dieses Grundmodell kann auf vielfältige Weise erweitert werden, z.B.:
 Das Grundmodell der Warteschlangentheorie stellt eine Basiskomponente eines <strong>Warteschlangennetzwerks</strong> dar. In einem Warteschlangennetzwerk werden mehrere solcher Komponenten gekoppelt, um z.B. eine gesamte Fertigungsstraße abzubilden.
 </p>
 
-<h5>Bedienreihenfolge</h5>
+<h4 class='h5'>Bedienreihenfolge</h4>
 
 <p>
 Die Bedienreihenfolge gibt an, welcher der wartenden Kunden als nächstes bedient werden soll. Bilden die Kunden eine <strong>klassische Warteschlange</strong>, so wird der Kunde, der bereits am längsten gewartet hat, d.h. ganz vorne in der Schlange steht, als nächstes bedient. Man spricht dann von der <strong>First come first serve (FCFS)</strong> bzw. <strong>First in first out (FIFO)</strong> Bedienregel. Handelt es sich bei den Kunden jedoch um (schwere) Werkstücke, die gestapelt wurden, so kann das unterste Werkstück diesem Stapel ggf. nicht direkt entnommen werden, d.h. es wird oben auf den Stapel aufgelegt und auch von oben gezogen. In diesem Fall gilt die <strong>Last come first serve (LCFS)</strong> bzw. die <strong>Last in first out (LIFO)</strong> Bedienregel.
@@ -172,7 +172,7 @@ LIFO führt zu stark unterschiedlichen Durchlaufzeiten einzelner Werkstücke dur
 Treffen Kunden verschiedener Typen an einer Warteschlange ein, so kann außerdem die Auswahl des jeweils als nächstes zu bedienenden Kunden über eine <strong>Prioritätsformel</strong> erfolgen.
 </p>
 
-<h5>Wahrscheinlichkeitsverteilungen</h5>
+<h4 class='h5'>Wahrscheinlichkeitsverteilungen</h4>
 
 <p>
 Im einfachsten Fall werden Ankünfte und Bedienungen lediglich über Ankunfts- und Bedienrate beschrieben, d.h. ein jeweils komplexer Prozess wird durch nur eine einzige Zahl charakterisiert. Trifft alle exakt 2 Minuten ein Kunde am System ein, so ergibt sich eine mittlere Zwischenankunftszeit von 2 Minuten bzw. eine Ankunftsrate von 0,5 Kunden pro Minute. Beträgt die Zwischenankunftszeit nun jedoch im Wechsel 1 und 3 Minuten, so gilt genauso, dass die mittlere Zwischenankunftszeit 2 Minuten beträgt, allerdings dürfte es deutlich schwieriger werden, einen solchen Kundenankunftsstrom ohne Wartezeiten zu bedienen.
@@ -200,7 +200,7 @@ Zusammenfassend gilt: Für die Zwischenankunftszeiten eignet sich in vielen Fäl
 Ist die Standardabweichung der Bediendauern nicht bekannt, so werden meist Werte im Bereich 0,2x bis 0,8xErwartungswert verwendet. Je höher der menschliche Einfluss auf die Bediendauern ist, desto höher sollte die Standardabweichung gewählt werden bzw. je stärker der Prozess automatisiert ist, desto niedriger sollte die Standardabweichung gewählt werden.
 </p>
 
-<h5>Kendall-Notation</h5>
+<h4 class='h5'>Kendall-Notation</h4>
 
 <p>
 Warteschlangenmodelle lassen sich durch die sogenannte Kendall-Notation beschreiben. In der einfachsten Form hat diese Beschreibung folgendes Aussehen:
@@ -231,7 +231,7 @@ Zur Beschreibung komplexerer Modelle gibt es zahlreiche <a href="https://de.wiki
 
 <h3>Kenngrößen</h3>
 
-<h5>Arbeitslast</h5>
+<h4 class='h5'>Arbeitslast</h4>
 
 <p>
 Die <strong>Arbeitslast a</strong> ist der Quotient aus Ankunfts- und Bedienrate:
@@ -260,7 +260,7 @@ a = \frac{\lambda}{\mu} = \frac{Anzahl Ankünfte}{Anzahl Bedienungen (pro Bedien
 (In dem letzten Bruch beziehen sich Zähler und Nenner jeweils auf dieselbe Zeiteinheit.) Die Arbeitslast gibt, wenn man sie zur nächsten ganzen Zahl <strong>aufrundet</strong>, an, wie viele Bediener mindestens notwendig sind, damit das System langfristig stabil arbeiten kann. Ist c&lt;a, so treffen im Mittel mehr Kunden ein, als die Bediener im Mittel bedienen können, d.h. langfristig wird die Warteschlange immer länger und länger.
 </p>
 
-<h5>Auslastung</h5>
+<h4 class='h5'>Auslastung</h4>
 
 <p>
 Die <strong>Auslastung &rho;</strong> ist ein Wert zwischen 0 und 1. Sie ergibt sich, wenn die Arbeitslast durch die Anzahl an Bedienern geteilt wird:
@@ -293,13 +293,13 @@ Während derjenige, der die Bediener bezahlen muss bzw. die Bedienstationen kauf
 In einem Warteschlangensystem ohne Warteabbrecher oder sonstiger Besonderheiten bedeutet die Voraussetzung &rho;&lt;1, dass &lambda;&lt;c&mu; sein muss.
 </p>
 
-<h5>Wartezeit</h5>
+<h4 class='h5'>Wartezeit</h4>
 
 <p>
 Die <strong>mittlere Wartezeit E[W]</strong> der Kunden ergibt sich bei einfachen Modellen durch eine analytische Formel (siehe unten) oder bei komplexeren Modellen durch eine Simulation.
 </p>
 
-<h5>Durchlaufzeit</h5>
+<h4 class='h5'>Durchlaufzeit</h4>
 
 <p>
 Die gesamte Zeitdauer, die ein Kunde an einer Bedienstation verbringt, setzt sich aus der Wartezeit und der Bedienzeit zusammen. Für die mittlere <strong>Verweilzeit E[V]</strong> gilt:
@@ -326,13 +326,13 @@ Die mittlere Verweilzeit ist die Summe aus der mittleren Wartezeit E[W] und der 
 Im industriellen Kontext wird die Verweilzeit auch als die Durchlaufzeit bezeichnet. Ziel ist es üblicherweise, die Durchlaufzeit zu minimieren. Da die notwendigen Bedienzeiten meist durch die Arbeitsgeschwindigkeit der jeweiligen Maschinen fest vorgegeben sind, bedeutet dies praktisch, dass die vermeidbaren Wartezeiten reduziert werden sollen.
 </p>
 
-<h5>Liefertreue</h5>
+<h4 class='h5'>Liefertreue</h4>
 
 <p>
 Unter der Annahme, dass die Maschinen bei langen Warteschlangen nicht schneller oder langsamer arbeiten, also die Wartezeiten und die Bediendauern stochastisch unabhängig sind, ist auch die Streuung der Durchlaufzeiten gleich der Summe aus der Streuung der Warte- und der Bedienzeiten. Eine hohe Streuung der Durchlaufzeiten bedeutet, dass die Fertigstellungstermine einzelner Produkte nur schlecht prognostiziert werden können, d.h. vorab zugesagte Liefertermine häufig nicht eingehalten werden können. Folglich will man die Streuung der Durchlaufzeiten möglichst geringhalten. Da die Streuung der Bedienzeiten meist ebenso wenig beeinflusst werden kann wie die mittlere Bediendauer, bedeutet dies, dass die Streuung der Wartezeiten minimiert werden soll.
 </p>
 
-<h5>WIP</h5>
+<h4 class='h5'>WIP</h4>
 
 <p>
 Die Abkürzung „WIP“ steht für „Work units in process“, d.h. die Anzahl an Werkstücken in dem Prozess (wartend oder in Bedienung). Die <strong>mittlere Anzahl an Werkstücken bzw. Kunden im System</strong> wird mit <strong>E[N]</strong> bezeichnet.
@@ -344,7 +344,7 @@ Interessiert man sich nur für die mittlere Anzahl an wartenden Kunden, so verwe
 
 <h3>Berechnung der Kenngrößen</h3>
 
-<h5>Formel von Little</h5>
+<h4 class='h5'>Formel von Little</h4>
 
 <p>
 Die Formel von Little stellt einen Zusammenhang zwischen der Anzahl an Kunden im System und der mittleren Verweilzeit bzw. zwischen der Anzahl an wartenden Kunden und der mittleren Wartezeit her:
@@ -395,7 +395,7 @@ E[V] = \frac{E[N]}{\lambda}
 Die Formel von Little gilt unabhängig davon, welche Verteilungen für Zwischenankunfts- und Bedienzeiten vorliegen.
 </p>
 
-<h5>Weitere einfache Zusammenhänge</h5>
+<h4 class='h5'>Weitere einfache Zusammenhänge</h4>
 
 <p>
 Die Verweilzeit setzt sich additiv aus Warte- und Bedienzeit zusammen:
@@ -439,7 +439,7 @@ D.h. die mittlere Warteschlangenlänge E[N<sub>Q</sub>] und die mittlere Anzahl 
 Sind &lambda;, &mu; und c vorgegeben, so reicht es aus, eine der weiteren Größen E[W], E[V], E[N<sub>Q</sub>] oder E[N] zu kennen, um die jeweils anderen Größen berechnen zu können. Allerdings ist genau diese Ermittlung einer der vier Größen in den meisten Fällen nicht einfach.
 </p>
 
-<h5>Ein-Bediener-Modell</h5>
+<h4 class='h5'>Ein-Bediener-Modell</h4>
 
 <p>
 Für M/M/1-Modelle, d.h. bei exponentiell verteilten Zwischenankunfts- und Bedienzeiten und einem Bediener, lassen sich die Kenngrößen noch leicht berechnen. Es gelten:
@@ -485,7 +485,7 @@ E[V] = \frac{a}{\mu-\lambda}+\frac{1}{\mu}
 </math></p>
 
 
-<h5>Erlang-C Formel</h5>
+<h4 class='h5'>Erlang-C Formel</h4>
 
 <p>
 Sind die Zwischenankunftszeiten und die Bedienzeiten exponentiell verteilt und existieren c&ge;1 Bediener in dem System, so handelt es sich gemäß der Kendall-Notation um ein M/M/c-Modell. Für dieses lässt sich zunächst P(W&le;t), d.h. die Wahrscheinlichkeit, dass ein Kunde höchstens t&ge;0 Sekunden warten muss, mit Hilfe der Erlang-C-Formel berechnen:
@@ -562,7 +562,7 @@ E[V] = P_1 \frac{1}{c\mu-\lambda} + \frac{1}{\mu}
 Die Erlang-C-Formel kann auch noch um ungeduldige Kunden (d.h. mögliche Warteabbrecher) erweitert werden. Auf einen Abdruck dieser Formel soll an dieser Stelle verzichtet werden.
 </p>
 
-<h5>Allen-Cunneen-Näherungsformel</h5>
+<h4 class='h5'>Allen-Cunneen-Näherungsformel</h4>
 
 <p>
 Sind die Zwischenankunfts- oder die Bedienzeiten nicht mehr exponentiell verteilt, d.h. gelten nicht mehr E[I]=Std[I] und E[S]=Std[S], so lassen sich die Modelle für c>1 bereits nicht mehr exakt lösen. Für diesen Fall steht die Allen-Cunneen-Näherungsformel zur Verfügung.
@@ -668,7 +668,7 @@ Da die damaligen Großrechner-Wochen heute Smartphone-Sekunden sind, lohnt es si
 <h3>Mehr zum Thema Warteschlangentheorie</h3>
 
 <a href="https://link.springer.com/book/10.1007/978-3-658-34668-3" target="_blank">
-<img src="./images/CoverHerzogSimulationMitDemWarteschlangensimulator_small.png" loading="lazy" style="float: right;" width="200px;" alt="Simulation mit dem Warteschlangensimulator">
+<img src="./images/CoverHerzogSimulationMitDemWarteschlangensimulator_small.png" loading="lazy" style="float: right;" width="200px;" alt="Simulation mit dem Warteschlangensimulator" title="Simulation mit dem Warteschlangensimulator">
 </a>
 
 <p>
@@ -697,4 +697,4 @@ Mit Simulationsmethoden lassen sich prinzipiell alle gewünschten Modelleigensch
 Die Laufzeiten für viele Modelle bewegen sich im einstelligen Sekundenbereich, so dass frühere Aussagen, dass Simulationen zu langsam seien und lieber eine (ungenaue, aber schnelle) Näherungsformel verwendet werden sollte, heute überholt sind.
 </p>
 
-<p>Auf der Seite <a href="javascript:void(0);" onclick="showTab('Simulation');">Simulation</a> werden einige Opensource-Programme und Web-Dienste zur Modellierung und Simulation von Warteschlangennetzen vorgestellt.</p>
+<p>Auf der Seite <button class="btn btn-link" onclick="showTab('Simulation');">Simulation</button> werden einige Opensource-Programme und Web-Dienste zur Modellierung und Simulation von Warteschlangennetzen vorgestellt.</p>

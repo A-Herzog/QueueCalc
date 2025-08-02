@@ -119,7 +119,7 @@ function calcPCTable(mode) {
   const input=tilesPC.rangeValues(mode);
   if (input==null) return null;
 
-  let table=new Table();
+  let table=new Table(language.GUI.formulaPCLong+" - "+language.GUI.results);
 
   table.addHeading('E[I]',language.model.inputInterArrivalTimeMean);
   table.addHeading('E[S]',language.model.inputServiceTimeMean);
@@ -162,7 +162,7 @@ function updatePCValues() {
   const data=calcPC(input);
 
   let result='';
-  result+="<h5>"+language.statistics.headingInputParameters+"</h5>\n";
+  result+="<h4 class='h5'>"+language.statistics.headingInputParameters+"</h4>\n";
   result+="<p>\n";
   result+=language.statistics.arrivalRate+': <b>&lambda;='+(1/data.EI).toLocaleString()+"</b> <small>("+language.statistics.arrivalRateInfo+" E[I]="+data.EI.toLocaleString()+")</small><br>\n";
   result+=language.statistics.serviceRate+': <b>&mu;='+(1/data.ES).toLocaleString()+"</b> <small>("+language.statistics.serviceRateInfo+" E[S]="+data.ES.toLocaleString()+")</small><br>\n";
@@ -170,13 +170,13 @@ function updatePCValues() {
   result+=language.statistics.NumberOfOperators+': <b>c=1</b><br>\n';
   result+="</p>\n";
 
-  result+="<h5>"+language.statistics.headingDirectCalculableParameters+"</h5>\n";
+  result+="<h4 class='h5'>"+language.statistics.headingDirectCalculableParameters+"</h4>\n";
   result+="<p>\n";
   result+=language.statistics.Workload+": <b>a="+data.a.toLocaleString()+" "+language.statistics.WorkloadErlang+"</b><br>\n";
   result+=language.statistics.Utilization+": <b>&rho;="+(data.rho*100).toLocaleString()+"%</b>\n";
   result+="</p>\n";
 
-  result+="<h5>"+language.statistics.headingPCResults+"</h5>\n";
+  result+="<h4 class='h5'>"+language.statistics.headingPCResults+"</h4>\n";
   result+="<p>\n";
   if (data.rho>=1) {
       result+=language.statistics.rhoError;
