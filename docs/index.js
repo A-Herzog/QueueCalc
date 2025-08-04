@@ -74,6 +74,14 @@ footerSimulators.innerHTML=language.GUI.simulators;
 
 /* Menu */
 
+menuHome.addEventListener("click",()=>{
+  if (window.history && window.history.replaceState) {
+      const url=window.location.protocol+"//"+window.location.host+window.location.pathname;
+      if (window.history.state && window.history.state.link==url) return;
+      window.history.pushState({link: url}, '', url);
+    }
+});
+
 let insertCount=1;
 
 mainNavBar.insertBefore(buildMultiNavDropdown("ErlangBMenu",language.GUI.tabErlangB,[
