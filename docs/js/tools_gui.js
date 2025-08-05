@@ -1025,7 +1025,7 @@ function loadChartJs(then) {
   chartJsLoaded=true;
 
   const script=document.createElement("script");
-  script.src="./libs/chart.umd.js";
+  script.src="./libs/chart.umd.min.js";
   script.async = false;
   script.onload=then;
   document.head.appendChild(script);
