@@ -1,3 +1,9 @@
+.logospan {
+  background-color: white;
+  padding: 1px 10px 5px 10px;
+  border-radius: 2px;
+}
+
 h2 {
   margin-top: 20px;
   font-weight: bold;
@@ -28,6 +34,11 @@ h6.dropdown-header {
 
 nav .nav-link {
   color: white;
+}
+
+footer {
+  margin-top: 20px;
+  padding-top: 10px;
 }
 
 footer a {

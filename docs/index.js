@@ -24,7 +24,11 @@ if (isDesktopApp) {
 /* Language selector */
 
 import {selectLanguage, buildMultiNavDropdown, showTab} from './js/tools_gui.js';
-selectLanguage([{name: "default", file: "index.html"}, {name: "de", file: "index_de.html"}]);
+if (isDesktopApp) {
+  selectLanguage([{name: "default", file: "index-app.html"}, {name: "de", file: "index-app_de.html"}]);
+} else {
+  selectLanguage([{name: "default", file: "index.html"}, {name: "de", file: "index_de.html"}]);
+}
 window.showTab=showTab;
 
 /* Language */

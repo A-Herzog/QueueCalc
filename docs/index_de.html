@@ -32,8 +32,7 @@
   <link href="./libs/bootstrap-icons.min.css" integrity="sha384-CK2SzKma4jA5H/MXDUU7i1TqZlCFaD4T01vtyDFvPlD97JQyS+IsSh1nI2EFbpyk" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
   <link href="./css/index.css" rel="stylesheet" media="none" onload="if(media!='all')media='all'">
   <script defer src="./libs/bootstrap.bundle.min.js" integrity="sha384-ndDqU0Gzau9qJ1lfW4pNLlhNTkCfHzAVBReH9diLvGRem5+R9g2FzA8ZGN954O5Q"></script>
-  <script src="./libs/neutralino.js"></script>
-  <script>const isDesktopApp=(typeof(NL_OS)!='undefined');</script>
+  <script>const isDesktopApp=false;</script>
 </head>
 
 <body>
@@ -47,7 +46,7 @@
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top" id="navbar_main">
   <div class="container-fluid">
   <span class="navbar-brand mb-0 h1">
-    <span style="background-color: white; padding: 1px 10px 5px 10px; border-radius: 2px;"><img src="data:image/webp;base64,UklGRoQDAABXRUJQVlA4WAoAAAAYAAAAIwAAIwAAVlA4TIgCAAAvI8AIENVIoq3t2Bbbtm3bNrNt27Zt27Zt27Y1d709bxpfw2y7D8N/rSe7oMYCgFB53xUYwV3moLpD5Yju0Eju0v6R3BIjMADZrRHdA261bc+SikNnfjsXoKP9rd4RTN8ELgAb/BMwgRNkneCrsKX6lyD/nfmaAFwjLqlexp0qN9226x6wt7JsqXdL/1bVqXf2jmWdjq6h9Ez6RYP+1/OccjSgNvNsJfkuXZMiC0S/aD0pMdPyAWwoyvyrjC8ZXSGve0/ol8A/mwsRZwHgRDx7tMuakXkb+cQjYp+eptlRayzA8orySeYMkW/u57sGvQmWD+fc3xD/kGrPR7Ddp2nJ/Vx9eATWN+e+5l2vbXoSV8sDso9sIJvICfKEZGe3aQMPWfDAHgf8yEUXD4c0LIx1kdqnHKH0YAFzaM5/ZWrpJzgF0EG6ooM+VAYJKNVGFHUoVUQMXagWnjRxmZ77/c1x3rYWZuSnpzFQQ9qQzV0FhROtV9RxOGW0d19xOCX0tnQ0q6Bk0drhTxDzzU4anu+4mOjDkiyWOzVIfisggPSWkirQQNozG6CBpRtrFcTL64JMMX+BCx50MNn6SXGFzK98gHFqmrFekFkKs34kUU6QiJZ2VDdiFuTyTUpBxBETwUxfBkPksx6TvTNrpibwnciv2jArTFWmCzLqrFWZrLE0Z2S4O+WIiB2cAMt+mgv1NnXw6acb5BzJbwWsBSypuD9B35QK24mgCKXS/kQR01MhOxNW8CqL/nBkeb5NoaWrz7fbVGCLcXe1pnrxfdUpjqZZ+PCzNS20aWQKOVStxdtUrDUH8ZNimNJTnx2OJd/4+emmW66cNCQHHHPaTDgIGaEhfEQnccQRrr5FWElG1gAAAElJKgAIAAAABgASAQMAAQAAAAEAAAAaAQUAAQAAAFYAAAAbAQUAAQAAAF4AAAAoAQMAAQAAAAIAAAAxAQIAEAAAAGYAAABphwQAAQAAAHYAAAAAAAAAYAAAAAEAAABgAAAAAQAAAHBhaW50Lm5ldCA1LjAuMgAFAACQBwAEAAAAMDIzMAGgAwABAAAAAQAAAAKgBAABAAAAJAAAAAOgBAABAAAAJAAAAAWgBAABAAAAuAAAAAAAAAACAAEAAgAEAAAAUjk4AAIABwAEAAAAMDEwMAAAAAA=" width="24" height="24" alt="Logo"></span>
+    <span class="logospan"><img src="data:image/webp;base64,UklGRoQDAABXRUJQVlA4WAoAAAAYAAAAIwAAIwAAVlA4TIgCAAAvI8AIENVIoq3t2Bbbtm3bNrNt27Zt27Zt27Y1d709bxpfw2y7D8N/rSe7oMYCgFB53xUYwV3moLpD5Yju0Eju0v6R3BIjMADZrRHdA261bc+SikNnfjsXoKP9rd4RTN8ELgAb/BMwgRNkneCrsKX6lyD/nfmaAFwjLqlexp0qN9226x6wt7JsqXdL/1bVqXf2jmWdjq6h9Ez6RYP+1/OccjSgNvNsJfkuXZMiC0S/aD0pMdPyAWwoyvyrjC8ZXSGve0/ol8A/mwsRZwHgRDx7tMuakXkb+cQjYp+eptlRayzA8orySeYMkW/u57sGvQmWD+fc3xD/kGrPR7Ddp2nJ/Vx9eATWN+e+5l2vbXoSV8sDso9sIJvICfKEZGe3aQMPWfDAHgf8yEUXD4c0LIx1kdqnHKH0YAFzaM5/ZWrpJzgF0EG6ooM+VAYJKNVGFHUoVUQMXagWnjRxmZ77/c1x3rYWZuSnpzFQQ9qQzV0FhROtV9RxOGW0d19xOCX0tnQ0q6Bk0drhTxDzzU4anu+4mOjDkiyWOzVIfisggPSWkirQQNozG6CBpRtrFcTL64JMMX+BCx50MNn6SXGFzK98gHFqmrFekFkKs34kUU6QiJZ2VDdiFuTyTUpBxBETwUxfBkPksx6TvTNrpibwnciv2jArTFWmCzLqrFWZrLE0Z2S4O+WIiB2cAMt+mgv1NnXw6acb5BzJbwWsBSypuD9B35QK24mgCKXS/kQR01MhOxNW8CqL/nBkeb5NoaWrz7fbVGCLcXe1pnrxfdUpjqZZ+PCzNS20aWQKOVStxdtUrDUH8ZNimNJTnx2OJd/4+emmW66cNCQHHHPaTDgIGaEhfEQnccQRrr5FWElG1gAAAElJKgAIAAAABgASAQMAAQAAAAEAAAAaAQUAAQAAAFYAAAAbAQUAAQAAAF4AAAAoAQMAAQAAAAIAAAAxAQIAEAAAAGYAAABphwQAAQAAAHYAAAAAAAAAYAAAAAEAAABgAAAAAQAAAHBhaW50Lm5ldCA1LjAuMgAFAACQBwAEAAAAMDIzMAGgAwABAAAAAQAAAAKgBAABAAAAJAAAAAOgBAABAAAAJAAAAAWgBAABAAAAuAAAAAAAAAACAAEAAgAEAAAAUjk4AAIABwAEAAAAMDEwMAAAAAA=" width="24" height="24" alt="Logo"></span>
     <span id="brandName"></span>
   </span>
   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -60,24 +59,24 @@
       <li class="nav-item dropdown" role="tab">
         <a class="nav-link dropdown-toggle bi-question-circle" href="#" id="menuHelp" role="button" data-bs-toggle="dropdown" aria-expanded="false"></a>
         <ul class="dropdown-menu dropdown-menu-dark bg-primary" aria-labelledby="menuHelp">
-        <li role="tab"><a class="dropdown-item" data-bs-toggle="tab" href="#QueueingTheory" data-bs-target="#QueueingTheory" id="menuHelpQueueingTheory"></a></li>
-        <li role="tab"><a class="dropdown-item" data-bs-toggle="tab" href="#Glossary" data-bs-target="#Glossary" id="menuHelpGlossary"></a></li>
-        <li><hr class="dropdown-divider"></li>
-        <li role="tab"><a class="dropdown-item" href="https://link.springer.com/book/10.1007/978-3-658-34668-3" target="_blank" id="menuHelpTextbook"></a></li>
+          <li role="tab"><a class="dropdown-item" data-bs-toggle="tab" href="#QueueingTheory" data-bs-target="#QueueingTheory" id="menuHelpQueueingTheory"></a></li>
+          <li role="tab"><a class="dropdown-item" data-bs-toggle="tab" href="#Glossary" data-bs-target="#Glossary" id="menuHelpGlossary"></a></li>
+          <li><hr class="dropdown-divider"></li>
+          <li role="tab"><a class="dropdown-item" href="https://link.springer.com/book/10.1007/978-3-658-34668-3" target="_blank" id="menuHelpTextbook"></a></li>
         </ul>
       </li>
     </ul>
     <ul class="navbar-nav" role="tablist" id="mainNavBarRight">
       <li class="nav-item dropdown" role="tab">
         <a class="nav-link dropdown-toggle bi-globe" href="#" id="menuLanguageMode" role="button" data-bs-toggle="dropdown" aria-expanded="false">&nbsp;</a>
-        <ul class="dropdown-menu dropdown-menu-dark bg-primary dropdown-menu-end" aria-labelledby="menuLanguageMode">
+        <ul class="dropdown-menu dropdown-menu-dark bg-primary dropdown-menu-end" role="tablist" aria-labelledby="menuLanguageMode">
           <li role="tab"><a class="dropdown-item" id="menuLanguageModeEn" href="?" onclick="localStorage.setItem('selectedLanguage','default')"></a></li>
           <li role="tab"><a class="dropdown-item" id="menuLanguageModeDe" href="?" onclick="localStorage.setItem('selectedLanguage','de')"></a></li>
         </ul>
       </li>
       <li class="nav-item dropdown" role="tab">
         <a class="nav-link dropdown-toggle bi-sun" href="#" id="menuColorMode" role="button" data-bs-toggle="dropdown" aria-expanded="false">&nbsp;</a>
-        <ul class="dropdown-menu dropdown-menu-dark bg-primary dropdown-menu-end" aria-labelledby="menuColorMode">
+        <ul class="dropdown-menu dropdown-menu-dark bg-primary dropdown-menu-end" role="tablist" aria-labelledby="menuColorMode">
           <li role="tab"><a class="dropdown-item" id="menuColorModeLight" href="?" onclick="localStorage.setItem('selectedColorMode','light')"></a></li>
           <li role="tab"><a class="dropdown-item" id="menuColorModeDark" href="?" onclick="localStorage.setItem('selectedColorMode','dark')"></a></li>
           <li role="tab"><a class="dropdown-item" id="menuColorModeSystemDefault" href="?" onclick="localStorage.removeItem('selectedColorMode')"></a></li>
@@ -101,7 +100,7 @@
 
 <!-- Footer -->
 
-<footer class="page-footer font-small bg-light" style="margin-top: 20px; padding-top: 10px;">
+<footer class="page-footer font-small bg-light">
 <div class="container-fluid text-center text-md-left">
 <div class="row">
 

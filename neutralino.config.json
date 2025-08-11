@@ -5,7 +5,7 @@
   "defaultMode": "window",
   "port": 0,
   "documentRoot": "/docs/",
-  "url": "/",
+  "url": "/index-app.html",
   "enableServer": true,
   "enableNativeAPI": true,
   "tokenSecurity": "none",
@@ -43,7 +43,7 @@
     "binaryName": "QueueCalc",
     "resourcesPath": "/docs/",
     "clientLibrary": "docs/libs/neutralino.js",
-    "binaryVersion": "6.0.0",
-    "clientVersion": "6.0.0"
+    "binaryVersion": "6.2.0",
+    "clientVersion": "6.2.0"
   }
 }
