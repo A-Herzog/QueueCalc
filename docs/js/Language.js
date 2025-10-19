@@ -158,6 +158,11 @@ lang.GUI.tabDownloadAppInfo="Der Warteschlangenrechner kann als offline-ausführ
 lang.GUI.tabDownloadAppExe="Windows-Anwendung (exe)";
 lang.GUI.tabDownloadAppZip="Linux- und MacOS-Anwendung (zip)";
 lang.GUI.tabDownloadsInfo="Die in den Rechenroutinen auf dieser Seite hinterlegten Formeln stehen auch als Tabellenblätter und als Programmcode-Bibliotheken zum Download zur Verfügung:";
+lang.GUI.tabDownloadsInfoDocs="Zu einigen Modellen stehen auch weitere Erklärungen als pdf-Dateien zur Verfügung:";
+lang.GUI.tabDownloadsInfoDocsErlangC="Beweis der Erlang-C-Formel";
+lang.GUI.tabDownloadsInfoDocsShorterQueue="Kürzere Warteschlange";
+lang.GUI.tabDownloadsInfoDocsErlangCFile="BeweisDerErlangCFormel.pdf";
+lang.GUI.tabDownloadsInfoDocsShorterQueueFile="KuerzereWarteschlange.pdf";
 lang.GUI.tabDownloadsExcel="Excel Arbeitsmappe";
 lang.GUI.tabDownloadsLibreOffice="OpenOffice/LibreOffice Arbeitsmappe";
 lang.GUI.tabDownloadsJS="Javascript-Code";
@@ -225,7 +230,7 @@ lang.model.inputServiceLevelSeconds="Service-Level Sekundenwert";
 lang.model.inputServiceLevelInfo1="Dieser Wert ist optional. Wird hier ein Wert &ge;0 angegeben, so wird zusätzlich zu den üblichen Kenngrößen berechnet, wie groß der Anteil der Kunden ist, der höchsten so lange wie hier angegeben warten musste (<b>P(W&le;t)</b>).";
 lang.model.inputServiceLevelInfo2="";
 lang.model.inputServiceLevelInfo3t="Dieser Wert gibt an, <strong>wie viele Sekunden</strong> ein bestimmter Anteil an Kunden maximal warten soll.";
-lang.model.inputServiceLevelInfo3P="Dieser Wert gibt an, hoch der <strong>Anteil der Kunden</strong> der höchstens <strong>t</strong> Sekunden warten soll, maxmal sein darf (<b>P(W&le;t)</b>).";
+lang.model.inputServiceLevelInfo3P="Dieser Wert gibt an, hoch der <strong>Anteil der Kunden</strong> der höchstens <strong>t</strong> Sekunden warten soll, maximal sein darf (<b>P(W&le;t)</b>).";
 lang.model.inputSystemSize="Systemgröße";
 lang.model.inputSystemSizeInfo1="Kunden, die eintreffen während alle Warteplätze belegt sind, werden abgewiesen.";
 lang.model.inputSystemSizeInfo2="K ist die Summe aus Warte- und Bedienplätzen, d.h. K muss mindestens so groß wie c sein.";
@@ -452,6 +457,8 @@ Außerdem wird angenommen, dass sich das System im stationären Zustand befindet
 Zur Berechnung der Kenngrößen des Warteschlangensystems müssen lediglich die Ankunftsrate, die Bedienrate und die Anzahl an parallelen Bedienern angegeben werden.
 Die Ausgabe wird bei Veränderung der Parameter jeweils automatisch aktualisiert.
 </p>
+<p>
+(Der <a href="./info/BeweisDerErlangCFormel.pdf" target="_blank">Beweis der Erlang-C-Formel (pdf)</a> steht auch als eigenständiges Dokument zur Verfügung.)
 `;
 
 lang.text.ErlangCValues2=`
@@ -746,6 +753,9 @@ Doch offensichtlich garantiert diese Strategie nicht, dass man auch schneller ab
 </p>
 <p>
 Mathematisch lässt sich nachweisen, dass diese Situation umso häufiger eintritt, je unregelmäßiger die Arbeitsaufträge der einzelnen Kunden sind. (Sind umgekehrt alle Arbeitsaufträge etwa gleich groß, d.h. haben alle Kunden etwa gleichviele Gegenstände in ihrem Einkaufskorb, so wird man an der Kasse mit der kürzeren Warteschlange sicherlich auch schneller abgefertigt werden.)
+</p>
+<p>
+(Zu diesem Sachverhalt steht auch eine <a href="./info/KuerzereWarteschlange.pdf" target="_blank">ausführliche Erklärung (pdf)</a> zur Verfügung.)
 </p>`;
 
 lang.text.ShortestQueueTable=`
@@ -757,6 +767,9 @@ Doch offensichtlich garantiert diese Strategie nicht, dass man auch schneller ab
 </p>
 <p>
 Mathematisch lässt sich nachweisen, dass diese Situation umso häufiger eintritt, je unregelmäßiger die Arbeitsaufträge der einzelnen Kunden sind. (Sind umgekehrt alle Arbeitsaufträge etwa gleich groß, d.h. haben alle Kunden etwa gleichviele Gegenstände in ihrem Einkaufskorb, so wird man an der Kasse mit der kürzeren Warteschlange sicherlich auch schneller abgefertigt werden.)
+</p>
+<p>
+(Zu diesem Sachverhalt steht auch eine <a href="./info/KuerzereWarteschlange.pdf" target="_blank">ausführliche Erklärung (pdf)</a> zur Verfügung.)
 </p>`;
 
 lang.text.ShortestQueueDiagram=`
@@ -768,6 +781,9 @@ Doch offensichtlich garantiert diese Strategie nicht, dass man auch schneller ab
 </p>
 <p>
 Mathematisch lässt sich nachweisen, dass diese Situation umso häufiger eintritt, je unregelmäßiger die Arbeitsaufträge der einzelnen Kunden sind. (Sind umgekehrt alle Arbeitsaufträge etwa gleich groß, d.h. haben alle Kunden etwa gleichviele Gegenstände in ihrem Einkaufskorb, so wird man an der Kasse mit der kürzeren Warteschlange sicherlich auch schneller abgefertigt werden.)
+</p>
+<p>
+(Zu diesem Sachverhalt steht auch eine <a href="./info/KuerzereWarteschlange.pdf" target="_blank">ausführliche Erklärung (pdf)</a> zur Verfügung.)
 </p>`;
 
 lang.text.EconomyOfScaleTable=`
@@ -940,6 +956,11 @@ lang.GUI.tabDownloadAppInfo="The queue calculator can be downloaded as an offlin
 lang.GUI.tabDownloadAppExe="Windows application (exe)";
 lang.GUI.tabDownloadAppZip="Linux and MacOS application (zip)";
 lang.GUI.tabDownloadsInfo="The formulas stored in the calculation routines on this page are also available for download as spreadsheets and as program code libraries:";
+lang.GUI.tabDownloadsInfoDocs="Additional explanations are also available for some models in PDF format:";
+lang.GUI.tabDownloadsInfoDocsErlangC="Proof of the Erlang C formula";
+lang.GUI.tabDownloadsInfoDocsShorterQueue="Shorter queue";
+lang.GUI.tabDownloadsInfoDocsErlangCFile="ProofOfTheErlangCFormula.pdf";
+lang.GUI.tabDownloadsInfoDocsShorterQueueFile="ShorterQueue.pdf";
 lang.GUI.tabDownloadsExcel="Excel Workbook";
 lang.GUI.tabDownloadsLibreOffice="OpenOffice/LibreOffice Workbook";
 lang.GUI.tabDownloadsJS="Javascript code";
@@ -1237,6 +1258,9 @@ It is also assumed that the system is in steady state.
 <p>
 To calculate the performance indicators of the queueing system, only the arrival rate, the service rate and the number of parallel operators have to be specified.
 The output is updated automatically when the parameters are changed.
+</p>
+<p>
+(The <a href="./info/ProofOfTheErlangCFormula.pdf" target="_blank">proof of the Erlang C formula (pdf)</a> is also available as a document.)
 </p>
 `;
 
@@ -1539,6 +1563,9 @@ But obviously this strategy does not guarantee that one will also be processed f
 </p>
 <p>
 Mathematically, it can be shown that the more irregular the work orders of the individual customers are, the more frequently this situation occurs. (Conversely, if all work orders are roughly the same size, i.e. all customers have roughly the same number of items in their shopping baskets, the checkout with the shorter queue will certainly also be processed more quickly).
+</p>
+<p>
+(A <a href="./info/ShorterQueue.pdf" target="_blank">detailed explanation (pdf)</a> is also available on this subject.)
 </p>`;
 
 lang.text.ShortestQueueTable=`
@@ -1550,6 +1577,9 @@ But obviously this strategy does not guarantee that one will also be processed f
 </p>
 <p>
 Mathematically, it can be shown that the more irregular the work orders of the individual customers are, the more frequently this situation occurs. (Conversely, if all work orders are roughly the same size, i.e. all customers have roughly the same number of items in their shopping baskets, the checkout with the shorter queue will certainly also be processed more quickly).
+</p>
+<p>
+(A <a href="./info/ShorterQueue.pdf" target="_blank">detailed explanation (pdf)</a> is also available on this subject.)
 </p>`;
 
 lang.text.ShortestQueueDiagram=`
@@ -1561,6 +1591,9 @@ But obviously this strategy does not guarantee that one will also be processed f
 </p>
 <p>
 Mathematically, it can be shown that the more irregular the work orders of the individual customers are, the more frequently this situation occurs. (Conversely, if all work orders are roughly the same size, i.e. all customers have roughly the same number of items in their shopping baskets, the checkout with the shorter queue will certainly also be processed more quickly).
+</p>
+<p>
+(A <a href="./info/ShorterQueue.pdf" target="_blank">detailed explanation (pdf)</a> is also available on this subject.)
 </p>`;
 
 lang.text.EconomyOfScaleTable=`

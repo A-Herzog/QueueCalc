@@ -129,6 +129,9 @@ function buildStartTiles(isDesktopApp) {
   block+="<a id=\"downloadIPYNB\" target=\"_blank\" href=\"./Erlang/Erlang.ipynb\" download=\"Erlang.ipynb\" title=\""+language.GUI.tabDownloadsPythonNB+"\" style=\"display: none;\"></a>";
   block+="<a id=\"downloadR\" target=\"_blank\" href=\"./Erlang/Erlang.R\" download=\"Erlang.R\" title=\""+language.GUI.tabDownloadsR+"\" style=\"display: none;\"></a>";
 
+  block+="<a id=\"downloadDocErlangC\" target=\"_blank\" href=\"./info/"+language.GUI.tabDownloadsInfoDocsErlangCFile+"\" title=\""+language.GUI.tabDownloadsInfoDocsErlangC+"\" style=\"display: none;\"></a>";
+  block+="<a id=\"downloadDocShorterQueue\" target=\"_blank\" href=\"./info/"+language.GUI.tabDownloadsInfoDocsShorterQueueFile+"\" title=\""+language.GUI.tabDownloadsInfoDocsShorterQueue+"\" style=\"display: none;\"></a>";
+
   block+="<button onclick=\"document.getElementById('downloadXLSM').click();\" class=\"btn btn-primary my-1 bi-table\"> "+language.GUI.tabDownloadsExcel+"</button>\n";
   block+="<button onclick=\"document.getElementById('downloadODS').click();\" class=\"btn btn-primary my-1 bi-table\"> "+language.GUI.tabDownloadsLibreOffice+"</button>\n";
   block+="<br>";
@@ -136,6 +139,11 @@ function buildStartTiles(isDesktopApp) {
   block+="<button onclick=\"document.getElementById('downloadPY').click();\" class=\"btn btn-primary my-1 bi-filetype-py\"> "+language.GUI.tabDownloadsPython+"</button>\n";
   block+="<button onclick=\"document.getElementById('downloadIPYNB').click();\" class=\"btn btn-primary my-1 bi-filetype-py\"> "+language.GUI.tabDownloadsPythonNB+"</button>\n";
   block+="<button onclick=\"document.getElementById('downloadR').click();\" class=\"btn btn-primary my-1 bi-code\"> "+language.GUI.tabDownloadsR+"</button>\n";
+
+  block+="<p class=\"card-text mt-4\">"+language.GUI.tabDownloadsInfoDocs+"</p>";
+
+  block+="<button onclick=\"document.getElementById('downloadDocErlangC').click();\" class=\"btn btn-primary my-1 bi-file-earmark-pdf\"> "+language.GUI.tabDownloadsInfoDocsErlangC+"</button>\n";
+  block+="<button onclick=\"document.getElementById('downloadDocShorterQueue').click();\" class=\"btn btn-primary my-1 bi-file-earmark-pdf\"> "+language.GUI.tabDownloadsInfoDocsShorterQueue+"</button>\n";
 
   block+="</div></div></div>";
 
