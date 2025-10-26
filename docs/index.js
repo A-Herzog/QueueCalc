@@ -78,8 +78,10 @@ footerSimulators.innerHTML=language.GUI.simulators;
 
 /* Menu */
 
+import {setupFromParameters, permaLinkLoadingDone} from './js/PermalinkTools.js';
+
 menuHome.addEventListener("click",()=>{
-  if (window.history && window.history.replaceState) {
+  if (window.history && window.history.replaceState && permaLinkLoadingDone) {
       const url=window.location.protocol+"//"+window.location.host+window.location.pathname;
       if (window.history.state && window.history.state.link==url) return;
       window.history.pushState({link: url}, '', url);
@@ -141,7 +143,5 @@ rewriteLinksInOfflineMode();
 for (let link of document.querySelectorAll("a[data-bs-toggle]")) link.addEventListener('shown.bs.tab',()=>rewriteLinksInOfflineMode());
 
 /* Process parameters */
-
-import {setupFromParameters} from './js/PermalinkTools.js';
 
 setupFromParameters();

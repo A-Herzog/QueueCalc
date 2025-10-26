@@ -14,11 +14,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 */
 
-export {setupFromParameters};
+export {setupFromParameters, permaLinkLoadingDone};
 
 import {loadSearchStringParameters} from './StringTools.js';
 import {getFloatFromString} from './tools.js';
 
+
+/**
+ * Flag if loading from permalink is done.
+ */
+let permaLinkLoadingDone=false;
 
 /**
  * Setup a tab from URL search parameters.
@@ -114,7 +119,10 @@ function setupTabKeyVariable(id, key, valueFrom, valueStep, valueTo) {
 function setupFromParameters() {
   /* Process parameters */
   const data=loadSearchStringParameters(["function"]);
-  if (!data["function"]) return;
+  if (!data["function"]) {
+    permaLinkLoadingDone=true;
+    return;
+  }
 
   /* Find menu item */
   const functionName=data["function"];
@@ -124,6 +132,9 @@ function setupFromParameters() {
   if (li.length==1) setTimeout(()=>{
     li[0].childNodes[0].click();
     li[0].parentElement.parentElement.childNodes[0].click();
-    setTimeout(()=>setupTabFromParameters(li[0].childNodes[0].dataset.bsTarget.substring(1)),100);
+    setTimeout(()=>{
+      setupTabFromParameters(li[0].childNodes[0].dataset.bsTarget.substring(1));
+      permaLinkLoadingDone=true;
+    },100);
   },100);
 }

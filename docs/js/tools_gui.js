@@ -18,6 +18,7 @@ export {selectLanguage, buildMultiNavDropdown, showTab, initObserver, getPlaceho
 
 import {getPositiveFloat, getNotNegativeFloat, getPositiveInt, getNotNegativeInt, isVariabel, setValid} from './tools.js';
 import {language} from './Language.js';
+import {permaLinkLoadingDone} from './PermalinkTools.js';
 
 /* Language selection */
 
@@ -870,7 +871,7 @@ class TilesBuilder {
     if (link!=null) link.href=permalink;
 
     /* Update history */
-    if (window.history && window.history.replaceState) {
+    if (window.history && window.history.replaceState && permaLinkLoadingDone) {
       if (window.history.state && window.history.state.link==permalink) return;
       window.history.pushState({link: permalink}, '', permalink);
     }
