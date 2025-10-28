@@ -42,7 +42,9 @@ menuSimulation.innerHTML=" "+language.GUI.tabSimulation;
 menuHelp.innerHTML=" "+language.GUI.tabHelp;
 menuHelpQueueingTheory.innerHTML=language.GUI.tabHelpDoc;
 menuHelpGlossary.innerHTML=language.GUI.tabHelpGlossary;
-menuHelpTextbook.innerHTML=language.GUI.tabHelpTextbook;
+menuHelpErlangC.innerHTML=" "+language.GUI.tabDownloadsInfoDocsErlangC;
+menuHelpShorterQueue.innerHTML=" "+language.GUI.tabDownloadsInfoDocsShorterQueue;
+menuHelpTextbook.innerHTML=" "+language.GUI.tabHelpTextbook;
 
 menuLanguageMode.title=language.GUI.tabLanguageMode;
 menuLanguageModeEn.innerHTML=language.GUI.tabLanguageModeEn;

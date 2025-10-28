@@ -140,8 +140,17 @@ function buildStartTiles(isDesktopApp) {
   block+="<button onclick=\"document.getElementById('downloadIPYNB').click();\" class=\"btn btn-primary my-1 bi-filetype-py\"> "+language.GUI.tabDownloadsPythonNB+"</button>\n";
   block+="<button onclick=\"document.getElementById('downloadR').click();\" class=\"btn btn-primary my-1 bi-code\"> "+language.GUI.tabDownloadsR+"</button>\n";
 
-  block+="<p class=\"card-text mt-4\">"+language.GUI.tabDownloadsInfoDocs+"</p>";
+  block+="</div></div></div>";
 
+  block+="<div class=\"col-lg-6\"><div class=\"card\">";
+  block+="<div class=\"card-header\"><h3 class=\"h5 bi-file-earmark-pdf\"> "+language.GUI.tabMathematicsInfo+"</h3></div>";
+  block+="<div class=\"card-body\">";
+
+  block+="<p class=\"card-text\">"+language.GUI.tabMathematicsInfoPages+"</p>";
+  block+="<button onclick=\"showTab('QueueingTheory');\" class=\"btn btn-primary my-1 bi-question-circle\"> "+language.GUI.tabHelpDoc+"</button>\n";
+  block+="<button onclick=\"showTab('Glossary');\" class=\"btn btn-primary my-1 bi-question-circle\"> "+language.GUI.tabHelpGlossary+"</button>\n";
+
+  block+="<p class=\"card-text mt-4\">"+language.GUI.tabDownloadsInfoDocs+"</p>";
   block+="<button onclick=\"document.getElementById('downloadDocErlangC').click();\" class=\"btn btn-primary my-1 bi-file-earmark-pdf\"> "+language.GUI.tabDownloadsInfoDocsErlangC+"</button>\n";
   block+="<button onclick=\"document.getElementById('downloadDocShorterQueue').click();\" class=\"btn btn-primary my-1 bi-file-earmark-pdf\"> "+language.GUI.tabDownloadsInfoDocsShorterQueue+"</button>\n";
 
