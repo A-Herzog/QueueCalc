@@ -13,6 +13,9 @@
     "enabled": false,
     "writeToLogFile": false
   },
+  "applicationIcon": "icon.png",
+  "author": "Alexander Herzog",
+  "copyright": "Alexander Herzog, Apache-2.0 license",
   "nativeAllowList": [
     "app.*",
     "os.*",
